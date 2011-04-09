@@ -21,7 +21,6 @@
 		14751E4012E3D8260008A398 /* GLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14751E3D12E3D8260008A398 /* GLView.m */; };
 		14751E4112E3D8260008A398 /* MyGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14751E3F12E3D8260008A398 /* MyGLView.m */; };
 		14751E5B12E3D8410008A398 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14751E5912E3D8410008A398 /* MainWindow.xib */; };
-		14751EA912E3DAAE0008A398 /* code01.png in Resources */ = {isa = PBXBuildFile; fileRef = 14751EA712E3DAAE0008A398 /* code01.png */; };
 		14751EAA12E3DAAE0008A398 /* code02.png in Resources */ = {isa = PBXBuildFile; fileRef = 14751EA812E3DAAE0008A398 /* code02.png */; };
 		1477DA7C12FED8440048B402 /* CameraController+simulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1477DA7B12FED8430048B402 /* CameraController+simulator.m */; };
 		1477DD5612FEE9CB0048B402 /* cameraDummy.png in Resources */ = {isa = PBXBuildFile; fileRef = 1477DD5512FEE9CB0048B402 /* cameraDummy.png */; };
@@ -75,7 +74,6 @@
 		14751E3E12E3D8260008A398 /* MyGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGLView.h; sourceTree = "<group>"; };
 		14751E3F12E3D8260008A398 /* MyGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGLView.m; sourceTree = "<group>"; };
 		14751E5912E3D8410008A398 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
-		14751EA712E3DAAE0008A398 /* code01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = code01.png; sourceTree = "<group>"; };
 		14751EA812E3DAAE0008A398 /* code02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = code02.png; sourceTree = "<group>"; };
 		1477DA7A12FED8430048B402 /* CameraController+simulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CameraController+simulator.h"; sourceTree = "<group>"; };
 		1477DA7B12FED8430048B402 /* CameraController+simulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CameraController+simulator.m"; sourceTree = "<group>"; };
@@ -223,7 +221,6 @@
 			children = (
 				14E7980D12FBC1A9008A71FA /* code03.png */,
 				14E7980E12FBC1A9008A71FA /* code04.png */,
-				14751EA712E3DAAE0008A398 /* code01.png */,
 				14751EA812E3DAAE0008A398 /* code02.png */,
 			);
 			name = resource;
@@ -395,7 +392,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				14751E5B12E3D8410008A398 /* MainWindow.xib in Resources */,
-				14751EA912E3DAAE0008A398 /* code01.png in Resources */,
 				14751EAA12E3DAAE0008A398 /* code02.png in Resources */,
 				1479A18B12E49644006B62E1 /* ARViewController.xib in Resources */,
 				1418E23B12EEB12600ECFF81 /* icon114x114.png in Resources */,

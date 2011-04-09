@@ -91,7 +91,7 @@
 		CRCodeInfo *p = codeInfoStorage->head;
 		if (p) {
 			while (1) {
-				printf("%d\n", p->identifier);
+				printf("Code=%d\n", p->identifier);
 				if (p->identifier >= 0) {
 					glPushMatrix();
 					glMultMatrixf(p->p);

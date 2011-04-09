@@ -65,7 +65,7 @@ static double _toc() {
 		
 		codeImageTemplateStorage = CRCreateCodeImageTemplateStorage();
 		
-		NSArray *files = [NSArray arrayWithObjects:@"code01.png", @"code02.png", @"code03.png", @"code04.png", nil];
+		NSArray *files = [NSArray arrayWithObjects:@"code02.png", @"code03.png", @"code04.png", nil];
 		
 		int code = 0;
 		
@@ -100,7 +100,12 @@ static double _toc() {
 					int k = (pixelData[y * bytesPerRow + x * (bitsPerPixel/bitsPerComponent) + 0]>>2)
 					+ (pixelData[y * bytesPerRow + x * (bitsPerPixel/bitsPerComponent) + 1]>>1)
 					+ (pixelData[y * bytesPerRow + x * (bitsPerPixel/bitsPerComponent) + 2]>>2);
-					tempPixel[y * width + x] = k;
+					
+					if (k > 120)
+						tempPixel[y * width + x] = 255;
+					else
+						tempPixel[y * width + x] = 120;
+					
 				}
 			}
 			
@@ -173,7 +178,11 @@ static double _toc() {
 	for (int y = height-1; y >= 0; y--) {
 		for (int x = width-1; x >= 0; x--) {
 			*(chaincodeFlag + y * width + x) = *p > threshold ? 0 : 1;
+			
+			// *(valueBuffer + y * width + x) = *(chaincodeFlag + y * width + x) ? 0 : 255;
+			
 			*(valueBuffer + y * width + x) = (1 - *(chaincodeFlag + y * width + x)) * 100 + 100;
+			
 			p++;
 		}
 	}
@@ -224,7 +233,7 @@ static double _toc() {
 	if (_start.tv_sec > 0) {
 		double interval = _toc();
 		fps = 1000 * frameCount/interval;
-		dprintf("%dframes (%fmsec)\n", frameCount, interval);
+		_dprintf("%dframes (%fmsec)\n", frameCount, interval);
 	}
 	frameCount = 0;
 	_tic();
