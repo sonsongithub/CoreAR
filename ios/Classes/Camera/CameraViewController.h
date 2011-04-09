@@ -39,6 +39,7 @@
 	AVCaptureVideoPreviewLayer	*previewLayer;
 	UILabel						*fpsLabel;
 	UIToolbar					*toolbar;
+	UISlider					*thresholdSlider;
 }
 + (UINavigationController*)navigationController;
 @end

@@ -51,6 +51,12 @@ static double _toc() {
 
 @implementation ATKCameraController
 
+- (void)changedThreshold:(id)sender {
+	if ([sender isKindOfClass:[UISlider class]]) {
+		threshold = [(UISlider*)sender value];
+	}
+}
+
 - (id)initWithSessionPreset:(NSString*)sessionPresetString pixelFormat:(int)format {
 	DNSLogMethod
     self = [super initWithSessionPreset:sessionPresetString pixelFormat:format];

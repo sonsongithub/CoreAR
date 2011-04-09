@@ -54,15 +54,23 @@
 	[fpsLabel setShadowColor:[UIColor blackColor]];
 	[fpsLabel setBackgroundColor:[UIColor clearColor]];
 	
+	thresholdSlider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, 150, 44)];
+	[thresholdSlider setMinimumValue:0];
+	[thresholdSlider setMaximumValue:255];
+	[thresholdSlider setValue:120];
+	[thresholdSlider addTarget:camera action:@selector(changedThreshold:) forControlEvents:UIControlEventValueChanged];
 	
 	// setup toolbar
 	toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - 44, 320, 44)];
 	UIBarButtonItem *info = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Info", nil) style:UIBarButtonItemStyleBordered target:nil action:@selector(info:)];
 	UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
 	UIBarButtonItem *labelButton = [[UIBarButtonItem alloc] initWithCustomView:fpsLabel];
-	[toolbar setItems:[NSArray arrayWithObjects:info, flexibleSpace, labelButton, nil]];
+	UIBarButtonItem *sliderButton = [[UIBarButtonItem alloc] initWithCustomView:thresholdSlider];
+	[toolbar setItems:[NSArray arrayWithObjects:info, flexibleSpace, sliderButton, flexibleSpace, labelButton, nil]];
 	[self.view addSubview:toolbar];
 	[info release];
+	[sliderButton release];
+	[thresholdSlider release];
 }
 
 - (void)updateFPS:(NSTimer*)timer {
