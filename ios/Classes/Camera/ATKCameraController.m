@@ -100,12 +100,7 @@ static double _toc() {
 					int k = (pixelData[y * bytesPerRow + x * (bitsPerPixel/bitsPerComponent) + 0]>>2)
 					+ (pixelData[y * bytesPerRow + x * (bitsPerPixel/bitsPerComponent) + 1]>>1)
 					+ (pixelData[y * bytesPerRow + x * (bitsPerPixel/bitsPerComponent) + 2]>>2);
-					
-					if (k > 120)
-						tempPixel[y * width + x] = 255;
-					else
-						tempPixel[y * width + x] = 120;
-					
+					tempPixel[y * width + x] = k;
 				}
 			}
 			
@@ -178,9 +173,6 @@ static double _toc() {
 	for (int y = height-1; y >= 0; y--) {
 		for (int x = width-1; x >= 0; x--) {
 			*(chaincodeFlag + y * width + x) = *p > threshold ? 0 : 1;
-			
-			// *(valueBuffer + y * width + x) = *(chaincodeFlag + y * width + x) ? 0 : 255;
-			
 			*(valueBuffer + y * width + x) = (1 - *(chaincodeFlag + y * width + x)) * 100 + 100;
 			
 			p++;

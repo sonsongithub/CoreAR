@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		140FEFCF127E50E500F62662 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 140FEFC8127E50E500F62662 /* InfoPlist.strings */; };
 		140FEFD0127E50E500F62662 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 140FEFCA127E50E500F62662 /* MainMenu.xib */; };
-		14199EC312B4BA4100B02B94 /* code01.png in Resources */ = {isa = PBXBuildFile; fileRef = 14199EC112B4BA4100B02B94 /* code01.png */; };
 		14199EC412B4BA4100B02B94 /* code02.png in Resources */ = {isa = PBXBuildFile; fileRef = 14199EC212B4BA4100B02B94 /* code02.png */; };
 		141C372912B3B563006162FA /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141C372812B3B563006162FA /* Accelerate.framework */; };
 		1436AF38130029C00034BE08 /* common.c in Sources */ = {isa = PBXBuildFile; fileRef = 1436AF30130029C00034BE08 /* common.c */; };
@@ -42,7 +41,6 @@
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		140FEFC9127E50E500F62662 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		140FEFCB127E50E500F62662 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		14199EC112B4BA4100B02B94 /* code01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = code01.png; path = ../resource/code01.png; sourceTree = SOURCE_ROOT; };
 		14199EC212B4BA4100B02B94 /* code02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = code02.png; path = ../resource/code02.png; sourceTree = SOURCE_ROOT; };
 		141C372812B3B563006162FA /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		1436AF30130029C00034BE08 /* common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = common.c; sourceTree = "<group>"; };
@@ -112,7 +110,6 @@
 				14A61D551315546E00A797F0 /* code03.png */,
 				14A61D561315546E00A797F0 /* code04.png */,
 				1482466912EEC001003CFC32 /* ARicon.icns */,
-				14199EC112B4BA4100B02B94 /* code01.png */,
 				14199EC212B4BA4100B02B94 /* code02.png */,
 				140FEFC8127E50E500F62662 /* InfoPlist.strings */,
 				140FEFCA127E50E500F62662 /* MainMenu.xib */,
@@ -288,7 +285,6 @@
 			files = (
 				140FEFCF127E50E500F62662 /* InfoPlist.strings in Resources */,
 				140FEFD0127E50E500F62662 /* MainMenu.xib in Resources */,
-				14199EC312B4BA4100B02B94 /* code01.png in Resources */,
 				14199EC412B4BA4100B02B94 /* code02.png in Resources */,
 				144A79E912CEE5C100FBC73A /* camera.qtz in Resources */,
 				144A79EB12CEE5C100FBC73A /* dummy.qtz in Resources */,

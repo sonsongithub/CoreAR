@@ -32,7 +32,7 @@
 
 #include "ar.h"
 
-//#define _GRAY_PREVIEW
+#define _GRAY_PREVIEW
 
 @class MyGLView;
 

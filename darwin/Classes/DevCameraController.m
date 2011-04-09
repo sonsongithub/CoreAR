@@ -42,11 +42,16 @@
 	self = [super initWithPixelsWidth:width pixelsHight:height];
 	if (self) {
 		
-		threshold = 80;
+		threshold = 50;
 
 		CRSetXFocalLength(351.79480);
 		CRSetYFocalLength(351.79480);
         CRCodeImageTemplateSetMatchingThreshold(0.8);
+		
+		
+		CRSetDecodePixelBuffWidthHeight(96);
+		CRCodeImageTemplateSetTemplateMatchingGridSize(12);
+		CRCodeImageTemplateSetTemplateMatchingBinSize(2);
 		
 		grayBuff = (unsigned char*)malloc(sizeof(unsigned char)*width*height);
 		
@@ -60,7 +65,7 @@
 		
 		codeImageTemplateStorage = CRCreateCodeImageTemplateStorage();
 
-		NSArray *files = [NSArray arrayWithObjects:@"code01.png", @"code02.png", @"code03.png", @"code04.png", nil];
+		NSArray *files = [NSArray arrayWithObjects:@"code02.png", @"code03.png", @"code04.png", nil];
 		
 		int code = 0;
 		
@@ -94,7 +99,12 @@
 					int k = (pixelData[y * bytesPerRow + x * (bitsPerPixel/bitsPerComponent) + 0]>>2)
 					+ (pixelData[y * bytesPerRow + x * (bitsPerPixel/bitsPerComponent) + 1]>>1)
 					+ (pixelData[y * bytesPerRow + x * (bitsPerPixel/bitsPerComponent) + 2]>>2);
-					tempPixel[y * width + x] = k;
+//					tempPixel[y * width + x] = k;
+					
+					if (k > 120)
+						tempPixel[(height - 1 - y) * width + x] = 255;
+					else
+						tempPixel[(height - 1 - y) * width + x] = 120;
 				}
 			}
 			
