@@ -59,7 +59,7 @@ static double _toc() {
 		
 		codeImageTemplateStorage = CRCreateCodeImageTemplateStorage();
 		
-		NSArray *files = [NSArray arrayWithObjects:@"code03.png", @"code04.png", nil];
+		NSArray *files = [NSArray arrayWithObjects:@"code01.png", @"code02.png", @"code03.png", @"code04.png", nil];
 		
 		int code = 0;
 		
@@ -110,7 +110,7 @@ static double _toc() {
 			[pool release];
 		}
 		
-		threshold = 120;
+		threshold = 70;
 	}
 	return self;
 }
@@ -118,6 +118,7 @@ static double _toc() {
 - (MyGLView*)glView {
 	if (glView == nil) {
 		glView = [[MyGLView alloc] initWithFrame:CGRectMake(0, 0, 320, 427)];
+        [glView setCameraFrameSize:self.frameSize];
 		[glView setCodeInfoStorage:codeInfoStorage];
 		[glView startAnimation];
 		[glView setupOpenGLView];
@@ -136,6 +137,8 @@ static double _toc() {
 	CRChainCodeStorageDetectCornerWithLSM(storage);
 	CRCodeInfoStorageReleaseAllCodeInfo(codeInfoStorage);
 	CRCodeInfoStorageAddCodeInfoByExtractingFromChainCode(codeInfoStorage, storage, valueBuffer, width, height, codeImageTemplateStorage);
+	
+	printf("%d\n", codeInfoStorage->length);
 	
 	//drawChainCodeStorageIntoBuffer(storage, valueBuffer, width, height);
 	

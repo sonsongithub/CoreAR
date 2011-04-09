@@ -88,6 +88,7 @@
 	if (self) {
 		
 		// CoreAR Parameter setup
+		CRSetDecodePixelBuffWidthHeight(96);
 		CRSetXFocalLength(457.89);
 		CRSetYFocalLength(457.29);
 		CRCodeImageTemplateSetMatchingThreshold(0.85);
@@ -108,7 +109,7 @@
 		[self.view.layer addSublayer:previewLayer];
 		
 		// for debugging
-		// [self.view addSubview:[camera preview]];
+		[self.view addSubview:[camera preview]];
 		
 		id v2 = [camera glView];
 		[self.view addSubview:v2];
