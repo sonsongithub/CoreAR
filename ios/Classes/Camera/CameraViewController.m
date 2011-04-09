@@ -101,7 +101,7 @@
 		CRSetYFocalLength(457.29);
 		CRCodeImageTemplateSetMatchingThreshold(0.85);
 		CRCodeImageTemplateSetTemplateMatchingGridSize(12);
-		CRCodeImageTemplateSetTemplateMatchingBinSize(4);
+		CRCodeImageTemplateSetTemplateMatchingBinSize(2);
 
 #if TARGET_IPHONE_SIMULATOR
 #else
