@@ -37,6 +37,8 @@
 
 @synthesize codeInfoStorage;
 
+@synthesize cameraFrameSize;
+
 -(void)setupOpenGLView {
 	const GLfloat			lightAmbient[] = {0.2, 0.2, 0.2, 1.0};
 	const GLfloat			lightDiffuse[] = {1.0, 0.6, 0.0, 1.0};
@@ -72,10 +74,13 @@
 
 - (void)drawView {
 	[EAGLContext setCurrentContext:context];
-
+	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glScalef(0.89, 0.89, 1);
+    
+    float ratio = self.frame.size.width / cameraFrameSize.height;
+    
+	glScalef(ratio, ratio, 1);
 	glRotatef(-90, 0, 0, 1);
 	glRotatef(180, 0, 1, 0);
 	
@@ -86,24 +91,18 @@
 		CRCodeInfo *p = codeInfoStorage->head;
 		if (p) {
 			while (1) {
-				glPushMatrix();
-				glMultMatrixf(p->p);
-				
-				glRotatef(t+=4, 0, 0, 1);
-				
-				float codeSize = 5;//p->size;
-				
-				if(p->identifier == 0) {
-					drawCube(codeSize*0.4);
-				}
-				else if(p->identifier == 1) {
+				printf("Code=%d\n", p->identifier);
+				if (p->identifier >= 0) {
+					glPushMatrix();
+					glMultMatrixf(p->p);
+					
+					float codeSize = p->size;
 					glRotatef(90, 0, 0, 1);
 					glRotatef(-90, 1, 0, 0);
-					drawTeapot(15);
+					drawTeapot(5*codeSize);
+					glPopMatrix();
 				}
 				
-				glPopMatrix();
-		
 				if (p->next == NULL)
 					break;
 				p = p->next;
@@ -112,7 +111,7 @@
 	}
 	
 	glBindFramebufferOES(GL_FRAMEBUFFER_OES, viewFramebuffer);
-		
+	
 	glBindRenderbufferOES(GL_RENDERBUFFER_OES, viewRenderbuffer);
 	[context presentRenderbuffer:GL_RENDERBUFFER_OES];
 }

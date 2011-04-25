@@ -38,6 +38,8 @@
 	float							focal;
 	float							t;
 	CRCodeInfoStorage				*codeInfoStorage;
+	CGSize cameraFrameSize;
 }
 @property (assign) CRCodeInfoStorage *codeInfoStorage;
+@property (assign) CGSize cameraFrameSize;
 @end
