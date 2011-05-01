@@ -4,3 +4,4 @@ build
 *.perspectivev3
 .DS_Store
 .*.swp
+*~
