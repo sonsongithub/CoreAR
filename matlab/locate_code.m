@@ -9,7 +9,7 @@ if (nargout == 1)
 else
     % test mode
     test_flag = true;
-    img = imread('4.png');
+    img = imread('./3x2.png');
 end
 
 threshold = 120;
@@ -93,13 +93,27 @@ for label=1:numberOfLabel
         corner.secondCorner = secondCorner;
         corner.thirdCorner = thirdCorner;
         corner.fourthCorner = fourthCorner;
+        corner.firstCorner(1) = firstCorner(2);
+        corner.firstCorner(2) = firstCorner(1);
+        corner.secondCorner(1) = secondCorner(2);
+        corner.secondCorner(2) = secondCorner(1);
+        corner.thirdCorner(1) = thirdCorner(2);
+        corner.thirdCorner(2) = thirdCorner(1);
+        corner.fourthCorner(1) = fourthCorner(2);
+        corner.fourthCorner(2) = fourthCorner(1);
+        
+        corner.codeProjectedPosition = zeros(2, 4);
+        corner.codeProjectedPosition(:,1) = corner.firstCorner';
+        corner.codeProjectedPosition(:,2) = corner.secondCorner';
+        corner.codeProjectedPosition(:,3) = corner.thirdCorner';
+        corner.codeProjectedPosition(:,4) = corner.fourthCorner';
         
         corners = [corners corner];
         
-        testOutoupt(x(firstCornerIndex),y(firstCornerIndex)) = 1;
-        testOutoupt(x(secondCornerIndex),y(secondCornerIndex)) = 1;
-        testOutoupt(x(thirdCornerIndex),y(thirdCornerIndex)) = 1;
-        testOutoupt(x(fourthCornerIndex),y(fourthCornerIndex)) = 1;
+        testOutoupt(x(firstCornerIndex),y(firstCornerIndex)) = 0.2;
+        testOutoupt(x(secondCornerIndex),y(secondCornerIndex)) = 0.4;
+        testOutoupt(x(thirdCornerIndex),y(thirdCornerIndex)) = 0.6;
+        testOutoupt(x(fourthCornerIndex),y(fourthCornerIndex)) = 0.8;
     end
 
 end

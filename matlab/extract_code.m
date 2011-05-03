@@ -1,12 +1,12 @@
 function extract_code()
 
 % read image
-img = imread('./4.png');
+img = imread('./3x2.png');
 
 % ar condition, focal length and code size
 ar.fx = 649.590771179639773;
 ar.fy = 653.240978126455161;
-ar.codeSize = 100;
+ar.codeSize = 1;
 ar.imageSize = size(rgb2gray(img));
    
 % code original coordinates
@@ -15,25 +15,15 @@ codeOriginalPositionWorld = cat(1, [-1 1 0;1 1 0;1 -1 0;-1 -1 0]' * ar.codeSize 
 % extract corners
 corners = locate_code(img);
 
-for i=1:size(corners, 1)
+for i=1:size(corners, 2)
+    
     corner = corners(i);
     
-    corner.firstCorner = (corner.firstCorner - ar.imageSize/2) ./ [ar.fx ar.fy];
-    corner.secondCorner = (corner.secondCorner - ar.imageSize/2) ./ [ar.fx ar.fy];
-    corner.thirdCorner = (corner.thirdCorner - ar.imageSize/2) ./ [ar.fx ar.fy];
-    corner.fourthCorner = (corner.thirdCorner - ar.imageSize/2) ./ [ar.fx ar.fy];
-    
-    normalizedCodeProjectedPosition = zeros(2, 4);
-    
-    normalizedCodeProjectedPosition(:,1) = (corner.firstCorner)';
-    normalizedCodeProjectedPosition(:,2) = (corner.secondCorner)';
-    normalizedCodeProjectedPosition(:,3) = (corner.thirdCorner)';
-    normalizedCodeProjectedPosition(:,4) = (corner.fourthCorner)';
-    
+    corner.codeProjectedPosition
+    normalizedCodeProjectedPosition = (corner.codeProjectedPosition - repmat([ar.imageSize(1)/2 ar.imageSize(2)/2]', 1, 4)) .* repmat([1 -1]', 1, 4) ./ repmat([ar.fx ar.fy]', 1, 4);
     normalizedCodeProjectedPosition
-    
     estimatedP = pose_estimation(ar, normalizedCodeProjectedPosition);
-    
+    estimatedP
     % rotate and translate code by pose matrix
     codePositionWorld = estimatedP * codeOriginalPositionWorld;
     

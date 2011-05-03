@@ -6,7 +6,7 @@ ar.fy = 653.240978126455161;
 ar.codeSize = 0.5;
    
 % code pose
-p = getRTMatrix([0, pi/6, pi/10], [0 0 2]);
+p = getRTMatrix([pi/6, 0, pi/40], [0.05 0 1.2]);
 
 % code original coordinates
 codeOriginalPositionWorld = cat(1, [-1 1 0;1 1 0;1 -1 0;-1 -1 0]' * ar.codeSize * 0.5, [1 1 1 1]);
@@ -17,12 +17,20 @@ codePositionWorld = p * codeOriginalPositionWorld;
 % projected code into image plane
 codeProjectedPosition = project(ar.fx, ar.fy, codePositionWorld);
 
+codeProjectedPosition
+
+pointsOnImageCoordinates = codeProjectedPosition .* repmat([1 -1]', 1, 4) + repmat([320 240]', 1, 4)
+
+%%pp = (pointsOnImageCoordinates - repmat([320 240]', 1, 4)) .* repmat([1 -1]', 1, 4) ./ repmat([ar.fx ar.fy]', 1, 4)
+
 % normalize a code's position on image by focal length
 normalizedCodeProjectedPosition = codeProjectedPosition ./ repmat([ar.fx ar.fy]', 1, 4);
 
+normalizedCodeProjectedPosition
+
 % estimate code pose matrix from normalize a code's position on image
 estimatedP = pose_estimation(ar, normalizedCodeProjectedPosition);
-
+estimatedP
 % rendering simulation
 img = imread('../resource/code02.png');
 
@@ -32,6 +40,8 @@ hold on;
 
 % exchenge y-z in order to assign z axis to a depth direction 
 line([-0.5 0.5 0.5 -0.5 -0.5], [1 1 1 1 1], [-0.5 -0.5 0.5 0.5 -0.5]);
+line([0 0], [1 1], [-0.5 0.5]);
+line([-0.5 0.5], [1 1],[0 0]);
 line([0 codePositionWorld(1,1)], [0 codePositionWorld(3,1)], [0 codePositionWorld(2,1)]);
 line([0 codePositionWorld(1,2)], [0 codePositionWorld(3,2)], [0 codePositionWorld(2,2)]);
 line([0 codePositionWorld(1,3)], [0 codePositionWorld(3,3)], [0 codePositionWorld(2,3)]);
