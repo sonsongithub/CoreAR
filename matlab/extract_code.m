@@ -1,7 +1,7 @@
 function extract_code()
 
 % read image
-img = imread('./1.png');
+img = imread('./3.png');
 
 % dummy visual code image
 codeImg = imread('./dummyCode.png');
@@ -9,7 +9,7 @@ codeImg = imread('./dummyCode.png');
 % ar condition, focal length and code size
 ar.fx = 649.590771179639773;
 ar.fy = 653.240978126455161;
-ar.codeSize = 0.2;
+ar.codeSize = 0.5;
 ar.imageSize = size(rgb2gray(img));
    
 % code original coordinates
@@ -19,7 +19,6 @@ codeOriginalPositionWorld = cat(1, [-1 1 0;1 1 0;1 -1 0;-1 -1 0]' * ar.codeSize 
 corners = locate_code(img);
     
 for i=1:size(corners, 2)
-
     corner = corners(i);
     
     % normalized input image coordinates

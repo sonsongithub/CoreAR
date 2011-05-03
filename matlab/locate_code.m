@@ -32,6 +32,10 @@ for label=1:numberOfLabel
     
     numberOfPoints = size(x,1);
     
+    if numberOfPoints < 50
+        continue;
+    end
+    
     % first corner is first point of labels
     firstCorner = [x(1) y(1)];
     firstCornerIndex = 1;
@@ -108,31 +112,44 @@ for label=1:numberOfLabel
         convexCheck(corner.fourthCorner - corner.thirdCorner, corner.firstCorner - corner.fourthCorner);
         convexCheck(corner.firstCorner - corner.fourthCorner, corner.secondCorner - corner.firstCorner);
         
+        % check degree of four corners, length of four edges.
         threshold_cosine = 0.4;
+        threshold_length_edge = 75;
         
         degParam1 = abs(cosineDistance(corner.secondCorner - corner.firstCorner, corner.thirdCorner - corner.secondCorner))
         degParam2 = abs(cosineDistance(corner.thirdCorner - corner.secondCorner, corner.fourthCorner - corner.thirdCorner))
         degParam3 = abs(cosineDistance(corner.fourthCorner - corner.thirdCorner, corner.firstCorner - corner.fourthCorner))
         degParam4 = abs(cosineDistance(corner.firstCorner - corner.fourthCorner, corner.secondCorner - corner.firstCorner))
         
-        if degParam1 < threshold_cosine && degParam2 < threshold_cosine && degParam3 < threshold_cosine && degParam4 < threshold_cosine        
-            corner.codeProjectedPosition = zeros(2, 4);
-            corner.codeProjectedPosition(:,1) = corner.firstCorner';
-            corner.codeProjectedPosition(:,2) = corner.secondCorner';
-            corner.codeProjectedPosition(:,3) = corner.thirdCorner';
-            corner.codeProjectedPosition(:,4) = corner.fourthCorner';
+        if degParam1 > threshold_cosine || degParam2 > threshold_cosine || degParam3 > threshold_cosine || degParam4 > threshold_cosine
+            continue;
+        end
+        
+        lengthEdge1 = length(corner.secondCorner - corner.firstCorner);
+        lengthEdge2 = length(corner.thirdCorner - corner.secondCorner);
+        lengthEdge3 = length(corner.fourthCorner - corner.thirdCorner);
+        lengthEdge4 = length(corner.firstCorner - corner.fourthCorner);
+        
+        if lengthEdge1 < threshold_length_edge || lengthEdge2 < threshold_length_edge || lengthEdge3 < threshold_length_edge || lengthEdge4 < threshold_length_edge
+            continue;
+        end
+        
+        corner.codeProjectedPosition = zeros(2, 4);
+        corner.codeProjectedPosition(:,1) = corner.firstCorner';
+        corner.codeProjectedPosition(:,2) = corner.secondCorner';
+        corner.codeProjectedPosition(:,3) = corner.thirdCorner';
+        corner.codeProjectedPosition(:,4) = corner.fourthCorner';
 
-            corner.codeProjectedPosition
+        corner.codeProjectedPosition
 
-            corners = [corners corner];
+        corners = [corners corner];
 
-            if test_flag
-                % for debugging
-                testOutoupt(x(firstCornerIndex),y(firstCornerIndex)) = 255;
-                testOutoupt(x(secondCornerIndex),y(secondCornerIndex)) = 255;
-                testOutoupt(x(thirdCornerIndex),y(thirdCornerIndex)) = 255;
-                testOutoupt(x(fourthCornerIndex),y(fourthCornerIndex)) = 255;
-            end
+        if test_flag
+            % for debugging
+            testOutoupt(x(firstCornerIndex),y(firstCornerIndex)) = 255;
+            testOutoupt(x(secondCornerIndex),y(secondCornerIndex)) = 255;
+            testOutoupt(x(thirdCornerIndex),y(thirdCornerIndex)) = 255;
+            testOutoupt(x(fourthCornerIndex),y(fourthCornerIndex)) = 255;
         end
     end
 
@@ -142,6 +159,10 @@ if (test_flag)
     imshow(testOutoupt);
 end
 
+end
+
+function d = length(v)
+   d = sqrt(sum(v .* v)); 
 end
 
 function d = cosineDistance(v1, v2)
