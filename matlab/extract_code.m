@@ -18,19 +18,20 @@ codeOriginalPositionWorld = cat(1, [-1 1 0;1 1 0;1 -1 0;-1 -1 0]' * ar.codeSize 
 % extract corners
 corners = locate_code(img);
     
+% normalized input image coordinates
+imageX = [ar.imageSize(2)/ar.fx/2 -ar.imageSize(2)/ar.fx/2 -ar.imageSize(2)/ar.fx/2  ar.imageSize(2)/ar.fx/2];
+imageY = [ar.imageSize(1)/ar.fy/2  ar.imageSize(1)/ar.fy/2 -ar.imageSize(1)/ar.fy/2 -ar.imageSize(1)/ar.fy/2];
+imageZ = [1 1 1 1];
+
+% draw input image
+drawCode([imageX;imageY;imageZ], img);
+
+hold on;
+
+view(60, 15);
+    
 for i=1:size(corners, 2)
     corner = corners(i);
-    
-    % normalized input image coordinates
-    imageX = [ar.imageSize(2)/ar.fx/2 -ar.imageSize(2)/ar.fx/2 -ar.imageSize(2)/ar.fx/2  ar.imageSize(2)/ar.fx/2];
-    imageY = [ar.imageSize(1)/ar.fy/2  ar.imageSize(1)/ar.fy/2 -ar.imageSize(1)/ar.fy/2 -ar.imageSize(1)/ar.fy/2];
-    imageZ = [1 1 1 1];
-
-    % draw input image
-    drawCode([imageX;imageY;imageZ], img);
-
-    hold on;
-
     % make visual code's corner position normalized.
     corner.codeProjectedPosition = (repmat([ar.imageSize(2) ar.imageSize(1)]', 1, 4) - corner.codeProjectedPosition)
     corner.codeProjectedPosition = corner.codeProjectedPosition - repmat([ar.imageSize(2)/2 ar.imageSize(1)/2]', 1, 4);
@@ -41,6 +42,8 @@ for i=1:size(corners, 2)
 
     % estimate visual code position on camera world.
     codePositionWorld = estimatedP * codeOriginalPositionWorld;
+    
+    %text(codePositionWorld(1,4), codePositionWorld(3,4), codePositionWorld(2,4), 'X', 'FontSize',20,'color', 'r');
 
     % draw projective line
     line([0 codePositionWorld(1,1)], [0 codePositionWorld(3,1)], [0 codePositionWorld(2,1)]);
@@ -53,7 +56,6 @@ for i=1:size(corners, 2)
 end
 
 daspect([1 1 1]);
-view(60, 15);
 hold off;
 
 end
