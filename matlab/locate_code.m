@@ -108,22 +108,31 @@ for label=1:numberOfLabel
         convexCheck(corner.fourthCorner - corner.thirdCorner, corner.firstCorner - corner.fourthCorner);
         convexCheck(corner.firstCorner - corner.fourthCorner, corner.secondCorner - corner.firstCorner);
         
-        corner.codeProjectedPosition = zeros(2, 4);
-        corner.codeProjectedPosition(:,1) = corner.firstCorner';
-        corner.codeProjectedPosition(:,2) = corner.secondCorner';
-        corner.codeProjectedPosition(:,3) = corner.thirdCorner';
-        corner.codeProjectedPosition(:,4) = corner.fourthCorner';
+        threshold_cosine = 0.4;
         
-        corner.codeProjectedPosition
+        degParam1 = abs(cosineDistance(corner.secondCorner - corner.firstCorner, corner.thirdCorner - corner.secondCorner))
+        degParam2 = abs(cosineDistance(corner.thirdCorner - corner.secondCorner, corner.fourthCorner - corner.thirdCorner))
+        degParam3 = abs(cosineDistance(corner.fourthCorner - corner.thirdCorner, corner.firstCorner - corner.fourthCorner))
+        degParam4 = abs(cosineDistance(corner.firstCorner - corner.fourthCorner, corner.secondCorner - corner.firstCorner))
         
-        corners = [corners corner];
-        
-        if test_flag
-            % for debugging
-            testOutoupt(x(firstCornerIndex),y(firstCornerIndex)) = 255;
-            testOutoupt(x(secondCornerIndex),y(secondCornerIndex)) = 255;
-            testOutoupt(x(thirdCornerIndex),y(thirdCornerIndex)) = 255;
-            testOutoupt(x(fourthCornerIndex),y(fourthCornerIndex)) = 255;
+        if degParam1 < threshold_cosine && degParam2 < threshold_cosine && degParam3 < threshold_cosine && degParam4 < threshold_cosine        
+            corner.codeProjectedPosition = zeros(2, 4);
+            corner.codeProjectedPosition(:,1) = corner.firstCorner';
+            corner.codeProjectedPosition(:,2) = corner.secondCorner';
+            corner.codeProjectedPosition(:,3) = corner.thirdCorner';
+            corner.codeProjectedPosition(:,4) = corner.fourthCorner';
+
+            corner.codeProjectedPosition
+
+            corners = [corners corner];
+
+            if test_flag
+                % for debugging
+                testOutoupt(x(firstCornerIndex),y(firstCornerIndex)) = 255;
+                testOutoupt(x(secondCornerIndex),y(secondCornerIndex)) = 255;
+                testOutoupt(x(thirdCornerIndex),y(thirdCornerIndex)) = 255;
+                testOutoupt(x(fourthCornerIndex),y(fourthCornerIndex)) = 255;
+            end
         end
     end
 

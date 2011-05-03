@@ -1,7 +1,7 @@
 function extract_code()
 
 % read image
-img = imread('./3x2.png');
+img = imread('./1.png');
 
 % dummy visual code image
 codeImg = imread('./dummyCode.png');
@@ -9,7 +9,7 @@ codeImg = imread('./dummyCode.png');
 % ar condition, focal length and code size
 ar.fx = 649.590771179639773;
 ar.fy = 653.240978126455161;
-ar.codeSize = 1.5;
+ar.codeSize = 0.2;
 ar.imageSize = size(rgb2gray(img));
    
 % code original coordinates
