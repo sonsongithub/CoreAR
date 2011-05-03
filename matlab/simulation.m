@@ -4,6 +4,7 @@ function simulation()
 ar.fx = 649.590771179639773;
 ar.fy = 653.240978126455161;
 ar.codeSize = 0.5;
+ar.imageSize = [480 640];
    
 % code pose
 p = getRTMatrix([pi/6, 0, pi/40], [0.05 0 1.5]);
@@ -19,9 +20,7 @@ codeProjectedPosition = project(ar.fx, ar.fy, codePositionWorld);
 
 codeProjectedPosition
 
-pointsOnImageCoordinates = codeProjectedPosition .* repmat([1 -1]', 1, 4) + repmat([320 240]', 1, 4)
-
-%%pp = (pointsOnImageCoordinates - repmat([320 240]', 1, 4)) .* repmat([1 -1]', 1, 4) ./ repmat([ar.fx ar.fy]', 1, 4)
+pointsOnImageCoordinates = codeProjectedPosition .* repmat([1 -1]', 1, 4) + repmat([ar.imageSize(2)/2 ar.imageSize(1)/2]', 1, 4)
 
 % normalize a code's position on image by focal length
 normalizedCodeProjectedPosition = codeProjectedPosition ./ repmat([ar.fx ar.fy]', 1, 4);
@@ -30,7 +29,7 @@ normalizedCodeProjectedPosition
 
 % estimate code pose matrix from normalize a code's position on image
 estimatedP = pose_estimation(ar, normalizedCodeProjectedPosition);
-estimatedP
+
 % rendering simulation
 img = imread('../resource/code02.png');
 
@@ -51,7 +50,7 @@ drawCode(cat(1, normalizedCodeProjectedPosition*1, [1 1 1 1]), img);
 
 daspect([1 1 1]);
 hold off;
-view(45, 30);
+view(60, 15);
 
 end
 

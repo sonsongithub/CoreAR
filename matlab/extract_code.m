@@ -54,7 +54,7 @@ for i=1:size(corners, 2)
 end
 
 daspect([1 1 1]);
-view(45, 30);
+view(60, 15);
 hold off;
 
 end
