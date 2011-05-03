@@ -1,8 +1,8 @@
 function simulation()
 
 % ar condition, focal length and code size
-ar.fx = 1;649.590771179639773*2;
-ar.fy = 1;653.240978126455161*2;
+ar.fx = 649.590771179639773;
+ar.fy = 653.240978126455161;
 ar.codeSize = 0.5;
    
 % code pose

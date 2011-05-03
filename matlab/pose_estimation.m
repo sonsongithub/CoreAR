@@ -1,9 +1,12 @@
 function estimatedP = pose_estimation(ar, normalizedCodeProjectedPosition)
 
-if (nargout == 2)
+
+if (nargin == 2)
     % function mode
+    codePositionWorld = cat(1, [-1 1 0;1 1 0;1 -1 0;-1 -1 0]' * ar.codeSize * 0.5, [1 1 1 1]);
 else
-    % test mode  
+    % test mode
+    disp('this is test mode');
     ar.fx = 649.590771179639773;
     ar.fy = 653.240978126455161;
     ar.codeSize = 2;
@@ -22,7 +25,7 @@ homography = getHomographyMatrix(codePositionWorld, normalizedCodeProjectedPosit
 
 estimatedP = getPMatrix(homography, normalizedCodeProjectedPosition, ar.codeSize);
 
-if (nargout ~= 2)
+if (nargin ~= 2)
     disp('pose_estimation ---------> test mode');
     disp('Setting');
     disp(sprintf('focal length x = %f', ar.fx));
