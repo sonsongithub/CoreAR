@@ -6,7 +6,7 @@ ar.fy = 653.240978126455161;
 ar.codeSize = 0.5;
    
 % code pose
-p = getRTMatrix([pi/6, 0, pi/40], [0.05 0 1.2]);
+p = getRTMatrix([pi/6, 0, pi/40], [0.05 0 1.5]);
 
 % code original coordinates
 codeOriginalPositionWorld = cat(1, [-1 1 0;1 1 0;1 -1 0;-1 -1 0]' * ar.codeSize * 0.5, [1 1 1 1]);
