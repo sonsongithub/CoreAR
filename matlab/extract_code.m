@@ -29,7 +29,9 @@ drawCode([imageX;imageY;imageZ], img);
 hold on;
 
 view(60, 15);
-    
+
+maximum_z = 0;
+
 for i=1:size(corners, 2)
     corner = corners(i);
     % make visual code's corner position normalized.
@@ -44,6 +46,10 @@ for i=1:size(corners, 2)
     codePositionWorld = estimatedP * codeOriginalPositionWorld;
     
     %text(codePositionWorld(1,4), codePositionWorld(3,4), codePositionWorld(2,4), 'X', 'FontSize',20,'color', 'r');
+    
+    if maximum_z < codePositionWorld(3, 4)
+        maximum_z = codePositionWorld(3, 4)
+    end
 
     % draw projective line
     line([0 codePositionWorld(1,1)], [0 codePositionWorld(3,1)], [0 codePositionWorld(2,1)]);
@@ -54,6 +60,11 @@ for i=1:size(corners, 2)
     % draw dummy code
     drawCode(codePositionWorld, codeImg);
 end
+
+% draw axis of camera coordinate system
+line([-1 1], [0 0], [0 0], 'Color', 'k', 'LineStyle', '--');
+line([ 0 0], [0 0], [-1 1], 'Color', 'k', 'LineStyle', '--');
+line([ 0 0], [-1 maximum_z*1.5], [0 0], 'Color', 'k', 'LineStyle', '--');
 
 daspect([1 1 1]);
 hold off;
