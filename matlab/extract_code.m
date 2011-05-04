@@ -9,7 +9,7 @@ codeImg = imread('./dummyCode.png');
 % ar condition, focal length and code size
 ar.fx = 649.590771179639773;
 ar.fy = 653.240978126455161;
-ar.codeSize = 0.5;
+ar.codeSize = 1.5;
 ar.imageSize = size(rgb2gray(img));
    
 % code original coordinates
