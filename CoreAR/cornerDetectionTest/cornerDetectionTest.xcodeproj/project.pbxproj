@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1479B53413908F25005FFAF5 /* common.c in Sources */ = {isa = PBXBuildFile; fileRef = 1479B53213908F25005FFAF5 /* common.c */; };
 		1482469312EFB1C0003CFC32 /* code.c in Sources */ = {isa = PBXBuildFile; fileRef = 1482469112EFB1C0003CFC32 /* code.c */; };
 		148246AE12EFB3A6003CFC32 /* codeImageTemplate.c in Sources */ = {isa = PBXBuildFile; fileRef = 148246AC12EFB3A6003CFC32 /* codeImageTemplate.c */; };
 		148246B312EFB3BC003CFC32 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 148246B212EFB3BC003CFC32 /* Accelerate.framework */; };
-		1482490912EFFE88003CFC32 /* common.c in Sources */ = {isa = PBXBuildFile; fileRef = 148248F212EFFE88003CFC32 /* common.c */; };
 		1482495712F00C37003CFC32 /* corner.c in Sources */ = {isa = PBXBuildFile; fileRef = 1482495612F00C37003CFC32 /* corner.c */; };
 		14B63EA012FA6D2700180311 /* denoiseWithContractionAndExpansion.c in Sources */ = {isa = PBXBuildFile; fileRef = 14B63E9E12FA6D2700180311 /* denoiseWithContractionAndExpansion.c */; };
 		14FA5B6212A7D22800F07FC2 /* chaincode.c in Sources */ = {isa = PBXBuildFile; fileRef = 14FA5B6012A7D22800F07FC2 /* chaincode.c */; };
@@ -33,6 +33,8 @@
 
 /* Begin PBXFileReference section */
 		08FB7796FE84155DC02AAC07 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		1479B53213908F25005FFAF5 /* common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = common.c; path = ../common.c; sourceTree = "<group>"; };
+		1479B53313908F25005FFAF5 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = common.h; path = ../common.h; sourceTree = "<group>"; };
 		1482468A12EFB1AC003CFC32 /* ar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ar.h; path = ../ar.h; sourceTree = SOURCE_ROOT; };
 		1482468B12EFB1AC003CFC32 /* prepro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = prepro.h; path = ../prepro.h; sourceTree = SOURCE_ROOT; };
 		1482469112EFB1C0003CFC32 /* code.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = code.c; path = ../code.c; sourceTree = SOURCE_ROOT; };
@@ -40,8 +42,6 @@
 		148246AC12EFB3A6003CFC32 /* codeImageTemplate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = codeImageTemplate.c; path = ../codeImageTemplate.c; sourceTree = SOURCE_ROOT; };
 		148246AD12EFB3A6003CFC32 /* codeImageTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = codeImageTemplate.h; path = ../codeImageTemplate.h; sourceTree = SOURCE_ROOT; };
 		148246B212EFB3BC003CFC32 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		148248F212EFFE88003CFC32 /* common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = common.c; sourceTree = "<group>"; };
-		148248F312EFFE88003CFC32 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 		1482495512F00C37003CFC32 /* corner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = corner.h; path = ../corner.h; sourceTree = SOURCE_ROOT; };
 		1482495612F00C37003CFC32 /* corner.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = corner.c; path = ../corner.c; sourceTree = SOURCE_ROOT; };
 		14B63E9E12FA6D2700180311 /* denoiseWithContractionAndExpansion.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = denoiseWithContractionAndExpansion.c; path = ../denoiseWithContractionAndExpansion.c; sourceTree = SOURCE_ROOT; };
@@ -68,7 +68,6 @@
 			isa = PBXGroup;
 			children = (
 				148246B212EFB3BC003CFC32 /* Accelerate.framework */,
-				148248F112EFFE88003CFC32 /* common */,
 				141C362D12B3320A006162FA /* CoreAR */,
 				08FB7795FE84155DC02AAC07 /* Source */,
 				C6A0FF2B0290797F04C91782 /* Documentation */,
@@ -88,6 +87,8 @@
 		141C362D12B3320A006162FA /* CoreAR */ = {
 			isa = PBXGroup;
 			children = (
+				1479B53213908F25005FFAF5 /* common.c */,
+				1479B53313908F25005FFAF5 /* common.h */,
 				14B63E9E12FA6D2700180311 /* denoiseWithContractionAndExpansion.c */,
 				14B63E9F12FA6D2700180311 /* denoiseWithContractionAndExpansion.h */,
 				148246AD12EFB3A6003CFC32 /* codeImageTemplate.h */,
@@ -103,16 +104,6 @@
 			);
 			name = CoreAR;
 			sourceTree = "<group>";
-		};
-		148248F112EFFE88003CFC32 /* common */ = {
-			isa = PBXGroup;
-			children = (
-				148248F212EFFE88003CFC32 /* common.c */,
-				148248F312EFFE88003CFC32 /* common.h */,
-			);
-			name = common;
-			path = ../../common;
-			sourceTree = SOURCE_ROOT;
 		};
 		1AB674ADFE9D54B511CA2CBB /* Products */ = {
 			isa = PBXGroup;
@@ -184,9 +175,9 @@
 				14FA5B6212A7D22800F07FC2 /* chaincode.c in Sources */,
 				1482469312EFB1C0003CFC32 /* code.c in Sources */,
 				148246AE12EFB3A6003CFC32 /* codeImageTemplate.c in Sources */,
-				1482490912EFFE88003CFC32 /* common.c in Sources */,
 				1482495712F00C37003CFC32 /* corner.c in Sources */,
 				14B63EA012FA6D2700180311 /* denoiseWithContractionAndExpansion.c in Sources */,
+				1479B53413908F25005FFAF5 /* common.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

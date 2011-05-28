@@ -39,6 +39,7 @@
     #if TARGET_OS_IPHONE | TARGET_IPHONE_SIMULATOR
         #define IPHONE_OS
     #else
+		typedef BOOL int
         #define MAC_OS_X
     #endif
 #else
