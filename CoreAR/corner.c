@@ -91,7 +91,6 @@ void _CRGetLineThroughPointsOnEdge(float *a, float *b, float *c, int *n, CRChain
 }
 
 int _CRChainCodeGetLengthBetweenTwoElements(CRChainCodeElement *start, CRChainCodeElement *head, CRChainCodeElement *terminater) {
-	// calculate first edge
 	int length = 0;
 	CRChainCodeElement *p = start;
 	while(p) {
@@ -294,8 +293,7 @@ void _CRChainCodeDetectCorners(CRChainCode *p, int withLSM) {
 		p->isCornerDetected = CR_TRUE;
 }
 
-#pragma mark -
-#pragma mark Corner detection method
+#pragma mark - Corner detection method
 
 void CRChainCodeStorageDetectCornerWithLSM(CRChainCodeStorage *storage) {
 	CRChainCode *p = storage->head;
