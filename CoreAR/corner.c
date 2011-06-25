@@ -108,9 +108,13 @@ BOOL _CRChainCodeCheckEdgeLength(CRChainCode *source, CRChainCodeElement *firstC
 		p = p->next;
 	}
 	
+	if (lengthes[0] == 0)
+		return CR_FALSE;
+	
 	maxLength = lengthes[0];
 	minLength = lengthes[0];
 	
+	// second edge
 	p = secondCorner->next;
 	
 	while(p) {
@@ -123,12 +127,16 @@ BOOL _CRChainCodeCheckEdgeLength(CRChainCode *source, CRChainCodeElement *firstC
 		p = p->next;
 	}
 	
+	if (lengthes[1] == 0)
+		return CR_FALSE;
+	
 	if (maxLength < lengthes[1])
 		maxLength = lengthes[1];
 	
 	if (minLength > lengthes[1])
 		minLength = lengthes[1];
 	
+	// third edge
 	p = thirdCorner->next;
 	
 	while(p) {
@@ -141,12 +149,16 @@ BOOL _CRChainCodeCheckEdgeLength(CRChainCode *source, CRChainCodeElement *firstC
 		p = p->next;
 	}
 	
+	if (lengthes[2] == 0)
+		return CR_FALSE;
+	
 	if (maxLength < lengthes[2])
 		maxLength = lengthes[2];
 	
 	if (minLength > lengthes[2])
 		minLength = lengthes[2];
 	
+	// fourth edge
 	p = fourthCorner->next;
 	
 	while(p) {
@@ -158,6 +170,9 @@ BOOL _CRChainCodeCheckEdgeLength(CRChainCode *source, CRChainCodeElement *firstC
 		lengthes[3]++;
 		p = p->next;
 	}
+	
+	if (lengthes[3] == 0)
+		return CR_FALSE;
 	
 	if (maxLength < lengthes[3])
 		maxLength = lengthes[3];
