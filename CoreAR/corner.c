@@ -97,7 +97,7 @@ BOOL _CRChainCodeCheckEdgeLength(CRChainCode *source, CRChainCodeElement *firstC
 	int maxLength = 0;
 	int minLength = 0;
 	
-	// first edge
+	// calculate first edge
 	while(p) {
 		if (p == firstCorner)
 			break;
@@ -114,7 +114,7 @@ BOOL _CRChainCodeCheckEdgeLength(CRChainCode *source, CRChainCodeElement *firstC
 	maxLength = lengthes[0];
 	minLength = lengthes[0];
 	
-	// second edge
+	// calculate second edge
 	p = secondCorner->next;
 	
 	while(p) {
@@ -136,7 +136,7 @@ BOOL _CRChainCodeCheckEdgeLength(CRChainCode *source, CRChainCodeElement *firstC
 	if (minLength > lengthes[1])
 		minLength = lengthes[1];
 	
-	// third edge
+	// calculate third edge
 	p = thirdCorner->next;
 	
 	while(p) {
@@ -158,7 +158,7 @@ BOOL _CRChainCodeCheckEdgeLength(CRChainCode *source, CRChainCodeElement *firstC
 	if (minLength > lengthes[2])
 		minLength = lengthes[2];
 	
-	// fourth edge
+	// calculate fourth edge
 	p = fourthCorner->next;
 	
 	while(p) {
@@ -182,7 +182,7 @@ BOOL _CRChainCodeCheckEdgeLength(CRChainCode *source, CRChainCodeElement *firstC
 	
 //	printf("%d %d %d %d\n", lengthes[0], lengthes[1], lengthes[2], lengthes[3]);
 	
-	return ((maxLength / minLength) < 4);
+	return ((maxLength / minLength) < THRESHOLD_RATIO_OF_LONG_TO_SHORT_EDGE);
 }
 
 void _CRChainCodeDetectCorners(CRChainCode *p, int withLSM) {

@@ -32,5 +32,7 @@
 #include "chaincode.h"
 #include "common.h"
 
+#define THRESHOLD_RATIO_OF_LONG_TO_SHORT_EDGE 4
+
 void CRChainCodeStorageDetectCornerWithLSM(CRChainCodeStorage *storage);
 void CRChainCodeStorageDetectCornerWithoutLSM(CRChainCodeStorage *storage);
