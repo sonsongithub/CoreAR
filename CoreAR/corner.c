@@ -90,24 +90,29 @@ void _CRGetLineThroughPointsOnEdge(float *a, float *b, float *c, int *n, CRChain
 	}
 }
 
+int _CRChainCodeGetLengthBetweenTwoElements(CRChainCodeElement *start, CRChainCodeElement *head, CRChainCodeElement *terminater) {
+	// calculate first edge
+	int length = 0;
+	CRChainCodeElement *p = start;
+	while(p) {
+		if (p == head)
+			break;
+		if (p == terminater) {
+			break;
+		}
+		length++;
+		p = p->next;
+	}
+	return length;
+}
+
 BOOL _CRChainCodeCheckEdgeLength(CRChainCode *source, CRChainCodeElement *firstCorner, CRChainCodeElement *secondCorner, CRChainCodeElement *thirdCorner, CRChainCodeElement *fourthCorner, int *lengthes) {
-	
-	CRChainCodeElement *p = firstCorner->next;
 	
 	int maxLength = 0;
 	int minLength = 0;
 	
 	// calculate first edge
-	while(p) {
-		if (p == firstCorner)
-			break;
-		if (p == secondCorner) {
-			break;
-		}
-		lengthes[0]++;
-		p = p->next;
-	}
-	
+	lengthes[0] = _CRChainCodeGetLengthBetweenTwoElements(firstCorner->next, firstCorner, secondCorner);
 	if (lengthes[0] == 0)
 		return CR_FALSE;
 	
@@ -115,18 +120,7 @@ BOOL _CRChainCodeCheckEdgeLength(CRChainCode *source, CRChainCodeElement *firstC
 	minLength = lengthes[0];
 	
 	// calculate second edge
-	p = secondCorner->next;
-	
-	while(p) {
-		if (p == secondCorner)
-			break;
-		if (p == thirdCorner) {
-			break;
-		}
-		lengthes[1]++;
-		p = p->next;
-	}
-	
+	lengthes[1] = _CRChainCodeGetLengthBetweenTwoElements(secondCorner->next, secondCorner, thirdCorner);
 	if (lengthes[1] == 0)
 		return CR_FALSE;
 	
@@ -137,18 +131,7 @@ BOOL _CRChainCodeCheckEdgeLength(CRChainCode *source, CRChainCodeElement *firstC
 		minLength = lengthes[1];
 	
 	// calculate third edge
-	p = thirdCorner->next;
-	
-	while(p) {
-		if (p == thirdCorner)
-			break;
-		if (p == fourthCorner) {
-			break;
-		}
-		lengthes[2]++;
-		p = p->next;
-	}
-	
+	lengthes[2] = _CRChainCodeGetLengthBetweenTwoElements(thirdCorner->next, thirdCorner, fourthCorner);
 	if (lengthes[2] == 0)
 		return CR_FALSE;
 	
@@ -159,18 +142,7 @@ BOOL _CRChainCodeCheckEdgeLength(CRChainCode *source, CRChainCodeElement *firstC
 		minLength = lengthes[2];
 	
 	// calculate fourth edge
-	p = fourthCorner->next;
-	
-	while(p) {
-		if (p == fourthCorner)
-			break;
-		if (p == firstCorner) {
-			break;
-		}
-		lengthes[3]++;
-		p = p->next;
-	}
-	
+	lengthes[3] = _CRChainCodeGetLengthBetweenTwoElements(fourthCorner->next, fourthCorner, firstCorner);	
 	if (lengthes[3] == 0)
 		return CR_FALSE;
 	
