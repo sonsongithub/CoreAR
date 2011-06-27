@@ -2,6 +2,14 @@ CoreAR.framework
 =======
 ![](http://sonson.jp/wp/wp-content/uploads/2011/04/coreARSample.png)
 
+Sample movie
+=======
+<object width="640" height="390">
+<center>
+<iframe title="YouTube video player" width="640" height="390" src="http://www.youtube.com/embed/b2u29DUIing" frameborder="0" allowfullscreen></iframe>
+</center>
+</object>
+
 License
 =======
 BSD License.
@@ -9,6 +17,43 @@ BSD License.
 App Store
 =======
 You can take the sample application "[CoreAR]" from App Store.
+
+Sample code
+=======
+
+	// Copy image buffer from camera into "pixel".
+	int width;
+	int height;
+	unsigned char *pixel = (unsigned char*)malloc(sizeof(unsigned char) * width * height);
+	
+	// codeInfoStorage receives the result of visual code recognition.
+	CRCodeInfoStorage *codeInfoStorage = CRCreateCodeInfoStorage();
+	
+	// storage to save visual code templates.
+	CRCodeImageTemplate *codeImageTemplateStorage = CRCreateCodeImageTemplateStorage();
+	
+	// make template to recognize visual codes.
+	int c_width;
+	int c_height;
+	unsigned char *c_p = (unsigned char*)malloc(sizeof(unsigned char) * c_width * c_height);
+	
+	/* read images of visual codes you want to recognize */
+	
+	CRCodeImageTemplate *template = CRCreateCodeImageTemplate(c_p, c_width, c_height);
+	template->code = codeNumber;
+	template->size = codeSize;
+	CRCodeImageTemplateStorageAddNewTemplate(codeImageTemplateStorage, template);
+	free(c_p);
+	
+	// Start extraction
+	CRChainCodeStorage *storage = CRCreateChainCodeStorageByParsingPixel(pixel, width, height);
+	CRChainCodeStorageDetectCornerWithLSM(storage);
+	CRCodeInfoStorageAddCodeInfoByExtractingFromChainCode(codeInfoStorage, storage, valueBuffer, width, height, codeImageTemplateStorage);
+	
+	// Release
+	CRReleaseChainCodeStorage(&storage);
+	CRReleaseCodeInfoStorage(&codeInfoStorage);
+	free(pixel);
 
 Blog
 =======
