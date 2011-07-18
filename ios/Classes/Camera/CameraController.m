@@ -69,7 +69,8 @@ static void _toc() {
 		image = CGImageRetain(newImage);
 		[self.layer setContents:(id)image];
 		
-		self.frame = CGRectMake(0, 0, 320, 427);
+		//self.frame = CGRectMake(0, 0, 320, 427);
+		self.frame = CGRectMake(0, 0, 768.0, 768.0*427.0/320.0);
 	}
 }
 
@@ -223,7 +224,7 @@ static void _toc() {
 	
 	AVCaptureVideoDataOutput * videoDataOutput = [[[AVCaptureVideoDataOutput alloc] init] autorelease];
 	[videoDataOutput setAlwaysDiscardsLateVideoFrames:YES];
-	[videoDataOutput setMinFrameDuration:CMTimeMake(1, 30)];
+//	[videoDataOutput setMinFrameDuration:CMTimeMake(1, 30)];
 	[videoDataOutput setVideoSettings:settingInfo];	
 	[videoDataOutput setSampleBufferDelegate:self queue:dispatch_get_main_queue()];
 	
@@ -246,7 +247,11 @@ static void _toc() {
 }
 
 - (void)start {
-	[session startRunning];
+//	[session startRunning];
+	// Start the session. This is done asychronously since -startRunning doesn't return until the session is running.
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		[session startRunning];
+	});
 }
 
 - (void)stop {

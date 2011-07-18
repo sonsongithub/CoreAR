@@ -123,7 +123,8 @@ static double _toc() {
 
 - (MyGLView*)glView {
 	if (glView == nil) {
-		glView = [[MyGLView alloc] initWithFrame:CGRectMake(0, 0, 320, 427)];
+//		glView = [[MyGLView alloc] initWithFrame:CGRectMake(0, 0, 320, 427)];
+		glView = [[MyGLView alloc] initWithFrame:CGRectMake(0, 0, 768.0, 768.0*427.0/320.0)];
         [glView setCameraFrameSize:self.frameSize];
 		[glView setCodeInfoStorage:codeInfoStorage];
 		[glView startAnimation];

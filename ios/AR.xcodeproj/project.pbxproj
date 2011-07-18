@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		140E20E213D3E79B00DC7D72 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 140E20E113D3E79B00DC7D72 /* MainWindow-iPad.xib */; };
 		1418E23B12EEB12600ECFF81 /* icon114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 1418E23812EEB12600ECFF81 /* icon114x114.png */; };
 		1418E23C12EEB12600ECFF81 /* icon57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 1418E23912EEB12600ECFF81 /* icon57x57.png */; };
 		1418E23D12EEB12600ECFF81 /* icon72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = 1418E23A12EEB12600ECFF81 /* icon72x72.png */; };
@@ -53,6 +54,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		140E20E113D3E79B00DC7D72 /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "Resources/iPad/MainWindow-iPad.xib"; sourceTree = "<group>"; };
 		1418E23812EEB12600ECFF81 /* icon114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon114x114.png; sourceTree = "<group>"; };
 		1418E23912EEB12600ECFF81 /* icon57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon57x57.png; sourceTree = "<group>"; };
 		1418E23A12EEB12600ECFF81 /* icon72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon72x72.png; sourceTree = "<group>"; };
@@ -158,6 +160,14 @@
 				148A95C212AE91F50027CA28 /* Camera */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		140E20E013D3E79900DC7D72 /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+				140E20E113D3E79B00DC7D72 /* MainWindow-iPad.xib */,
+			);
+			name = iPad;
 			sourceTree = "<group>";
 		};
 		1418E23712EEB12600ECFF81 /* image */ = {
@@ -308,6 +318,7 @@
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				14751E5712E3D8410008A398 /* Resources */,
+				140E20E013D3E79900DC7D72 /* iPad */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -403,6 +414,7 @@
 				147BB4F112FE395C0088A1EA /* Default@2x.png in Resources */,
 				147BB4FA12FE3ABD0088A1EA /* LicenseViewController.xib in Resources */,
 				1477DD5612FEE9CB0048B402 /* cameraDummy.png in Resources */,
+				140E20E213D3E79B00DC7D72 /* MainWindow-iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,7 +461,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = AR_Prefix.pch;
 				INFOPLIST_FILE = "AR-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = AR;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -461,7 +475,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = AR_Prefix.pch;
 				INFOPLIST_FILE = "AR-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = AR;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -477,7 +493,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D0E7BEC5-E20E-49C5-97F4-EFAF93FEBF22";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3867BF82-363A-491E-8536-BE97DDDC0DB7";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -496,7 +512,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D0E7BEC5-E20E-49C5-97F4-EFAF93FEBF22";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3867BF82-363A-491E-8536-BE97DDDC0DB7";
 				SDKROOT = iphoneos;
 			};
 			name = Release;

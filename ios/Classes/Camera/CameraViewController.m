@@ -61,7 +61,7 @@
 	[thresholdSlider addTarget:camera action:@selector(changedThreshold:) forControlEvents:UIControlEventValueChanged];
 	
 	// setup toolbar
-	toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - 44, 320, 44)];
+	toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - 44, self.view.bounds.size.width, 44)];
 	UIBarButtonItem *info = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Info", nil) style:UIBarButtonItemStyleBordered target:nil action:@selector(info:)];
 	UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
 	UIBarButtonItem *labelButton = [[UIBarButtonItem alloc] initWithCustomView:fpsLabel];
@@ -113,7 +113,8 @@
 		
 		// setting preview layer
 		previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:[camera session]];
-		previewLayer.frame = CGRectMake(0, 0, 320, 427);//self.view.bounds.size.width, self.view.bounds.size.height);
+		//previewLayer.frame = CGRectMake(0, 0, 320, 427);//self.view.bounds.size.width, self.view.bounds.size.height);
+		previewLayer.frame = CGRectMake(0, 0, 768.0, 768.0*427.0/320.0);
 		[self.view.layer addSublayer:previewLayer];
 		
 		// for debugging
