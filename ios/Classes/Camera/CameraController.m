@@ -69,8 +69,10 @@ static void _toc() {
 		image = CGImageRetain(newImage);
 		[self.layer setContents:(id)image];
 		
-		//self.frame = CGRectMake(0, 0, 320, 427);
-		self.frame = CGRectMake(0, 0, 768.0, 768.0*427.0/320.0);
+		if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+			self.frame = CGRectMake(0, 0, 768.0, 768.0*427.0/320.0);
+		else
+			self.frame = CGRectMake(0, 0, 320, 427);
 	}
 }
 

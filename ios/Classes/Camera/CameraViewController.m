@@ -113,12 +113,16 @@
 		
 		// setting preview layer
 		previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:[camera session]];
-		//previewLayer.frame = CGRectMake(0, 0, 320, 427);//self.view.bounds.size.width, self.view.bounds.size.height);
-		previewLayer.frame = CGRectMake(0, 0, 768.0, 768.0*427.0/320.0);
+		
+		if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+			previewLayer.frame = CGRectMake(0, 0, 768.0, 768.0*427.0/320.0);
+		else
+			previewLayer.frame = CGRectMake(0, 0, 320, 427);//self.view.bounds.size.width, self.view.bounds.size.height);
+		
 		[self.view.layer addSublayer:previewLayer];
 		
 		// for debugging
-		[self.view addSubview:[camera preview]];
+		//[self.view addSubview:[camera preview]];
 		
 		id v2 = [camera glView];
 		[self.view addSubview:v2];
