@@ -47,8 +47,15 @@ int main (int argc, char * const argv[]) {
 	unsigned char *grayBuff = (unsigned char*)malloc(sizeof(unsigned char)*width*height);
 	
 	memset(grayBuff, 0, sizeof(unsigned char)*width*height);
-	for (int y = 5; y < 17; y++) {
-		for (int x = 7; x < 17; x++) {
+	
+	for (int y = 4; y < 8; y++) {
+		for (int x = 4; x < 8; x++) {
+			grayBuff[x + y * width] = 1;
+		}
+	}
+	
+	for (int y = 10; y < 17; y++) {
+		for (int x = 10; x < 17; x++) {
 			grayBuff[x + y * width] = 1;
 		}
 	}
