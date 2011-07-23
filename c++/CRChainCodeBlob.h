@@ -35,7 +35,7 @@
 
 class CRChainCodeBlob {
 public:
-	std::list<CRChainCodeElement*> elements;
+	std::list<CRChainCodeElement*> *elements;
 public:
 	CRChainCodeBlob();
 	~CRChainCodeBlob();
@@ -46,4 +46,6 @@ public:
 	CRChainCodeElement* secondCorner(CRChainCodeElement *first, CRChainCodeElement *third);
 	CRChainCodeElement* thirdCorner(CRChainCodeElement *first);
 	CRChainCodeElement* fourthCorner(CRChainCodeElement *first, CRChainCodeElement *third);
+	
+	void getLineThroughPoints(float *a, float *b, float *c, CRChainCodeElement *start, CRChainCodeElement *end);
 };

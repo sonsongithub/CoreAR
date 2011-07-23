@@ -34,13 +34,14 @@
 
 CRChainCodeBlob::CRChainCodeBlob() {
 	_DPRINTF("CRChainCodeBlob constructor\n");
+	elements = new std::list<CRChainCodeElement*>();
 }
 
 CRChainCodeBlob::~CRChainCodeBlob() {
 	_DPRINTF("CRChainCodeBlob destructor\n");
 	
-	std::list<CRChainCodeElement*>::iterator it = elements.begin();
-	while(it != elements.end()) {
+	std::list<CRChainCodeElement*>::iterator it = elements->begin();
+	while(it != elements->end()) {
 		delete(*it);
 		++it;
 	}
@@ -48,7 +49,50 @@ CRChainCodeBlob::~CRChainCodeBlob() {
 
 void CRChainCodeBlob::appendChainCodeElement(int x, int y, int code) {
 	CRChainCodeElement *element = new CRChainCodeElement(x, y, code);
-	this->elements.push_back(element);
+	this->elements->push_back(element);
+}
+
+void CRChainCodeBlob::getLineThroughPoints(float *a, float *b, float *c, CRChainCodeElement *start, CRChainCodeElement *end) {
+	float sigma_x = 0;
+	float sigma_y = 0;
+	float sigma_xy = 0;
+	float sigma_xx = 0;
+	int n = 0;
+	
+	std::list<CRChainCodeElement*>::iterator it = elements->begin();
+	while(it != elements->end()) {
+		CRChainCodeElement* e = (CRChainCodeElement*)*it;
+		if (e == start)
+			break;
+		++it;
+	}
+	while(it != elements->end()) {
+		CRChainCodeElement* e = (CRChainCodeElement*)*it;
+		
+		sigma_x += e->x;
+		sigma_y += e->y;
+		sigma_xy += (e->x * e->y);
+		sigma_xx += (e->x * e->x);
+		
+		n++;
+		
+		if (e == end)
+			break;
+		
+		++it;
+	}
+	
+	float t = n * sigma_xx - sigma_x * sigma_x;
+	if (t == 0) {
+		*a = -1;
+		*b = start->x;
+		*c = 0;
+	}
+	else {
+		*a = (n * sigma_xy - sigma_x * sigma_y) / t;
+		*b = (sigma_xx * sigma_y- sigma_xy * sigma_x) / t;
+		*c = 1;
+	}
 }
 
 void CRChainCodeBlob::detectCorner() {
@@ -57,6 +101,13 @@ void CRChainCodeBlob::detectCorner() {
 	CRChainCodeElement *secondCorner = this->secondCorner(firstCorner, thirdCorner);
 	CRChainCodeElement *fourthCorner = this->fourthCorner(firstCorner, thirdCorner);
 	
+	float a, b, c;
+	
+	this->getLineThroughPoints(&a, &b, &c, firstCorner, secondCorner);
+	this->getLineThroughPoints(&a, &b, &c, secondCorner, thirdCorner);
+	this->getLineThroughPoints(&a, &b, &c, thirdCorner, fourthCorner);
+	this->getLineThroughPoints(&a, &b, &c, fourthCorner, firstCorner);
+	
 	_DPRINTF("%d,%d\n", firstCorner->x, firstCorner->y);
 	_DPRINTF("%d,%d\n", secondCorner->x, secondCorner->y);
 	_DPRINTF("%d,%d\n", thirdCorner->x, thirdCorner->y);
@@ -64,7 +115,7 @@ void CRChainCodeBlob::detectCorner() {
 }
 
 CRChainCodeElement* CRChainCodeBlob::firstCorner() {
-	return this->elements.front();
+	return this->elements->front();
 }
 
 CRChainCodeElement* CRChainCodeBlob::secondCorner(CRChainCodeElement *first, CRChainCodeElement *third) {
@@ -74,9 +125,9 @@ CRChainCodeElement* CRChainCodeBlob::secondCorner(CRChainCodeElement *first, CRC
 	float maxLength = 0;
 	
 	CRChainCodeElement* tempSecondCorner = NULL;
-	std::list<CRChainCodeElement*>::iterator it = elements.begin();
+	std::list<CRChainCodeElement*>::iterator it = elements->begin();
 	++it;
-	while(it != elements.end()) {
+	while(it != elements->end()) {
 		CRChainCodeElement* e = (CRChainCodeElement*)*it;
 		
 		if (e == third)
@@ -100,14 +151,14 @@ CRChainCodeElement* CRChainCodeBlob::fourthCorner(CRChainCodeElement *first, CRC
 	float maxLength = 0;
 	
 	CRChainCodeElement* tempThirdCorner = NULL;
-	std::list<CRChainCodeElement*>::iterator it = elements.begin();
-	while(it != elements.end()) {
+	std::list<CRChainCodeElement*>::iterator it = elements->begin();
+	while(it != elements->end()) {
 		CRChainCodeElement* e = (CRChainCodeElement*)*it;
 		if (e == third)
 			break;
 		++it;
 	}
-	while(it != elements.end()) {
+	while(it != elements->end()) {
 		CRChainCodeElement* e = (CRChainCodeElement*)*it;
 		
 		float temp = fabs(a * e->x + b * e->y + c);
@@ -124,8 +175,8 @@ CRChainCodeElement* CRChainCodeBlob::fourthCorner(CRChainCodeElement *first, CRC
 CRChainCodeElement* CRChainCodeBlob::thirdCorner(CRChainCodeElement *first) {
 	int maxLength = 0;
 	CRChainCodeElement* tempThirdCorner = NULL;
-	std::list<CRChainCodeElement*>::iterator it = elements.begin();
-	while(it != elements.end()) {
+	std::list<CRChainCodeElement*>::iterator it = elements->begin();
+	while(it != elements->end()) {
 		CRChainCodeElement* e = (CRChainCodeElement*)*it;
 		int length = (first->x - e->x) * (first->x - e->x) + (first->y - e->y) * (first->y - e->y);
 		if (length > maxLength) {
