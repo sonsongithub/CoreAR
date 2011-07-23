@@ -51,7 +51,6 @@ typedef enum {
 	CRChainCodeCorner		= 1,
 }CRChainCodeCornerFlag;
 
-
 #include "CRChainCodeBlob.h"
 
 class CRChainCode {
@@ -60,6 +59,5 @@ public:
 public:
 	CRChainCode();
 	~CRChainCode();
-	
 	void parsePixel(unsigned char* chaincodeFlag, int width, int height);
 };

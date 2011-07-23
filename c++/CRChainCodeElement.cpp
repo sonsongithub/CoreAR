@@ -34,6 +34,44 @@ CRChainCodeElement::CRChainCodeElement() {
 	_DPRINTF("CRChainCodeElement constructor\n");
 }
 
+CRChainCodeElement::CRChainCodeElement(int x, int y, int code) {
+	_DPRINTF("CRChainCodeElement constructor\n");
+	this->x = x;
+	this->y = y;
+	this->code = code;
+
+#ifdef _DEBUG
+	switch (this->code) {
+		case 4:
+			_DPRINTF("左\n");
+			break;
+		case 5:
+			_DPRINTF("左下\n");
+			break;
+		case 6:
+			_DPRINTF("下\n");
+			break;
+		case 7:
+			_DPRINTF("右下\n");
+			break;
+		case 0:
+			_DPRINTF("右\n");
+			break;
+		case 1:
+			_DPRINTF("右上\n");
+			break;
+		case 2:
+			_DPRINTF("上\n");
+			break;
+		case 3:
+			_DPRINTF("左上\n");
+			break;
+		default:
+			break;
+	}
+#endif
+}
+
 CRChainCodeElement::~CRChainCodeElement() {
 	_DPRINTF("CRChainCodeElement destructor\n");
 }

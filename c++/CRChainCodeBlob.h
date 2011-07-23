@@ -39,4 +39,7 @@ public:
 public:
 	CRChainCodeBlob();
 	~CRChainCodeBlob();
+	void appendChainCodeElement(int x, int y, int code);
+	
+	CRChainCodeElement* thirdCorner(CRChainCodeElement *first);
 };

@@ -30,6 +30,8 @@
 
 #include "CRChainCode.h"
 
+//#define USE_INSIDE_CHAINCODE
+
 CRChainCode::CRChainCode() {
 	_DPRINTF("CRChainCode constructor\n");
 }
@@ -45,8 +47,7 @@ CRChainCode::~CRChainCode() {
 }
 
 void CRChainCode::parsePixel(unsigned char* chaincodeFlag, int width, int height) {
-	
-//	CRChainCodeStorage *storage = CRCreateChainCodeStorage();
+	CRChainCodeBlob *blob = NULL;
 	
 	// cut edge pixels
 	for (int x = 0; x < width; x++)
@@ -58,6 +59,7 @@ void CRChainCode::parsePixel(unsigned char* chaincodeFlag, int width, int height
 	for (int y = 0; y < height; y++)
 		chaincodeFlag[width - 1 + y * width] = CRChainCodeFlagIgnore;
 	
+	// start parsing
 	for (int y = 1; y < height-1; y++) {
 		for (int x = 1; x < width-1; x++) {
 			
@@ -74,14 +76,9 @@ void CRChainCode::parsePixel(unsigned char* chaincodeFlag, int width, int height
 				
 				int prev_chain = 4;
 				int chain = 4;
-#ifdef PRINT_CHAIN_CODE
-				_dprintf("0=>1 %d,%d(%d)\n", cx, cy, chain);
-#endif
 				
-				CRChainCodeBlob *blob = new CRChainCodeBlob();
+				blob = new CRChainCodeBlob();
 				blobs.push_back(blob);
-				
-//				CRChainCode *chaincode = CRCreateChainCode(CRChainCodeOutside);
 				
 				while(1) {
 #ifdef OUTPUT_IMAGE_FOR_DEBUG_WHEN_ERROR
@@ -89,118 +86,62 @@ void CRChainCode::parsePixel(unsigned char* chaincodeFlag, int width, int height
 #endif
 					while(1) {
 						if (chaincodeFlag[(cx - 1) + (cy    ) * width] && chain == 4) {
-							CRChainCodeElement *element = new CRChainCodeElement();
-							element->x = cx;
-							element->y = cy;
-							element->code = chain;
-							blob->elements.push_back(element);
+							blob->appendChainCodeElement(cx, cy, chain);
 							cx--;
-#ifdef PRINT_CHAIN_CODE
-							_dprintf("左\n");
-#endif
 							chain = 3;
 							prev_chain = 3;
 							break;
 						}
 						else if (chaincodeFlag[(cx - 1) + (cy + 1) * width] && chain == 5) {
-							CRChainCodeElement *element = new CRChainCodeElement();
-							element->x = cx;
-							element->y = cy;
-							element->code = chain;
-							blob->elements.push_back(element);
+							blob->appendChainCodeElement(cx, cy, chain);
 							cx--;
 							cy++;
-#ifdef PRINT_CHAIN_CODE
-							_dprintf("左下\n");
-#endif
 							chain = 3;
 							prev_chain = 3;
 							break;
 						}
 						else if (chaincodeFlag[(cx    ) + (cy + 1) * width] && chain == 6) {
-							CRChainCodeElement *element = new CRChainCodeElement();
-							element->x = cx;
-							element->y = cy;
-							element->code = chain;
-							blob->elements.push_back(element);
+							blob->appendChainCodeElement(cx, cy, chain);
 							cy++;
-#ifdef PRINT_CHAIN_CODE
-							_dprintf("下\n");
-#endif
 							chain = 5;
 							prev_chain = 5;
 							break;
 						}
 						else if (chaincodeFlag[(cx + 1) + (cy + 1) * width] && chain == 7) {
-							CRChainCodeElement *element = new CRChainCodeElement();
-							element->x = cx;
-							element->y = cy;
-							element->code = chain;
-							blob->elements.push_back(element);
+							blob->appendChainCodeElement(cx, cy, chain);
 							cx++;
 							cy++;
-#ifdef PRINT_CHAIN_CODE
-							_dprintf("右下\n");
-#endif
 							chain = 5;
 							prev_chain = 5;
 							break;
 						}
 						else if (chaincodeFlag[(cx + 1) + (cy    ) * width] && chain == 0) {
-							CRChainCodeElement *element = new CRChainCodeElement();
-							element->x = cx;
-							element->y = cy;
-							element->code = chain;
-							blob->elements.push_back(element);
+							blob->appendChainCodeElement(cx, cy, chain);
 							cx++;
-#ifdef PRINT_CHAIN_CODE
-							_dprintf("右\n");
-#endif
 							chain = 7;
 							prev_chain = 7;
 							break;
 						}
 						// 上
 						else if (chaincodeFlag[(cx + 1) + (cy - 1) * width] && chain == 1) {
-							CRChainCodeElement *element = new CRChainCodeElement();
-							element->x = cx;
-							element->y = cy;
-							element->code = chain;
-							blob->elements.push_back(element);
+							blob->appendChainCodeElement(cx, cy, chain);
 							cx++;
 							cy--;
-#ifdef PRINT_CHAIN_CODE
-							//printf("上\n");
-#endif
 							chain = 7;
 							prev_chain = 7;
 							break;
 						}
 						else if (chaincodeFlag[(cx    ) + (cy - 1) * width] && chain == 2) {
-							CRChainCodeElement *element = new CRChainCodeElement();
-							element->x = cx;
-							element->y = cy;
-							element->code = chain;
-							blob->elements.push_back(element);
+							blob->appendChainCodeElement(cx, cy, chain);
 							cy--;
-#ifdef PRINT_CHAIN_CODE
-							_dprintf("上\n");
-#endif
 							chain = 1;
 							prev_chain = 1;
 							break;
 						}
 						else if (chaincodeFlag[(cx - 1) + (cy - 1) * width] && chain == 3) {
-							CRChainCodeElement *element = new CRChainCodeElement();
-							element->x = cx;
-							element->y = cy;
-							element->code = chain;
-							blob->elements.push_back(element);
+							blob->appendChainCodeElement(cx, cy, chain);
 							cx--;
 							cy--;
-#ifdef PRINT_CHAIN_CODE
-							_dprintf("左上\n");
-#endif
 							chain = 1;
 							prev_chain = 1;
 							break;
@@ -209,11 +150,7 @@ void CRChainCode::parsePixel(unsigned char* chaincodeFlag, int width, int height
 						if (chain > 7) chain = 0;
 						
 						if (chain == prev_chain) {
-							CRChainCodeElement *element = new CRChainCodeElement();
-							element->x = cx;
-							element->y = cy;
-							element->code = chain;
-							blob->elements.push_back(element);
+							blob->appendChainCodeElement(cx, cy, chain);
 							cx = x;
 							cy = y;
 							break;
@@ -221,16 +158,12 @@ void CRChainCode::parsePixel(unsigned char* chaincodeFlag, int width, int height
 					}
 #ifdef OUTPUT_IMAGE_FOR_DEBUG_WHEN_ERROR
 					if (loop > CHAIN_ERROR_LOOP_LIMIT) {
-						// parsing error?
-						outputPixels(pixel, width, height);
-						releaseChainCode(&chaincode);
+						_DPRINTF("parsing error?\n");
 						break;
 					}
 #endif
 					*(chaincodeFlag + cx + cy * width) = CRChainCodeFlagChecked;
-					
 					if (cx == x && cy == y) {
-//						CRChainCodeStorageAddNewChainCodeWithFiltering(storage, &chaincode, DEFAULT_ASPECT_RATIO_MARGIN, DEFAULT_MINIMUM_CHAINCODE_LENGTH, DEFAULT_MAXIMUM_CHAINCODE_LENGTH);
 						break;
 					}
 				}
@@ -245,14 +178,12 @@ void CRChainCode::parsePixel(unsigned char* chaincodeFlag, int width, int height
 				int cy = y;
 				
 #ifdef USE_INSIDE_CHAINCODE
-				ChainCode *chaincode = createChainCode(ChainCodeInside);
+				CRChainCodeBlob *blob = new CRChainCodeBlob();
+				blobs.push_back(blob);
 #endif				
 				int prev_chain = 4;
 				
 				int chain = 0;
-#ifdef PRINT_CHAIN_CODE
-				_dprintf("1=>0 %d,%d(%d)\n", cx, cy, chain);
-#endif
 				prev_chain = chain;
 				
 				while(1) {
@@ -262,100 +193,76 @@ void CRChainCode::parsePixel(unsigned char* chaincodeFlag, int width, int height
 					while(1) {
 						if (chaincodeFlag[(cx - 1) + (cy    ) * width] && chain == 4) {
 #ifdef USE_INSIDE_CHAINCODE
-							addNewChainCodeElement(chaincode, cx, cy, chain);
+							blob->appendChainCodeElement(cx, cy, chain);
 #endif
 							cx--;
-#ifdef PRINT_CHAIN_CODE
-							_dprintf("左\n");
-#endif
 							chain = 5;
 							prev_chain = 5;
 							break;
 						}
 						else if (chaincodeFlag[(cx - 1) + (cy + 1) * width] && chain == 5) {
 #ifdef USE_INSIDE_CHAINCODE
-							addNewChainCodeElement(chaincode, cx, cy, chain);
+							blob->appendChainCodeElement(cx, cy, chain);
 #endif
 							cx--;
 							cy++;
-#ifdef PRINT_CHAIN_CODE
-							_dprintf("左下\n");
-#endif
 							chain = 7;
 							prev_chain = 7;
 							break;
 						}
 						else if (chaincodeFlag[(cx    ) + (cy + 1) * width] && chain == 6) {
 #ifdef USE_INSIDE_CHAINCODE
-							addNewChainCodeElement(chaincode, cx, cy, chain);
+							blob->appendChainCodeElement(cx, cy, chain);
 #endif
 							cy++;
-#ifdef PRINT_CHAIN_CODE
-							_dprintf("下\n");
-#endif
 							chain = 7;
 							prev_chain = 7;
 							break;
 						}
 						else if (chaincodeFlag[(cx + 1) + (cy + 1) * width] && chain == 7) {
 #ifdef USE_INSIDE_CHAINCODE
-							addNewChainCodeElement(chaincode, cx, cy, chain);
+							blob->appendChainCodeElement(cx, cy, chain);
 #endif
 							cx++;
 							cy++;
-#ifdef PRINT_CHAIN_CODE
-							_dprintf("右下\n");
-#endif
 							chain = 1;
 							prev_chain = 1;
 							break;
 						}
 						else if (chaincodeFlag[(cx + 1) + (cy    ) * width] && chain == 0) {
 #ifdef USE_INSIDE_CHAINCODE
-							addNewChainCodeElement(chaincode, cx, cy, chain);
+							blob->appendChainCodeElement(cx, cy, chain);
 #endif
 							cx++;
 							chain = 1;
 							prev_chain = 1;
-#ifdef PRINT_CHAIN_CODE
-							_dprintf("右\n");
-#endif
 							break;
 						}
 						else if (chaincodeFlag[(cx + 1) + (cy - 1) * width] && chain == 1) {
 #ifdef USE_INSIDE_CHAINCODE
-							addNewChainCodeElement(chaincode, cx, cy, chain);
+							blob->appendChainCodeElement(cx, cy, chain);
 #endif
 							cx++;
 							cy--;
-#ifdef PRINT_CHAIN_CODE
-							_dprintf("右上\n");
-#endif
 							chain = 3;
 							prev_chain = 3;
 							break;
 						}
 						else if (chaincodeFlag[(cx    ) + (cy - 1) * width] && chain == 2) {
 #ifdef USE_INSIDE_CHAINCODE
-							addNewChainCodeElement(chaincode, cx, cy, chain);
+							blob->appendChainCodeElement(cx, cy, chain);
 #endif
 							cy--;
-#ifdef PRINT_CHAIN_CODE
-							_dprintf("上\n");
-#endif
 							chain = 3;
 							prev_chain = 3;
 							break;
 						}
 						else if (chaincodeFlag[(cx - 1) + (cy - 1) * width] && chain == 3) {
 #ifdef USE_INSIDE_CHAINCODE
-							addNewChainCodeElement(chaincode, cx, cy, chain);
+							blob->appendChainCodeElement(cx, cy, chain);
 #endif
 							cx--;
 							cy--;
-#ifdef PRINT_CHAIN_CODE
-							_dprintf("左上\n");
-#endif
 							chain = 5;
 							prev_chain = 5;
 							break;
@@ -366,7 +273,7 @@ void CRChainCode::parsePixel(unsigned char* chaincodeFlag, int width, int height
 						
 						if (chain == prev_chain) {
 #ifdef USE_INSIDE_CHAINCODE
-							addNewChainCodeElement(chaincode, cx, cy, chain);
+							blob->appendChainCodeElement(cx, cy, chain);
 #endif
 							cx = x;
 							cy = y;
@@ -375,9 +282,7 @@ void CRChainCode::parsePixel(unsigned char* chaincodeFlag, int width, int height
 					}
 #ifdef OUTPUT_IMAGE_FOR_DEBUG_WHEN_ERROR
 					if (loop > CHAIN_ERROR_LOOP_LIMIT) {
-						// parsing error?
-						outputPixels(pixel, width, height);
-						releaseChainCode(&chaincode);
+						_DPRINTF("parsing error?\n");
 						break;
 					}
 #endif
@@ -385,7 +290,6 @@ void CRChainCode::parsePixel(unsigned char* chaincodeFlag, int width, int height
 					
 					if (cx == x && cy == y) {
 #ifdef USE_INSIDE_CHAINCODE
-						addNewChainCodeWithFiltering(storage, &chaincode, DEFAULT_ASPECT_RATIO_MARGIN, DEFAULT_MINIMUM_CHAINCODE_LENGTH, DEFAULT_MAXIMUM_CHAINCODE_LENGTH);
 #endif
 						break;
 					}

@@ -55,9 +55,15 @@ void makeTestImageData(unsigned char **output_pixel, int *output_width, int *out
 		}
 	}
 	
-	for (int y = 10; y < 17; y++) {
-		for (int x = 10; x < 17; x++) {
+	for (int y = 9; y < 18; y++) {
+		for (int x = 9; x < 18; x++) {
 			grayBuff[x + y * width] = 1;
+		}
+	}
+	
+	for (int y = 12; y < 15; y++) {
+		for (int x = 12; x < 15; x++) {
+			grayBuff[x + y * width] = 0;
 		}
 	}
 	

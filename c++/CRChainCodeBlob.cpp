@@ -43,3 +43,24 @@ CRChainCodeBlob::~CRChainCodeBlob() {
 		++it;
 	}
 }
+
+void CRChainCodeBlob::appendChainCodeElement(int x, int y, int code) {
+	CRChainCodeElement *element = new CRChainCodeElement(x, y, code);
+	this->elements.push_back(element);
+}
+
+CRChainCodeElement* CRChainCodeBlob::thirdCorner(CRChainCodeElement *first) {
+	int maxLength = 0;
+	CRChainCodeElement* tempThirdCorner = NULL;
+	std::list<CRChainCodeElement*>::iterator it = elements.begin();
+	while(it != elements.end()) {
+		CRChainCodeElement* e = (CRChainCodeElement*)*it;
+		int length = (first->x - e->x) * (first->x - e->x) + (first->y - e->y) * (first->y - e->y);
+		if (length > maxLength) {
+			maxLength = length;
+			tempThirdCorner = e;
+		}
+		++it;
+	}
+	return tempThirdCorner;
+}

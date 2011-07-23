@@ -44,5 +44,6 @@ public:
 	CRChainCodeElementFlag	flag;
 public:
 	CRChainCodeElement();
+	CRChainCodeElement(int x, int y, int code);
 	~CRChainCodeElement();
 };
