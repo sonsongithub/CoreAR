@@ -59,5 +59,6 @@ public:
 public:
 	CRChainCode();
 	~CRChainCode();
+	void detectCorner();
 	void parsePixel(unsigned char* chaincodeFlag, int width, int height);
 };

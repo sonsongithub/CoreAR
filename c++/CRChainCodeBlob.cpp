@@ -30,6 +30,8 @@
 
 #include "CRChainCodeBlob.h"
 
+#include <math.h>
+
 CRChainCodeBlob::CRChainCodeBlob() {
 	_DPRINTF("CRChainCodeBlob constructor\n");
 }
@@ -47,6 +49,76 @@ CRChainCodeBlob::~CRChainCodeBlob() {
 void CRChainCodeBlob::appendChainCodeElement(int x, int y, int code) {
 	CRChainCodeElement *element = new CRChainCodeElement(x, y, code);
 	this->elements.push_back(element);
+}
+
+void CRChainCodeBlob::detectCorner() {
+	CRChainCodeElement *firstCorner = this->firstCorner();
+	CRChainCodeElement *thirdCorner = this->thirdCorner(firstCorner);
+	CRChainCodeElement *secondCorner = this->secondCorner(firstCorner, thirdCorner);
+	CRChainCodeElement *fourthCorner = this->fourthCorner(firstCorner, thirdCorner);
+	
+	_DPRINTF("%d,%d\n", firstCorner->x, firstCorner->y);
+	_DPRINTF("%d,%d\n", secondCorner->x, secondCorner->y);
+	_DPRINTF("%d,%d\n", thirdCorner->x, thirdCorner->y);
+	_DPRINTF("%d,%d\n", fourthCorner->x, fourthCorner->y);
+}
+
+CRChainCodeElement* CRChainCodeBlob::firstCorner() {
+	return this->elements.front();
+}
+
+CRChainCodeElement* CRChainCodeBlob::secondCorner(CRChainCodeElement *first, CRChainCodeElement *third) {
+	float a = - (float)(third->y - first->y) / (third->x - first->x);
+	float b = 1;
+	float c = - a * first->x - first->y;
+	float maxLength = 0;
+	
+	CRChainCodeElement* tempSecondCorner = NULL;
+	std::list<CRChainCodeElement*>::iterator it = elements.begin();
+	++it;
+	while(it != elements.end()) {
+		CRChainCodeElement* e = (CRChainCodeElement*)*it;
+		
+		if (e == third)
+			break;
+		
+		float temp = fabs(a * e->x + b * e->y + c);
+		
+		if (temp > maxLength) {
+			maxLength = temp;
+			tempSecondCorner = e;
+		}
+		++it;
+	}
+	return tempSecondCorner;
+}
+
+CRChainCodeElement* CRChainCodeBlob::fourthCorner(CRChainCodeElement *first, CRChainCodeElement *third) {
+	float a = - (float)(third->y - first->y) / (third->x - first->x);
+	float b = 1;
+	float c = - a * first->x - first->y;
+	float maxLength = 0;
+	
+	CRChainCodeElement* tempThirdCorner = NULL;
+	std::list<CRChainCodeElement*>::iterator it = elements.begin();
+	while(it != elements.end()) {
+		CRChainCodeElement* e = (CRChainCodeElement*)*it;
+		if (e == third)
+			break;
+		++it;
+	}
+	while(it != elements.end()) {
+		CRChainCodeElement* e = (CRChainCodeElement*)*it;
+		
+		float temp = fabs(a * e->x + b * e->y + c);
+		
+		if (temp > maxLength) {
+			maxLength = temp;
+			tempThirdCorner = e;
+		}
+		++it;
+	}
+	return tempThirdCorner;
 }
 
 CRChainCodeElement* CRChainCodeBlob::thirdCorner(CRChainCodeElement *first) {

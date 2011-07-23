@@ -46,6 +46,15 @@ CRChainCode::~CRChainCode() {
 	}
 }
 
+void CRChainCode::detectCorner() {
+	std::list<CRChainCodeBlob*>::iterator it = blobs.begin();
+	while(it != blobs.end()) {
+		CRChainCodeBlob *blob = *it;
+		blob->detectCorner();
+		++it;
+	}
+}
+
 void CRChainCode::parsePixel(unsigned char* chaincodeFlag, int width, int height) {
 	CRChainCodeBlob *blob = NULL;
 	
