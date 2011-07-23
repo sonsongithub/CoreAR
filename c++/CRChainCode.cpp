@@ -34,21 +34,23 @@
 
 CRChainCode::CRChainCode() {
 	_DPRINTF("CRChainCode constructor\n");
+	blobs = new std::list<CRChainCodeBlob*> ();
 }
 
 CRChainCode::~CRChainCode() {
 	_DPRINTF("CRChainCode destructor\n");
 	
-	std::list<CRChainCodeBlob*>::iterator it = blobs.begin();
-	while(it != blobs.end()) {
+	std::list<CRChainCodeBlob*>::iterator it = blobs->begin();
+	while(it != blobs->end()) {
 		delete(*it);
 		++it;
 	}
+	delete blobs;
 }
 
 void CRChainCode::detectCorner() {
-	std::list<CRChainCodeBlob*>::iterator it = blobs.begin();
-	while(it != blobs.end()) {
+	std::list<CRChainCodeBlob*>::iterator it = blobs->begin();
+	while(it != blobs->end()) {
 		CRChainCodeBlob *blob = *it;
 		blob->detectCorner();
 		++it;
@@ -87,7 +89,7 @@ void CRChainCode::parsePixel(unsigned char* chaincodeFlag, int width, int height
 				int chain = 4;
 				
 				blob = new CRChainCodeBlob();
-				blobs.push_back(blob);
+				blobs->push_back(blob);
 				
 				while(1) {
 #ifdef OUTPUT_IMAGE_FOR_DEBUG_WHEN_ERROR

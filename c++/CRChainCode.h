@@ -55,7 +55,7 @@ typedef enum {
 
 class CRChainCode {
 public:
-	std::list<CRChainCodeBlob*> blobs;
+	std::list<CRChainCodeBlob*> *blobs;
 public:
 	CRChainCode();
 	~CRChainCode();

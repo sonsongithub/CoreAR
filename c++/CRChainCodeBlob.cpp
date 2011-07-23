@@ -45,6 +45,7 @@ CRChainCodeBlob::~CRChainCodeBlob() {
 		delete(*it);
 		++it;
 	}
+	delete elements;
 }
 
 void CRChainCodeBlob::appendChainCodeElement(int x, int y, int code) {
