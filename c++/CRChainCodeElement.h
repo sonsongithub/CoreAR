@@ -28,6 +28,10 @@
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifdef _CRCHAINCODEELEMENT_CPP_
+#else
+#define _CRCHAINCODEELEMENT_CPP_
+
 #include <iostream>
 
 class CRChainCodeElement {
@@ -40,3 +44,5 @@ public:
 	CRChainCodeElement(int x, int y, int code);
 	~CRChainCodeElement();
 };
+
+#endif

@@ -50,6 +50,14 @@ CRHomogeneousVec3* CRHomogeneousVec3::outerProduct(CRHomogeneousVec3 *p1, CRHomo
 	return p;
 }
 
+CRHomogeneousVec3* CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(CRChainCodeElement* element) {
+	CRHomogeneousVec3 *p = new CRHomogeneousVec3 ();
+	p->x = element->x;
+	p->y = element->y;
+	p->w = 1;
+	return p;
+}
+
 void CRHomogeneousVec3::normalize() {
 	if (fabs(this->w) > 0.0000000000001) {
 		this->x /= this->w;
@@ -61,5 +69,5 @@ void CRHomogeneousVec3::normalize() {
 }
 
 void CRHomogeneousVec3::dump() {
-	printf("(%f,%f,%f)\n", x, y, w);
+	printf("%f,%f,%f\n", x, y, w);
 }

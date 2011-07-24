@@ -1,6 +1,6 @@
 /*
  * Core AR
- * CRHomogeneousPoint.h
+ * CRCode.cpp
  *
  * Copyright (c) Yuichi YOSHIDA, 11/07/23.
  * All rights reserved.
@@ -28,26 +28,17 @@
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef _CRHOMOGENEOUSVEC3_CPP_
-#else
-#define _CRHOMOGENEOUSVEC3_CPP_
+#include "CRCode.h"
 
-#include <iostream>
-#include "CRChainCodeElement.h"
+CRCode::CRCode() {
+	_DPRINTF("CRCode constructor\n");
+}
 
-class CRHomogeneousVec3 {
-public:
-	float x;
-	float y;
-	float w;
-public:
-	CRHomogeneousVec3();
-	~CRHomogeneousVec3();
-	void dump();
-	void normalize();
-public:
-	static CRHomogeneousVec3* outerProduct(CRHomogeneousVec3 *p1, CRHomogeneousVec3 *p2);
-	static CRHomogeneousVec3* homogeneousVec3FromChainCodeElement(CRChainCodeElement* element);
-};
+CRCode::~CRCode() {
+	_DPRINTF("CRCode destructor\n");
+	delete firstCorner;
+	delete secondCorner;
+	delete thirdCorner;
+	delete fourthCorner;
+}
 
-#endif

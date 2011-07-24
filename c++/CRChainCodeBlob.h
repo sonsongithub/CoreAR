@@ -28,11 +28,16 @@
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifdef _CRCHAINCODEBLOB_CPP_
+#else
+#define _CRCHAINCODEBLOB_CPP_
+
 #include <iostream>
 #include <list>
 
 #include "CRChainCodeElement.h"
 #include "CRHomogeneousVec3.h"
+#include "CRCode.h"
 
 //#define USE_INSIDE_CHAINCODE
 
@@ -54,7 +59,8 @@ public:
 	~CRChainCodeBlob();
 	void appendChainCodeElement(int x, int y, int code);
 	
-	void detectCorner();
+	CRCode* code();
+	CRCode* codeWithoutLSM();
 	CRChainCodeElement* firstCorner();
 	CRChainCodeElement* secondCorner(CRChainCodeElement *first, CRChainCodeElement *third);
 	CRChainCodeElement* thirdCorner(CRChainCodeElement *first);
@@ -62,3 +68,5 @@ public:
 	
 	CRHomogeneousVec3* getLineThroughPoints(CRChainCodeElement *start, CRChainCodeElement *end);
 };
+
+#endif

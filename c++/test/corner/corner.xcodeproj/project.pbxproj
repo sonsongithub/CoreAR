@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		14236A8913DBCB7C007AB849 /* CRTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14236A8713DBCB7C007AB849 /* CRTest.cpp */; };
+		147AFD7913DBFFA700173CC9 /* CRCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 147AFD7713DBFFA700173CC9 /* CRCode.cpp */; };
 		14BDB12A13DBB336009F85B9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14BDB12913DBB336009F85B9 /* main.cpp */; };
 		14BDB12C13DBB336009F85B9 /* corner.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 14BDB12B13DBB336009F85B9 /* corner.1 */; };
 		14BDB14013DBB399009F85B9 /* CRChainCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14BDB13813DBB399009F85B9 /* CRChainCode.cpp */; };
@@ -32,6 +33,8 @@
 /* Begin PBXFileReference section */
 		14236A8713DBCB7C007AB849 /* CRTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRTest.cpp; path = ../CRTest.cpp; sourceTree = "<group>"; };
 		14236A8813DBCB7C007AB849 /* CRTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRTest.h; path = ../CRTest.h; sourceTree = "<group>"; };
+		147AFD7713DBFFA700173CC9 /* CRCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRCode.cpp; path = ../../CRCode.cpp; sourceTree = "<group>"; };
+		147AFD7813DBFFA700173CC9 /* CRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRCode.h; path = ../../CRCode.h; sourceTree = "<group>"; };
 		14BDB12513DBB336009F85B9 /* corner */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = corner; sourceTree = BUILT_PRODUCTS_DIR; };
 		14BDB12913DBB336009F85B9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		14BDB12B13DBB336009F85B9 /* corner.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = corner.1; sourceTree = "<group>"; };
@@ -87,6 +90,8 @@
 		14BDB13613DBB388009F85B9 /* CoreAR */ = {
 			isa = PBXGroup;
 			children = (
+				147AFD7713DBFFA700173CC9 /* CRCode.cpp */,
+				147AFD7813DBFFA700173CC9 /* CRCode.h */,
 				14BDB13813DBB399009F85B9 /* CRChainCode.cpp */,
 				14BDB13913DBB399009F85B9 /* CRChainCode.h */,
 				14BDB13A13DBB399009F85B9 /* CRChainCodeBlob.cpp */,
@@ -162,6 +167,7 @@
 				14BDB14213DBB399009F85B9 /* CRChainCodeElement.cpp in Sources */,
 				14BDB14313DBB399009F85B9 /* CRHomogeneousVec3.cpp in Sources */,
 				14236A8913DBCB7C007AB849 /* CRTest.cpp in Sources */,
+				147AFD7913DBFFA700173CC9 /* CRCode.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

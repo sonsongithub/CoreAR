@@ -28,6 +28,10 @@
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifdef _CRCHAINCODE_CPP_
+#else
+#define _CRCHAINCODE_CPP_
+
 #include <iostream>
 
 typedef enum {
@@ -44,6 +48,7 @@ public:
 public:
 	CRChainCode();
 	~CRChainCode();
-	void detectCorner();
 	void parsePixel(unsigned char* chaincodeFlag, int width, int height);
 };
+
+#endif

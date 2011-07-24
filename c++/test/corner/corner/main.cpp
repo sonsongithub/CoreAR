@@ -64,7 +64,7 @@ int main (int argc, const char * argv[]) {
 											  &pixel,
 											  width,
 											  height,
-											  corners_projected,
+											  NULL,
 											  focal,
 											  xdeg, 
 											  ydeg, 
@@ -72,6 +72,10 @@ int main (int argc, const char * argv[]) {
 											  xt, 
 											  yt,
 											  zt);
+//	printf("%f,%f,%f\n", corners_projected[0], corners_projected[1], corners_projected[2]);
+//	printf("%f,%f,%f\n", corners_projected[3], corners_projected[4], corners_projected[5]);
+//	printf("%f,%f,%f\n", corners_projected[6], corners_projected[7], corners_projected[8]);
+//	printf("%f,%f,%f\n", corners_projected[9], corners_projected[10], corners_projected[11]);
 	
 	////////////////////////////////////////////////////////////////////////////////
 	//
@@ -79,13 +83,25 @@ int main (int argc, const char * argv[]) {
 	//
 	////////////////////////////////////////////////////////////////////////////////
 	chaincode->parsePixel(pixel, width, height);
-	chaincode->detectCorner();
+	CRChainCodeBlob *blob = chaincode->blobs->front();
 	
+	blob->code()->firstCorner->dump();
+	blob->codeWithoutLSM()->firstCorner->dump();
+	printf("%f,%f,%f\n", corners_projected[0], corners_projected[1], corners_projected[2]);
+	
+	////////////////////////////////////////////////////////////////////////////////
+	//
 	// dump
+	//
+	////////////////////////////////////////////////////////////////////////////////
 	_CRTestDumpPixel(pixel, width, height);
-	
+
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	// Release
+	//
+	////////////////////////////////////////////////////////////////////////////////
 	free(pixel);
-	
 	delete(chaincode);
 	
     return 0;

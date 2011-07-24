@@ -28,6 +28,8 @@
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "CRHomogeneousVec3.h"
+
 void _CRTestDumpPixel(unsigned char* pixel, int width, int height);
 void _CRTestMakeSimplePixelData(unsigned char **output_pixel, int *output_width, int *output_height);
-void _CRTestMakePixelDataWithProjectionSetting(unsigned char **output_pixel, int width, int height, float *corners_projected, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt);
+void _CRTestMakePixelDataWithProjectionSetting(unsigned char **output_pixel, int width, int height, CRHomogeneousVec3* projected_corners, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt);
