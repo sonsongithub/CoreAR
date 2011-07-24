@@ -98,12 +98,12 @@ void testCornerDetection(float *diff_normal, float *diff_without_lsm) {
 			float d1 = getDifferenceBetweenVectors(code_normal->corners + i, corners + i);
 			float d2 = getDifferenceBetweenVectors(code_without_lsm->corners + i, corners + i);
 		
-			_DPRINTF("--------------------------------------------\n");
+//			_DPRINTF("--------------------------------------------\n");
 			(code_normal->corners + i)->dump();
 			(code_without_lsm->corners + i)->dump();
 			(corners + i)->dump();
-			_DPRINTF("diff             = %f\n", d1);
-			_DPRINTF("diff without LSM = %f\n", d2);
+//			_DPRINTF("diff             = %f\n", d1);
+//			_DPRINTF("diff without LSM = %f\n", d2);
 			
 			*diff_normal += d1;
 			*diff_without_lsm += d2;
@@ -135,7 +135,7 @@ EXCEPTION_TEST:
 
 int main (int argc, const char * argv[]) {
 	
-	int test_count = 10000;
+	int test_count = 10;
 	float sum_diff_normal = 0;
 	float sum_diff_without_lsm = 0;
 	
