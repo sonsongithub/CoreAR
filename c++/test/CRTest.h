@@ -30,6 +30,7 @@
 
 #include "CRHomogeneousVec3.h"
 
+float getDifferenceBetweenVectors(CRHomogeneousVec3 *p1, CRHomogeneousVec3 *p2);
 void _CRTestDumpPixel(unsigned char* pixel, int width, int height);
 void _CRTestMakeSimplePixelData(unsigned char **output_pixel, int *output_width, int *output_height);
 void _CRTestMakePixelDataWithProjectionSetting(unsigned char **output_pixel, int width, int height, CRHomogeneousVec3* projected_corners, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt);

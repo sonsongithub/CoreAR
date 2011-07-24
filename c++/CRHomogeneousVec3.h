@@ -35,6 +35,8 @@
 #include <iostream>
 #include "CRChainCodeElement.h"
 
+#define MINIMUM_VALUE 0.0000000000001
+
 class CRHomogeneousVec3 {
 public:
 	float x;

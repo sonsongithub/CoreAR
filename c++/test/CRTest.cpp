@@ -39,6 +39,13 @@
 void _CRTestSetPixel(unsigned char* pixel, int width, int height, int x, int y, unsigned char value);
 void _CRTestProjectPoint(float *x, float *x_projected, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt);
 
+float getDifferenceBetweenVectors(CRHomogeneousVec3 *p1, CRHomogeneousVec3 *p2) {
+	p1->normalize();
+	p2->normalize();
+	float dif = (p1->x - p2->x) * (p1->x - p2->x) + (p1->y - p2->y) * (p1->y - p2->y);
+	return sqrt(dif);
+}
+
 void _CRTestSetPixel(unsigned char* pixel, int width, int height, int x, int y, unsigned char value) {
 	if (x >= 0 && x < width && y >= 0 && y < height) 
 		*(pixel + x + y * width) = value;
@@ -115,6 +122,10 @@ void _CRTestMakePixelDataWithProjectionSetting(unsigned char **output_pixel, int
 		_CRTestProjectPoint(corners[i], p, focal, xdeg, ydeg, zdeg, xt, yt, zt);
 		p[0] += width / 2;
 		p[1] += height / 2;
+	
+		projected_corners[i].x = p[0];
+		projected_corners[i].y = p[1];
+		projected_corners[i].w = 1;
 	}
 	
 	int precision = 30;
@@ -140,11 +151,6 @@ void _CRTestMakePixelDataWithProjectionSetting(unsigned char **output_pixel, int
 }
 
 void _CRTestDumpPixel(unsigned char* pixel, int width, int height) {
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	// display pixel after extracting chain code
-	//
-	////////////////////////////////////////////////////////////////////////////////
 	for (int y = 0; y < width; y++) {
 		for (int x = 0; x < height; x++) {
 			printf("%02x ", pixel[x + y * width]);
@@ -155,13 +161,6 @@ void _CRTestDumpPixel(unsigned char* pixel, int width, int height) {
 
 void _CRTestMakeSimplePixelData(unsigned char **output_pixel, int *output_width, int *output_height) {
 	
-#define _MAKE_DUMMY_DATA
-#ifdef _MAKE_DUMMY_DATA
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	// make dummy data
-	//
-	////////////////////////////////////////////////////////////////////////////////
 	int width = 20;
 	int height = 20;
 	unsigned char *grayBuff = (unsigned char*)malloc(sizeof(unsigned char)*width*height);
@@ -189,26 +188,7 @@ void _CRTestMakeSimplePixelData(unsigned char **output_pixel, int *output_width,
 	grayBuff[7 + 2 * width] = 0;
 	grayBuff[8 + 2 * width] = 0;
 	grayBuff[8 + 4 * width] = 0;
-#else
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	// read dummy data from file
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	int width = 320;
-	int height = 240;
-	unsigned char *grayBuff = (unsigned char*)malloc(sizeof(unsigned char)*width*height);
 	
-	memset(grayBuff, 0, sizeof(unsigned char)*width*height);
-	FILE *fp = fopen("../../test.bin", "rb");
-	
-	
-	for (int y = 0; y < height; y++) {
-		unsigned char *p = (grayBuff + y * width);
-		fread(p, sizeof(unsigned char), width, fp);
-	}
-	fclose(fp);
-#endif	
 	*output_pixel = grayBuff;
 	*output_width = width;
 	*output_height = height;

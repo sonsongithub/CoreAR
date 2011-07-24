@@ -31,12 +31,12 @@
 #include "CRChainCode.h"
 
 CRChainCode::CRChainCode() {
-	_DPRINTF("CRChainCode constructor\n");
+//	_DPRINTF("CRChainCode constructor\n");
 	blobs = new std::list<CRChainCodeBlob*> ();
 }
 
 CRChainCode::~CRChainCode() {
-	_DPRINTF("CRChainCode destructor\n");
+//	_DPRINTF("CRChainCode destructor\n");
 	
 	std::list<CRChainCodeBlob*>::iterator it = blobs->begin();
 	while(it != blobs->end()) {

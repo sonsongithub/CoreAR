@@ -39,6 +39,8 @@
 #include "CRHomogeneousVec3.h"
 #include "CRCode.h"
 
+#define MINIMUM_CHAINCODE_LENGTH 20
+
 //#define USE_INSIDE_CHAINCODE
 
 #ifdef USE_INSIDE_CHAINCODE

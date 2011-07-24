@@ -33,12 +33,12 @@
 #include <math.h>
 
 CRChainCodeBlob::CRChainCodeBlob() {
-	_DPRINTF("CRChainCodeBlob constructor\n");
+//	_DPRINTF("CRChainCodeBlob constructor\n");
 	elements = new std::list<CRChainCodeElement*>();
 }
 
 CRChainCodeBlob::~CRChainCodeBlob() {
-	_DPRINTF("CRChainCodeBlob destructor\n");
+//	_DPRINTF("CRChainCodeBlob destructor\n");
 	
 	std::list<CRChainCodeElement*>::iterator it = elements->begin();
 	while(it != elements->end()) {
@@ -101,6 +101,9 @@ CRHomogeneousVec3* CRChainCodeBlob::getLineThroughPoints(CRChainCodeElement *sta
 }
 
 CRCode *CRChainCodeBlob::codeWithoutLSM() {
+	if (this->elements->size() < MINIMUM_CHAINCODE_LENGTH)
+		return NULL;
+	
 	CRChainCodeElement *firstCorner = this->firstCorner();
 	CRChainCodeElement *thirdCorner = this->thirdCorner(firstCorner);
 	CRChainCodeElement *secondCorner = this->secondCorner(firstCorner, thirdCorner);
@@ -108,15 +111,35 @@ CRCode *CRChainCodeBlob::codeWithoutLSM() {
 	
 	CRCode *code = new CRCode();
 	
+	code->corners = new CRHomogeneousVec3 [4];
 	code->firstCorner  = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(firstCorner);
 	code->secondCorner = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(secondCorner);
 	code->thirdCorner  = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(thirdCorner);
 	code->fourthCorner = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(fourthCorner);
 	
+	(code->corners + 0)->x = code->firstCorner->x;
+	(code->corners + 0)->y = code->firstCorner->y;
+	(code->corners + 0)->w = code->firstCorner->w;
+	
+	(code->corners + 1)->x = code->secondCorner->x;
+	(code->corners + 1)->y = code->secondCorner->y;
+	(code->corners + 1)->w = code->secondCorner->w;
+	
+	(code->corners + 2)->x = code->thirdCorner->x;
+	(code->corners + 2)->y = code->thirdCorner->y;
+	(code->corners + 2)->w = code->thirdCorner->w;
+	
+	(code->corners + 3)->x = code->fourthCorner->x;
+	(code->corners + 3)->y = code->fourthCorner->y;
+	(code->corners + 3)->w = code->fourthCorner->w;
+	
 	return code;
 }
 
 CRCode *CRChainCodeBlob::code() {
+	if (this->elements->size() < MINIMUM_CHAINCODE_LENGTH)
+		return NULL;
+	
 	CRChainCodeElement *firstCorner = this->firstCorner();
 	CRChainCodeElement *thirdCorner = this->thirdCorner(firstCorner);
 	CRChainCodeElement *secondCorner = this->secondCorner(firstCorner, thirdCorner);
@@ -129,6 +152,7 @@ CRCode *CRChainCodeBlob::code() {
 	
 	CRCode *code = new CRCode();
 	
+	code->corners = new CRHomogeneousVec3 [4];
 	code->firstCorner  = CRHomogeneousVec3::outerProduct(line4, line1);
 	code->secondCorner = CRHomogeneousVec3::outerProduct(line1, line2);
 	code->thirdCorner  = CRHomogeneousVec3::outerProduct(line2, line3);
@@ -138,6 +162,22 @@ CRCode *CRChainCodeBlob::code() {
 	code->secondCorner->normalize();
 	code->thirdCorner->normalize();
 	code->fourthCorner->normalize();
+	
+	(code->corners + 0)->x = code->firstCorner->x;
+	(code->corners + 0)->y = code->firstCorner->y;
+	(code->corners + 0)->w = code->firstCorner->w;
+	
+	(code->corners + 1)->x = code->secondCorner->x;
+	(code->corners + 1)->y = code->secondCorner->y;
+	(code->corners + 1)->w = code->secondCorner->w;
+	
+	(code->corners + 2)->x = code->thirdCorner->x;
+	(code->corners + 2)->y = code->thirdCorner->y;
+	(code->corners + 2)->w = code->thirdCorner->w;
+	
+	(code->corners + 3)->x = code->fourthCorner->x;
+	(code->corners + 3)->y = code->fourthCorner->y;
+	(code->corners + 3)->w = code->fourthCorner->w;
 	
 	delete line1;
 	delete line2;

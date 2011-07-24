@@ -30,11 +30,17 @@
 
 #include <iostream>
 #include <math.h>
+#include <time.h>
 
 #include "CRChainCode.h"
+#include "CRHomogeneousVec3.h"
 #include "CRTest.h"
 
-int main (int argc, const char * argv[]) {
+void testCornerDetection(float *diff_normal, float *diff_without_lsm);
+
+void testCornerDetection(float *diff_normal, float *diff_without_lsm) {
+	
+	srand((unsigned)time(NULL));
 	
 	unsigned char *pixel = NULL;
 	int width = 0;
@@ -50,12 +56,13 @@ int main (int argc, const char * argv[]) {
 	
 	width = 25;
 	height = 25;
-	float corners_projected[12];
+	
+	CRHomogeneousVec3 *corners = new CRHomogeneousVec3 [4];
 	
 	float focal = 5;
-	float xdeg = M_PI/800.0;
-	float ydeg = M_PI/800.0;
-	float zdeg = M_PI/4.0;
+	float xdeg = M_PI/800.0 * (rand() % 10);
+	float ydeg = M_PI/800.0 * (rand() % 10);
+	float zdeg = M_PI/100.0 * (rand() % 10);
 	
 	float xt = 0;
 	float yt = 0;
@@ -64,7 +71,7 @@ int main (int argc, const char * argv[]) {
 											  &pixel,
 											  width,
 											  height,
-											  NULL,
+											  corners,
 											  focal,
 											  xdeg, 
 											  ydeg, 
@@ -72,10 +79,6 @@ int main (int argc, const char * argv[]) {
 											  xt, 
 											  yt,
 											  zt);
-//	printf("%f,%f,%f\n", corners_projected[0], corners_projected[1], corners_projected[2]);
-//	printf("%f,%f,%f\n", corners_projected[3], corners_projected[4], corners_projected[5]);
-//	printf("%f,%f,%f\n", corners_projected[6], corners_projected[7], corners_projected[8]);
-//	printf("%f,%f,%f\n", corners_projected[9], corners_projected[10], corners_projected[11]);
 	
 	////////////////////////////////////////////////////////////////////////////////
 	//
@@ -83,27 +86,71 @@ int main (int argc, const char * argv[]) {
 	//
 	////////////////////////////////////////////////////////////////////////////////
 	chaincode->parsePixel(pixel, width, height);
-	CRChainCodeBlob *blob = chaincode->blobs->front();
 	
-	blob->code()->firstCorner->dump();
-	blob->codeWithoutLSM()->firstCorner->dump();
-	printf("%f,%f,%f\n", corners_projected[0], corners_projected[1], corners_projected[2]);
+	
+	if (!chaincode->blobs->empty()) {
+	CRChainCodeBlob *blob = chaincode->blobs->front();
+	CRCode *code_normal = blob->code();
+	CRCode *code_without_lsm = blob->codeWithoutLSM();
+	
+	if (code_normal && code_without_lsm) {
+		for (int i = 0; i < 4; i++) {
+			float d1 = getDifferenceBetweenVectors(code_normal->corners + i, corners + i);
+			float d2 = getDifferenceBetweenVectors(code_without_lsm->corners + i, corners + i);
+		
+			_DPRINTF("--------------------------------------------\n");
+			(code_normal->corners + i)->dump();
+			(code_without_lsm->corners + i)->dump();
+			(corners + i)->dump();
+			_DPRINTF("diff             = %f\n", d1);
+			_DPRINTF("diff without LSM = %f\n", d2);
+			
+			*diff_normal += d1;
+			*diff_without_lsm += d2;
+		}
+		
+		delete code_normal;
+		delete code_without_lsm;
+	}
+	}
 	
 	////////////////////////////////////////////////////////////////////////////////
 	//
 	// dump
 	//
 	////////////////////////////////////////////////////////////////////////////////
-	_CRTestDumpPixel(pixel, width, height);
+//	if (*diff_normal > 2)
+//		_CRTestDumpPixel(pixel, width, height);
 
 	////////////////////////////////////////////////////////////////////////////////
 	//
 	// Release
 	//
 	////////////////////////////////////////////////////////////////////////////////
+EXCEPTION_TEST:
 	free(pixel);
-	delete(chaincode);
+	delete chaincode;
+	delete [] corners;
+}
+
+int main (int argc, const char * argv[]) {
 	
-    return 0;
+	int test_count = 10000;
+	float sum_diff_normal = 0;
+	float sum_diff_without_lsm = 0;
+	
+	for (int i = 0; i < test_count; i++) {
+		float diff_normal = 0;
+		float diff_without_lsm = 0;
+		testCornerDetection(&diff_normal, &diff_without_lsm);
+		
+		sum_diff_normal += diff_normal;
+		sum_diff_without_lsm += diff_without_lsm;
+	}
+	
+	_DPRINTF("test sum diff normal average = %f\n", sum_diff_normal / test_count);
+	_DPRINTF("test sum diff without lsm average = %f\n", sum_diff_without_lsm / test_count);
+	
+	return 0;
 }
 

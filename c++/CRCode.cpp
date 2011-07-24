@@ -31,11 +31,12 @@
 #include "CRCode.h"
 
 CRCode::CRCode() {
-	_DPRINTF("CRCode constructor\n");
+//	_DPRINTF("CRCode constructor\n");
 }
 
 CRCode::~CRCode() {
-	_DPRINTF("CRCode destructor\n");
+//	_DPRINTF("CRCode destructor\n");
+	delete [] corners;
 	delete firstCorner;
 	delete secondCorner;
 	delete thirdCorner;

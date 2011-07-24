@@ -59,7 +59,7 @@ CRHomogeneousVec3* CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(CRChai
 }
 
 void CRHomogeneousVec3::normalize() {
-	if (fabs(this->w) > 0.0000000000001) {
+	if (fabs(this->w) > MINIMUM_VALUE) {
 		this->x /= this->w;
 		this->y /= this->w;
 		this->w = 1;

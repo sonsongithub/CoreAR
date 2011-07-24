@@ -42,6 +42,7 @@ public:
 	float				bottom;
 	float				left;
 	float				right;
+	CRHomogeneousVec3	*corners;
 	CRHomogeneousVec3	*firstCorner;
 	CRHomogeneousVec3	*secondCorner;
 	CRHomogeneousVec3	*thirdCorner;

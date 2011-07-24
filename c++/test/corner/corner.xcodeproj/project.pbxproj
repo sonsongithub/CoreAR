@@ -186,6 +186,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREFIX_HEADER = ../test.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					_DEBUG,
 					"DEBUG=1",
 					"$(inherited)",
 				);
