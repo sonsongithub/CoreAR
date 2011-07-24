@@ -53,7 +53,7 @@ void CRChainCodeBlob::appendChainCodeElement(int x, int y, int code) {
 	this->elements->push_back(element);
 }
 
-void CRChainCodeBlob::getLineThroughPoints(float *a, float *b, float *c, CRChainCodeElement *start, CRChainCodeElement *end) {
+CRHomogeneousVec3* CRChainCodeBlob::getLineThroughPoints(CRChainCodeElement *start, CRChainCodeElement *end) {
 	float sigma_x = 0;
 	float sigma_y = 0;
 	float sigma_xy = 0;
@@ -83,17 +83,21 @@ void CRChainCodeBlob::getLineThroughPoints(float *a, float *b, float *c, CRChain
 		++it;
 	}
 	
+	CRHomogeneousVec3 *line = new CRHomogeneousVec3();
+	
 	float t = n * sigma_xx - sigma_x * sigma_x;
 	if (t == 0) {
-		*a = -1;
-		*b = start->x;
-		*c = 0;
+		line->x = -1;
+		line->y = 0;
+		line->w = start->x;
 	}
 	else {
-		*a = (n * sigma_xy - sigma_x * sigma_y) / t;
-		*b = (sigma_xx * sigma_y- sigma_xy * sigma_x) / t;
-		*c = 1;
+		line->x = (n * sigma_xy - sigma_x * sigma_y) / t;
+		line->y = -1;
+		line->w = (sigma_xx * sigma_y- sigma_xy * sigma_x) / t;
 	}
+	
+	return line;
 }
 
 void CRChainCodeBlob::detectCorner() {
@@ -102,12 +106,35 @@ void CRChainCodeBlob::detectCorner() {
 	CRChainCodeElement *secondCorner = this->secondCorner(firstCorner, thirdCorner);
 	CRChainCodeElement *fourthCorner = this->fourthCorner(firstCorner, thirdCorner);
 	
-	float a, b, c;
+	CRHomogeneousVec3 *line1 = this->getLineThroughPoints(firstCorner, secondCorner);
+	CRHomogeneousVec3 *line2 = this->getLineThroughPoints(secondCorner, thirdCorner);
+	CRHomogeneousVec3 *line3 = this->getLineThroughPoints(thirdCorner, fourthCorner);
+	CRHomogeneousVec3 *line4 = this->getLineThroughPoints(fourthCorner, firstCorner);
 	
-	this->getLineThroughPoints(&a, &b, &c, firstCorner, secondCorner);
-	this->getLineThroughPoints(&a, &b, &c, secondCorner, thirdCorner);
-	this->getLineThroughPoints(&a, &b, &c, thirdCorner, fourthCorner);
-	this->getLineThroughPoints(&a, &b, &c, fourthCorner, firstCorner);
+	line1->dump();
+	line2->dump();
+	line3->dump();
+	line4->dump();
+	
+	CRHomogeneousVec3 *intersection1 = CRHomogeneousVec3::outerProduct(line1, line2);
+	CRHomogeneousVec3 *intersection2 = CRHomogeneousVec3::outerProduct(line2, line3);
+	CRHomogeneousVec3 *intersection3 = CRHomogeneousVec3::outerProduct(line3, line4);
+	CRHomogeneousVec3 *intersection4 = CRHomogeneousVec3::outerProduct(line4, line1);
+	
+	intersection1->dump();
+	intersection2->dump();
+	intersection3->dump();
+	intersection4->dump();
+	
+	delete intersection1;
+	delete intersection2;
+	delete intersection3;
+	delete intersection4;
+	
+	delete line1;
+	delete line2;
+	delete line3;
+	delete line4;
 	
 	_DPRINTF("%d,%d\n", firstCorner->x, firstCorner->y);
 	_DPRINTF("%d,%d\n", secondCorner->x, secondCorner->y);

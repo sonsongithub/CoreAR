@@ -1,6 +1,6 @@
 /*
  * Core AR
- * CRChainCodeBlob.h
+ * CRHomogeneousVec3.cpp
  *
  * Copyright (c) Yuichi YOSHIDA, 11/07/23.
  * All rights reserved.
@@ -28,25 +28,26 @@
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <iostream>
-#include <list>
-
-#include "CRChainCodeElement.h"
 #include "CRHomogeneousVec3.h"
 
-class CRChainCodeBlob {
-public:
-	std::list<CRChainCodeElement*> *elements;
-public:
-	CRChainCodeBlob();
-	~CRChainCodeBlob();
-	void appendChainCodeElement(int x, int y, int code);
+CRHomogeneousVec3::CRHomogeneousVec3() {
+	_DPRINTF("CRHomogeneousVec3 constructor\n");
+}
+
+CRHomogeneousVec3::~CRHomogeneousVec3() {
+	_DPRINTF("CRHomogeneousVec3 destructor\n");
+}
+
+CRHomogeneousVec3* CRHomogeneousVec3::outerProduct(CRHomogeneousVec3 *p1, CRHomogeneousVec3 *p2) {
+	CRHomogeneousVec3 *p = new CRHomogeneousVec3 ();
 	
-	void detectCorner();
-	CRChainCodeElement* firstCorner();
-	CRChainCodeElement* secondCorner(CRChainCodeElement *first, CRChainCodeElement *third);
-	CRChainCodeElement* thirdCorner(CRChainCodeElement *first);
-	CRChainCodeElement* fourthCorner(CRChainCodeElement *first, CRChainCodeElement *third);
+	p->x = p1->y * p2->w - p1->w * p2->y;
+	p->y = p1->w * p2->x - p1->x * p2->w;
+	p->w = p1->x * p2->y - p1->y * p2->x;
 	
-	CRHomogeneousVec3* getLineThroughPoints(CRChainCodeElement *start, CRChainCodeElement *end);
-};
+	return p;
+}
+
+void CRHomogeneousVec3::dump() {
+	printf("(%f,%f,%f)\n", x, y, w);
+}

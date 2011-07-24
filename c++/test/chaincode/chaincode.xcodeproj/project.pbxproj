@@ -12,6 +12,7 @@
 		14A2D83E13DAAFCC0066ACE1 /* CRChainCodeElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14A2D83D13DAAFCC0066ACE1 /* CRChainCodeElement.cpp */; };
 		14A2D84213DAB1040066ACE1 /* CRChainCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14A2D84013DAB1040066ACE1 /* CRChainCode.cpp */; };
 		14A2D84513DAB18C0066ACE1 /* CRChainCodeBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14A2D84313DAB18C0066ACE1 /* CRChainCodeBlob.cpp */; };
+		14BDB11813DB5299009F85B9 /* CRHomogeneousVec3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14BDB11613DB5299009F85B9 /* CRHomogeneousVec3.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -36,8 +37,10 @@
 		14A2D84013DAB1040066ACE1 /* CRChainCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCode.cpp; path = ../../../CRChainCode.cpp; sourceTree = "<group>"; };
 		14A2D84113DAB1040066ACE1 /* CRChainCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCode.h; path = ../../../CRChainCode.h; sourceTree = "<group>"; };
 		14A2D84313DAB18C0066ACE1 /* CRChainCodeBlob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCodeBlob.cpp; path = ../../../CRChainCodeBlob.cpp; sourceTree = "<group>"; };
-		14A2D84413DAB18C0066ACE1 /* CRChainCodeBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; name = CRChainCodeBlob.h; path = ../../../CRChainCodeBlob.h; sourceTree = "<group>"; };
+		14A2D84413DAB18C0066ACE1 /* CRChainCodeBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCodeBlob.h; path = ../../../CRChainCodeBlob.h; sourceTree = "<group>"; };
 		14A2D84613DAB4ED0066ACE1 /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.pch; sourceTree = "<group>"; };
+		14BDB11613DB5299009F85B9 /* CRHomogeneousVec3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRHomogeneousVec3.cpp; path = ../../../CRHomogeneousVec3.cpp; sourceTree = "<group>"; };
+		14BDB11713DB5299009F85B9 /* CRHomogeneousVec3.h */ = {isa = PBXFileReference; fileEncoding = 4; name = CRHomogeneousVec3.h; path = ../../../CRHomogeneousVec3.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +73,8 @@
 		14A2D82D13DAAF210066ACE1 /* chaincode */ = {
 			isa = PBXGroup;
 			children = (
+				14BDB11713DB5299009F85B9 /* CRHomogeneousVec3.h */,
+				14BDB11613DB5299009F85B9 /* CRHomogeneousVec3.cpp */,
 				14A2D84113DAB1040066ACE1 /* CRChainCode.h */,
 				14A2D84013DAB1040066ACE1 /* CRChainCode.cpp */,
 				14A2D84413DAB18C0066ACE1 /* CRChainCodeBlob.h */,
@@ -137,6 +142,7 @@
 				14A2D83E13DAAFCC0066ACE1 /* CRChainCodeElement.cpp in Sources */,
 				14A2D84213DAB1040066ACE1 /* CRChainCode.cpp in Sources */,
 				14A2D84513DAB18C0066ACE1 /* CRChainCodeBlob.cpp in Sources */,
+				14BDB11813DB5299009F85B9 /* CRHomogeneousVec3.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

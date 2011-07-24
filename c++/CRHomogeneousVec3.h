@@ -1,6 +1,6 @@
 /*
  * Core AR
- * CRChainCodeBlob.h
+ * CRHomogeneousPoint.h
  *
  * Copyright (c) Yuichi YOSHIDA, 11/07/23.
  * All rights reserved.
@@ -29,24 +29,16 @@
  */
 
 #include <iostream>
-#include <list>
 
-#include "CRChainCodeElement.h"
-#include "CRHomogeneousVec3.h"
-
-class CRChainCodeBlob {
+class CRHomogeneousVec3 {
 public:
-	std::list<CRChainCodeElement*> *elements;
+	float x;
+	float y;
+	float w;
 public:
-	CRChainCodeBlob();
-	~CRChainCodeBlob();
-	void appendChainCodeElement(int x, int y, int code);
-	
-	void detectCorner();
-	CRChainCodeElement* firstCorner();
-	CRChainCodeElement* secondCorner(CRChainCodeElement *first, CRChainCodeElement *third);
-	CRChainCodeElement* thirdCorner(CRChainCodeElement *first);
-	CRChainCodeElement* fourthCorner(CRChainCodeElement *first, CRChainCodeElement *third);
-	
-	CRHomogeneousVec3* getLineThroughPoints(CRChainCodeElement *start, CRChainCodeElement *end);
+	CRHomogeneousVec3();
+	~CRHomogeneousVec3();
+	void dump();
+public:
+	static CRHomogeneousVec3 *outerProduct(CRHomogeneousVec3 *p1, CRHomogeneousVec3 *p2);
 };
