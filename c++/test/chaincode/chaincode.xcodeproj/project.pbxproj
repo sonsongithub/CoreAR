@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14236A9113DBCBBD007AB849 /* CRTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14236A8F13DBCBBD007AB849 /* CRTest.cpp */; };
 		14A2D82F13DAAF210066ACE1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14A2D82E13DAAF210066ACE1 /* main.cpp */; };
 		14A2D83113DAAF210066ACE1 /* chaincode.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 14A2D83013DAAF210066ACE1 /* chaincode.1 */; };
-		14A2D83E13DAAFCC0066ACE1 /* CRChainCodeElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14A2D83D13DAAFCC0066ACE1 /* CRChainCodeElement.cpp */; };
-		14A2D84213DAB1040066ACE1 /* CRChainCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14A2D84013DAB1040066ACE1 /* CRChainCode.cpp */; };
-		14A2D84513DAB18C0066ACE1 /* CRChainCodeBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14A2D84313DAB18C0066ACE1 /* CRChainCodeBlob.cpp */; };
-		14BDB11813DB5299009F85B9 /* CRHomogeneousVec3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14BDB11613DB5299009F85B9 /* CRHomogeneousVec3.cpp */; };
+		14BDB15313DBB42A009F85B9 /* CRChainCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14BDB14B13DBB42A009F85B9 /* CRChainCode.cpp */; };
+		14BDB15413DBB42A009F85B9 /* CRChainCodeBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14BDB14D13DBB42A009F85B9 /* CRChainCodeBlob.cpp */; };
+		14BDB15513DBB42A009F85B9 /* CRChainCodeElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14BDB14F13DBB42A009F85B9 /* CRChainCodeElement.cpp */; };
+		14BDB15613DBB42A009F85B9 /* CRHomogeneousVec3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14BDB15113DBB42A009F85B9 /* CRHomogeneousVec3.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,18 +30,20 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		14236A8F13DBCBBD007AB849 /* CRTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRTest.cpp; path = ../CRTest.cpp; sourceTree = "<group>"; };
+		14236A9013DBCBBD007AB849 /* CRTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRTest.h; path = ../CRTest.h; sourceTree = "<group>"; };
 		14A2D82A13DAAF210066ACE1 /* chaincode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = chaincode; sourceTree = BUILT_PRODUCTS_DIR; };
 		14A2D82E13DAAF210066ACE1 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		14A2D83013DAAF210066ACE1 /* chaincode.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = chaincode.1; sourceTree = "<group>"; };
-		14A2D83D13DAAFCC0066ACE1 /* CRChainCodeElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCodeElement.cpp; path = ../../../CRChainCodeElement.cpp; sourceTree = "<group>"; };
-		14A2D83F13DAAFEC0066ACE1 /* CRChainCodeElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCodeElement.h; path = ../../../CRChainCodeElement.h; sourceTree = "<group>"; };
-		14A2D84013DAB1040066ACE1 /* CRChainCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCode.cpp; path = ../../../CRChainCode.cpp; sourceTree = "<group>"; };
-		14A2D84113DAB1040066ACE1 /* CRChainCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCode.h; path = ../../../CRChainCode.h; sourceTree = "<group>"; };
-		14A2D84313DAB18C0066ACE1 /* CRChainCodeBlob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCodeBlob.cpp; path = ../../../CRChainCodeBlob.cpp; sourceTree = "<group>"; };
-		14A2D84413DAB18C0066ACE1 /* CRChainCodeBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCodeBlob.h; path = ../../../CRChainCodeBlob.h; sourceTree = "<group>"; };
-		14A2D84613DAB4ED0066ACE1 /* main.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.pch; sourceTree = "<group>"; };
-		14BDB11613DB5299009F85B9 /* CRHomogeneousVec3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRHomogeneousVec3.cpp; path = ../../../CRHomogeneousVec3.cpp; sourceTree = "<group>"; };
-		14BDB11713DB5299009F85B9 /* CRHomogeneousVec3.h */ = {isa = PBXFileReference; fileEncoding = 4; name = CRHomogeneousVec3.h; path = ../../../CRHomogeneousVec3.h; sourceTree = "<group>"; };
+		14BDB14B13DBB42A009F85B9 /* CRChainCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCode.cpp; path = ../../CRChainCode.cpp; sourceTree = "<group>"; };
+		14BDB14C13DBB42A009F85B9 /* CRChainCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCode.h; path = ../../CRChainCode.h; sourceTree = "<group>"; };
+		14BDB14D13DBB42A009F85B9 /* CRChainCodeBlob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCodeBlob.cpp; path = ../../CRChainCodeBlob.cpp; sourceTree = "<group>"; };
+		14BDB14E13DBB42A009F85B9 /* CRChainCodeBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCodeBlob.h; path = ../../CRChainCodeBlob.h; sourceTree = "<group>"; };
+		14BDB14F13DBB42A009F85B9 /* CRChainCodeElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCodeElement.cpp; path = ../../CRChainCodeElement.cpp; sourceTree = "<group>"; };
+		14BDB15013DBB42A009F85B9 /* CRChainCodeElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCodeElement.h; path = ../../CRChainCodeElement.h; sourceTree = "<group>"; };
+		14BDB15113DBB42A009F85B9 /* CRHomogeneousVec3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRHomogeneousVec3.cpp; path = ../../CRHomogeneousVec3.cpp; sourceTree = "<group>"; };
+		14BDB15213DBB42A009F85B9 /* CRHomogeneousVec3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRHomogeneousVec3.h; path = ../../CRHomogeneousVec3.h; sourceTree = "<group>"; };
+		14BDB15813DBB447009F85B9 /* test.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = test.pch; path = ../test.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +60,8 @@
 		14A2D81F13DAAF200066ACE1 = {
 			isa = PBXGroup;
 			children = (
+				14BDB14A13DBB415009F85B9 /* CoreAR */,
+				14BDB15713DBB430009F85B9 /* test */,
 				14A2D82D13DAAF210066ACE1 /* chaincode */,
 				14A2D82B13DAAF210066ACE1 /* Products */,
 			);
@@ -73,19 +78,35 @@
 		14A2D82D13DAAF210066ACE1 /* chaincode */ = {
 			isa = PBXGroup;
 			children = (
-				14BDB11713DB5299009F85B9 /* CRHomogeneousVec3.h */,
-				14BDB11613DB5299009F85B9 /* CRHomogeneousVec3.cpp */,
-				14A2D84113DAB1040066ACE1 /* CRChainCode.h */,
-				14A2D84013DAB1040066ACE1 /* CRChainCode.cpp */,
-				14A2D84413DAB18C0066ACE1 /* CRChainCodeBlob.h */,
-				14A2D84313DAB18C0066ACE1 /* CRChainCodeBlob.cpp */,
-				14A2D83F13DAAFEC0066ACE1 /* CRChainCodeElement.h */,
-				14A2D83D13DAAFCC0066ACE1 /* CRChainCodeElement.cpp */,
 				14A2D82E13DAAF210066ACE1 /* main.cpp */,
-				14A2D84613DAB4ED0066ACE1 /* main.pch */,
 				14A2D83013DAAF210066ACE1 /* chaincode.1 */,
 			);
 			path = chaincode;
+			sourceTree = "<group>";
+		};
+		14BDB14A13DBB415009F85B9 /* CoreAR */ = {
+			isa = PBXGroup;
+			children = (
+				14BDB14B13DBB42A009F85B9 /* CRChainCode.cpp */,
+				14BDB14C13DBB42A009F85B9 /* CRChainCode.h */,
+				14BDB14D13DBB42A009F85B9 /* CRChainCodeBlob.cpp */,
+				14BDB14E13DBB42A009F85B9 /* CRChainCodeBlob.h */,
+				14BDB14F13DBB42A009F85B9 /* CRChainCodeElement.cpp */,
+				14BDB15013DBB42A009F85B9 /* CRChainCodeElement.h */,
+				14BDB15113DBB42A009F85B9 /* CRHomogeneousVec3.cpp */,
+				14BDB15213DBB42A009F85B9 /* CRHomogeneousVec3.h */,
+			);
+			name = CoreAR;
+			sourceTree = "<group>";
+		};
+		14BDB15713DBB430009F85B9 /* test */ = {
+			isa = PBXGroup;
+			children = (
+				14236A8F13DBCBBD007AB849 /* CRTest.cpp */,
+				14236A9013DBCBBD007AB849 /* CRTest.h */,
+				14BDB15813DBB447009F85B9 /* test.pch */,
+			);
+			name = test;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,10 +160,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				14A2D82F13DAAF210066ACE1 /* main.cpp in Sources */,
-				14A2D83E13DAAFCC0066ACE1 /* CRChainCodeElement.cpp in Sources */,
-				14A2D84213DAB1040066ACE1 /* CRChainCode.cpp in Sources */,
-				14A2D84513DAB18C0066ACE1 /* CRChainCodeBlob.cpp in Sources */,
-				14BDB11813DB5299009F85B9 /* CRHomogeneousVec3.cpp in Sources */,
+				14BDB15313DBB42A009F85B9 /* CRChainCode.cpp in Sources */,
+				14BDB15413DBB42A009F85B9 /* CRChainCodeBlob.cpp in Sources */,
+				14BDB15513DBB42A009F85B9 /* CRChainCodeElement.cpp in Sources */,
+				14BDB15613DBB42A009F85B9 /* CRHomogeneousVec3.cpp in Sources */,
+				14236A9113DBCBBD007AB849 /* CRTest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,7 +182,7 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ./chaincode/main.pch;
+				GCC_PREFIX_HEADER = ../test.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_DEBUG,
 					"DEBUG=1",
@@ -188,7 +210,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ./chaincode/main.pch;
+				GCC_PREFIX_HEADER = ../test.pch;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;

@@ -1,8 +1,8 @@
 /*
  * Core AR
- * chaincode/C++ test program
+ * Core detect test
  *
- * Copyright (c) Yuichi YOSHIDA, 11/07/23.
+ * Copyright (c) Yuichi YOSHIDA, 11/07/24.
  * All rights reserved.
  * 
  * BSD License
@@ -30,38 +30,8 @@
 
 #include <iostream>
 
-#include "CRChainCode.h"
-#include "CRTest.h"
-
 int main (int argc, const char * argv[]) {
-	
-	unsigned char *pixel = NULL;
-	int width = 0;
-	int height = 0;
-	
-	CRChainCode *chaincode = new CRChainCode();
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	// make test pixel data
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	_CRTestMakeSimplePixelData(&pixel, &width, &height);
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	// parse chain code
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	chaincode->parsePixel(pixel, width, height);
-	
-	// dump
-	_CRTestDumpPixel(pixel, width, height);
 
-	free(pixel);
-	
-	delete(chaincode);
-	
     return 0;
 }
 
