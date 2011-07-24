@@ -30,18 +30,11 @@
 
 #include <iostream>
 
-typedef enum {
-	CRChainCodeElementFlagIgnore		= 0,
-	CRChainCodeElementFlagUnchecked		= 1,
-	CRChainCodeElementFlagChecked		= 2,
-}CRChainCodeElementFlag;
-
 class CRChainCodeElement {
 public:
 	int						x;
 	int						y;
 	int						code;
-	CRChainCodeElementFlag	flag;
 public:
 	CRChainCodeElement();
 	CRChainCodeElement(int x, int y, int code);

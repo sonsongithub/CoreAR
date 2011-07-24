@@ -30,26 +30,11 @@
 
 #include <iostream>
 
-
-#define DEFAULT_MINIMUM_CHAINCODE_LENGTH	30
-#define DEFAULT_MAXIMUM_CHAINCODE_LENGTH	1000
-#define DEFAULT_ASPECT_RATIO_MARGIN			1.0
-
-typedef enum {
-	CRChainCodeOutside		= 0,
-	ChainCodeInside			= 1,
-}CRChainCodeType;
-
 typedef enum {
 	CRChainCodeFlagIgnore	= 0,
 	CRChainCodeFlagUnchecked= 1,
 	CRChainCodeFlagChecked	= 2,
 }CRChainCodeFlagType;
-
-typedef enum {
-	CRChainCodeNonCorner	= 0,
-	CRChainCodeCorner		= 1,
-}CRChainCodeCornerFlag;
 
 #include "CRChainCodeBlob.h"
 

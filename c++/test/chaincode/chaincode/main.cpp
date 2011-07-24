@@ -46,7 +46,32 @@ int main (int argc, const char * argv[]) {
 	// make test pixel data
 	//
 	////////////////////////////////////////////////////////////////////////////////
-	_CRTestMakeSimplePixelData(&pixel, &width, &height);
+	//_CRTestMakeSimplePixelData(&pixel, &width, &height);
+	
+	width = 40;
+	height = 40;
+	float corners_projected[12];
+	
+	float focal = 5;
+	float xdeg = M_PI/800.0;
+	float ydeg = M_PI/800.0;
+	float zdeg = M_PI/4.0;
+	
+	float xt = 0;
+	float yt = 0;
+	float zt = 0.4;
+	_CRTestMakePixelDataWithProjectionSetting(
+											  &pixel,
+											  width,
+											  height,
+											  corners_projected,
+											  focal,
+											  xdeg, 
+											  ydeg, 
+											  zdeg, 
+											  xt, 
+											  yt,
+											  zt);
 	
 	////////////////////////////////////////////////////////////////////////////////
 	//

@@ -121,6 +121,11 @@ void CRChainCodeBlob::detectCorner() {
 	CRHomogeneousVec3 *intersection3 = CRHomogeneousVec3::outerProduct(line3, line4);
 	CRHomogeneousVec3 *intersection4 = CRHomogeneousVec3::outerProduct(line4, line1);
 	
+	intersection1->normalize();
+	intersection2->normalize();
+	intersection3->normalize();
+	intersection4->normalize();
+	
 	intersection1->dump();
 	intersection2->dump();
 	intersection3->dump();

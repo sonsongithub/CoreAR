@@ -35,6 +35,108 @@
 
 #include "CRTest.h"
 
+// private method
+void _CRTestSetPixel(unsigned char* pixel, int width, int height, int x, int y, unsigned char value);
+void _CRTestProjectPoint(float *x, float *x_projected, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt);
+
+void _CRTestSetPixel(unsigned char* pixel, int width, int height, int x, int y, unsigned char value) {
+	if (x >= 0 && x < width && y >= 0 && y < height) 
+		*(pixel + x + y * width) = value;
+}
+
+void _CRTestProjectPoint(float *x, float *x_projected, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt) {
+	float temp[3];
+	float temp2[3];
+	float r[3][3];
+	
+	temp[0] = x[0];
+	temp[1] = x[1];
+	temp[2] = x[2];
+	
+	r[0][0] = cos(zdeg);	r[0][1] = -sin(zdeg);	r[0][2] = 0;
+	r[1][0] = sin(zdeg);	r[1][1] = cos(zdeg);	r[1][2] = 0;
+	r[2][0] = 0;			r[2][1] = 0;			r[2][2] = 1;
+	
+	temp2[0] = temp[0] * r[0][0] + temp[1] * r[0][1] + temp[2] * r[0][2];
+	temp2[1] = temp[0] * r[1][0] + temp[1] * r[1][1] + temp[2] * r[1][2];
+	temp2[2] = temp[0] * r[2][0] + temp[1] * r[2][1] + temp[2] * r[2][2];
+	
+	temp[0] = temp2[0];
+	temp[1] = temp2[1];
+	temp[2] = temp2[2];
+	
+	r[0][0] = cos(ydeg);	r[0][1] = 0;			r[0][2] = sin(ydeg);
+	r[1][0] = 0;			r[1][1] = 1;			r[1][2] = 0;
+	r[2][0] = -sin(ydeg);	r[2][1] = 0;			r[2][2] = cos(ydeg);
+	
+	temp2[0] = temp[0] * r[0][0] + temp[1] * r[0][1] + 
+	temp[2] * r[0][2];
+	temp2[1] = temp[0] * r[1][0] + temp[1] * r[1][1] + temp[2] * r[1][2];
+	temp2[2] = temp[0] * r[2][0] + temp[1] * r[2][1] + temp[2] * r[2][2];
+	
+	temp[0] = temp2[0];
+	temp[1] = temp2[1];
+	temp[2] = temp2[2];
+	
+	r[0][0] = 1;			r[0][1] = 0;			r[0][2] = 0;
+	r[1][0] = 0;			r[1][1] = cos(xdeg);	r[1][2] = -sin(xdeg);
+	r[2][0] = 0;			r[2][1] = sin(xdeg);	r[2][2] = cos(xdeg);
+	
+	temp2[0] = temp[0] * r[0][0] + temp[1] * r[0][1] + temp[2] * r[0][2];
+	temp2[1] = temp[0] * r[1][0] + temp[1] * r[1][1] + temp[2] * r[1][2];
+	temp2[2] = temp[0] * r[2][0] + temp[1] * r[2][1] + temp[2] * r[2][2];
+	
+	temp[0] = temp2[0] + xt;
+	temp[1] = temp2[1] + yt;
+	temp[2] = temp2[2] + zt;
+	
+	temp[0] /= temp[2];
+	temp[1] /= temp[2];
+	temp[2] = 1;
+	
+	x_projected[0] = temp[0] * focal;
+	x_projected[1] = temp[1] * focal;
+	x_projected[2] = temp[2];
+}
+
+void _CRTestMakePixelDataWithProjectionSetting(unsigned char **output_pixel, int width, int height, float *corners_projected, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt) {
+	float corners[4][3];
+	corners[0][0] = -0.5;			corners[0][1] = -0.5;			corners[0][2] = 0;
+	corners[1][0] = -0.5;			corners[1][1] =  0.5;			corners[1][2] = 0;
+	corners[2][0] =  0.5;			corners[2][1] =  0.5;			corners[2][2] = 0;
+	corners[3][0] =  0.5;			corners[3][1] = -0.5;			corners[3][2] = 0;
+	
+	unsigned char *pixel = (unsigned char*)malloc(sizeof(unsigned char)*width*height);
+	
+	for (int i = 0; i < 4; i++) {
+		float *p = corners_projected + i * 3;
+		_CRTestProjectPoint(corners[i], p, focal, xdeg, ydeg, zdeg, xt, yt, zt);
+		p[0] += width / 2;
+		p[1] += height / 2;
+	}
+	
+	int precision = 30;
+	
+	float step = 1.0f / (precision - 1);
+	
+	for (int i = 0; i < precision; i++) {
+		for (int j = 0; j < precision; j++) {
+			float x_temp[3];
+			float x_temp_projected[3];
+			x_temp[0] = -0.5 + step * i;
+			x_temp[1] = -0.5 + step * j;
+			x_temp[2] = 0;
+			
+			_CRTestProjectPoint(x_temp, x_temp_projected, focal, xdeg, ydeg, zdeg, xt, yt, zt);
+			x_temp_projected[0] += width / 2;
+			x_temp_projected[1] += height / 2;
+			_CRTestSetPixel(pixel, width, height, x_temp_projected[0], x_temp_projected[1], 0x01);
+		}
+	}
+	
+	*output_pixel = pixel;
+}
+
 void _CRTestDumpPixel(unsigned char* pixel, int width, int height) {
 	////////////////////////////////////////////////////////////////////////////////
 	//

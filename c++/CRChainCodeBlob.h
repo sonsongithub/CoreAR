@@ -34,9 +34,15 @@
 #include "CRChainCodeElement.h"
 #include "CRHomogeneousVec3.h"
 
+typedef enum {
+	CRChainCodeOutside		= 0,
+	ChainCodeInside			= 1,
+}CRChainCodeType;
+
 class CRChainCodeBlob {
 public:
 	std::list<CRChainCodeElement*> *elements;
+	CRChainCodeType	type;
 public:
 	CRChainCodeBlob();
 	~CRChainCodeBlob();

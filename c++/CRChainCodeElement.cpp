@@ -31,15 +31,15 @@
 #include "CRChainCodeElement.h"
 
 CRChainCodeElement::CRChainCodeElement() {
-	_DPRINTF("CRChainCodeElement constructor\n");
+//	_DPRINTF("CRChainCodeElement constructor\n");
 }
 
 CRChainCodeElement::CRChainCodeElement(int x, int y, int code) {
-	_DPRINTF("CRChainCodeElement constructor\n");
+//	_DPRINTF("CRChainCodeElement constructor\n");
 	this->x = x;
 	this->y = y;
 	this->code = code;
-
+#if 0
 #ifdef _DEBUG
 	switch (this->code) {
 		case 4:
@@ -70,8 +70,9 @@ CRChainCodeElement::CRChainCodeElement(int x, int y, int code) {
 			break;
 	}
 #endif
+#endif
 }
 
 CRChainCodeElement::~CRChainCodeElement() {
-	_DPRINTF("CRChainCodeElement destructor\n");
+//	_DPRINTF("CRChainCodeElement destructor\n");
 }

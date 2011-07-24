@@ -39,6 +39,7 @@ public:
 	CRHomogeneousVec3();
 	~CRHomogeneousVec3();
 	void dump();
+	void normalize();
 public:
 	static CRHomogeneousVec3 *outerProduct(CRHomogeneousVec3 *p1, CRHomogeneousVec3 *p2);
 };

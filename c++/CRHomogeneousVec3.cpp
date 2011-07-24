@@ -30,12 +30,14 @@
 
 #include "CRHomogeneousVec3.h"
 
+#include <math.h>
+
 CRHomogeneousVec3::CRHomogeneousVec3() {
-	_DPRINTF("CRHomogeneousVec3 constructor\n");
+//	_DPRINTF("CRHomogeneousVec3 constructor\n");
 }
 
 CRHomogeneousVec3::~CRHomogeneousVec3() {
-	_DPRINTF("CRHomogeneousVec3 destructor\n");
+//	_DPRINTF("CRHomogeneousVec3 destructor\n");
 }
 
 CRHomogeneousVec3* CRHomogeneousVec3::outerProduct(CRHomogeneousVec3 *p1, CRHomogeneousVec3 *p2) {
@@ -46,6 +48,16 @@ CRHomogeneousVec3* CRHomogeneousVec3::outerProduct(CRHomogeneousVec3 *p1, CRHomo
 	p->w = p1->x * p2->y - p1->y * p2->x;
 	
 	return p;
+}
+
+void CRHomogeneousVec3::normalize() {
+	if (fabs(this->w) > 0.0000000000001) {
+		this->x /= this->w;
+		this->y /= this->w;
+		this->w = 1;
+	}
+	else 
+		this->w = 0;
 }
 
 void CRHomogeneousVec3::dump() {
