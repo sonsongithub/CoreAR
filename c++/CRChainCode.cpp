@@ -30,8 +30,6 @@
 
 #include "CRChainCode.h"
 
-//#define USE_INSIDE_CHAINCODE
-
 CRChainCode::CRChainCode() {
 	_DPRINTF("CRChainCode constructor\n");
 	blobs = new std::list<CRChainCodeBlob*> ();
@@ -90,6 +88,9 @@ void CRChainCode::parsePixel(unsigned char* chaincodeFlag, int width, int height
 				
 				blob = new CRChainCodeBlob();
 				blobs->push_back(blob);
+#ifdef USE_INSIDE_CHAINCODE
+				blob->type = CRChainCodeOutside;
+#endif
 				
 				while(1) {
 #ifdef OUTPUT_IMAGE_FOR_DEBUG_WHEN_ERROR
@@ -190,7 +191,8 @@ void CRChainCode::parsePixel(unsigned char* chaincodeFlag, int width, int height
 				
 #ifdef USE_INSIDE_CHAINCODE
 				CRChainCodeBlob *blob = new CRChainCodeBlob();
-				blobs.push_back(blob);
+				blob->type = CRChainCodeInside;
+				blobs->push_back(blob);
 #endif				
 				int prev_chain = 4;
 				

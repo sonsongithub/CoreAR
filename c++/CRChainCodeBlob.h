@@ -34,15 +34,21 @@
 #include "CRChainCodeElement.h"
 #include "CRHomogeneousVec3.h"
 
+//#define USE_INSIDE_CHAINCODE
+
+#ifdef USE_INSIDE_CHAINCODE
 typedef enum {
 	CRChainCodeOutside		= 0,
-	ChainCodeInside			= 1,
+	CRChainCodeInside		= 1,
 }CRChainCodeType;
+#endif
 
 class CRChainCodeBlob {
 public:
 	std::list<CRChainCodeElement*> *elements;
+#ifdef USE_INSIDE_CHAINCODE
 	CRChainCodeType	type;
+#endif
 public:
 	CRChainCodeBlob();
 	~CRChainCodeBlob();
