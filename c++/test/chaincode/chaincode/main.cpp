@@ -32,6 +32,7 @@
 
 #include "CRChainCode.h"
 #include "CRTest.h"
+#include <math.h>
 
 int main (int argc, const char * argv[]) {
 	
@@ -50,7 +51,8 @@ int main (int argc, const char * argv[]) {
 	
 	width = 40;
 	height = 40;
-	float corners_projected[12];
+	
+	CRHomogeneousVec3 *corners = new CRHomogeneousVec3 [4];
 	
 	float focal = 5;
 	float xdeg = M_PI/800.0;
@@ -64,7 +66,7 @@ int main (int argc, const char * argv[]) {
 											  &pixel,
 											  width,
 											  height,
-											  corners_projected,
+											  corners,
 											  focal,
 											  xdeg, 
 											  ydeg, 

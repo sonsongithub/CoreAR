@@ -85,7 +85,9 @@ void testCornerDetection(float *diff_normal, float *diff_without_lsm, float para
 	// parse chain code
 	//
 	////////////////////////////////////////////////////////////////////////////////
+	_tic();
 	chaincode->parsePixel(pixel, width, height);
+	_toc();
 	
 	// _CRTestDumpPixel(pixel, width, height);
 	
