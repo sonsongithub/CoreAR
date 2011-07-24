@@ -35,6 +35,12 @@
 
 #include "CRTest.h"
 
+void _CRTestMultiMat(float result[4][4], float a[4][4], float b[4][4]);
+void _CRTestMultiMatAndVec(float result[4], float a[4][4], float x[4]);
+void _CRTestDumpMat(float matrix[4][4]);
+void _CRTestDumpVec(float vec[4]);
+void _CRTestProjectPoint2(float mat[4][4], float *x, float *x_projected, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt);
+
 // private method
 void _CRTestSetPixel(unsigned char* pixel, int width, int height, int x, int y, unsigned char value);
 void _CRTestProjectPoint(float *x, float *x_projected, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt);
@@ -91,8 +97,6 @@ void _CRTestProjectPoint2(float mat[4][4], float *x, float *x_projected, float f
 	
 	float temp1[4][4];
 	float temp2[4][4];
-	float temp3[4][4];
-	float temp4[4][4];
 	
 	r1[0][0] = cos(zdeg);	r1[0][1] = -sin(zdeg);	r1[0][2] = 0;				r1[0][3] = 0;
 	r1[1][0] = sin(zdeg);	r1[1][1] = cos(zdeg);	r1[1][2] = 0;				r1[1][3] = 0;
@@ -116,15 +120,17 @@ void _CRTestProjectPoint2(float mat[4][4], float *x, float *x_projected, float f
 	
 	_CRTestMultiMat(temp1, r1, r2);
 	_CRTestMultiMat(temp2, temp1, r3);
-	_CRTestMultiMat(temp3, temp2, r4);
+	_CRTestMultiMat(mat, temp2, r4);
 	
 	float r[4];
 	
-	_CRTestMultiMatAndVec(r, temp3, x);
+	_CRTestMultiMatAndVec(r, mat, x);
 	x_projected[0] = r[0] / r[2] * focal;
 	x_projected[1] = r[1] / r[2] * focal;
 	x_projected[2] = 1;
 }
+
+void _CRTestProjectPoint(float *x, float *x_projected, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt);
 
 void _CRTestProjectPoint(float *x, float *x_projected, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt) {
 	float temp[3];
@@ -199,9 +205,8 @@ void _CRTestMakePixelDataWithProjectionSetting(unsigned char **output_pixel, int
 		float p2[2];
 		p2[0] = p[0];
 		p2[1] = p[1];
-		_CRTestProjectPoint(corners[i], p, focal, xdeg, ydeg, zdeg, xt, yt, zt);
-		
-		printf("%f %f\n", p[0], p[1]);
+
+		_CRTestProjectPoint2(mat, corners[i], p, focal, xdeg, ydeg, zdeg, xt, yt, zt);
 		
 		p[0] += width / 2;
 		p[1] += height / 2;
@@ -209,14 +214,9 @@ void _CRTestMakePixelDataWithProjectionSetting(unsigned char **output_pixel, int
 		projected_corners[i].x = p[0];
 		projected_corners[i].y = p[1];
 		projected_corners[i].w = 1;
-		
-		_CRTestProjectPoint2(mat, corners[i], p, focal, xdeg, ydeg, zdeg, xt, yt, zt);
-		
-		printf("%f %f\n", p[0], p[1]);
-		printf("-------------------------------\n");
 	}
 	
-	int precision = 30;
+	int precision = 300;
 	
 	float step = 1.0f / (precision - 1);
 	
@@ -226,9 +226,10 @@ void _CRTestMakePixelDataWithProjectionSetting(unsigned char **output_pixel, int
 			float x_temp_projected[3];
 			x_temp[0] = -0.5 + step * i;
 			x_temp[1] = -0.5 + step * j;
-			x_temp[2] = 0;
+			x_temp[2] = 1;
+
+			_CRTestProjectPoint2(mat, x_temp, x_temp_projected, focal, xdeg, ydeg, zdeg, xt, yt, zt);
 			
-			_CRTestProjectPoint(x_temp, x_temp_projected, focal, xdeg, ydeg, zdeg, xt, yt, zt);
 			x_temp_projected[0] += width / 2;
 			x_temp_projected[1] += height / 2;
 			_CRTestSetPixel(pixel, width, height, x_temp_projected[0], x_temp_projected[1], 0x01);
@@ -236,6 +237,8 @@ void _CRTestMakePixelDataWithProjectionSetting(unsigned char **output_pixel, int
 	}
 	
 	*output_pixel = pixel;
+	
+//	_CRTestDumpMat(mat);
 }
 
 void _CRTestDumpPixel(unsigned char* pixel, int width, int height) {
