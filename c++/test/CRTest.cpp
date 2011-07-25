@@ -129,123 +129,17 @@ void _CRTestProjectPoint(float mat[4][4], float *x, float *x_projected, float fo
 	x_projected[2] = 1;
 }
 
-void _CRTestProjectPoint(float *x, float *x_projected, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt);
-
-void _CRTestProjectPoint(float *x, float *x_projected, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt) {
-	float temp[3];
-	float temp2[3];
-	float r[3][3];
-	
-	temp[0] = x[0];
-	temp[1] = x[1];
-	temp[2] = x[2];
-	
-	r[0][0] = cos(zdeg);	r[0][1] = -sin(zdeg);	r[0][2] = 0;
-	r[1][0] = sin(zdeg);	r[1][1] = cos(zdeg);	r[1][2] = 0;
-	r[2][0] = 0;			r[2][1] = 0;			r[2][2] = 1;
-	
-	temp2[0] = temp[0] * r[0][0] + temp[1] * r[0][1] + temp[2] * r[0][2];
-	temp2[1] = temp[0] * r[1][0] + temp[1] * r[1][1] + temp[2] * r[1][2];
-	temp2[2] = temp[0] * r[2][0] + temp[1] * r[2][1] + temp[2] * r[2][2];
-	
-	temp[0] = temp2[0];
-	temp[1] = temp2[1];
-	temp[2] = temp2[2];
-	
-	r[0][0] = cos(ydeg);	r[0][1] = 0;			r[0][2] = sin(ydeg);
-	r[1][0] = 0;			r[1][1] = 1;			r[1][2] = 0;
-	r[2][0] = -sin(ydeg);	r[2][1] = 0;			r[2][2] = cos(ydeg);
-	
-	temp2[0] = temp[0] * r[0][0] + temp[1] * r[0][1] + 
-	temp[2] * r[0][2];
-	temp2[1] = temp[0] * r[1][0] + temp[1] * r[1][1] + temp[2] * r[1][2];
-	temp2[2] = temp[0] * r[2][0] + temp[1] * r[2][1] + temp[2] * r[2][2];
-	
-	temp[0] = temp2[0];
-	temp[1] = temp2[1];
-	temp[2] = temp2[2];
-	
-	r[0][0] = 1;			r[0][1] = 0;			r[0][2] = 0;
-	r[1][0] = 0;			r[1][1] = cos(xdeg);	r[1][2] = -sin(xdeg);
-	r[2][0] = 0;			r[2][1] = sin(xdeg);	r[2][2] = cos(xdeg);
-	
-	temp2[0] = temp[0] * r[0][0] + temp[1] * r[0][1] + temp[2] * r[0][2];
-	temp2[1] = temp[0] * r[1][0] + temp[1] * r[1][1] + temp[2] * r[1][2];
-	temp2[2] = temp[0] * r[2][0] + temp[1] * r[2][1] + temp[2] * r[2][2];
-	
-	temp[0] = temp2[0] + xt;
-	temp[1] = temp2[1] + yt;
-	temp[2] = temp2[2] + zt;
-	
-	temp[0] /= temp[2];
-	temp[1] /= temp[2];
-	temp[2] = 1;
-	
-	x_projected[0] = temp[0] * focal;
-	x_projected[1] = temp[1] * focal;
-	x_projected[2] = temp[2];
-}
-
 void _CRTestMakePixelDataWithProjectionSetting(unsigned char **output_pixel, int width, int height, CRHomogeneousVec3* projected_corners, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt) {
-	float corners[4][4];
-	corners[0][0] = -0.5;			corners[0][1] = -0.5;			corners[0][2] = 0;			corners[0][3] = 1;
-	corners[1][0] = -0.5;			corners[1][1] =  0.5;			corners[1][2] = 0;			corners[1][3] = 1;
-	corners[2][0] =  0.5;			corners[2][1] =  0.5;			corners[2][2] = 0;			corners[2][3] = 1;
-	corners[3][0] =  0.5;			corners[3][1] = -0.5;			corners[3][2] = 0;			corners[3][3] = 1;
-	
-	unsigned char *pixel = (unsigned char*)malloc(sizeof(unsigned char)*width*height);
-	
-	float corners_projected[12];
-	
-	float mat[4][4];
-	
-	for (int i = 0; i < 4; i++) {
-		float *p = corners_projected + i * 3;
-		float p2[2];
-		p2[0] = p[0];
-		p2[1] = p[1];
-
-		_CRTestProjectPoint(mat, corners[i], p, focal, xdeg, ydeg, zdeg, xt, yt, zt);
-		
-		p[0] += width / 2;
-		p[1] += height / 2;
-	
-		projected_corners[i].x = p[0];
-		projected_corners[i].y = p[1];
-		projected_corners[i].w = 1;
-	}
-	
-	int precision = 300;
-	
-	float step = 1.0f / (precision - 1);
-	
-	for (int i = 0; i < precision; i++) {
-		for (int j = 0; j < precision; j++) {
-			float x_temp[3];
-			float x_temp_projected[3];
-			x_temp[0] = -0.5 + step * i;
-			x_temp[1] = -0.5 + step * j;
-			x_temp[2] = 1;
-
-			_CRTestProjectPoint(mat, x_temp, x_temp_projected, focal, xdeg, ydeg, zdeg, xt, yt, zt);
-			
-			x_temp_projected[0] += width / 2;
-			x_temp_projected[1] += height / 2;
-			_CRTestSetPixel(pixel, width, height, x_temp_projected[0], x_temp_projected[1], 0x01);
-		}
-	}
-	
-	*output_pixel = pixel;
-	
-//	_CRTestDumpMat(mat);
+	float dummyMatrix[4][4];
+	_CRTestMakePixelDataAndPMatrixWithProjectionSetting(dummyMatrix, output_pixel, width, height, projected_corners, focal, xdeg, ydeg, zdeg, xt, yt, zt);
 }
 
 void _CRTestMakePixelDataAndPMatrixWithProjectionSetting(float pMatrix[4][4], unsigned char **output_pixel, int width, int height, CRHomogeneousVec3* projected_corners, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt) {
 	float corners[4][4];
-	corners[0][0] = -0.5;			corners[0][1] = -0.5;			corners[0][2] = 0;			corners[0][3] = 1;
-	corners[1][0] = -0.5;			corners[1][1] =  0.5;			corners[1][2] = 0;			corners[1][3] = 1;
-	corners[2][0] =  0.5;			corners[2][1] =  0.5;			corners[2][2] = 0;			corners[2][3] = 1;
-	corners[3][0] =  0.5;			corners[3][1] = -0.5;			corners[3][2] = 0;			corners[3][3] = 1;
+	corners[0][0] = 0;			corners[0][1] = 0;			corners[0][2] = 0;			corners[0][3] = 1;
+	corners[1][0] = 1;			corners[1][1] = 0;			corners[1][2] = 0;			corners[1][3] = 1;
+	corners[2][0] = 0;			corners[2][1] = 1;			corners[2][2] = 0;			corners[2][3] = 1;
+	corners[3][0] = 1;			corners[3][1] = 1;			corners[3][2] = 0;			corners[3][3] = 1;
 	
 	unsigned char *pixel = (unsigned char*)malloc(sizeof(unsigned char)*width*height);
 	

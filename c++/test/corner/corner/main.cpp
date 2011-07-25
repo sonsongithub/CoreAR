@@ -94,6 +94,7 @@ void testCornerDetection() {
 	if (!chaincode->blobs->empty()) {
 		CRChainCodeBlob *blob = chaincode->blobs->front();
 		CRCode *code_normal = blob->code();
+		code_normal->getHomographyMatrix();
 	}
 	
 	////////////////////////////////////////////////////////////////////////////////
