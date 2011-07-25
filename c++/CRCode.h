@@ -51,6 +51,8 @@ public:
 	CRCode();
 	CRCode(CRHomogeneousVec3 *firstCorner, CRHomogeneousVec3 *secondCorner, CRHomogeneousVec3 *thirdCorner, CRHomogeneousVec3 *fourthCorner);
 	~CRCode();
+	
+	void getHomographyMatrix();
 };
 
 #endif

@@ -67,3 +67,6 @@ CRCode::~CRCode() {
 	delete [] corners;
 }
 
+void CRCode::getHomographyMatrix() {
+	
+}

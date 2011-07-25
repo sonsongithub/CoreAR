@@ -36,9 +36,9 @@
 #include "CRHomogeneousVec3.h"
 #include "CRTest.h"
 
-void testCornerDetection(float *diff_normal, float *diff_without_lsm, float param);
+void testCornerDetection();
 
-void testCornerDetection(float *diff_normal, float *diff_without_lsm, float param) {
+void testCornerDetection() {
 	
 	srand((unsigned)time(NULL));
 	
@@ -54,8 +54,8 @@ void testCornerDetection(float *diff_normal, float *diff_without_lsm, float para
 	//
 	////////////////////////////////////////////////////////////////////////////////
 	
-	width = 320;
-	height = 240;
+	width = 60;
+	height = 60;
 	
 	CRHomogeneousVec3 *corners = new CRHomogeneousVec3 [4];
 	
@@ -67,7 +67,9 @@ void testCornerDetection(float *diff_normal, float *diff_without_lsm, float para
 	float xt = 0;
 	float yt = 0;
 	float zt = 0.1;
-	_CRTestMakePixelDataWithProjectionSetting(
+	float pMatrix[4][4];
+	_CRTestMakePixelDataAndPMatrixWithProjectionSetting(
+											  pMatrix,
 											  &pixel,
 											  width,
 											  height,
@@ -80,41 +82,18 @@ void testCornerDetection(float *diff_normal, float *diff_without_lsm, float para
 											  yt,
 											  zt);
 	
+	_CRTestDumpMat(pMatrix);
+	
 	////////////////////////////////////////////////////////////////////////////////
 	//
 	// parse chain code
 	//
 	////////////////////////////////////////////////////////////////////////////////
-	_tic();
 	chaincode->parsePixel(pixel, width, height);
-	_toc();
-	
-	// _CRTestDumpPixel(pixel, width, height);
 	
 	if (!chaincode->blobs->empty()) {
 		CRChainCodeBlob *blob = chaincode->blobs->front();
 		CRCode *code_normal = blob->code();
-		CRCode *code_without_lsm = blob->codeWithoutLSM();
-		
-		if (code_normal && code_without_lsm) {
-			for (int i = 0; i < 4; i++) {
-				float d1 = getDifferenceBetweenVectors(code_normal->corners + i, corners + i);
-				float d2 = getDifferenceBetweenVectors(code_without_lsm->corners + i, corners + i);
-			
-				_DPRINTF("--------------------------------------------\n");
-				// (code_normal->corners + i)->dump();
-				// (code_without_lsm->corners + i)->dump();
-				// (corners + i)->dump();
-				_DPRINTF("diff             = %f\n", d1);
-				_DPRINTF("diff without LSM = %f\n", d2);
-				
-				*diff_normal += d1;
-				*diff_without_lsm += d2;
-			}
-			
-			delete code_normal;
-			delete code_without_lsm;
-		}
 	}
 	
 	////////////////////////////////////////////////////////////////////////////////
@@ -122,8 +101,7 @@ void testCornerDetection(float *diff_normal, float *diff_without_lsm, float para
 	// dump
 	//
 	////////////////////////////////////////////////////////////////////////////////
-	//	if (*diff_normal > 2)
-	//		_CRTestDumpPixel(pixel, width, height);
+	_CRTestDumpPixel(pixel, width, height);
 
 	////////////////////////////////////////////////////////////////////////////////
 	//
@@ -137,25 +115,7 @@ void testCornerDetection(float *diff_normal, float *diff_without_lsm, float para
 
 int main (int argc, const char * argv[]) {
 	
-	int test_count = 100;
-	float sum_diff_normal = 0;
-	float sum_diff_without_lsm = 0;
-	float param = 1.0;
-	
-	for (int i = 0; i < test_count; i++) {
-		float diff_normal = 0;
-		float diff_without_lsm = 0;
-		testCornerDetection(&diff_normal, &diff_without_lsm, param);
-		
-		sum_diff_normal += diff_normal;
-		sum_diff_without_lsm += diff_without_lsm;
-		
-		//
-		param += 0.1;
-	}
-	
-	_DPRINTF("test sum diff normal average = %f\n", sum_diff_normal / test_count);
-	_DPRINTF("test sum diff without lsm average = %f\n", sum_diff_without_lsm / test_count);
+	testCornerDetection();
 	
 	return 0;
 }
