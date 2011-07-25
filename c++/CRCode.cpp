@@ -31,15 +31,39 @@
 #include "CRCode.h"
 
 CRCode::CRCode() {
-//	_DPRINTF("CRCode constructor\n");
+	corners = new CRHomogeneousVec3 [4];
+	this->firstCorner  = corners + 0;
+	this->secondCorner = corners + 1;
+	this->thirdCorner  = corners + 2;
+	this->fourthCorner = corners + 3;
+}
+
+CRCode::CRCode(CRHomogeneousVec3 *firstCorner, CRHomogeneousVec3 *secondCorner, CRHomogeneousVec3 *thirdCorner, CRHomogeneousVec3 *fourthCorner) {
+	corners = new CRHomogeneousVec3 [4];
+	
+	(corners + 0)->x = firstCorner->x;
+	(corners + 0)->y = firstCorner->y;
+	(corners + 0)->w = firstCorner->w;
+	
+	(corners + 1)->x = secondCorner->x;
+	(corners + 1)->y = secondCorner->y;
+	(corners + 1)->w = secondCorner->w;
+	
+	(corners + 2)->x = secondCorner->x;
+	(corners + 2)->y = secondCorner->y;
+	(corners + 2)->w = secondCorner->w;
+	
+	(corners + 3)->x = fourthCorner->x;
+	(corners + 3)->y = fourthCorner->y;
+	(corners + 3)->w = fourthCorner->w;
+	
+	this->firstCorner  = corners + 0;
+	this->secondCorner = corners + 1;
+	this->thirdCorner  = corners + 2;
+	this->fourthCorner = corners + 3;
 }
 
 CRCode::~CRCode() {
-//	_DPRINTF("CRCode destructor\n");
 	delete [] corners;
-	delete firstCorner;
-	delete secondCorner;
-	delete thirdCorner;
-	delete fourthCorner;
 }
 

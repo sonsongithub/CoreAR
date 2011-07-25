@@ -104,34 +104,22 @@ CRCode *CRChainCodeBlob::codeWithoutLSM() {
 	if (this->elements->size() < MINIMUM_CHAINCODE_LENGTH)
 		return NULL;
 	
-	CRChainCodeElement *firstCorner = this->firstCorner();
-	CRChainCodeElement *thirdCorner = this->thirdCorner(firstCorner);
-	CRChainCodeElement *secondCorner = this->secondCorner(firstCorner, thirdCorner);
-	CRChainCodeElement *fourthCorner = this->fourthCorner(firstCorner, thirdCorner);
+	CRChainCodeElement *firstCornerElement  = this->firstCorner();
+	CRChainCodeElement *thirdCornerElement  = this->thirdCorner(firstCornerElement);
+	CRChainCodeElement *secondCornerElement = this->secondCorner(firstCornerElement, thirdCornerElement);
+	CRChainCodeElement *fourthCornerElement = this->fourthCorner(firstCornerElement, thirdCornerElement);
 	
-	CRCode *code = new CRCode();
+	CRHomogeneousVec3* firstCorner  = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(firstCornerElement);
+	CRHomogeneousVec3* secondCorner = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(secondCornerElement);
+	CRHomogeneousVec3* thirdCorner  = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(thirdCornerElement);
+	CRHomogeneousVec3* fourthCorner = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(fourthCornerElement);
 	
-	code->corners = new CRHomogeneousVec3 [4];
-	code->firstCorner  = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(firstCorner);
-	code->secondCorner = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(secondCorner);
-	code->thirdCorner  = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(thirdCorner);
-	code->fourthCorner = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(fourthCorner);
+	CRCode *code = new CRCode(firstCorner, secondCorner, thirdCorner, fourthCorner);
 	
-	(code->corners + 0)->x = code->firstCorner->x;
-	(code->corners + 0)->y = code->firstCorner->y;
-	(code->corners + 0)->w = code->firstCorner->w;
-	
-	(code->corners + 1)->x = code->secondCorner->x;
-	(code->corners + 1)->y = code->secondCorner->y;
-	(code->corners + 1)->w = code->secondCorner->w;
-	
-	(code->corners + 2)->x = code->thirdCorner->x;
-	(code->corners + 2)->y = code->thirdCorner->y;
-	(code->corners + 2)->w = code->thirdCorner->w;
-	
-	(code->corners + 3)->x = code->fourthCorner->x;
-	(code->corners + 3)->y = code->fourthCorner->y;
-	(code->corners + 3)->w = code->fourthCorner->w;
+	delete firstCorner;
+	delete secondCorner;
+	delete thirdCorner;
+	delete fourthCorner;
 	
 	return code;
 }
@@ -140,49 +128,37 @@ CRCode *CRChainCodeBlob::code() {
 	if (this->elements->size() < MINIMUM_CHAINCODE_LENGTH)
 		return NULL;
 	
-	CRChainCodeElement *firstCorner = this->firstCorner();
-	CRChainCodeElement *thirdCorner = this->thirdCorner(firstCorner);
-	CRChainCodeElement *secondCorner = this->secondCorner(firstCorner, thirdCorner);
-	CRChainCodeElement *fourthCorner = this->fourthCorner(firstCorner, thirdCorner);
+	CRChainCodeElement *firstCornerElement  = this->firstCorner();
+	CRChainCodeElement *thirdCornerElement  = this->thirdCorner(firstCornerElement);
+	CRChainCodeElement *secondCornerElement = this->secondCorner(firstCornerElement, thirdCornerElement);
+	CRChainCodeElement *fourthCornerElement = this->fourthCorner(firstCornerElement, thirdCornerElement);
 	
-	CRHomogeneousVec3 *line1 = this->getLineThroughPoints(firstCorner, secondCorner);
-	CRHomogeneousVec3 *line2 = this->getLineThroughPoints(secondCorner, thirdCorner);
-	CRHomogeneousVec3 *line3 = this->getLineThroughPoints(thirdCorner, fourthCorner);
-	CRHomogeneousVec3 *line4 = this->getLineThroughPoints(fourthCorner, firstCorner);
+	CRHomogeneousVec3 *line1 = this->getLineThroughPoints(firstCornerElement, secondCornerElement);
+	CRHomogeneousVec3 *line2 = this->getLineThroughPoints(secondCornerElement, thirdCornerElement);
+	CRHomogeneousVec3 *line3 = this->getLineThroughPoints(thirdCornerElement, fourthCornerElement);
+	CRHomogeneousVec3 *line4 = this->getLineThroughPoints(fourthCornerElement, firstCornerElement);
 	
-	CRCode *code = new CRCode();
+	CRHomogeneousVec3* firstCorner  = CRHomogeneousVec3::outerProduct(line4, line1);
+	CRHomogeneousVec3* secondCorner = CRHomogeneousVec3::outerProduct(line1, line2);
+	CRHomogeneousVec3* thirdCorner  = CRHomogeneousVec3::outerProduct(line2, line3);
+	CRHomogeneousVec3* fourthCorner = CRHomogeneousVec3::outerProduct(line3, line4);
 	
-	code->corners = new CRHomogeneousVec3 [4];
-	code->firstCorner  = CRHomogeneousVec3::outerProduct(line4, line1);
-	code->secondCorner = CRHomogeneousVec3::outerProduct(line1, line2);
-	code->thirdCorner  = CRHomogeneousVec3::outerProduct(line2, line3);
-	code->fourthCorner = CRHomogeneousVec3::outerProduct(line3, line4);
+	firstCorner->normalize();
+	secondCorner->normalize();
+	thirdCorner->normalize();
+	fourthCorner->normalize();
 	
-	code->firstCorner->normalize();
-	code->secondCorner->normalize();
-	code->thirdCorner->normalize();
-	code->fourthCorner->normalize();
-	
-	(code->corners + 0)->x = code->firstCorner->x;
-	(code->corners + 0)->y = code->firstCorner->y;
-	(code->corners + 0)->w = code->firstCorner->w;
-	
-	(code->corners + 1)->x = code->secondCorner->x;
-	(code->corners + 1)->y = code->secondCorner->y;
-	(code->corners + 1)->w = code->secondCorner->w;
-	
-	(code->corners + 2)->x = code->thirdCorner->x;
-	(code->corners + 2)->y = code->thirdCorner->y;
-	(code->corners + 2)->w = code->thirdCorner->w;
-	
-	(code->corners + 3)->x = code->fourthCorner->x;
-	(code->corners + 3)->y = code->fourthCorner->y;
-	(code->corners + 3)->w = code->fourthCorner->w;
+	CRCode *code = new CRCode(firstCorner, secondCorner, thirdCorner, fourthCorner);
 	
 	delete line1;
 	delete line2;
 	delete line3;
 	delete line4;
+	
+	delete firstCorner;
+	delete secondCorner;
+	delete thirdCorner;
+	delete fourthCorner;
 	
 	return code;
 }

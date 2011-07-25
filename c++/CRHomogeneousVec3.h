@@ -1,6 +1,6 @@
 /*
  * Core AR
- * CRHomogeneousPoint.h
+ * CRHomogeneousVec3.h
  *
  * Copyright (c) Yuichi YOSHIDA, 11/07/23.
  * All rights reserved.
