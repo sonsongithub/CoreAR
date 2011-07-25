@@ -1,3 +1,7 @@
+INFORMATION
+=======
+Now, I'm rebuilding all basic functions with C++. By removing the code which depends on Accelerate.framework, I will make CoreAR.framework more portable. In addition to such as implementation, I'm going to code the functions to optimize estimation of visual code's position and pose. So, let me change the current codes drastically. Then, old code that is typically written by C, can be removed from CoreAR.framework. Take care about differences from previous code if you pull the code from this repositiory. Thank you.
+
 CoreAR.framework
 =======
 ![](http://sonson.jp/wp/wp-content/uploads/2011/04/coreARSample.png)
