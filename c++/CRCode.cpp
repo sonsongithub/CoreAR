@@ -49,9 +49,9 @@ CRCode::CRCode(CRHomogeneousVec3 *firstCorner, CRHomogeneousVec3 *secondCorner, 
 	(corners + 1)->y = secondCorner->y;
 	(corners + 1)->w = secondCorner->w;
 	
-	(corners + 2)->x = secondCorner->x;
-	(corners + 2)->y = secondCorner->y;
-	(corners + 2)->w = secondCorner->w;
+	(corners + 2)->x = thirdCorner->x;
+	(corners + 2)->y = thirdCorner->y;
+	(corners + 2)->w = thirdCorner->w;
 	
 	(corners + 3)->x = fourthCorner->x;
 	(corners + 3)->y = fourthCorner->y;
