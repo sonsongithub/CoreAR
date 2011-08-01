@@ -21,28 +21,22 @@
 void getSimpleHomography(float uv[3][4], float homography[3][3]) {
 	float h[8];
 	
-	float xy[3][4];
-	
-	xy[0][0] = 0.0f;	xy[0][1] = 1.0f;	xy[0][2] = 1.0f;	xy[0][3] = 0.0f;
-	xy[1][0] = 0.0f;	xy[1][1] = 0.0f;	xy[1][2] = 1.0f;	xy[1][3] = 1.0f;
-	xy[2][0] = 1.0f;	xy[2][1] = 1.0f;	xy[2][2] = 1.0f;	xy[2][3] = 1.0f;
-	
 	h[6] = uv[0][0];
 	h[7] = uv[1][0];
 	
-	float param_u_4 = uv[0][0] - uv[0][1] - uv[0][2] + uv[0][3];
-	float param_v_4 = uv[1][0] - uv[1][1] - uv[1][2] + uv[1][3];
+	float param_u_4 = uv[0][0] - uv[0][1] - uv[0][3] + uv[0][2];
+	float param_v_4 = uv[1][0] - uv[1][1] - uv[1][3] + uv[1][2];
 	
-	h[5] = param_u_4 * (uv[1][1] - uv[1][3]) - param_v_4 * (uv[0][1] - uv[0][3]);
-	h[5] = h[5] / ((uv[0][2] - uv[0][3]) * (uv[1][1] - uv[1][3]) - (uv[0][1] - uv[0][3]) * (uv[1][2] - uv[1][3]));
+	h[5] = param_u_4 * (uv[1][1] - uv[1][2]) - param_v_4 * (uv[0][1] - uv[0][2]);
+	h[5] = h[5] / ((uv[0][3] - uv[0][2]) * (uv[1][1] - uv[1][2]) - (uv[0][1] - uv[0][2]) * (uv[1][3] - uv[1][2]));
 	
-	h[2] = (param_u_4 - (uv[0][2] - uv[0][3]) * h[5]) / (uv[0][1] - uv[0][3]);
+	h[2] = (param_u_4 - (uv[0][3] - uv[0][2]) * h[5]) / (uv[0][1] - uv[0][2]);
 	
 	h[0] = uv[0][1] * h[2] - uv[0][0] + uv[0][1];
 	h[1] = uv[1][1] * h[2] - uv[1][0] + uv[1][1];
 	
-	h[3] = uv[0][2] * h[5] - uv[0][0] + uv[0][2];
-	h[4] = uv[1][2] * h[5] - uv[1][0] + uv[1][2];
+	h[3] = uv[0][3] * h[5] - uv[0][0] + uv[0][3];
+	h[4] = uv[1][3] * h[5] - uv[1][0] + uv[1][3];
 	
 	homography[0][0] = h[0];
 	homography[1][0] = h[1];
@@ -262,14 +256,29 @@ void testCornerDetection() {
 	
 	// _CRTestDumpPixel(pixel, width, height);
 	
+	CRCode *groundTruthCode = new CRCode(corners, corners+1, corners+2, corners+3);
+	
 	if (!chaincode->blobs->empty()) {
 		CRChainCodeBlob *blob = chaincode->blobs->front();
 		CRCode *code_normal = blob->code();
+		
+		code_normal->dumpCorners();
+		code_normal->normalizeCornerForImageCoord(width, height, focal, focal);
+		code_normal->getSimpleHomography();
+		showMatrix3x3(code_normal->homography);
+		showMatrix4x4(code_normal->rt);
+		
+		groundTruthCode->dumpCorners();
+		groundTruthCode->normalizeCornerForImageCoord(width, height, focal, focal);
+		groundTruthCode->getSimpleHomography();
+		showMatrix3x3(groundTruthCode->homography);
+		showMatrix4x4(groundTruthCode->rt);
+		
+/*		
 		CRCode *code_without_lsm = blob->codeWithoutLSM();
 		
 		float xy[3][4];
 		float uv[3][4];
-		float uv2[3][4];
 		float homography[3][3];
 		
 		
@@ -300,28 +309,31 @@ void testCornerDetection() {
 		showMatrix3x4(xy);
 		showMatrix3x4(uv);
 		
+		float rt[4][4];
+		float scale = codeSize;
 		
+		_DPRINTF("-------------normal homography\n");
 		_tic();
-		for (int k = 0; k < 1000; k++)
 			getHomography(xy, uv, homography);
+			getRTMatrix(rt, homography, scale);
 		_toc();
+		showMatrix3x3(homography);
+		showMatrix4x4(rt);
 		
+		_DPRINTF("-------------fast homography\n");
 		_tic();
-		for (int k = 0; k < 1000; k++)
 			getSimpleHomography(uv, homography);
+			getRTMatrix(rt, homography, scale);
 		_toc();
 		
 		showMatrix3x3(homography);
-		float rt[4][4];
-		float scale = codeSize;
-		getRTMatrix(rt, homography, scale);
-		
 		showMatrix4x4(rt);
 		
+		_DPRINTF("-------------ground truth\n");
 		_CRTestDumpMat(pMat);
-		
-		delete code_normal;
 		delete code_without_lsm;
+*/		
+		delete code_normal;
 	}
 	
 	////////////////////////////////////////////////////////////////////////////////

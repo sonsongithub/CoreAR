@@ -47,12 +47,19 @@ public:
 	CRHomogeneousVec3	*secondCorner;
 	CRHomogeneousVec3	*thirdCorner;
 	CRHomogeneousVec3	*fourthCorner;
+	
+	float				homography[3][3];
+	float				rt[4][4];
 public:
 	CRCode();
 	CRCode(CRHomogeneousVec3 *firstCorner, CRHomogeneousVec3 *secondCorner, CRHomogeneousVec3 *thirdCorner, CRHomogeneousVec3 *fourthCorner);
 	~CRCode();
-	
+
+	void normalizeCornerForImageCoord(float width, float height, float focalX, float focalY);
 	void getHomographyMatrix();
+	void getSimpleHomography();
+	
+	void dumpCorners();
 };
 
 #endif

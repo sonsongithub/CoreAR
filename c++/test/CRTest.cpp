@@ -76,14 +76,12 @@ void _CRTestMultiMatAndVec(float result[4], float a[4][4], float x[4]) {
 }
 
 void _CRTestDumpMat(float matrix[4][4]) {
-	printf("--------------\n");
 	for (int i = 0; i < 4; i++) {
 		printf("%4.3f %4.3f %4.3f %4.3f\n", matrix[i][0],  matrix[i][1],  matrix[i][2],  matrix[i][3]);
 	}
 }
 
 void _CRTestDumpVec(float vec[4]) {
-	printf("--------------\n");
 	for (int i = 0; i < 4; i++) {
 		printf("%4.3f\n", vec[i]);
 	}
@@ -149,17 +147,19 @@ void _CRTestSetIdentityMatrix(float mat[4][4]) {
 
 void _CRTestMakePixelDataAndPMatrixWithProjectionSettingAndCodeSize(float codeSize, float pMatrix[4][4], unsigned char **output_pixel, int width, int height, CRHomogeneousVec3* projected_corners, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt) {
 	float corners[4][4];
-	//	corners[0][0] = -0.5;			corners[0][1] = -0.5;			corners[0][2] = 0;			corners[0][3] = 1;
-	//	corners[1][0] =  0.5;			corners[1][1] = -0.5;			corners[1][2] = 0;			corners[1][3] = 1;
-	//	corners[2][0] =  0.5;			corners[2][1] =  0.5;			corners[2][2] = 0;			corners[2][3] = 1;
-	//	corners[3][0] = -0.5;			corners[3][1] =  0.5;			corners[3][2] = 0;			corners[3][3] = 1;
 	
+//#define USE_CENTERING_VISUALCODE
+#ifdef USE_CENTERING_VISUALCODE
+	corners[0][0] = -0.5 * codeSize;	corners[0][1] = -0.5 * codeSize;	corners[0][2] = 0;	corners[0][3] = 1;
+	corners[1][0] =  0.5 * codeSize;	corners[1][1] = -0.5 * codeSize;	corners[1][2] = 0;	corners[1][3] = 1;
+	corners[2][0] =  0.5 * codeSize;	corners[2][1] =  0.5 * codeSize;	corners[2][2] = 0;	corners[2][3] = 1;
+	corners[3][0] = -0.5 * codeSize;	corners[3][1] =  0.5 * codeSize;	corners[3][2] = 0;	corners[3][3] = 1;
+#else	
 	corners[0][0] =  0;				corners[0][1] =  0;				corners[0][2] = 0;			corners[0][3] = 1;
 	corners[1][0] =  codeSize;		corners[1][1] =  0;				corners[1][2] = 0;			corners[1][3] = 1;
 	corners[2][0] =  codeSize;		corners[2][1] =  codeSize;		corners[2][2] = 0;			corners[2][3] = 1;
 	corners[3][0] =  0;				corners[3][1] =  codeSize;		corners[3][2] = 0;			corners[3][3] = 1;
-	
-	
+#endif	
 	unsigned char *pixel = (unsigned char*)malloc(sizeof(unsigned char)*width*height);
 	
 	float corners_projected[12];
@@ -182,14 +182,9 @@ void _CRTestMakePixelDataAndPMatrixWithProjectionSettingAndCodeSize(float codeSi
 		projected_corners[i].w = p[2];
 	}
 	
-	for (int i = 0; i < 4; i++) {
-		projected_corners[i].dump();
-	}
-	
 	int precision = width > height ? width : height;
-	_DPRINTF("--------------------------------------------------------------------->\n");
 	
-	float step = 1.0f / (precision - 1);
+	float step = codeSize / (precision - 1);
 	
 	for (int i = 0; i < precision; i++) {
 		for (int j = 0; j < precision; j++) {
@@ -202,16 +197,6 @@ void _CRTestMakePixelDataAndPMatrixWithProjectionSettingAndCodeSize(float codeSi
 			_CRTestSetIdentityMatrix(mat);
 			
 			_CRTestProjectPoint(mat, x_temp, x_temp_projected, focal, xdeg, ydeg, zdeg, xt, yt, zt);
-			
-			//printf("%f,%f,%f,%f,%f,%f,%f\n", focal, xdeg, ydeg, zdeg, xt, yt, zt);
-			//printf("%d,%d\n", width, height);
-			
-			//			printf("--->\n");
-			//			printf("%f\n", x_temp[0]);
-			//			printf("%f\n", x_temp[1]);
-			//			printf("<---\n");
-			//			printf("%f\n", x_temp_projected[0]);
-			//			printf("%f\n", x_temp_projected[1]);
 			
 			x_temp_projected[0] = x_temp_projected[0] + width/2;
 			x_temp_projected[1] = height/2 - x_temp_projected[1];

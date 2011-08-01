@@ -30,12 +30,105 @@
 
 #include "CRCode.h"
 
+#include <math.h>
+
 CRCode::CRCode() {
 	corners = new CRHomogeneousVec3 [4];
 	this->firstCorner  = corners + 0;
 	this->secondCorner = corners + 1;
 	this->thirdCorner  = corners + 2;
 	this->fourthCorner = corners + 3;
+}
+
+void CRCode::normalizeCornerForImageCoord(float width, float height, float focalX, float focalY) {
+	for (int i = 0; i < 4; i++) {
+		(corners + i)->normalize();
+		(corners + i)->x -= (float)width/2;
+		(corners + i)->x /= (float)focalX;
+		(corners + i)->y = (float)height/2 - (corners + i)->y;
+		(corners + i)->y /= (float)focalY;
+	}
+}
+
+void CRCode::dumpCorners() {
+	for (int i = 0; i < 4; i++) {
+		(this->corners + i)->dump();
+	}
+}
+
+void CRCode::getSimpleHomography() {
+	
+	float uv[2][4];
+	
+	float h[8];
+	
+	float xy[3][4];
+	
+	for (int i = 0; i < 4; i++) {
+		uv[0][i] = (corners + i)->x;
+		uv[1][i] = (corners + i)->y;
+	}
+	
+	xy[0][0] = 0.0f;	xy[0][1] = 1.0f;	xy[0][2] = 1.0f;	xy[0][3] = 0.0f;
+	xy[1][0] = 0.0f;	xy[1][1] = 0.0f;	xy[1][2] = 1.0f;	xy[1][3] = 1.0f;
+	xy[2][0] = 1.0f;	xy[2][1] = 1.0f;	xy[2][2] = 1.0f;	xy[2][3] = 1.0f;
+	
+	h[6] = uv[0][0];
+	h[7] = uv[1][0];
+	
+	float param_u_4 = uv[0][0] - uv[0][1] - uv[0][3] + uv[0][2];
+	float param_v_4 = uv[1][0] - uv[1][1] - uv[1][3] + uv[1][2];
+	
+	h[5] = param_u_4 * (uv[1][1] - uv[1][2]) - param_v_4 * (uv[0][1] - uv[0][2]);
+	h[5] = h[5] / ((uv[0][3] - uv[0][2]) * (uv[1][1] - uv[1][2]) - (uv[0][1] - uv[0][2]) * (uv[1][3] - uv[1][2]));
+	
+	h[2] = (param_u_4 - (uv[0][3] - uv[0][2]) * h[5]) / (uv[0][1] - uv[0][2]);
+	
+	h[0] = uv[0][1] * h[2] - uv[0][0] + uv[0][1];
+	h[1] = uv[1][1] * h[2] - uv[1][0] + uv[1][1];
+	
+	h[3] = uv[0][3] * h[5] - uv[0][0] + uv[0][3];
+	h[4] = uv[1][3] * h[5] - uv[1][0] + uv[1][3];
+	
+	homography[0][0] = h[0];
+	homography[1][0] = h[1];
+	homography[2][0] = h[2];
+	
+	homography[0][1] = h[3];
+	homography[1][1] = h[4];
+	homography[2][1] = h[5];
+	
+	homography[0][2] = h[6];
+	homography[1][2] = h[7];
+	homography[2][2] = 1;
+	
+	float scale = 1;
+	
+	float e1_length = homography[0][0] * homography[0][0] + homography[1][0] * homography[1][0] + homography[2][0] * homography[2][0];
+	float e2_length = homography[0][1] * homography[0][1] + homography[1][1] * homography[1][1] + homography[2][1] * homography[2][1];
+	e1_length = sqrtf(e1_length);
+	e2_length = sqrtf(e2_length);
+	float length = (e1_length + e2_length) * 0.5;
+	
+	rt[0][0] = homography[0][0] / length;
+	rt[1][0] = homography[1][0] / length;
+	rt[2][0] = homography[2][0] / length;
+	rt[3][0] = 0;
+	
+	rt[0][1] = homography[0][1] / length;
+	rt[1][1] = homography[1][1] / length;
+	rt[2][1] = homography[2][1] / length;
+	rt[3][1] = 0;
+	
+	rt[0][2] = rt[1][0] * rt[2][1] - rt[2][0] * rt[1][1];
+	rt[1][2] = rt[2][0] * rt[0][1] - rt[0][0] * rt[2][1];
+	rt[2][2] = rt[0][0] * rt[1][1] - rt[1][0] * rt[0][1];
+	rt[3][2] = 0;
+	
+	rt[0][3] = homography[0][2] / length * scale;
+	rt[1][3] = homography[1][2] / length * scale;
+	rt[2][3] = homography[2][2] / length * scale;
+	rt[3][3] = 1;
 }
 
 CRCode::CRCode(CRHomogeneousVec3 *firstCorner, CRHomogeneousVec3 *secondCorner, CRHomogeneousVec3 *thirdCorner, CRHomogeneousVec3 *fourthCorner) {
