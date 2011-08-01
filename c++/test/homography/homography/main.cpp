@@ -18,6 +18,74 @@
 
 #include <Accelerate/Accelerate.h>
 
+void getSimpleHomography(float uv[3][4], float homography[3][3]) {
+	float h[8];
+	
+	float xy[3][4];
+	
+	xy[0][0] = 0.0f;	xy[0][1] = 1.0f;	xy[0][2] = 1.0f;	xy[0][3] = 0.0f;
+	xy[1][0] = 0.0f;	xy[1][1] = 0.0f;	xy[1][2] = 1.0f;	xy[1][3] = 1.0f;
+	xy[2][0] = 1.0f;	xy[2][1] = 1.0f;	xy[2][2] = 1.0f;	xy[2][3] = 1.0f;
+	
+	h[6] = uv[0][0];
+	h[7] = uv[1][0];
+	
+	float param_u_4 = uv[0][0] - uv[0][1] - uv[0][2] + uv[0][3];
+	float param_v_4 = uv[1][0] - uv[1][1] - uv[1][2] + uv[1][3];
+	
+	h[5] = param_u_4 * (uv[1][1] - uv[1][3]) - param_v_4 * (uv[0][1] - uv[0][3]);
+	h[5] = h[5] / ((uv[0][2] - uv[0][3]) * (uv[1][1] - uv[1][3]) - (uv[0][1] - uv[0][3]) * (uv[1][2] - uv[1][3]));
+	
+	h[2] = (param_u_4 - (uv[0][2] - uv[0][3]) * h[5]) / (uv[0][1] - uv[0][3]);
+	
+	h[0] = uv[0][1] * h[2] - uv[0][0] + uv[0][1];
+	h[1] = uv[1][1] * h[2] - uv[1][0] + uv[1][1];
+	
+	h[3] = uv[0][2] * h[5] - uv[0][0] + uv[0][2];
+	h[4] = uv[1][2] * h[5] - uv[1][0] + uv[1][2];
+	
+	homography[0][0] = h[0];
+	homography[1][0] = h[1];
+	homography[2][0] = h[2];
+	
+	homography[0][1] = h[3];
+	homography[1][1] = h[4];
+	homography[2][1] = h[5];
+	
+	homography[0][2] = h[6];
+	homography[1][2] = h[7];
+	homography[2][2] = 1;
+}
+
+void getRTMatrix(float rt[4][4], float homography[3][3], float scale) {
+	
+	float e1_length = homography[0][0] * homography[0][0] + homography[1][0] * homography[1][0] + homography[2][0] * homography[2][0];
+	float e2_length = homography[0][1] * homography[0][1] + homography[1][1] * homography[1][1] + homography[2][1] * homography[2][1];
+	e1_length = sqrtf(e1_length);
+	e2_length = sqrtf(e2_length);
+	float length = (e1_length + e2_length) * 0.5;
+	
+	rt[0][0] = homography[0][0] / length;
+	rt[1][0] = homography[1][0] / length;
+	rt[2][0] = homography[2][0] / length;
+	rt[3][0] = 0;
+	
+	rt[0][1] = homography[0][1] / length;
+	rt[1][1] = homography[1][1] / length;
+	rt[2][1] = homography[2][1] / length;
+	rt[3][1] = 0;
+	
+	rt[0][2] = rt[1][0] * rt[2][1] - rt[2][0] * rt[1][1];
+	rt[1][2] = rt[2][0] * rt[0][1] - rt[0][0] * rt[2][1];
+	rt[2][2] = rt[0][0] * rt[1][1] - rt[1][0] * rt[0][1];
+	rt[3][2] = 0;
+	
+	rt[0][3] = homography[0][2] / length * scale;
+	rt[1][3] = homography[1][2] / length * scale;
+	rt[2][3] = homography[2][2] / length * scale;
+	rt[3][3] = 1;
+}
+
 void getHomography(float xy[3][4], float uv[3][4], float homography[3][3]) {
 	
 	for (int column = 0; column < 4; column++) {
@@ -111,6 +179,16 @@ void showMatrix3x4(float x[3][4]) {
 	printf("\n");
 }
 
+void showMatrix4x4(float x[4][4]) {
+	for (int row = 0; row < 4; row++) {
+		for (int column = 0; column < 4; column++) {
+			printf("%f ", x[row][column]);
+		}
+		printf(";\n");
+	}
+	printf("\n");
+}
+
 void showMatrix3x3(float x[3][3]) {
 	for (int row = 0; row < 3; row++) {
 		for (int column = 0; column < 3; column++) {
@@ -139,21 +217,25 @@ void testCornerDetection() {
 	//
 	////////////////////////////////////////////////////////////////////////////////
 	
-	width = 40;
-	height = 40;
+	width = 640;
+	height = 480;
 	
 	CRHomogeneousVec3 *corners = new CRHomogeneousVec3 [4];
 	
-	float focal = 300;
-	float xdeg = 0.1;//M_PI/200.0;
-	float ydeg = 0;//M_PI/200.0;
-	float zdeg = 0.2;
+	float focal = 650;
+	float xdeg = M_PI / 10.0f;
+	float ydeg = 0;
+	float zdeg = M_PI / 40.0f;
 	
-	float xt = 0;
+	float xt = 0.05;
 	float yt = 0;
-	float zt = 14;
+	float zt = 5;
 	float pMat[4][4];
-	_CRTestMakePixelDataAndPMatrixWithProjectionSetting(
+	
+	float codeSize = 0.5;
+	
+	_CRTestMakePixelDataAndPMatrixWithProjectionSettingAndCodeSize(
+											  codeSize,
 											  pMat,
 											  &pixel,
 											  width,
@@ -166,7 +248,8 @@ void testCornerDetection() {
 											  xt, 
 											  yt,
 											  zt);
-	_CRTestDumpPixel(pixel, width, height);
+	//_CRTestDumpPixel(pixel, width, height);
+	_CRTestDumpMat(pMat);
 	
 	////////////////////////////////////////////////////////////////////////////////
 	//
@@ -182,6 +265,7 @@ void testCornerDetection() {
 	if (!chaincode->blobs->empty()) {
 		CRChainCodeBlob *blob = chaincode->blobs->front();
 		CRCode *code_normal = blob->code();
+		CRCode *code_without_lsm = blob->codeWithoutLSM();
 		
 		float xy[3][4];
 		float uv[3][4];
@@ -192,6 +276,7 @@ void testCornerDetection() {
 		_DPRINTF("------------------->\n");
 		for (int i = 0; i < 4; i++) {
 			(code_normal->corners + i)->dump();
+			(code_without_lsm->corners + i)->dump();
 			(corners + i)->dump();
 			_DPRINTF("------------------->\n");
 		}
@@ -205,32 +290,38 @@ void testCornerDetection() {
 			(corners + i)->normalize();
 			(corners + i)->x -= (float)width/2;
 			(corners + i)->x /= (float)focal;
-			(corners + i)->y -= (float)height/2;
+			(corners + i)->y = (float)height/2 - (corners + i)->y;
 			(corners + i)->y /= (float)focal;
 			uv[0][i] = (corners + i)->x;
 			uv[1][i] = (corners + i)->y;
 			uv[2][i] = (corners + i)->w;
 		}
 		
-		
-		for (int i = 0; i < 4; i++) {
-			(code_normal->corners + i)->normalize();
-			(code_normal->corners + i)->x -= (float)width/2;
-			(code_normal->corners + i)->x /= (float)focal;
-			(code_normal->corners + i)->y -= (float)height/2;
-			(code_normal->corners + i)->y /= (float)focal;
-			uv2[0][i] = (code_normal->corners + i)->x;
-			uv2[1][i] = (code_normal->corners + i)->y;
-			uv2[2][i] = (code_normal->corners + i)->w;
-		}
-		
 		showMatrix3x4(xy);
 		showMatrix3x4(uv);
-		showMatrix3x4(uv2);
 		
-		getHomography(xy, uv, homography);
+		
+		_tic();
+		for (int k = 0; k < 1000; k++)
+			getHomography(xy, uv, homography);
+		_toc();
+		
+		_tic();
+		for (int k = 0; k < 1000; k++)
+			getSimpleHomography(uv, homography);
+		_toc();
+		
 		showMatrix3x3(homography);
+		float rt[4][4];
+		float scale = codeSize;
+		getRTMatrix(rt, homography, scale);
+		
+		showMatrix4x4(rt);
+		
 		_CRTestDumpMat(pMat);
+		
+		delete code_normal;
+		delete code_without_lsm;
 	}
 	
 	////////////////////////////////////////////////////////////////////////////////

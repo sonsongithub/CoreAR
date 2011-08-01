@@ -35,5 +35,6 @@ void _CRTestDumpPixel(unsigned char* pixel, int width, int height);
 void _CRTestDumpMat(float matrix[4][4]);
 void _CRTestDumpVec(float vec[4]);
 void _CRTestMakeSimplePixelData(unsigned char **output_pixel, int *output_width, int *output_height);
+void _CRTestMakePixelDataAndPMatrixWithProjectionSettingAndCodeSize(float codeSize, float pMatrix[4][4], unsigned char **output_pixel, int width, int height, CRHomogeneousVec3* projected_corners, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt);
 void _CRTestMakePixelDataAndPMatrixWithProjectionSetting(float pMatrix[4][4], unsigned char **output_pixel, int width, int height, CRHomogeneousVec3* projected_corners, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt);
 void _CRTestMakePixelDataWithProjectionSetting(unsigned char **output_pixel, int width, int height, CRHomogeneousVec3* projected_corners, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt);

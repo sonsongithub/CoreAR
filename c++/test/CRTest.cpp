@@ -127,12 +127,12 @@ void _CRTestProjectPoint(float mat[4][4], float *x, float *x_projected, float fo
 	
 	_CRTestMultiMatAndVec(r, mat, x);
 	
-//	_CRTestDumpMat(mat);
-//	_CRTestDumpVec(x);
-//	_CRTestDumpVec(r);
+	x_projected[0] = r[0] * focal;
+	x_projected[1] = r[1] * focal;
+	x_projected[2] = r[2];
 	
-	x_projected[0] = r[0] / r[2] * focal;
-	x_projected[1] = r[1] / r[2] * focal;
+	x_projected[0] = x_projected[0] / x_projected[2];
+	x_projected[1] = x_projected[1] / x_projected[2];
 	x_projected[2] = 1;
 }
 
@@ -147,12 +147,18 @@ void _CRTestSetIdentityMatrix(float mat[4][4]) {
 	}
 }
 
-void _CRTestMakePixelDataAndPMatrixWithProjectionSetting(float pMatrix[4][4], unsigned char **output_pixel, int width, int height, CRHomogeneousVec3* projected_corners, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt) {
+void _CRTestMakePixelDataAndPMatrixWithProjectionSettingAndCodeSize(float codeSize, float pMatrix[4][4], unsigned char **output_pixel, int width, int height, CRHomogeneousVec3* projected_corners, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt) {
 	float corners[4][4];
-	corners[0][0] = -0.5;			corners[0][1] = -0.5;			corners[0][2] = 0;			corners[0][3] = 1;
-	corners[1][0] = -0.5;			corners[1][1] =  0.5;			corners[1][2] = 0;			corners[1][3] = 1;
-	corners[2][0] =  0.5;			corners[2][1] =  0.5;			corners[2][2] = 0;			corners[2][3] = 1;
-	corners[3][0] =  0.5;			corners[3][1] = -0.5;			corners[3][2] = 0;			corners[3][3] = 1;
+	//	corners[0][0] = -0.5;			corners[0][1] = -0.5;			corners[0][2] = 0;			corners[0][3] = 1;
+	//	corners[1][0] =  0.5;			corners[1][1] = -0.5;			corners[1][2] = 0;			corners[1][3] = 1;
+	//	corners[2][0] =  0.5;			corners[2][1] =  0.5;			corners[2][2] = 0;			corners[2][3] = 1;
+	//	corners[3][0] = -0.5;			corners[3][1] =  0.5;			corners[3][2] = 0;			corners[3][3] = 1;
+	
+	corners[0][0] =  0;				corners[0][1] =  0;				corners[0][2] = 0;			corners[0][3] = 1;
+	corners[1][0] =  codeSize;		corners[1][1] =  0;				corners[1][2] = 0;			corners[1][3] = 1;
+	corners[2][0] =  codeSize;		corners[2][1] =  codeSize;		corners[2][2] = 0;			corners[2][3] = 1;
+	corners[3][0] =  0;				corners[3][1] =  codeSize;		corners[3][2] = 0;			corners[3][3] = 1;
+	
 	
 	unsigned char *pixel = (unsigned char*)malloc(sizeof(unsigned char)*width*height);
 	
@@ -168,25 +174,19 @@ void _CRTestMakePixelDataAndPMatrixWithProjectionSetting(float pMatrix[4][4], un
 		
 		_CRTestProjectPoint(pMatrix, corners[i], p, focal, xdeg, ydeg, zdeg, xt, yt, zt);
 		
-		//printf("%f,%f,%f,%f,%f,%f,%f\n", focal, xdeg, ydeg, zdeg, xt, yt, zt);
-		//printf("%d,%d\n", width, height);
-		
-//		printf("--->\n");
-//		printf("%f\n", corners[i][0]);
-//		printf("%f\n", corners[i][1]);
-//		printf("<---\n");
-//		printf("%f\n", p[0]);
-//		printf("%f\n", p[1]);
-		
-		p[0] += width / 2;
-		p[1] += height / 2;
+		p[0] = p[0] + width/2;
+		p[1] = height/2 - p[1];
 		
 		projected_corners[i].x = p[0];
 		projected_corners[i].y = p[1];
 		projected_corners[i].w = p[2];
 	}
 	
-	int precision = 200;
+	for (int i = 0; i < 4; i++) {
+		projected_corners[i].dump();
+	}
+	
+	int precision = width > height ? width : height;
 	_DPRINTF("--------------------------------------------------------------------->\n");
 	
 	float step = 1.0f / (precision - 1);
@@ -195,8 +195,8 @@ void _CRTestMakePixelDataAndPMatrixWithProjectionSetting(float pMatrix[4][4], un
 		for (int j = 0; j < precision; j++) {
 			float x_temp[4];
 			float x_temp_projected[4];
-			x_temp[0] = -0.5 + step * i;
-			x_temp[1] = -0.5 + step * j;
+			x_temp[0] = 0 + step * i;
+			x_temp[1] = 0 + step * j;
 			x_temp[2] = 0;
 			x_temp[3] = 1;
 			_CRTestSetIdentityMatrix(mat);
@@ -206,19 +206,24 @@ void _CRTestMakePixelDataAndPMatrixWithProjectionSetting(float pMatrix[4][4], un
 			//printf("%f,%f,%f,%f,%f,%f,%f\n", focal, xdeg, ydeg, zdeg, xt, yt, zt);
 			//printf("%d,%d\n", width, height);
 			
-//			printf("--->\n");
-//			printf("%f\n", x_temp[0]);
-//			printf("%f\n", x_temp[1]);
-//			printf("<---\n");
-//			printf("%f\n", x_temp_projected[0]);
-//			printf("%f\n", x_temp_projected[1]);
+			//			printf("--->\n");
+			//			printf("%f\n", x_temp[0]);
+			//			printf("%f\n", x_temp[1]);
+			//			printf("<---\n");
+			//			printf("%f\n", x_temp_projected[0]);
+			//			printf("%f\n", x_temp_projected[1]);
 			
-			x_temp_projected[0] += width / 2;
-			x_temp_projected[1] += height / 2;
+			x_temp_projected[0] = x_temp_projected[0] + width/2;
+			x_temp_projected[1] = height/2 - x_temp_projected[1];
+			
 			_CRTestSetPixel(pixel, width, height, x_temp_projected[0], x_temp_projected[1], 0x01);
 		}
 	}
 	*output_pixel = pixel;
+}
+
+void _CRTestMakePixelDataAndPMatrixWithProjectionSetting(float pMatrix[4][4], unsigned char **output_pixel, int width, int height, CRHomogeneousVec3* projected_corners, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt) {
+	_CRTestMakePixelDataAndPMatrixWithProjectionSettingAndCodeSize(1, pMatrix, output_pixel, width, height, projected_corners, focal, xdeg, ydeg, zdeg, xt, yt, zt);
 }
 
 void _CRTestMakePixelDataWithProjectionSetting(unsigned char **output_pixel, int width, int height, CRHomogeneousVec3* projected_corners, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt) {
@@ -227,8 +232,8 @@ void _CRTestMakePixelDataWithProjectionSetting(unsigned char **output_pixel, int
 }
 
 void _CRTestDumpPixel(unsigned char* pixel, int width, int height) {
-	for (int y = 0; y < width; y++) {
-		for (int x = 0; x < height; x++) {
+	for (int y = 0; y < height; y++) {
+		for (int x = 0; x < width; x++) {
 			printf("%02x ", pixel[x + y * width]);
 		}
 		printf("\n");
