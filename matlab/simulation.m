@@ -3,14 +3,14 @@ function simulation()
 % ar condition, focal length and code size
 ar.fx = 649.590771179639773;
 ar.fy = 653.240978126455161;
-ar.codeSize = 0.5;
+ar.codeSize = 1;
 ar.imageSize = [480 640];
    
 % code pose
-p = getRTMatrix([pi/6, 0, pi/40], [0.05 0 1.5]);
+p = getRTMatrix([pi/10, 0, pi/40], [0.05 0 3]);
 
 % code original coordinates
-codeOriginalPositionWorld = cat(1, [-1 1 0;1 1 0;1 -1 0;-1 -1 0]' * ar.codeSize * 0.5, [1 1 1 1]);
+codeOriginalPositionWorld = cat(1, [-0.5 -0.5 0;0.5 -0.5 0;0.5 0.5 0;-0.5 0.5 0]' * ar.codeSize * 1, [1 1 1 1]);
 
 % rotate and translate code by pose matrix
 codePositionWorld = p * codeOriginalPositionWorld;
