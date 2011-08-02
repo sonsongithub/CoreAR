@@ -56,22 +56,16 @@ void CRCode::dumpCorners() {
 	}
 }
 
-void CRCode::getSimpleHomography() {
+void CRCode::getSimpleHomography(float scale) {
 	
 	float uv[2][4];
 	
 	float h[8];
 	
-	float xy[3][4];
-	
 	for (int i = 0; i < 4; i++) {
 		uv[0][i] = (corners + i)->x;
 		uv[1][i] = (corners + i)->y;
 	}
-	
-	xy[0][0] = 0.0f;	xy[0][1] = 1.0f;	xy[0][2] = 1.0f;	xy[0][3] = 0.0f;
-	xy[1][0] = 0.0f;	xy[1][1] = 0.0f;	xy[1][2] = 1.0f;	xy[1][3] = 1.0f;
-	xy[2][0] = 1.0f;	xy[2][1] = 1.0f;	xy[2][2] = 1.0f;	xy[2][3] = 1.0f;
 	
 	h[6] = uv[0][0];
 	h[7] = uv[1][0];
@@ -101,23 +95,21 @@ void CRCode::getSimpleHomography() {
 	homography[0][2] = h[6];
 	homography[1][2] = h[7];
 	homography[2][2] = 1;
-	
-	float scale = 1;
-	
+		
 	float e1_length = homography[0][0] * homography[0][0] + homography[1][0] * homography[1][0] + homography[2][0] * homography[2][0];
 	float e2_length = homography[0][1] * homography[0][1] + homography[1][1] * homography[1][1] + homography[2][1] * homography[2][1];
 	e1_length = sqrtf(e1_length);
 	e2_length = sqrtf(e2_length);
 	float length = (e1_length + e2_length) * 0.5;
 	
-	rt[0][0] = homography[0][0] / length;
-	rt[1][0] = homography[1][0] / length;
-	rt[2][0] = homography[2][0] / length;
+	rt[0][0] = homography[0][0] / e1_length;
+	rt[1][0] = homography[1][0] / e1_length;
+	rt[2][0] = homography[2][0] / e1_length;
 	rt[3][0] = 0;
 	
-	rt[0][1] = homography[0][1] / length;
-	rt[1][1] = homography[1][1] / length;
-	rt[2][1] = homography[2][1] / length;
+	rt[0][1] = homography[0][1] / e2_length;
+	rt[1][1] = homography[1][1] / e2_length;
+	rt[2][1] = homography[2][1] / e2_length;
 	rt[3][1] = 0;
 	
 	rt[0][2] = rt[1][0] * rt[2][1] - rt[2][0] * rt[1][1];
@@ -158,8 +150,4 @@ CRCode::CRCode(CRHomogeneousVec3 *firstCorner, CRHomogeneousVec3 *secondCorner, 
 
 CRCode::~CRCode() {
 	delete [] corners;
-}
-
-void CRCode::getHomographyMatrix() {
-	
 }

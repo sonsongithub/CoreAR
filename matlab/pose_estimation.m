@@ -55,8 +55,8 @@ function p = getPMatrix(homography, normalizedCodeProjectedCodePositions, codeSi
     length_ex2 = sqrt(sum(homography(:,2) .* homography(:,2)));
     length = (length_ex1 + length_ex2) * 0.5;
     
-    p(1:3,1) = homography(:,1) / length;
-    p(1:3,2) = homography(:,2) / length;
+    p(1:3,1) = homography(:,1) / length_ex1;
+    p(1:3,2) = homography(:,2) / length_ex2;
     p(1:3,3) = cross(p(1:3,1), p(1:3,2));
     p(1:3,4) = homography(:,3) / length * codeSize;
     p(4,4) = 1;

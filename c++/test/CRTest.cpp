@@ -148,18 +148,11 @@ void _CRTestSetIdentityMatrix(float mat[4][4]) {
 void _CRTestMakePixelDataAndPMatrixWithProjectionSettingAndCodeSize(float codeSize, float pMatrix[4][4], unsigned char **output_pixel, int width, int height, CRHomogeneousVec3* projected_corners, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt) {
 	float corners[4][4];
 	
-//#define USE_CENTERING_VISUALCODE
-#ifdef USE_CENTERING_VISUALCODE
-	corners[0][0] = -0.5 * codeSize;	corners[0][1] = -0.5 * codeSize;	corners[0][2] = 0;	corners[0][3] = 1;
-	corners[1][0] =  0.5 * codeSize;	corners[1][1] = -0.5 * codeSize;	corners[1][2] = 0;	corners[1][3] = 1;
-	corners[2][0] =  0.5 * codeSize;	corners[2][1] =  0.5 * codeSize;	corners[2][2] = 0;	corners[2][3] = 1;
-	corners[3][0] = -0.5 * codeSize;	corners[3][1] =  0.5 * codeSize;	corners[3][2] = 0;	corners[3][3] = 1;
-#else	
 	corners[0][0] =  0;				corners[0][1] =  0;				corners[0][2] = 0;			corners[0][3] = 1;
 	corners[1][0] =  codeSize;		corners[1][1] =  0;				corners[1][2] = 0;			corners[1][3] = 1;
 	corners[2][0] =  codeSize;		corners[2][1] =  codeSize;		corners[2][2] = 0;			corners[2][3] = 1;
 	corners[3][0] =  0;				corners[3][1] =  codeSize;		corners[3][2] = 0;			corners[3][3] = 1;
-#endif	
+	
 	unsigned char *pixel = (unsigned char*)malloc(sizeof(unsigned char)*width*height);
 	
 	float corners_projected[12];

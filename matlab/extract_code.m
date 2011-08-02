@@ -13,7 +13,8 @@ ar.codeSize = 1.5;
 ar.imageSize = size(rgb2gray(img));
    
 % code original coordinates
-codeOriginalPositionWorld = cat(1, [-1 1 0;1 1 0;1 -1 0;-1 -1 0]' * ar.codeSize * 0.5, [1 1 1 1]);
+%codeOriginalPositionWorld = cat(1, [-1 1 0;1 1 0;1 -1 0;-1 -1 0]' * ar.codeSize * 0.5, [1 1 1 1]);
+codeOriginalPositionWorld = cat(1, [0 0 0;1 0 0;1 1 0;0 1 0]' * ar.codeSize, [1 1 1 1]);
 
 % extract corners
 corners = locate_code(img);

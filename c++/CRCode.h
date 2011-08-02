@@ -56,8 +56,7 @@ public:
 	~CRCode();
 
 	void normalizeCornerForImageCoord(float width, float height, float focalX, float focalY);
-	void getHomographyMatrix();
-	void getSimpleHomography();
+	void getSimpleHomography(float scale);
 	
 	void dumpCorners();
 };
