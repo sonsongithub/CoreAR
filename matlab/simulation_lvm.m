@@ -20,10 +20,13 @@ codeProjectedPosition = project(ar.fx, ar.fy, codePositionWorld);
 
 % add noise for levenberg-marquardt method
 codeProjectedPosition
-codeProjectedPositionWithNoise = floor(codeProjectedPosition);%% + rand(2,4) * 0.02;
+
+codeProjectedPositionWithNoise = floor(codeProjectedPosition);
 
 estimatedP = getP(codeProjectedPosition, codeOriginalPositionWorld, ar)
+
 estimatedPWithNoise = getP(codeProjectedPositionWithNoise, codeOriginalPositionWorld, ar)
+
 estimatedPWithNoise_LM = getPWithLM(codeProjectedPositionWithNoise, codeOriginalPositionWorld, ar)
 
 end
@@ -31,19 +34,15 @@ end
 function estimatedP = getP(code, codeWorld, ar)
     code = code ./ repmat([ar.fx ar.fy]', 1, 4);
 
-    % estimate code pose matrix from normalize a code's position on image
     estimatedP = pose_estimation(ar, code);
 end
 
 function estimatedP = getPWithLM(code, codeWorld, ar)
     code = code ./ repmat([ar.fx ar.fy]', 1, 4);
 
-    % estimate code pose matrix from normalize a code's position on image
     estimatedP = pose_estimation(ar, code);
 
-    %estimatedP = leven(estimatedP, code, codeWorld);
-
-    estimatedP = levenbergMa(estimatedP, code, codeWorld);
+    estimatedP = levenbergMarquardt(estimatedP, code, codeWorld);
 end
 
 function subJ = subJacobian(uvw, xyz, param)
@@ -94,7 +93,7 @@ function [r J] = getErrorJacobian(p, codePos, codeWorldPos)
 
 end
 
-function result = levenbergMa(RTMatrixInit, codePos, codeWorldPos)
+function result = levenbergMarquardt(RTMatrixInit, codePos, codeWorldPos)
     threshold = 0.0001;
     lambda = 0.0001;
 
