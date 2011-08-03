@@ -29,79 +29,114 @@ estimatedPWithNoise_LM = getPWithLM(codeProjectedPositionWithNoise, codeOriginal
 end
 
 function estimatedP = getP(code, codeWorld, ar)
-code = code ./ repmat([ar.fx ar.fy]', 1, 4);
+    code = code ./ repmat([ar.fx ar.fy]', 1, 4);
 
-% estimate code pose matrix from normalize a code's position on image
-estimatedP = pose_estimation(ar, code);
-
+    % estimate code pose matrix from normalize a code's position on image
+    estimatedP = pose_estimation(ar, code);
 end
 
 function estimatedP = getPWithLM(code, codeWorld, ar)
-code = code ./ repmat([ar.fx ar.fy]', 1, 4);
+    code = code ./ repmat([ar.fx ar.fy]', 1, 4);
 
-% estimate code pose matrix from normalize a code's position on image
-estimatedP = pose_estimation(ar, code);
+    % estimate code pose matrix from normalize a code's position on image
+    estimatedP = pose_estimation(ar, code);
 
-estimatedP = leven(estimatedP, code, codeWorld);
+    %estimatedP = leven(estimatedP, code, codeWorld);
+
+    estimatedP = levenbergMa(estimatedP, code, codeWorld);
 end
 
-function subJ = subJacobian(uvw, xyz, r, t)
+function subJ = subJacobian(uvw, xyz, param)
     subJ = zeros(2, 6);
     m1 = [-1 0;0 -1];
     m2 = [1/uvw(3), 0, -uvw(1)/uvw(3)/uvw(3);0, 1/uvw(3), -uvw(2)/uvw(3)/uvw(3);];
-    m3 = rodrigues2Rotation(r);
+    m3 = rodrigues2Rotation(param(1:3,1));
     m4 = [0 xyz(3) -xyz(2); -xyz(3) 0 xyz(1);xyz(2) -xyz(1) 0];
     
     subJ(:,1:3) = m1 * m2 * m3 * m4;
     subJ(:,4:6) = m1 * m2;
 end
 
-function p_lm = leven(estimatedP, normalizedCodeProjectedPosition, codeOriginalPositionWorld)
-lambda = 2;
-r = rotation2Rodrigues(estimatedP(1:3,1:3));
-t = estimatedP(1:3,4);
+function jacobian = getJacobian(projectedPointsHomogeneous, codeOriginalPositionWorld, param)
 
-currentProjectedPointsHomogeneous = estimatedP * codeOriginalPositionWorld;
-currentProjectedPointsHomogeneous = currentProjectedPointsHomogeneous(1:3,:);
+    jacobian = zeros(8, 6);
 
-currentProjectedPoints = currentProjectedPointsHomogeneous(1:2,:) ./ repmat(currentProjectedPointsHomogeneous(3,:), 2, 1);
-
-for j=1:100
-
-error = normalizedCodeProjectedPosition - currentProjectedPoints;
-
-error = reshape(error, 8, 1);
-
-jacobian = zeros(8, 6);
-
-for i=1:4
-    uvw = currentProjectedPointsHomogeneous(:,i);
-    xyz = codeOriginalPositionWorld(:,i);
-    subJ = subJacobian(uvw, xyz, r, t);
-    jacobian((i-1)*2+1:(i-1)*2+2, :) = subJ;
-end
-
-H = jacobian' * jacobian;
-delta = -inv(H + lambda * diag(diag(H))) * jacobian' * error;
-
-r = r + delta(1:3);
-t = t + delta(4:6);
-
-currentPMatrix = zeros(4,4);
-currentPMatrix(1:3,1:3) = rodrigues2Rotation(r);
-currentPMatrix(1:3,4) = t;
-currentPMatrix(4,4) = 1;
-
-nextProjectedPointsHomogeneous = currentPMatrix * codeOriginalPositionWorld;
-nextProjectedPointsHomogeneous = nextProjectedPointsHomogeneous(1:3,:);
-nextProjectedPoints = nextProjectedPointsHomogeneous(1:2,:) ./ repmat(nextProjectedPointsHomogeneous(3,:), 2, 1);
-
-
-currentProjectedPointsHomogeneous = nextProjectedPointsHomogeneous;
-currentProjectedPoints = nextProjectedPoints;
+    for i=1:4
+        uvw = projectedPointsHomogeneous(:,i);
+        xyz = codeOriginalPositionWorld(:,i);
+        subJ = subJacobian(uvw, xyz, param);
+        jacobian((i-1)*2+1:(i-1)*2+2, :) = subJ;
+    end
 
 end
 
-p_lm = currentPMatrix;
+function [homoVec Vec] = project_codePosition(vec, mat)
+    homoVec = mat * vec;
+    homoVec = homoVec(1:3,:);
+    Vec = homoVec(1:2,:) ./ repmat(homoVec(3,:), 2, 1);
+end
 
+function mat = RTMatrixFromParam(param)
+    mat = zeros(4,4);
+    mat(1:3,1:3) = rodrigues2Rotation(param(1:3,1));
+    mat(1:3,4) = param(4:6,1);
+    mat(4,4) = 1;
+end
+
+function [r J] = getErrorJacobian(p, codePos, codeWorldPos)
+
+    RTMatrix = RTMatrixFromParam(p);
+    [homoVec Vec] = project_codePosition(codeWorldPos, RTMatrix);
+
+    error = codePos - Vec;
+    r = reshape(error, 8, 1);
+    J = getJacobian(homoVec, codeWorldPos, p);
+
+end
+
+function result = levenbergMa(RTMatrixInit, codePos, codeWorldPos)
+    threshold = 0.0001;
+    lambda = 0.0001;
+
+    p = zeros(6, 1);
+    p(1:3,1) = rotation2Rodrigues(RTMatrixInit(1:3,1:3));
+    p(4:6,1) = RTMatrixInit(1:3,4);
+
+    [r, J] = getErrorJacobian(p, codePos, codeWorldPos);
+    c      = r' * r;
+    H      = J' * J;
+
+    jacobian_counter = 1;
+
+    while(true)
+        D = lambda * diag(diag(H));
+        delta_p = (H + D) \ (-J' * r);
+        p_dash  = p + delta_p;
+
+        RTMatrix = RTMatrixFromParam(p);
+        [homoVec Vec] = project_codePosition(codeWorldPos, RTMatrix);
+        error = codePos - Vec;
+        r_dash = reshape(error, 8, 1);
+
+        c_dash  = r_dash' * r_dash;
+
+        if(c_dash > c)
+            lambda = lambda * 10;
+        else
+            lambda = lambda / 10;
+            c      = c_dash;
+            p      = p_dash;
+
+            if((delta_p' * delta_p) < threshold)
+                break;
+            end
+            jacobian_counter = jacobian_counter + 1;
+            [r, J] = getErrorJacobian(p, codePos, codeWorldPos);
+            H = J' * J;
+        end
+
+    end
+
+    jacobian_counter
+    result = RTMatrixFromParam(p);
 end
