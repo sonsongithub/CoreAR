@@ -1,10 +1,32 @@
-//
-//  main.cpp
-//  homography
-//
-//  Created by sonson on 11/07/25.
-//  Copyright 2011年 __MyCompanyName__. All rights reserved.
-//
+/*
+ * Core AR
+ * homography
+ *
+ * Copyright (c) Yuichi YOSHIDA, 11/07/23.
+ * All rights reserved.
+ * 
+ * BSD License
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are 
+ * permitted provided that the following conditions are met:
+ * - Redistributions of source code must retain the above copyright notice, this list of
+ *  conditions and the following disclaimer.
+ * - Redistributions in binary form must reproduce the above copyright notice, this list
+ *  of conditions and the following disclaimer in the documentation and/or other materia
+ * ls provided with the distribution.
+ * - Neither the name of the "Yuichi Yoshida" nor the names of its contributors may be u
+ * sed to endorse or promote products derived from this software without specific prior 
+ * written permission.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY E
+ * XPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES O
+ * F MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SH
+ * ALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENT
+ * AL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROC
+ * UREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS I
+ * NTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRI
+ * CT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF T
+ * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 #include <iostream>
 
@@ -15,35 +37,6 @@
 #include "CRChainCode.h"
 #include "CRHomogeneousVec3.h"
 #include "CRTest.h"
-
-#include <Accelerate/Accelerate.h>
-
-void showMatrix3x4(float x[3][4]) {
-	for (int row = 0; row < 3; row++) {
-		for (int column = 0; column < 4; column++) {
-			printf("%f ", x[row][column]);
-		}
-		printf(";\n");
-	}
-}
-
-void showMatrix4x4(float x[4][4]) {
-	for (int row = 0; row < 4; row++) {
-		for (int column = 0; column < 4; column++) {
-			printf("%f ", x[row][column]);
-		}
-		printf(";\n");
-	}
-}
-
-void showMatrix3x3(float x[3][3]) {
-	for (int row = 0; row < 3; row++) {
-		for (int column = 0; column < 3; column++) {
-			printf("%f ", x[row][column]);
-		}
-		printf(";\n");
-	}
-}
 
 void testCornerDetection();
 
@@ -116,19 +109,26 @@ void testCornerDetection() {
 		code_normal->dumpCorners();
 		code_normal->normalizeCornerForImageCoord(width, height, focal, focal);
 		code_normal->getSimpleHomography(codeSize);
+		_DPRINTF("\n");
 		_DPRINTF("Homography matrix from the extracted corners.\n");
-		showMatrix3x3(code_normal->homography);
+		_CRTestShowMatrix3x3(code_normal->homography);
+		_DPRINTF("\n");
 		_DPRINTF("RT matrix from the extracted corners.\n");
-		showMatrix4x4(code_normal->rt);
+		_CRTestShowMatrix4x4(code_normal->rt);
 		
 		_DPRINTF("\n");
 		_DPRINTF("Using ground truth corners\n");
 		groundTruthCode->dumpCorners();
 		groundTruthCode->normalizeCornerForImageCoord(width, height, focal, focal);
 		groundTruthCode->getSimpleHomography(codeSize);
-		showMatrix3x3(groundTruthCode->homography);
-		showMatrix4x4(groundTruthCode->rt);
-		delete code_normal;
+		_DPRINTF("\n");
+		_DPRINTF("Homography matrix from ground truth.\n");
+		_CRTestShowMatrix3x3(groundTruthCode->homography);
+		_DPRINTF("\n");
+		_DPRINTF("RT matrix from ground truth.\n");
+		_CRTestShowMatrix4x4(groundTruthCode->rt);
+	
+		SAFE_DELETE(code_normal);
 	}
 	
 	////////////////////////////////////////////////////////////////////////////////
@@ -136,9 +136,10 @@ void testCornerDetection() {
 	// Release
 	//
 	////////////////////////////////////////////////////////////////////////////////
-	free(pixel);
-	delete chaincode;
-	delete [] corners;
+	SAFE_FREE(pixel);
+	SAFE_DELETE(groundTruthCode);
+	SAFE_DELETE(chaincode);
+	SAFE_DELETE_ARRAY(corners);
 }
 
 int main (int argc, const char * argv[]) {

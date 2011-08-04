@@ -15,7 +15,6 @@
 		148FE01E13DD71BF00F2FCD8 /* CRCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148FE01713DD71BF00F2FCD8 /* CRCode.cpp */; };
 		148FE01F13DD71BF00F2FCD8 /* CRHomogeneousVec3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148FE01913DD71BF00F2FCD8 /* CRHomogeneousVec3.cpp */; };
 		148FE02313DD71C700F2FCD8 /* CRTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148FE02013DD71C700F2FCD8 /* CRTest.cpp */; };
-		149D51B413DEC9F8008AF2A3 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 149D51B313DEC9F8008AF2A3 /* Accelerate.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -48,7 +47,6 @@
 		148FE02013DD71C700F2FCD8 /* CRTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRTest.cpp; path = ../CRTest.cpp; sourceTree = "<group>"; };
 		148FE02113DD71C700F2FCD8 /* CRTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRTest.h; path = ../CRTest.h; sourceTree = "<group>"; };
 		148FE02213DD71C700F2FCD8 /* test.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = test.pch; path = ../test.pch; sourceTree = "<group>"; };
-		149D51B313DEC9F8008AF2A3 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +54,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				149D51B413DEC9F8008AF2A3 /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,7 +83,6 @@
 			children = (
 				148FE00013DD686400F2FCD8 /* main.cpp */,
 				148FE00213DD686400F2FCD8 /* homography.1 */,
-				149D51B313DEC9F8008AF2A3 /* Accelerate.framework */,
 			);
 			path = homography;
 			sourceTree = "<group>";

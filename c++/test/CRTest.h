@@ -30,6 +30,12 @@
 
 #include "CRHomogeneousVec3.h"
 
+void _CRTestShowMatrix3x4(float x[3][4]);
+void _CRTestShowMatrix4x4(float x[4][4]);
+void _CRTestShowMatrix3x3(float x[3][3]);
+
+void _CRTestShowVec3(float vec[3]);
+
 float getDifferenceBetweenVectors(CRHomogeneousVec3 *p1, CRHomogeneousVec3 *p2);
 void _CRTestDumpPixel(unsigned char* pixel, int width, int height);
 void _CRTestDumpMat(float matrix[4][4]);

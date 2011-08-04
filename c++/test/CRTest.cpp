@@ -35,8 +35,8 @@
 
 #include "CRTest.h"
 
-void _CRTestMultiMat(float result[4][4], float a[4][4], float b[4][4]);
-void _CRTestMultiMatAndVec(float result[4], float a[4][4], float x[4]);
+void _CRTestMultiMat4x4Mat4x4(float result[4][4], float a[4][4], float b[4][4]);
+void _CRTestMultiMat4x4Vec4x1(float result[4], float a[4][4], float x[4]);
 void _CRTestDumpMat(float matrix[4][4]);
 void _CRTestDumpVec(float vec[4]);
 void _CRTestProjectPoint(float mat[4][4], float *x, float *x_projected, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt);
@@ -57,7 +57,7 @@ void _CRTestSetPixel(unsigned char* pixel, int width, int height, int x, int y, 
 		*(pixel + x + y * width) = value;
 }
 
-void _CRTestMultiMat(float result[4][4], float a[4][4], float b[4][4]) {
+void _CRTestMultiMat4x4Mat4x4(float result[4][4], float a[4][4], float b[4][4]) {
 	//result = a * b;
 	for (int i = 0; i < 4; i++) {
 		result[i][0] = a[i][0] * b[0][0] + a[i][1] * b[1][0] + a[i][2] * b[2][0] + a[i][3] * b[3][0];
@@ -67,12 +67,39 @@ void _CRTestMultiMat(float result[4][4], float a[4][4], float b[4][4]) {
 	}
 }
 
-void _CRTestMultiMatAndVec(float result[4], float a[4][4], float x[4]) {
+void _CRTestMultiMat4x4Vec4x1(float result[4], float a[4][4], float x[4]) {
 	//result = a * x;
 	result[0] = a[0][0] * x[0] + a[0][1] * x[1] + a[0][2] * x[2] + a[0][3] * x[3];
 	result[1] = a[1][0] * x[0] + a[1][1] * x[1] + a[1][2] * x[2] + a[1][3] * x[3];
 	result[2] = a[2][0] * x[0] + a[2][1] * x[1] + a[2][2] * x[2] + a[2][3] * x[3];
 	result[3] = a[3][0] * x[0] + a[3][1] * x[1] + a[3][2] * x[2] + a[3][3] * x[3];
+}
+
+void _CRTestShowMatrix3x4(float x[3][4]) {
+	for (int row = 0; row < 3; row++) {
+		for (int column = 0; column < 4; column++) {
+			printf("%f ", x[row][column]);
+		}
+		printf(";\n");
+	}
+}
+
+void _CRTestShowMatrix4x4(float x[4][4]) {
+	for (int row = 0; row < 4; row++) {
+		for (int column = 0; column < 4; column++) {
+			printf("%f ", x[row][column]);
+		}
+		printf(";\n");
+	}
+}
+
+void _CRTestShowMatrix3x3(float x[3][3]) {
+	for (int row = 0; row < 3; row++) {
+		for (int column = 0; column < 3; column++) {
+			printf("%f ", x[row][column]);
+		}
+		printf(";\n");
+	}
 }
 
 void _CRTestDumpMat(float matrix[4][4]) {
@@ -83,6 +110,12 @@ void _CRTestDumpMat(float matrix[4][4]) {
 
 void _CRTestDumpVec(float vec[4]) {
 	for (int i = 0; i < 4; i++) {
+		printf("%4.3f\n", vec[i]);
+	}
+}
+
+void _CRTestShowVec3(float vec[3]) {
+	for (int i = 0; i < 3; i++) {
 		printf("%4.3f\n", vec[i]);
 	}
 }
@@ -116,14 +149,14 @@ void _CRTestProjectPoint(float mat[4][4], float *x, float *x_projected, float fo
 	r4[2][0] = 0;			r4[2][1] = 0;			r4[2][2] = 1;				r4[2][3] = zt;
 	r4[3][0] = 0;			r4[3][1] = 0;			r4[3][2] = 0;				r4[3][3] = 1;
 	
-	_CRTestMultiMat(temp1, r4, r3);
-	_CRTestMultiMat(temp2, temp1, r2);
-	_CRTestMultiMat(mat, temp2, r1);
+	_CRTestMultiMat4x4Mat4x4(temp1, r4, r3);
+	_CRTestMultiMat4x4Mat4x4(temp2, temp1, r2);
+	_CRTestMultiMat4x4Mat4x4(mat, temp2, r1);
 	
 	float r[4];
 	
 	
-	_CRTestMultiMatAndVec(r, mat, x);
+	_CRTestMultiMat4x4Vec4x1(r, mat, x);
 	
 	x_projected[0] = r[0] * focal;
 	x_projected[1] = r[1] * focal;
@@ -132,17 +165,6 @@ void _CRTestProjectPoint(float mat[4][4], float *x, float *x_projected, float fo
 	x_projected[0] = x_projected[0] / x_projected[2];
 	x_projected[1] = x_projected[1] / x_projected[2];
 	x_projected[2] = 1;
-}
-
-void _CRTestSetIdentityMatrix(float mat[4][4]) {
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
-			if (i == j)
-				mat[i][j] = 1;
-			else
-				mat[i][j] = 0;
-		}
-	}
 }
 
 void _CRTestMakePixelDataAndPMatrixWithProjectionSettingAndCodeSize(float codeSize, float pMatrix[4][4], unsigned char **output_pixel, int width, int height, CRHomogeneousVec3* projected_corners, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt) {
@@ -162,8 +184,6 @@ void _CRTestMakePixelDataAndPMatrixWithProjectionSettingAndCodeSize(float codeSi
 	
 	for (int i = 0; i < 4; i++) {
 		float *p = corners_projected + i * 3;
-		
-		_CRTestSetIdentityMatrix(pMatrix);
 		
 		_CRTestProjectPoint(pMatrix, corners[i], p, focal, xdeg, ydeg, zdeg, xt, yt, zt);
 		
@@ -187,7 +207,6 @@ void _CRTestMakePixelDataAndPMatrixWithProjectionSettingAndCodeSize(float codeSi
 			x_temp[1] = 0 + step * j;
 			x_temp[2] = 0;
 			x_temp[3] = 1;
-			_CRTestSetIdentityMatrix(mat);
 			
 			_CRTestProjectPoint(mat, x_temp, x_temp_projected, focal, xdeg, ydeg, zdeg, xt, yt, zt);
 			

@@ -38,6 +38,11 @@
 #include <stdio.h>
 #include <sys/time.h>
 
+// macro
+#define SAFE_FREE(p)			if(p){free(p);p=NULL;}
+#define SAFE_DELETE(p)			if(p){delete(p);p=NULL;}
+#define SAFE_DELETE_ARRAY(p)	if(p){delete [] p;p=NULL;}
+
 // static tic and toc methods
 
 static struct timeval _start, _end;
