@@ -16,6 +16,7 @@
 		14375B7913EA6D5300654437 /* CRHomogeneousVec3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14375B7313EA6D5300654437 /* CRHomogeneousVec3.cpp */; };
 		14375B7E13EA6DB100654437 /* CRTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14375B7B13EA6DB100654437 /* CRTest.cpp */; };
 		14375B8113EA739500654437 /* CRRodrigues.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14375B7F13EA739400654437 /* CRRodrigues.cpp */; };
+		14375B8D13EACA1E00654437 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14375B8C13EACA1E00654437 /* Accelerate.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -50,6 +51,7 @@
 		14375B7D13EA6DB100654437 /* test.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = test.pch; path = ../test.pch; sourceTree = "<group>"; };
 		14375B7F13EA739400654437 /* CRRodrigues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRRodrigues.cpp; path = ../../CRRodrigues.cpp; sourceTree = "<group>"; };
 		14375B8013EA739400654437 /* CRRodrigues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRRodrigues.h; path = ../../CRRodrigues.h; sourceTree = "<group>"; };
+		14375B8C13EACA1E00654437 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14375B8D13EACA1E00654437 /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +87,7 @@
 		14375B5B13EA6CE600654437 /* levenbergMarquardt */ = {
 			isa = PBXGroup;
 			children = (
+				14375B8C13EACA1E00654437 /* Accelerate.framework */,
 				14375B5C13EA6CE600654437 /* main.cpp */,
 				14375B5E13EA6CE600654437 /* levenbergMarquardt.1 */,
 			);

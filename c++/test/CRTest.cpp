@@ -133,6 +133,16 @@ void _CRTestShowMatrix4x4(float x[4][4]) {
 	printf("\n");
 }
 
+void _CRTestShowMatrix6x6(float x[6][6]) {
+	for (int row = 0; row < 6; row++) {
+		for (int column = 0; column < 6; column++) {
+			printf("%f ", x[row][column]);
+		}
+		printf(";\n");
+	}
+	printf("\n");
+}
+
 void _CRTestShowMatrix3x3(float x[3][3]) {
 	for (int row = 0; row < 3; row++) {
 		for (int column = 0; column < 3; column++) {
@@ -161,27 +171,27 @@ void _CRTestDumpMat(float matrix[4][4]) {
 
 void _CRTestDumpVec(float vec[4]) {
 	for (int i = 0; i < 4; i++) {
-		printf("%4.3f\n", vec[i]);
+		printf("%4.3f;\n", vec[i]);
 	}
 }
 
 void _CRTestShowVec3(float vec[3]) {
 	for (int i = 0; i < 3; i++) {
-		printf("%4.3f\n", vec[i]);
+		printf("%4.3f;\n", vec[i]);
 	}
 	printf("\n");
 }
 
 void _CRTestShowVec6(float vec[6]) {
 	for (int i = 0; i < 6; i++) {
-		printf("%4.3f\n", vec[i]);
+		printf("%4.3f;\n", vec[i]);
 	}
 	printf("\n");
 }
 
 void _CRTestShowVec8(float vec[8]) {
 	for (int i = 0; i < 8; i++) {
-		printf("%4.3f\n", vec[i]);
+		printf("%4.3f;\n", vec[i]);
 	}
 	printf("\n");
 }

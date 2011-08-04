@@ -34,6 +34,7 @@ void _CRTestMultiMat2x3Mat3x3(float result[3][3], float a[3][3], float b[3][3]);
 void _CRTestMultiMat3x3Mat3x3(float result[3][3], float a[3][3], float b[3][3]);
 
 void _CRTestShowMatrix8x6(float x[8][6]);
+void _CRTestShowMatrix6x6(float x[6][6]);
 void _CRTestShowMatrix2x3(float x[2][3]);
 void _CRTestShowMatrix2x4(float x[2][4]);
 void _CRTestShowMatrix3x4(float x[3][4]);

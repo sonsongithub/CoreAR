@@ -105,7 +105,7 @@ end
 
 function result = levenbergMarquardt(RTMatrixInit, codePos, codeWorldPos)
     threshold = 0.0001;
-    lambda = 0.0001;
+    lambda = 1;
 
     p = zeros(6, 1);
     p(1:3,1) = rotation2Rodrigues(RTMatrixInit(1:3,1:3));
