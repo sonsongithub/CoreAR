@@ -1,0 +1,270 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		14375B5D13EA6CE600654437 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14375B5C13EA6CE600654437 /* main.cpp */; };
+		14375B5F13EA6CE600654437 /* levenbergMarquardt.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 14375B5E13EA6CE600654437 /* levenbergMarquardt.1 */; };
+		14375B7513EA6D5300654437 /* CRChainCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14375B6B13EA6D5300654437 /* CRChainCode.cpp */; };
+		14375B7613EA6D5300654437 /* CRChainCodeBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14375B6D13EA6D5300654437 /* CRChainCodeBlob.cpp */; };
+		14375B7713EA6D5300654437 /* CRChainCodeElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14375B6F13EA6D5300654437 /* CRChainCodeElement.cpp */; };
+		14375B7813EA6D5300654437 /* CRCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14375B7113EA6D5300654437 /* CRCode.cpp */; };
+		14375B7913EA6D5300654437 /* CRHomogeneousVec3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14375B7313EA6D5300654437 /* CRHomogeneousVec3.cpp */; };
+		14375B7E13EA6DB100654437 /* CRTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14375B7B13EA6DB100654437 /* CRTest.cpp */; };
+		14375B8113EA739500654437 /* CRRodrigues.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14375B7F13EA739400654437 /* CRRodrigues.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		14375B5613EA6CE600654437 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				14375B5F13EA6CE600654437 /* levenbergMarquardt.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		14375B5813EA6CE600654437 /* levenbergMarquardt */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = levenbergMarquardt; sourceTree = BUILT_PRODUCTS_DIR; };
+		14375B5C13EA6CE600654437 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		14375B5E13EA6CE600654437 /* levenbergMarquardt.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = levenbergMarquardt.1; sourceTree = "<group>"; };
+		14375B6B13EA6D5300654437 /* CRChainCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCode.cpp; path = ../../CRChainCode.cpp; sourceTree = "<group>"; };
+		14375B6C13EA6D5300654437 /* CRChainCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCode.h; path = ../../CRChainCode.h; sourceTree = "<group>"; };
+		14375B6D13EA6D5300654437 /* CRChainCodeBlob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCodeBlob.cpp; path = ../../CRChainCodeBlob.cpp; sourceTree = "<group>"; };
+		14375B6E13EA6D5300654437 /* CRChainCodeBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCodeBlob.h; path = ../../CRChainCodeBlob.h; sourceTree = "<group>"; };
+		14375B6F13EA6D5300654437 /* CRChainCodeElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCodeElement.cpp; path = ../../CRChainCodeElement.cpp; sourceTree = "<group>"; };
+		14375B7013EA6D5300654437 /* CRChainCodeElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCodeElement.h; path = ../../CRChainCodeElement.h; sourceTree = "<group>"; };
+		14375B7113EA6D5300654437 /* CRCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRCode.cpp; path = ../../CRCode.cpp; sourceTree = "<group>"; };
+		14375B7213EA6D5300654437 /* CRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRCode.h; path = ../../CRCode.h; sourceTree = "<group>"; };
+		14375B7313EA6D5300654437 /* CRHomogeneousVec3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRHomogeneousVec3.cpp; path = ../../CRHomogeneousVec3.cpp; sourceTree = "<group>"; };
+		14375B7413EA6D5300654437 /* CRHomogeneousVec3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRHomogeneousVec3.h; path = ../../CRHomogeneousVec3.h; sourceTree = "<group>"; };
+		14375B7B13EA6DB100654437 /* CRTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRTest.cpp; path = ../CRTest.cpp; sourceTree = "<group>"; };
+		14375B7C13EA6DB100654437 /* CRTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRTest.h; path = ../CRTest.h; sourceTree = "<group>"; };
+		14375B7D13EA6DB100654437 /* test.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = test.pch; path = ../test.pch; sourceTree = "<group>"; };
+		14375B7F13EA739400654437 /* CRRodrigues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRRodrigues.cpp; path = ../../CRRodrigues.cpp; sourceTree = "<group>"; };
+		14375B8013EA739400654437 /* CRRodrigues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRRodrigues.h; path = ../../CRRodrigues.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		14375B5513EA6CE600654437 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		14375B4D13EA6CE500654437 = {
+			isa = PBXGroup;
+			children = (
+				14375B6A13EA6D4600654437 /* CoreAR */,
+				14375B7A13EA6DA300654437 /* test */,
+				14375B5B13EA6CE600654437 /* levenbergMarquardt */,
+				14375B5913EA6CE600654437 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		14375B5913EA6CE600654437 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				14375B5813EA6CE600654437 /* levenbergMarquardt */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		14375B5B13EA6CE600654437 /* levenbergMarquardt */ = {
+			isa = PBXGroup;
+			children = (
+				14375B5C13EA6CE600654437 /* main.cpp */,
+				14375B5E13EA6CE600654437 /* levenbergMarquardt.1 */,
+			);
+			path = levenbergMarquardt;
+			sourceTree = "<group>";
+		};
+		14375B6A13EA6D4600654437 /* CoreAR */ = {
+			isa = PBXGroup;
+			children = (
+				14375B6B13EA6D5300654437 /* CRChainCode.cpp */,
+				14375B6C13EA6D5300654437 /* CRChainCode.h */,
+				14375B6D13EA6D5300654437 /* CRChainCodeBlob.cpp */,
+				14375B6E13EA6D5300654437 /* CRChainCodeBlob.h */,
+				14375B6F13EA6D5300654437 /* CRChainCodeElement.cpp */,
+				14375B7013EA6D5300654437 /* CRChainCodeElement.h */,
+				14375B7113EA6D5300654437 /* CRCode.cpp */,
+				14375B7213EA6D5300654437 /* CRCode.h */,
+				14375B7313EA6D5300654437 /* CRHomogeneousVec3.cpp */,
+				14375B7413EA6D5300654437 /* CRHomogeneousVec3.h */,
+				14375B7F13EA739400654437 /* CRRodrigues.cpp */,
+				14375B8013EA739400654437 /* CRRodrigues.h */,
+			);
+			name = CoreAR;
+			sourceTree = "<group>";
+		};
+		14375B7A13EA6DA300654437 /* test */ = {
+			isa = PBXGroup;
+			children = (
+				14375B7B13EA6DB100654437 /* CRTest.cpp */,
+				14375B7C13EA6DB100654437 /* CRTest.h */,
+				14375B7D13EA6DB100654437 /* test.pch */,
+			);
+			name = test;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		14375B5713EA6CE600654437 /* levenbergMarquardt */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 14375B6213EA6CE600654437 /* Build configuration list for PBXNativeTarget "levenbergMarquardt" */;
+			buildPhases = (
+				14375B5413EA6CE600654437 /* Sources */,
+				14375B5513EA6CE600654437 /* Frameworks */,
+				14375B5613EA6CE600654437 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = levenbergMarquardt;
+			productName = levenbergMarquardt;
+			productReference = 14375B5813EA6CE600654437 /* levenbergMarquardt */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		14375B4F13EA6CE500654437 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 14375B5213EA6CE500654437 /* Build configuration list for PBXProject "levenbergMarquardt" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 14375B4D13EA6CE500654437;
+			productRefGroup = 14375B5913EA6CE600654437 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				14375B5713EA6CE600654437 /* levenbergMarquardt */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		14375B5413EA6CE600654437 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14375B5D13EA6CE600654437 /* main.cpp in Sources */,
+				14375B7513EA6D5300654437 /* CRChainCode.cpp in Sources */,
+				14375B7613EA6D5300654437 /* CRChainCodeBlob.cpp in Sources */,
+				14375B7713EA6D5300654437 /* CRChainCodeElement.cpp in Sources */,
+				14375B7813EA6D5300654437 /* CRCode.cpp in Sources */,
+				14375B7913EA6D5300654437 /* CRHomogeneousVec3.cpp in Sources */,
+				14375B7E13EA6DB100654437 /* CRTest.cpp in Sources */,
+				14375B8113EA739500654437 /* CRRodrigues.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		14375B6013EA6CE600654437 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		14375B6113EA6CE600654437 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		14375B6313EA6CE600654437 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ../test.pch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		14375B6413EA6CE600654437 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ../test.pch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		14375B5213EA6CE500654437 /* Build configuration list for PBXProject "levenbergMarquardt" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				14375B6013EA6CE600654437 /* Debug */,
+				14375B6113EA6CE600654437 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		14375B6213EA6CE600654437 /* Build configuration list for PBXNativeTarget "levenbergMarquardt" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				14375B6313EA6CE600654437 /* Debug */,
+				14375B6413EA6CE600654437 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 14375B4F13EA6CE500654437 /* Project object */;
+}
