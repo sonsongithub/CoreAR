@@ -51,9 +51,9 @@ void CRCode::normalizeCornerForImageCoord(float width, float height, float focal
 }
 
 void CRCode::dumpCorners() {
-	for (int i = 0; i < 4; i++) {
-		(this->corners + i)->dump();
-	}
+	printf("%f %f %f %f\n", (corners+0)->x, (corners+1)->x, (corners+2)->x, (corners+3)->x);
+	printf("%f %f %f %f\n", (corners+0)->y, (corners+1)->y, (corners+2)->y, (corners+3)->y);
+	printf("%f %f %f %f\n\n", (corners+0)->w, (corners+1)->w, (corners+2)->w, (corners+3)->w);
 }
 
 void CRCode::getSimpleHomography(float scale) {
@@ -112,7 +112,7 @@ void CRCode::getSimpleHomography(float scale) {
 	rt[2][1] = homography[2][1] / e2_length;
 	rt[3][1] = 0;
 	
-	rt[0][2] = rt[1][0] * rt[2][1] - rt[2][0] * rt[1][1];
+	rt[0][2] = rt[2][0] * rt[1][1] - rt[1][0] * rt[2][1];
 	rt[1][2] = rt[2][0] * rt[0][1] - rt[0][0] * rt[2][1];
 	rt[2][2] = rt[0][0] * rt[1][1] - rt[1][0] * rt[0][1];
 	rt[3][2] = 0;
@@ -149,5 +149,5 @@ CRCode::CRCode(CRHomogeneousVec3 *firstCorner, CRHomogeneousVec3 *secondCorner, 
 }
 
 CRCode::~CRCode() {
-	delete [] corners;
+	SAFE_DELETE_ARRAY(corners);
 }

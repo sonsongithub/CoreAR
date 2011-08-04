@@ -38,6 +38,10 @@
 
 void testCRRodrigues();
 
+void CRRodriguesMatrix4x42R(float *r, float matrix[4][4]);
+
+void CRRodriguesR2Matrix4x4(float *r, float matrix[4][4]);
+
 void CRRodriguesR2Matrix(float *r, float matrix[3][3]);
 
 void CRRodriguesMatrix2R(float *r, float matrix[3][3]);
