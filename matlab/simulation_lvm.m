@@ -3,7 +3,7 @@ function simulation()
 % ar condition, focal length and code size
 ar.fx = 650; %% 649.590771179639773;
 ar.fy = 650; %% 653.240978126455161;
-ar.codeSize = 0.5;
+ar.codeSize = 2;
 ar.imageSize = [480 640];
    
 % code pose
@@ -19,19 +19,24 @@ codePositionWorld = p * codeOriginalPositionWorld;
 codeProjectedPosition = project(ar.fx, ar.fy, codePositionWorld);
 
 % add noise for levenberg-marquardt method
-codeProjectedPosition
+disp('------------------------------------------');
+p
 
-codeOriginalPositionWorld  = cat(1, [0 0 0;1 0 0;1 1 0;0 1 0]' * 1, [1 1 1 1]);
+codeOriginalPositionWorld  = cat(1, [0 0 0;1 0 0;1 1 0;0 1 0]' * ar.codeSize * 1, [1 1 1 1]);
 
-% codeProjectedPositionWithNoise = floor(codeProjectedPosition);
+noise = [   0.3313    0.5259    1.3784    0.9011; 1.2040    1.3082    1.4963    0.1676];
 
-estimatedP = getP(codeProjectedPosition, codeOriginalPositionWorld, ar)
+codeProjectedPositionWithNoise = floor(codeProjectedPosition) + rand(2,4) * 10;
 
-estimatedPWithNoise_LM = getPWithLM(codeProjectedPosition, codeOriginalPositionWorld, ar)
-% 
-% estimatedPWithNoise = getP(codeProjectedPositionWithNoise, codeOriginalPositionWorld, ar)
-% 
-% estimatedPWithNoise_LM = getPWithLM(codeProjectedPositionWithNoise, codeOriginalPositionWorld, ar)
+%estimatedP = getP(codeProjectedPosition, codeOriginalPositionWorld, ar)
+
+%estimatedPWithNoise_LM = getPWithLM(codeProjectedPosition, codeOriginalPositionWorld, ar)
+
+
+[estimatedPWithNoise, estimatedPWithNoiseWithLM] = getPWithLM(codeProjectedPositionWithNoise, codeOriginalPositionWorld, ar)
+
+sum(sum(abs(estimatedPWithNoise - p)))
+sum(sum(abs(estimatedPWithNoiseWithLM - p)))
 
 end
 
@@ -41,12 +46,10 @@ function estimatedP = getP(code, codeWorld, ar)
     estimatedP = pose_estimation(ar, code);
 end
 
-function estimatedP = getPWithLM(code, codeWorld, ar)
+function [estimatedP, estimatedPWithLM] = getPWithLM(code, codeWorld, ar)
     code = code ./ repmat([ar.fx ar.fy]', 1, 4);
-    code
     estimatedP = pose_estimation(ar, code);
-
-    estimatedP = levenbergMarquardt(estimatedP, code, codeWorld);
+    estimatedPWithLM = levenbergMarquardt(estimatedP, code, codeWorld);
 end
 
 function subJ = subJacobian(uvw, xyz, param)
@@ -55,10 +58,6 @@ function subJ = subJacobian(uvw, xyz, param)
     m2 = [-1/uvw(3), 0, uvw(1)/uvw(3)/uvw(3);0, -1/uvw(3), uvw(2)/uvw(3)/uvw(3);];
     m3 = rodrigues2Rotation(param(1:3,1));
     m4 = [0 xyz(3) -xyz(2); -xyz(3) 0 xyz(1);xyz(2) -xyz(1) 0];
-    
-    m2
-    m3
-    m4
     
     subJ(:,1:3) = m2 * m3 * m4;
     subJ(:,4:6) = m2;
@@ -91,12 +90,8 @@ function mat = RTMatrixFromParam(param)
 end
 
 function [r J] = getErrorJacobian(p, codePos, codeWorldPos)
-    p
     RTMatrix = RTMatrixFromParam(p);
     [homoVec Vec] = project_codePosition(codeWorldPos, RTMatrix);
-    RTMatrix
-    homoVec
-    Vec
     error = codePos - Vec;
     r = reshape(error, 8, 1);
     J = getJacobian(homoVec, codeWorldPos, p);
@@ -105,7 +100,7 @@ end
 
 function result = levenbergMarquardt(RTMatrixInit, codePos, codeWorldPos)
     threshold = 0.0001;
-    lambda = 1;
+    lambda = 0.001;
 
     p = zeros(6, 1);
     p(1:3,1) = rotation2Rodrigues(RTMatrixInit(1:3,1:3));
@@ -146,6 +141,6 @@ function result = levenbergMarquardt(RTMatrixInit, codePos, codeWorldPos)
 
     end
 
-    jacobian_counter
+    jacobian_counter;
     result = RTMatrixFromParam(p);
 end
