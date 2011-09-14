@@ -1,0 +1,208 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1488138014209C98004BCE14 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1488137F14209C98004BCE14 /* main.cpp */; };
+		1488138214209C98004BCE14 /* CoreARUnitTest.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1488138114209C98004BCE14 /* CoreARUnitTest.1 */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1488137914209C98004BCE14 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				1488138214209C98004BCE14 /* CoreARUnitTest.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1488137B14209C98004BCE14 /* CoreARUnitTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CoreARUnitTest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1488137F14209C98004BCE14 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		1488138114209C98004BCE14 /* CoreARUnitTest.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = CoreARUnitTest.1; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1488137814209C98004BCE14 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1488137014209C98004BCE14 = {
+			isa = PBXGroup;
+			children = (
+				1488137E14209C98004BCE14 /* CoreARUnitTest */,
+				1488137C14209C98004BCE14 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1488137C14209C98004BCE14 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1488137B14209C98004BCE14 /* CoreARUnitTest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1488137E14209C98004BCE14 /* CoreARUnitTest */ = {
+			isa = PBXGroup;
+			children = (
+				1488137F14209C98004BCE14 /* main.cpp */,
+				1488138114209C98004BCE14 /* CoreARUnitTest.1 */,
+			);
+			path = CoreARUnitTest;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1488137A14209C98004BCE14 /* CoreARUnitTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1488138514209C98004BCE14 /* Build configuration list for PBXNativeTarget "CoreARUnitTest" */;
+			buildPhases = (
+				1488137714209C98004BCE14 /* Sources */,
+				1488137814209C98004BCE14 /* Frameworks */,
+				1488137914209C98004BCE14 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CoreARUnitTest;
+			productName = CoreARUnitTest;
+			productReference = 1488137B14209C98004BCE14 /* CoreARUnitTest */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1488137214209C98004BCE14 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 1488137514209C98004BCE14 /* Build configuration list for PBXProject "CoreARUnitTest" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 1488137014209C98004BCE14;
+			productRefGroup = 1488137C14209C98004BCE14 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1488137A14209C98004BCE14 /* CoreARUnitTest */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1488137714209C98004BCE14 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1488138014209C98004BCE14 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1488138314209C98004BCE14 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		1488138414209C98004BCE14 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		1488138614209C98004BCE14 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1488138714209C98004BCE14 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1488137514209C98004BCE14 /* Build configuration list for PBXProject "CoreARUnitTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1488138314209C98004BCE14 /* Debug */,
+				1488138414209C98004BCE14 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1488138514209C98004BCE14 /* Build configuration list for PBXNativeTarget "CoreARUnitTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1488138614209C98004BCE14 /* Debug */,
+				1488138714209C98004BCE14 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1488137214209C98004BCE14 /* Project object */;
+}
