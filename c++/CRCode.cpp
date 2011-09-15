@@ -39,6 +39,8 @@ CRCode::CRCode() {
 	this->secondCorner = corners + 1;
 	this->thirdCorner  = corners + 2;
 	this->fourthCorner = corners + 3;
+	
+	croppedCodeImage = NULL;
 }
 
 void CRCode::normalizeCornerForImageCoord(float width, float height, float focalX, float focalY) {
@@ -57,11 +59,37 @@ void CRCode::dumpCorners() {
 	printf("%f %f %f %f\n\n", (corners+0)->w, (corners+1)->w, (corners+2)->w, (corners+3)->w);
 }
 
+void CRCode::crop(float croppingWidth, float croppingHeight, float focalX, float focalY, unsigned char *source, int width, int height) {
+	
+	croppedCodeImageWidth = croppingWidth;
+	croppedCodeImageHeight = croppingHeight;
+	
+	SAFE_FREE(croppedCodeImage);
+	croppedCodeImage = (unsigned char*)malloc(sizeof(unsigned char) * croppedCodeImageWidth * croppedCodeImageHeight);
+	
+	float codeContentSize = 1;
+	
+	for (int i = 0; i < croppedCodeImageWidth; i++) {
+		for (int j = 0; j < croppedCodeImageHeight; j++) {
+			float ii = codeContentSize * 0.25 + 0.5 * i * codeContentSize / (croppedCodeImageWidth - 1);
+			float jj = codeContentSize * 0.25 + 0.5 * j * codeContentSize / (croppedCodeImageHeight - 1);
+			
+			float normalizedX = (h[0] * ii + h[3] * jj + h[6]) / (h[2] * ii + h[5] * jj + 1);
+			float normalizedY = (h[1] * ii + h[4] * jj + h[7]) / (h[2] * ii + h[5] * jj + 1);
+			
+			int x = normalizedX * focalX + width/2;
+			int y = height/2 - normalizedY * focalY;
+			
+			if (x >= 0 && x < width && y < height && y >=0 ) {
+				croppedCodeImage[i + j * croppedCodeImageWidth] = source[x + y * (int)width];
+			}
+		}
+	}
+}
+
 void CRCode::getSimpleHomography(float scale) {
 	
 	float uv[2][4];
-	
-	float h[8];
 	
 	for (int i = 0; i < 4; i++) {
 		uv[0][i] = (corners + i)->x;
@@ -147,8 +175,11 @@ CRCode::CRCode(CRHomogeneousVec3 *firstCorner, CRHomogeneousVec3 *secondCorner, 
 	this->secondCorner = corners + 1;
 	this->thirdCorner  = corners + 2;
 	this->fourthCorner = corners + 3;
+	
+	croppedCodeImage = NULL;
 }
 
 CRCode::~CRCode() {
+	SAFE_FREE(croppedCodeImage);
 	SAFE_DELETE_ARRAY(corners);
 }

@@ -35,6 +35,7 @@
 #include "chaincode.h"
 #include "corner.h"
 #include "homography.h"
+#include "codeCropping.h"
 #include "rodrigues.h"
 #include "levenbergMarquardt.h"
 

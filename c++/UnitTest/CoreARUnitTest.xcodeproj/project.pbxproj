@@ -22,6 +22,7 @@
 		148DF812142198DE0011CF9F /* CRTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148DF810142198DE0011CF9F /* CRTest.cpp */; };
 		148DF81A1421C5EC0011CF9F /* rodrigues.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148DF8181421C5EC0011CF9F /* rodrigues.cpp */; };
 		14EAD69F1421C97C00106D02 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EAD69E1421C97C00106D02 /* Accelerate.framework */; };
+		14EAD6AA1421D3D400106D02 /* codeCropping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14EAD6A81421D3D400106D02 /* codeCropping.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -69,6 +70,8 @@
 		148DF8181421C5EC0011CF9F /* rodrigues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rodrigues.cpp; sourceTree = "<group>"; };
 		148DF8191421C5EC0011CF9F /* rodrigues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rodrigues.h; sourceTree = "<group>"; };
 		14EAD69E1421C97C00106D02 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		14EAD6A81421D3D400106D02 /* codeCropping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = codeCropping.cpp; sourceTree = "<group>"; };
+		14EAD6A91421D3D400106D02 /* codeCropping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = codeCropping.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +126,8 @@
 				148DF7F21421963A0011CF9F /* corner.h */,
 				148DF7F31421963A0011CF9F /* homography.cpp */,
 				148DF7F41421963A0011CF9F /* homography.h */,
+				14EAD6A81421D3D400106D02 /* codeCropping.cpp */,
+				14EAD6A91421D3D400106D02 /* codeCropping.h */,
 				148DF8181421C5EC0011CF9F /* rodrigues.cpp */,
 				148DF8191421C5EC0011CF9F /* rodrigues.h */,
 				148DF7F51421963A0011CF9F /* levenbergMarquardt.cpp */,
@@ -216,6 +221,7 @@
 				148DF80C1421964D0011CF9F /* CRRodrigues.cpp in Sources */,
 				148DF812142198DE0011CF9F /* CRTest.cpp in Sources */,
 				148DF81A1421C5EC0011CF9F /* rodrigues.cpp in Sources */,
+				14EAD6AA1421D3D400106D02 /* codeCropping.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,8 +249,11 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /opt/local/include;
+				LIBRARY_SEARCH_PATHS = /opt/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ljpeg";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -263,7 +272,10 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /opt/local/include;
+				LIBRARY_SEARCH_PATHS = /opt/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_LDFLAGS = "-ljpeg";
 				SDKROOT = macosx;
 			};
 			name = Release;

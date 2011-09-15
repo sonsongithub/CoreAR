@@ -1,6 +1,6 @@
 /*
  * Core AR
- * CRCode.h
+ * codeCropping.h
  *
  * Copyright (c) Yuichi YOSHIDA, 11/07/23.
  * All rights reserved.
@@ -28,43 +28,4 @@
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef _CRCODE_CPP_
-#else
-#define _CRCODE_CPP_
-
-#include <iostream>
-
-#include "CRHomogeneousVec3.h"
-
-class CRCode {
-public:
-	float				top;
-	float				bottom;
-	float				left;
-	float				right;
-	CRHomogeneousVec3	*corners;
-	CRHomogeneousVec3	*firstCorner;
-	CRHomogeneousVec3	*secondCorner;
-	CRHomogeneousVec3	*thirdCorner;
-	CRHomogeneousVec3	*fourthCorner;
-	
-	float				h[8];
-	float				homography[3][3];
-	float				rt[4][4];
-	
-	int					croppedCodeImageWidth;
-	int					croppedCodeImageHeight;
-	unsigned char		*croppedCodeImage;
-public:
-	CRCode();
-	CRCode(CRHomogeneousVec3 *firstCorner, CRHomogeneousVec3 *secondCorner, CRHomogeneousVec3 *thirdCorner, CRHomogeneousVec3 *fourthCorner);
-	~CRCode();
-
-	void normalizeCornerForImageCoord(float width, float height, float focalX, float focalY);
-	void getSimpleHomography(float scale);
-	void crop(float croppingWidth, float croppingHeight, float focalX, float focalY, unsigned char *source, int width, int height);
-	
-	void dumpCorners();
-};
-
-#endif
+void codeCropping_test(void);
