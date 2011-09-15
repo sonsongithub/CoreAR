@@ -1,8 +1,8 @@
 /*
  * Core AR
- * test.pch
+ * CRCommon.h
  *
- * Copyright (c) Yuichi YOSHIDA, 11/07/24.
+ * Copyright (c) Yuichi YOSHIDA, 11/07/23.
  * All rights reserved.
  * 
  * BSD License
@@ -28,8 +28,41 @@
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifdef _CR_COMMON_
+#else
+#define _CR_COMMON_
+
 #ifdef _DEBUG
 	#define _DPRINTF(...) printf(__VA_ARGS__)
 #else
 	#define _DPRINTF(...) //printf(__VA_ARGS__)
+#endif
+
+// safe release
+#define SAFE_FREE(p)			if(p){free(p);p=NULL;}
+#define SAFE_DELETE(p)			if(p){delete(p);p=NULL;}
+#define SAFE_DELETE_ARRAY(p)	if(p){delete [] p;p=NULL;}
+
+// static tic and toc methods
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <sys/time.h>
+
+static struct timeval _start, _end;
+
+static void _tic(void);
+static void _toc(void);
+
+static void _tic() {
+	gettimeofday(&_start, NULL);
+}
+
+static void _toc() {
+	gettimeofday(&_end, NULL);
+	long int e_sec = _end.tv_sec * 1000000 + _end.tv_usec;
+	long int s_sec = _start.tv_sec * 1000000 + _start.tv_usec;
+	printf( "%9.4lf[ms]\n", (double)(e_sec - s_sec) / 1000.0);
+}
+
 #endif

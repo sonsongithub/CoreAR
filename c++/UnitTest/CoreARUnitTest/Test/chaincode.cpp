@@ -1,8 +1,8 @@
 /*
  * Core AR
- * test.pch
+ * chaincode.cpp
  *
- * Copyright (c) Yuichi YOSHIDA, 11/07/24.
+ * Copyright (c) Yuichi YOSHIDA, 11/07/23.
  * All rights reserved.
  * 
  * BSD License
@@ -28,8 +28,66 @@
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef _DEBUG
-	#define _DPRINTF(...) printf(__VA_ARGS__)
-#else
-	#define _DPRINTF(...) //printf(__VA_ARGS__)
-#endif
+#include "chaincode.h"
+
+#include "CoreAR.h"
+
+#include "CRTest.h"
+
+void chaincode_test() {
+	printf("=================================================>Chaincode extraction test\n");
+	
+	unsigned char *pixel = NULL;
+	int width = 0;
+	int height = 0;
+	
+	CRChainCode *chaincode = new CRChainCode();
+	
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	// make test pixel data
+	//
+	////////////////////////////////////////////////////////////////////////////////
+	width = 40;
+	height = 40;
+	
+	CRHomogeneousVec3 *corners = new CRHomogeneousVec3 [4];
+	
+	float focal = 600;
+	float xdeg = M_PI/800.0;
+	float ydeg = M_PI/800.0;
+	float zdeg = M_PI/10;
+	
+	float xt = 0;
+	float yt = 10;
+	float zt = 70;
+	_CRTestMakePixelDataWithProjectionSetting(
+											  &pixel,
+											  width,
+											  height,
+											  corners,
+											  focal,
+											  xdeg, 
+											  ydeg, 
+											  zdeg, 
+											  xt, 
+											  yt,
+											  zt);
+	
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	// parse chain code
+	//
+	////////////////////////////////////////////////////////////////////////////////
+	_tic();
+	chaincode->parsePixel(pixel, width, height);
+	_toc();
+	
+	// dump
+	_CRTestDumpPixel(pixel, width, height);
+	
+	free(pixel);
+	
+	SAFE_DELETE_ARRAY(corners);
+	SAFE_DELETE(chaincode);
+}

@@ -31,6 +31,7 @@
 #include "CRCode.h"
 
 #include <math.h>
+#include "CRCommon.h"
 
 CRCode::CRCode() {
 	corners = new CRHomogeneousVec3 [4];

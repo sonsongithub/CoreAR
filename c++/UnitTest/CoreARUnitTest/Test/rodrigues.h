@@ -1,8 +1,8 @@
 /*
  * Core AR
- * test.pch
+ * rodrigues.h
  *
- * Copyright (c) Yuichi YOSHIDA, 11/07/24.
+ * Copyright (c) Yuichi YOSHIDA, 11/07/23.
  * All rights reserved.
  * 
  * BSD License
@@ -28,8 +28,4 @@
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef _DEBUG
-	#define _DPRINTF(...) printf(__VA_ARGS__)
-#else
-	#define _DPRINTF(...) //printf(__VA_ARGS__)
-#endif
+void rodrigues_test(void);

@@ -31,6 +31,7 @@
 #include "CRChainCodeBlob.h"
 
 #include <math.h>
+#include "CRCommon.h"
 
 CRChainCodeBlob::CRChainCodeBlob() {
 //	_DPRINTF("CRChainCodeBlob constructor\n");

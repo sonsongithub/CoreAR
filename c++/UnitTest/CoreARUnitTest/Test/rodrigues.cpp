@@ -1,8 +1,8 @@
 /*
  * Core AR
- * test.pch
+ * rodrigues.cpp
  *
- * Copyright (c) Yuichi YOSHIDA, 11/07/24.
+ * Copyright (c) Yuichi YOSHIDA, 11/07/23.
  * All rights reserved.
  * 
  * BSD License
@@ -28,8 +28,30 @@
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef _DEBUG
-	#define _DPRINTF(...) printf(__VA_ARGS__)
-#else
-	#define _DPRINTF(...) //printf(__VA_ARGS__)
-#endif
+#include "rodrigues.h"
+
+#include "CoreAR.h"
+#include "CRTest.h"
+
+void rodrigues_test(void) {
+	printf("=================================================>Rodrigues expression test\n");
+	
+	float gt_r[3] = {0.9572, 0.4854, 0.8003};
+	float r[3];
+	float gt_matrix[3][3];
+	float matrix[3][3];
+	
+	gt_matrix[0][0] =  0.6236;	gt_matrix[0][1] = -0.3822;	gt_matrix[0][2] =  0.6820;
+	gt_matrix[1][0] =  0.7814;	gt_matrix[1][1] =  0.3312;	gt_matrix[1][2] = -0.5289;
+	gt_matrix[2][0] = -0.0237;	gt_matrix[2][1] =  0.8627;	gt_matrix[2][2] =  0.5052;
+	
+	CRRodriguesR2Matrix(gt_r, matrix);
+	
+	_CRTestShowMatrix3x3(matrix);
+	_CRTestShowMatrix3x3(gt_matrix);
+	
+	CRRodriguesMatrix2R(r, gt_matrix);
+	
+	_CRTestShowVec3(r);
+	_CRTestShowVec3(gt_r);
+}

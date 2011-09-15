@@ -139,6 +139,9 @@
 /* Begin PBXProject section */
 		148FDFF313DD686400F2FCD8 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = 148FDFF613DD686400F2FCD8 /* Build configuration list for PBXProject "homography" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
