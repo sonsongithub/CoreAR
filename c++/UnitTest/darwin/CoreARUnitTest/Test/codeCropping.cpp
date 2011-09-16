@@ -35,7 +35,7 @@
 
 #include <jpeglib.h>
 
-#define JPEG_PATH "/Users/sonson/code/CoreAR.framework/c++/UnitTest/CoreARUnitTest/Test/%s"
+#define JPEG_PATH "/Users/sonson/code/CoreAR.framework/c++/UnitTest/darwin/CoreARUnitTest/Test/%s"
 
 // prototype
 void binarize(unsigned char *pixel, int width, int height, int threshold);

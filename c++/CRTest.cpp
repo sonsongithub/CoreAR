@@ -234,6 +234,7 @@ void _CRTestMakePixelDataAndPMatrixWithProjectionSettingAndCodeSize(float codeSi
 	corners[3][0] =  0;				corners[3][1] =  codeSize;		corners[3][2] = 0;			corners[3][3] = 1;
 	
 	unsigned char *pixel = (unsigned char*)malloc(sizeof(unsigned char)*width*height);
+	memset(pixel, 0, sizeof(unsigned char)*width*height);
 	
 	float corners_projected[12];
 	
@@ -246,7 +247,7 @@ void _CRTestMakePixelDataAndPMatrixWithProjectionSettingAndCodeSize(float codeSi
 		_CRTestProjectPoint(pMatrix, corners[i], p, focal, xdeg, ydeg, zdeg, xt, yt, zt);
 		
 		p[0] = p[0] + width/2;
-		p[1] = height/2 - p[1];
+		p[1] = p[1] + height/2;
 		
 		projected_corners[i].x = p[0];
 		projected_corners[i].y = p[1];
@@ -269,7 +270,7 @@ void _CRTestMakePixelDataAndPMatrixWithProjectionSettingAndCodeSize(float codeSi
 			_CRTestProjectPoint(mat, x_temp, x_temp_projected, focal, xdeg, ydeg, zdeg, xt, yt, zt);
 			
 			x_temp_projected[0] = x_temp_projected[0] + width/2;
-			x_temp_projected[1] = height/2 - x_temp_projected[1];
+			x_temp_projected[1] = x_temp_projected[1] + height/2;
 			
 			_CRTestSetPixel(pixel, width, height, x_temp_projected[0], x_temp_projected[1], 0x01);
 		}

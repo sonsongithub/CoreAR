@@ -35,9 +35,7 @@
 
 void homorgraphy_test() {
 	printf("=================================================>Homography test\n");
-	
-	srand((unsigned)time(NULL));
-	
+
 	unsigned char *pixel = NULL;
 	int width = 0;
 	int height = 0;
@@ -51,18 +49,18 @@ void homorgraphy_test() {
 	////////////////////////////////////////////////////////////////////////////////
 	
 	width = 640;
-	height =480;
+	height = 480;
 	
 	CRHomogeneousVec3 *corners = new CRHomogeneousVec3 [4];
 	
 	float focal = 650;
-	float xdeg = M_PI / 6.0f;
+	float xdeg = 0;
 	float ydeg = 0;
 	float zdeg = M_PI / 10.0f;
 	
-	float xt = 0;
-	float yt = 0;
-	float zt =20;
+	float xt = -0.3;
+	float yt = -0.5;
+	float zt = 40;
 	float pMat[4][4];
 	
 	float codeSize = 1;
@@ -92,6 +90,9 @@ void homorgraphy_test() {
 	//
 	////////////////////////////////////////////////////////////////////////////////
 	chaincode->parsePixel(pixel, width, height);
+	
+	CRCode *gtCode = new CRCode(corners, corners+1, corners+2, corners+3);
+	gtCode->dumpCorners();
 	
 	if (!chaincode->blobs->empty()) {
 		CRChainCodeBlob *blob = chaincode->blobs->front();

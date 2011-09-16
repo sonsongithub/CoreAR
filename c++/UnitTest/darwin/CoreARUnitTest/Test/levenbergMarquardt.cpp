@@ -48,22 +48,22 @@ void levenbergMarquardt_test(void) {
 	//
 	////////////////////////////////////////////////////////////////////////////////
 	
-	width = 640;
-	height = 480;
+	width = 40;
+	height = 40;
 	
 	CRHomogeneousVec3 *corners = new CRHomogeneousVec3 [4];
 	
 	float focal = 650;
-	float xdeg = 0;//M_PI / 6.0f;
-	float ydeg = M_PI / 6.0f;;
+	float xdeg = 0;
+	float ydeg = 0;
 	float zdeg = M_PI / 10.0f;
 	
-	float xt = 0;
-	float yt = -0.2;
-	float zt = 20;
+	float xt = -0.3;
+	float yt = -0.5;
+	float zt = 40;
 	float pMat[4][4];
 	
-	float codeSize = 0.5;
+	float codeSize = 1;
 	
 	_CRTestMakePixelDataAndPMatrixWithProjectionSettingAndCodeSize(
 																   codeSize,
@@ -79,6 +79,8 @@ void levenbergMarquardt_test(void) {
 																   xt, 
 																   yt,
 																   zt);
+	_CRTestDumpPixel(pixel, width, height);
+	
 	printf("Ground truth RT Matrix\n");
 	_CRTestDumpMat(pMat);
 	printf("\n");
@@ -95,7 +97,7 @@ void levenbergMarquardt_test(void) {
 		CRChainCodeBlob *blob = chaincode->blobs->front();
 		CRCode *code_normal = blob->code();
 		
-		printf("Corners ont the image.\n");
+		printf("Corners on the image.\n");
 		code_normal->dumpCorners();
 		
 		code_normal->normalizeCornerForImageCoord(width, height, focal, focal);

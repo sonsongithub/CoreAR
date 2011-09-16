@@ -7,6 +7,7 @@
 //
 
 #import "CRAppDelegate.h"
+#import "TestWrapper.h"
 
 @implementation CRAppDelegate
 
@@ -21,6 +22,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+	[TestWrapper test];
     return YES;
 }
 							

@@ -105,7 +105,7 @@ void CRCode::optimizeRTMatrinxWithLevenbergMarquardtMethod() {
 	
 	CRRTMatrix2Parameters(initial_p, this->rt);
 	
-	float codeSize = 0.5;
+	float codeSize = 1;
 	
 	float error[8];
 	float jacobian[8][6];

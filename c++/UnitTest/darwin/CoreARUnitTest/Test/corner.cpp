@@ -80,14 +80,15 @@ void corner_test() {
 	
 	CRHomogeneousVec3 *corners = new CRHomogeneousVec3 [4];
 	
-	float focal = 600;
-	float xdeg = 0;//M_PI/800.0;
-	float ydeg = 0;//M_PI/800.0;
-	float zdeg = M_PI/10;
+	float focal = 650;
+	float xdeg = 0;
+	float ydeg = 0;
+	float zdeg = M_PI / 10.0f;
 	
-	float xt = 0;
-	float yt = 0;
-	float zt = 70;
+	float xt = -0.3;
+	float yt = -0.5;
+	float zt = 40;
+	
 	_CRTestMakePixelDataWithProjectionSetting(
 											  &pixel,
 											  width,
@@ -107,6 +108,8 @@ void corner_test() {
 	//
 	////////////////////////////////////////////////////////////////////////////////
 	chaincode->parsePixel(pixel, width, height);
+	
+	_CRTestDumpPixel(pixel, width, height);
 	
 	CRCode *gtCode = new CRCode(corners + 0, corners + 1, corners + 2, corners + 3);
 	
@@ -132,13 +135,6 @@ void corner_test() {
 			SAFE_DELETE(code);
 		}
 	}
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	// dump
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	// _CRTestDumpPixel(pixel, width, height);
 	
 	////////////////////////////////////////////////////////////////////////////////
 	//
