@@ -1,0 +1,356 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		14FFF456142315E100AB1711 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FFF455142315E100AB1711 /* UIKit.framework */; };
+		14FFF458142315E100AB1711 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FFF457142315E100AB1711 /* Foundation.framework */; };
+		14FFF45A142315E100AB1711 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FFF459142315E100AB1711 /* CoreGraphics.framework */; };
+		14FFF460142315E100AB1711 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14FFF45E142315E100AB1711 /* InfoPlist.strings */; };
+		14FFF462142315E100AB1711 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF461142315E100AB1711 /* main.m */; };
+		14FFF466142315E100AB1711 /* CRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF465142315E100AB1711 /* CRAppDelegate.m */; };
+		14FFF469142315E100AB1711 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14FFF467142315E100AB1711 /* MainStoryboard_iPhone.storyboard */; };
+		14FFF46C142315E100AB1711 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14FFF46A142315E100AB1711 /* MainStoryboard_iPad.storyboard */; };
+		14FFF46F142315E100AB1711 /* CRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF46E142315E100AB1711 /* CRViewController.m */; };
+		14FFF48B142316A700AB1711 /* CRChainCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF47A142316A600AB1711 /* CRChainCode.cpp */; };
+		14FFF48C142316A700AB1711 /* CRChainCodeBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF47C142316A600AB1711 /* CRChainCodeBlob.cpp */; };
+		14FFF48D142316A700AB1711 /* CRChainCodeElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF47E142316A600AB1711 /* CRChainCodeElement.cpp */; };
+		14FFF48E142316A700AB1711 /* CRCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF480142316A600AB1711 /* CRCode.cpp */; };
+		14FFF48F142316A700AB1711 /* CRHomogeneousVec3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF483142316A600AB1711 /* CRHomogeneousVec3.cpp */; };
+		14FFF490142316A700AB1711 /* CRLevenbergMarquardt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF485142316A600AB1711 /* CRLevenbergMarquardt.cpp */; };
+		14FFF491142316A700AB1711 /* CRRodrigues.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF487142316A700AB1711 /* CRRodrigues.cpp */; };
+		14FFF492142316A700AB1711 /* CRTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF489142316A700AB1711 /* CRTest.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		14FFF451142315E100AB1711 /* CoreARUnitTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreARUnitTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		14FFF455142315E100AB1711 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		14FFF457142315E100AB1711 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		14FFF459142315E100AB1711 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		14FFF45D142315E100AB1711 /* CoreARUnitTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CoreARUnitTest-Info.plist"; sourceTree = "<group>"; };
+		14FFF45F142315E100AB1711 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		14FFF461142315E100AB1711 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		14FFF463142315E100AB1711 /* CoreARUnitTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CoreARUnitTest-Prefix.pch"; sourceTree = "<group>"; };
+		14FFF464142315E100AB1711 /* CRAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CRAppDelegate.h; sourceTree = "<group>"; };
+		14FFF465142315E100AB1711 /* CRAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CRAppDelegate.m; sourceTree = "<group>"; };
+		14FFF468142315E100AB1711 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		14FFF46B142315E100AB1711 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+		14FFF46D142315E100AB1711 /* CRViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CRViewController.h; sourceTree = "<group>"; };
+		14FFF46E142315E100AB1711 /* CRViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CRViewController.m; sourceTree = "<group>"; };
+		14FFF479142316A600AB1711 /* CoreAR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreAR.h; path = ../../CoreAR.h; sourceTree = "<group>"; };
+		14FFF47A142316A600AB1711 /* CRChainCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCode.cpp; path = ../../CRChainCode.cpp; sourceTree = "<group>"; };
+		14FFF47B142316A600AB1711 /* CRChainCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCode.h; path = ../../CRChainCode.h; sourceTree = "<group>"; };
+		14FFF47C142316A600AB1711 /* CRChainCodeBlob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCodeBlob.cpp; path = ../../CRChainCodeBlob.cpp; sourceTree = "<group>"; };
+		14FFF47D142316A600AB1711 /* CRChainCodeBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCodeBlob.h; path = ../../CRChainCodeBlob.h; sourceTree = "<group>"; };
+		14FFF47E142316A600AB1711 /* CRChainCodeElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCodeElement.cpp; path = ../../CRChainCodeElement.cpp; sourceTree = "<group>"; };
+		14FFF47F142316A600AB1711 /* CRChainCodeElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCodeElement.h; path = ../../CRChainCodeElement.h; sourceTree = "<group>"; };
+		14FFF480142316A600AB1711 /* CRCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRCode.cpp; path = ../../CRCode.cpp; sourceTree = "<group>"; };
+		14FFF481142316A600AB1711 /* CRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRCode.h; path = ../../CRCode.h; sourceTree = "<group>"; };
+		14FFF482142316A600AB1711 /* CRCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRCommon.h; path = ../../CRCommon.h; sourceTree = "<group>"; };
+		14FFF483142316A600AB1711 /* CRHomogeneousVec3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRHomogeneousVec3.cpp; path = ../../CRHomogeneousVec3.cpp; sourceTree = "<group>"; };
+		14FFF484142316A600AB1711 /* CRHomogeneousVec3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRHomogeneousVec3.h; path = ../../CRHomogeneousVec3.h; sourceTree = "<group>"; };
+		14FFF485142316A600AB1711 /* CRLevenbergMarquardt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRLevenbergMarquardt.cpp; path = ../../CRLevenbergMarquardt.cpp; sourceTree = "<group>"; };
+		14FFF486142316A700AB1711 /* CRLevenbergMarquardt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRLevenbergMarquardt.h; path = ../../CRLevenbergMarquardt.h; sourceTree = "<group>"; };
+		14FFF487142316A700AB1711 /* CRRodrigues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRRodrigues.cpp; path = ../../CRRodrigues.cpp; sourceTree = "<group>"; };
+		14FFF488142316A700AB1711 /* CRRodrigues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRRodrigues.h; path = ../../CRRodrigues.h; sourceTree = "<group>"; };
+		14FFF489142316A700AB1711 /* CRTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRTest.cpp; path = ../../CRTest.cpp; sourceTree = "<group>"; };
+		14FFF48A142316A700AB1711 /* CRTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRTest.h; path = ../../CRTest.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		14FFF44E142315E100AB1711 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14FFF456142315E100AB1711 /* UIKit.framework in Frameworks */,
+				14FFF458142315E100AB1711 /* Foundation.framework in Frameworks */,
+				14FFF45A142315E100AB1711 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		14FFF446142315E000AB1711 = {
+			isa = PBXGroup;
+			children = (
+				14FFF494142316AA00AB1711 /* CoreAR */,
+				14FFF45B142315E100AB1711 /* CoreARUnitTest */,
+				14FFF454142315E100AB1711 /* Frameworks */,
+				14FFF452142315E100AB1711 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		14FFF452142315E100AB1711 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				14FFF451142315E100AB1711 /* CoreARUnitTest.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		14FFF454142315E100AB1711 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				14FFF455142315E100AB1711 /* UIKit.framework */,
+				14FFF457142315E100AB1711 /* Foundation.framework */,
+				14FFF459142315E100AB1711 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		14FFF45B142315E100AB1711 /* CoreARUnitTest */ = {
+			isa = PBXGroup;
+			children = (
+				14FFF464142315E100AB1711 /* CRAppDelegate.h */,
+				14FFF465142315E100AB1711 /* CRAppDelegate.m */,
+				14FFF467142315E100AB1711 /* MainStoryboard_iPhone.storyboard */,
+				14FFF46A142315E100AB1711 /* MainStoryboard_iPad.storyboard */,
+				14FFF46D142315E100AB1711 /* CRViewController.h */,
+				14FFF46E142315E100AB1711 /* CRViewController.m */,
+				14FFF45C142315E100AB1711 /* Supporting Files */,
+			);
+			path = CoreARUnitTest;
+			sourceTree = "<group>";
+		};
+		14FFF45C142315E100AB1711 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				14FFF45D142315E100AB1711 /* CoreARUnitTest-Info.plist */,
+				14FFF45E142315E100AB1711 /* InfoPlist.strings */,
+				14FFF461142315E100AB1711 /* main.m */,
+				14FFF463142315E100AB1711 /* CoreARUnitTest-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		14FFF494142316AA00AB1711 /* CoreAR */ = {
+			isa = PBXGroup;
+			children = (
+				14FFF479142316A600AB1711 /* CoreAR.h */,
+				14FFF47A142316A600AB1711 /* CRChainCode.cpp */,
+				14FFF47B142316A600AB1711 /* CRChainCode.h */,
+				14FFF47C142316A600AB1711 /* CRChainCodeBlob.cpp */,
+				14FFF47D142316A600AB1711 /* CRChainCodeBlob.h */,
+				14FFF47E142316A600AB1711 /* CRChainCodeElement.cpp */,
+				14FFF47F142316A600AB1711 /* CRChainCodeElement.h */,
+				14FFF480142316A600AB1711 /* CRCode.cpp */,
+				14FFF481142316A600AB1711 /* CRCode.h */,
+				14FFF482142316A600AB1711 /* CRCommon.h */,
+				14FFF483142316A600AB1711 /* CRHomogeneousVec3.cpp */,
+				14FFF484142316A600AB1711 /* CRHomogeneousVec3.h */,
+				14FFF485142316A600AB1711 /* CRLevenbergMarquardt.cpp */,
+				14FFF486142316A700AB1711 /* CRLevenbergMarquardt.h */,
+				14FFF487142316A700AB1711 /* CRRodrigues.cpp */,
+				14FFF488142316A700AB1711 /* CRRodrigues.h */,
+				14FFF489142316A700AB1711 /* CRTest.cpp */,
+				14FFF48A142316A700AB1711 /* CRTest.h */,
+			);
+			name = CoreAR;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		14FFF450142315E100AB1711 /* CoreARUnitTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 14FFF472142315E100AB1711 /* Build configuration list for PBXNativeTarget "CoreARUnitTest" */;
+			buildPhases = (
+				14FFF44D142315E100AB1711 /* Sources */,
+				14FFF44E142315E100AB1711 /* Frameworks */,
+				14FFF44F142315E100AB1711 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CoreARUnitTest;
+			productName = CoreARUnitTest;
+			productReference = 14FFF451142315E100AB1711 /* CoreARUnitTest.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		14FFF448142315E000AB1711 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 14FFF44B142315E000AB1711 /* Build configuration list for PBXProject "CoreARUnitTest" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 14FFF446142315E000AB1711;
+			productRefGroup = 14FFF452142315E100AB1711 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				14FFF450142315E100AB1711 /* CoreARUnitTest */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		14FFF44F142315E100AB1711 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14FFF460142315E100AB1711 /* InfoPlist.strings in Resources */,
+				14FFF469142315E100AB1711 /* MainStoryboard_iPhone.storyboard in Resources */,
+				14FFF46C142315E100AB1711 /* MainStoryboard_iPad.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		14FFF44D142315E100AB1711 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14FFF462142315E100AB1711 /* main.m in Sources */,
+				14FFF466142315E100AB1711 /* CRAppDelegate.m in Sources */,
+				14FFF46F142315E100AB1711 /* CRViewController.m in Sources */,
+				14FFF48B142316A700AB1711 /* CRChainCode.cpp in Sources */,
+				14FFF48C142316A700AB1711 /* CRChainCodeBlob.cpp in Sources */,
+				14FFF48D142316A700AB1711 /* CRChainCodeElement.cpp in Sources */,
+				14FFF48E142316A700AB1711 /* CRCode.cpp in Sources */,
+				14FFF48F142316A700AB1711 /* CRHomogeneousVec3.cpp in Sources */,
+				14FFF490142316A700AB1711 /* CRLevenbergMarquardt.cpp in Sources */,
+				14FFF491142316A700AB1711 /* CRRodrigues.cpp in Sources */,
+				14FFF492142316A700AB1711 /* CRTest.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		14FFF45E142315E100AB1711 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				14FFF45F142315E100AB1711 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		14FFF467142315E100AB1711 /* MainStoryboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				14FFF468142315E100AB1711 /* en */,
+			);
+			name = MainStoryboard_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		14FFF46A142315E100AB1711 /* MainStoryboard_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				14FFF46B142315E100AB1711 /* en */,
+			);
+			name = MainStoryboard_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		14FFF470142315E100AB1711 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = "";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		14FFF471142315E100AB1711 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = "";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		14FFF473142315E100AB1711 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CoreARUnitTest/CoreARUnitTest-Prefix.pch";
+				INFOPLIST_FILE = "CoreARUnitTest/CoreARUnitTest-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		14FFF474142315E100AB1711 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CoreARUnitTest/CoreARUnitTest-Prefix.pch";
+				INFOPLIST_FILE = "CoreARUnitTest/CoreARUnitTest-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		14FFF44B142315E000AB1711 /* Build configuration list for PBXProject "CoreARUnitTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				14FFF470142315E100AB1711 /* Debug */,
+				14FFF471142315E100AB1711 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		14FFF472142315E100AB1711 /* Build configuration list for PBXNativeTarget "CoreARUnitTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				14FFF473142315E100AB1711 /* Debug */,
+				14FFF474142315E100AB1711 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 14FFF448142315E000AB1711 /* Project object */;
+}

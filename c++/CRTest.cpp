@@ -57,24 +57,6 @@ void _CRTestSetPixel(unsigned char* pixel, int width, int height, int x, int y, 
 		*(pixel + x + y * width) = value;
 }
 
-void _CRTestMultiMat2x3Mat3x3(float result[2][3], float a[2][3], float b[3][3]) {
-	//result = a * b;
-	for (int i = 0; i < 2; i++) {
-		result[i][0] = a[i][0] * b[0][0] + a[i][1] * b[1][0] + a[i][2] * b[2][0];
-		result[i][1] = a[i][0] * b[0][1] + a[i][1] * b[1][1] + a[i][2] * b[2][1];
-		result[i][2] = a[i][0] * b[0][2] + a[i][1] * b[1][2] + a[i][2] * b[2][2];
-	}
-}
-
-void _CRTestMultiMat3x3Mat3x3(float result[3][3], float a[3][3], float b[3][3]) {
-	//result = a * b;
-	for (int i = 0; i < 3; i++) {
-		result[i][0] = a[i][0] * b[0][0] + a[i][1] * b[1][0] + a[i][2] * b[2][0];
-		result[i][1] = a[i][0] * b[0][1] + a[i][1] * b[1][1] + a[i][2] * b[2][1];
-		result[i][2] = a[i][0] * b[0][2] + a[i][1] * b[1][2] + a[i][2] * b[2][2];
-	}
-}
-
 void _CRTestMultiMat4x4Mat4x4(float result[4][4], float a[4][4], float b[4][4]) {
 	//result = a * b;
 	for (int i = 0; i < 4; i++) {

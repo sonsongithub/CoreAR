@@ -13,17 +13,17 @@
 		148DF7F81421963A0011CF9F /* corner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148DF7F11421963A0011CF9F /* corner.cpp */; };
 		148DF7F91421963A0011CF9F /* homography.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148DF7F31421963A0011CF9F /* homography.cpp */; };
 		148DF7FA1421963A0011CF9F /* levenbergMarquardt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148DF7F51421963A0011CF9F /* levenbergMarquardt.cpp */; };
-		148DF8071421964D0011CF9F /* CRChainCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148DF7FB1421964D0011CF9F /* CRChainCode.cpp */; };
-		148DF8081421964D0011CF9F /* CRChainCodeBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148DF7FD1421964D0011CF9F /* CRChainCodeBlob.cpp */; };
-		148DF8091421964D0011CF9F /* CRChainCodeElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148DF7FF1421964D0011CF9F /* CRChainCodeElement.cpp */; };
-		148DF80A1421964D0011CF9F /* CRCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148DF8011421964D0011CF9F /* CRCode.cpp */; };
-		148DF80B1421964D0011CF9F /* CRHomogeneousVec3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148DF8031421964D0011CF9F /* CRHomogeneousVec3.cpp */; };
-		148DF80C1421964D0011CF9F /* CRRodrigues.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148DF8051421964D0011CF9F /* CRRodrigues.cpp */; };
-		148DF812142198DE0011CF9F /* CRTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148DF810142198DE0011CF9F /* CRTest.cpp */; };
 		148DF81A1421C5EC0011CF9F /* rodrigues.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148DF8181421C5EC0011CF9F /* rodrigues.cpp */; };
-		14E99B991422C9E900463FF4 /* CRLevenbergMarquardt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14E99B981422C9E900463FF4 /* CRLevenbergMarquardt.cpp */; };
 		14EAD69F1421C97C00106D02 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EAD69E1421C97C00106D02 /* Accelerate.framework */; };
 		14EAD6AA1421D3D400106D02 /* codeCropping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14EAD6A81421D3D400106D02 /* codeCropping.cpp */; };
+		14FFF4AC1423183B00AB1711 /* CRChainCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF49B1423183B00AB1711 /* CRChainCode.cpp */; };
+		14FFF4AD1423183B00AB1711 /* CRChainCodeBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF49D1423183B00AB1711 /* CRChainCodeBlob.cpp */; };
+		14FFF4AE1423183B00AB1711 /* CRChainCodeElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF49F1423183B00AB1711 /* CRChainCodeElement.cpp */; };
+		14FFF4AF1423183B00AB1711 /* CRCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF4A11423183B00AB1711 /* CRCode.cpp */; };
+		14FFF4B01423183B00AB1711 /* CRHomogeneousVec3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF4A41423183B00AB1711 /* CRHomogeneousVec3.cpp */; };
+		14FFF4B11423183B00AB1711 /* CRLevenbergMarquardt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF4A61423183B00AB1711 /* CRLevenbergMarquardt.cpp */; };
+		14FFF4B21423183B00AB1711 /* CRRodrigues.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF4A81423183B00AB1711 /* CRRodrigues.cpp */; };
+		14FFF4B31423183B00AB1711 /* CRTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF4AA1423183B00AB1711 /* CRTest.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,30 +51,30 @@
 		148DF7F41421963A0011CF9F /* homography.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = homography.h; sourceTree = "<group>"; };
 		148DF7F51421963A0011CF9F /* levenbergMarquardt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = levenbergMarquardt.cpp; sourceTree = "<group>"; };
 		148DF7F61421963A0011CF9F /* levenbergMarquardt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = levenbergMarquardt.h; sourceTree = "<group>"; };
-		148DF7FB1421964D0011CF9F /* CRChainCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCode.cpp; path = ../CRChainCode.cpp; sourceTree = "<group>"; };
-		148DF7FC1421964D0011CF9F /* CRChainCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCode.h; path = ../CRChainCode.h; sourceTree = "<group>"; };
-		148DF7FD1421964D0011CF9F /* CRChainCodeBlob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCodeBlob.cpp; path = ../CRChainCodeBlob.cpp; sourceTree = "<group>"; };
-		148DF7FE1421964D0011CF9F /* CRChainCodeBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCodeBlob.h; path = ../CRChainCodeBlob.h; sourceTree = "<group>"; };
-		148DF7FF1421964D0011CF9F /* CRChainCodeElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCodeElement.cpp; path = ../CRChainCodeElement.cpp; sourceTree = "<group>"; };
-		148DF8001421964D0011CF9F /* CRChainCodeElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCodeElement.h; path = ../CRChainCodeElement.h; sourceTree = "<group>"; };
-		148DF8011421964D0011CF9F /* CRCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRCode.cpp; path = ../CRCode.cpp; sourceTree = "<group>"; };
-		148DF8021421964D0011CF9F /* CRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRCode.h; path = ../CRCode.h; sourceTree = "<group>"; };
-		148DF8031421964D0011CF9F /* CRHomogeneousVec3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRHomogeneousVec3.cpp; path = ../CRHomogeneousVec3.cpp; sourceTree = "<group>"; };
-		148DF8041421964D0011CF9F /* CRHomogeneousVec3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRHomogeneousVec3.h; path = ../CRHomogeneousVec3.h; sourceTree = "<group>"; };
-		148DF8051421964D0011CF9F /* CRRodrigues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRRodrigues.cpp; path = ../CRRodrigues.cpp; sourceTree = "<group>"; };
-		148DF8061421964D0011CF9F /* CRRodrigues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRRodrigues.h; path = ../CRRodrigues.h; sourceTree = "<group>"; };
-		148DF80E142196710011CF9F /* CoreAR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreAR.h; path = ../CoreAR.h; sourceTree = "<group>"; };
-		148DF80F142197770011CF9F /* CRCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRCommon.h; path = ../CRCommon.h; sourceTree = "<group>"; };
-		148DF810142198DE0011CF9F /* CRTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRTest.cpp; path = ../../test/CRTest.cpp; sourceTree = "<group>"; };
-		148DF811142198DE0011CF9F /* CRTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRTest.h; path = ../../test/CRTest.h; sourceTree = "<group>"; };
 		148DF813142199C80011CF9F /* test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = test.h; sourceTree = "<group>"; };
 		148DF8181421C5EC0011CF9F /* rodrigues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rodrigues.cpp; sourceTree = "<group>"; };
 		148DF8191421C5EC0011CF9F /* rodrigues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rodrigues.h; sourceTree = "<group>"; };
-		14E99B981422C9E900463FF4 /* CRLevenbergMarquardt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRLevenbergMarquardt.cpp; path = ../CRLevenbergMarquardt.cpp; sourceTree = "<group>"; };
-		14E99B9A1422C9FF00463FF4 /* CRLevenbergMarquardt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRLevenbergMarquardt.h; path = ../CRLevenbergMarquardt.h; sourceTree = "<group>"; };
 		14EAD69E1421C97C00106D02 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		14EAD6A81421D3D400106D02 /* codeCropping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = codeCropping.cpp; sourceTree = "<group>"; };
 		14EAD6A91421D3D400106D02 /* codeCropping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = codeCropping.h; sourceTree = "<group>"; };
+		14FFF49A1423183B00AB1711 /* CoreAR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreAR.h; path = ../../CoreAR.h; sourceTree = "<group>"; };
+		14FFF49B1423183B00AB1711 /* CRChainCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCode.cpp; path = ../../CRChainCode.cpp; sourceTree = "<group>"; };
+		14FFF49C1423183B00AB1711 /* CRChainCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCode.h; path = ../../CRChainCode.h; sourceTree = "<group>"; };
+		14FFF49D1423183B00AB1711 /* CRChainCodeBlob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCodeBlob.cpp; path = ../../CRChainCodeBlob.cpp; sourceTree = "<group>"; };
+		14FFF49E1423183B00AB1711 /* CRChainCodeBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCodeBlob.h; path = ../../CRChainCodeBlob.h; sourceTree = "<group>"; };
+		14FFF49F1423183B00AB1711 /* CRChainCodeElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCodeElement.cpp; path = ../../CRChainCodeElement.cpp; sourceTree = "<group>"; };
+		14FFF4A01423183B00AB1711 /* CRChainCodeElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCodeElement.h; path = ../../CRChainCodeElement.h; sourceTree = "<group>"; };
+		14FFF4A11423183B00AB1711 /* CRCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRCode.cpp; path = ../../CRCode.cpp; sourceTree = "<group>"; };
+		14FFF4A21423183B00AB1711 /* CRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRCode.h; path = ../../CRCode.h; sourceTree = "<group>"; };
+		14FFF4A31423183B00AB1711 /* CRCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRCommon.h; path = ../../CRCommon.h; sourceTree = "<group>"; };
+		14FFF4A41423183B00AB1711 /* CRHomogeneousVec3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRHomogeneousVec3.cpp; path = ../../CRHomogeneousVec3.cpp; sourceTree = "<group>"; };
+		14FFF4A51423183B00AB1711 /* CRHomogeneousVec3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRHomogeneousVec3.h; path = ../../CRHomogeneousVec3.h; sourceTree = "<group>"; };
+		14FFF4A61423183B00AB1711 /* CRLevenbergMarquardt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRLevenbergMarquardt.cpp; path = ../../CRLevenbergMarquardt.cpp; sourceTree = "<group>"; };
+		14FFF4A71423183B00AB1711 /* CRLevenbergMarquardt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRLevenbergMarquardt.h; path = ../../CRLevenbergMarquardt.h; sourceTree = "<group>"; };
+		14FFF4A81423183B00AB1711 /* CRRodrigues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRRodrigues.cpp; path = ../../CRRodrigues.cpp; sourceTree = "<group>"; };
+		14FFF4A91423183B00AB1711 /* CRRodrigues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRRodrigues.h; path = ../../CRRodrigues.h; sourceTree = "<group>"; };
+		14FFF4AA1423183B00AB1711 /* CRTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRTest.cpp; path = ../../CRTest.cpp; sourceTree = "<group>"; };
+		14FFF4AB1423183B00AB1711 /* CRTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRTest.h; path = ../../CRTest.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,8 +110,6 @@
 		1488137E14209C98004BCE14 /* CoreARUnitTest */ = {
 			isa = PBXGroup;
 			children = (
-				148DF810142198DE0011CF9F /* CRTest.cpp */,
-				148DF811142198DE0011CF9F /* CRTest.h */,
 				1488137F14209C98004BCE14 /* main.cpp */,
 				1488138114209C98004BCE14 /* CoreARUnitTest.1 */,
 				14EAD69E1421C97C00106D02 /* Accelerate.framework */,
@@ -143,22 +141,24 @@
 		148DF80D142196510011CF9F /* CoreAR */ = {
 			isa = PBXGroup;
 			children = (
-				148DF80E142196710011CF9F /* CoreAR.h */,
-				148DF80F142197770011CF9F /* CRCommon.h */,
-				148DF7FB1421964D0011CF9F /* CRChainCode.cpp */,
-				148DF7FC1421964D0011CF9F /* CRChainCode.h */,
-				148DF7FD1421964D0011CF9F /* CRChainCodeBlob.cpp */,
-				148DF7FE1421964D0011CF9F /* CRChainCodeBlob.h */,
-				148DF7FF1421964D0011CF9F /* CRChainCodeElement.cpp */,
-				148DF8001421964D0011CF9F /* CRChainCodeElement.h */,
-				148DF8011421964D0011CF9F /* CRCode.cpp */,
-				148DF8021421964D0011CF9F /* CRCode.h */,
-				148DF8031421964D0011CF9F /* CRHomogeneousVec3.cpp */,
-				148DF8041421964D0011CF9F /* CRHomogeneousVec3.h */,
-				148DF8051421964D0011CF9F /* CRRodrigues.cpp */,
-				148DF8061421964D0011CF9F /* CRRodrigues.h */,
-				14E99B981422C9E900463FF4 /* CRLevenbergMarquardt.cpp */,
-				14E99B9A1422C9FF00463FF4 /* CRLevenbergMarquardt.h */,
+				14FFF49A1423183B00AB1711 /* CoreAR.h */,
+				14FFF49B1423183B00AB1711 /* CRChainCode.cpp */,
+				14FFF49C1423183B00AB1711 /* CRChainCode.h */,
+				14FFF49D1423183B00AB1711 /* CRChainCodeBlob.cpp */,
+				14FFF49E1423183B00AB1711 /* CRChainCodeBlob.h */,
+				14FFF49F1423183B00AB1711 /* CRChainCodeElement.cpp */,
+				14FFF4A01423183B00AB1711 /* CRChainCodeElement.h */,
+				14FFF4A11423183B00AB1711 /* CRCode.cpp */,
+				14FFF4A21423183B00AB1711 /* CRCode.h */,
+				14FFF4A31423183B00AB1711 /* CRCommon.h */,
+				14FFF4A41423183B00AB1711 /* CRHomogeneousVec3.cpp */,
+				14FFF4A51423183B00AB1711 /* CRHomogeneousVec3.h */,
+				14FFF4A61423183B00AB1711 /* CRLevenbergMarquardt.cpp */,
+				14FFF4A71423183B00AB1711 /* CRLevenbergMarquardt.h */,
+				14FFF4A81423183B00AB1711 /* CRRodrigues.cpp */,
+				14FFF4A91423183B00AB1711 /* CRRodrigues.h */,
+				14FFF4AA1423183B00AB1711 /* CRTest.cpp */,
+				14FFF4AB1423183B00AB1711 /* CRTest.h */,
 			);
 			name = CoreAR;
 			sourceTree = "<group>";
@@ -218,16 +218,16 @@
 				148DF7F81421963A0011CF9F /* corner.cpp in Sources */,
 				148DF7F91421963A0011CF9F /* homography.cpp in Sources */,
 				148DF7FA1421963A0011CF9F /* levenbergMarquardt.cpp in Sources */,
-				148DF8071421964D0011CF9F /* CRChainCode.cpp in Sources */,
-				148DF8081421964D0011CF9F /* CRChainCodeBlob.cpp in Sources */,
-				148DF8091421964D0011CF9F /* CRChainCodeElement.cpp in Sources */,
-				148DF80A1421964D0011CF9F /* CRCode.cpp in Sources */,
-				148DF80B1421964D0011CF9F /* CRHomogeneousVec3.cpp in Sources */,
-				148DF80C1421964D0011CF9F /* CRRodrigues.cpp in Sources */,
-				148DF812142198DE0011CF9F /* CRTest.cpp in Sources */,
 				148DF81A1421C5EC0011CF9F /* rodrigues.cpp in Sources */,
 				14EAD6AA1421D3D400106D02 /* codeCropping.cpp in Sources */,
-				14E99B991422C9E900463FF4 /* CRLevenbergMarquardt.cpp in Sources */,
+				14FFF4AC1423183B00AB1711 /* CRChainCode.cpp in Sources */,
+				14FFF4AD1423183B00AB1711 /* CRChainCodeBlob.cpp in Sources */,
+				14FFF4AE1423183B00AB1711 /* CRChainCodeElement.cpp in Sources */,
+				14FFF4AF1423183B00AB1711 /* CRCode.cpp in Sources */,
+				14FFF4B01423183B00AB1711 /* CRHomogeneousVec3.cpp in Sources */,
+				14FFF4B11423183B00AB1711 /* CRLevenbergMarquardt.cpp in Sources */,
+				14FFF4B21423183B00AB1711 /* CRRodrigues.cpp in Sources */,
+				14FFF4B31423183B00AB1711 /* CRTest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

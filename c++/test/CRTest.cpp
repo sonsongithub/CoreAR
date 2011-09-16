@@ -171,7 +171,7 @@ void _CRTestShowVec6(float vec[6]) {
 	}
 	printf("\n");
 }
-
+	
 void _CRTestShowVec8(float vec[8]) {
 	for (int i = 0; i < 8; i++) {
 		printf("%4.3f;\n", vec[i]);
