@@ -29,9 +29,9 @@
  */
 
 #include "CRLevenbergMarquardt.h"
-#include <Accelerate/Accelerate.h>
 #include "CRRodrigues.h"
 #include "CRCommon.h"
+#include <Accelerate/Accelerate.h>
 
 void _CRTestMultiMat3x3Mat3x3(float result[3][3], float a[3][3], float b[3][3]) {
 	//result = a * b;

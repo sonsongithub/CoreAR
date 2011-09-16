@@ -32,12 +32,10 @@
 #else
 #define _CRCHAINCODE_CPP_
 
-#include <iostream>
-
 typedef enum {
-	CRChainCodeFlagIgnore	= 0,
-	CRChainCodeFlagUnchecked= 1,
-	CRChainCodeFlagChecked	= 2,
+	CRChainCodeFlagIgnore	 = 0,
+	CRChainCodeFlagUnchecked = 1,
+	CRChainCodeFlagChecked	 = 2,
 }CRChainCodeFlagType;
 
 #include "CRChainCodeBlob.h"

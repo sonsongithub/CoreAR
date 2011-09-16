@@ -137,7 +137,7 @@ int read_jpeg(char *filename, unsigned char **pixel, int *width, int *height) {
 void binarize(unsigned char *pixel, int width, int height, int threshold) {
 	for(int y = 0; y < height; y++)
 		for(int x = 0; x < width; x++)
-			*(pixel + x + y * width) = (*(pixel + x + y * width) < threshold) ? 1 : 0;
+			*(pixel + x + y * width) = (*(pixel + x + y * width) < threshold) ? CRChainCodeFlagUnchecked : CRChainCodeFlagIgnore;
 }
 
 void codeCropping_test() {
@@ -188,4 +188,6 @@ void codeCropping_test() {
 		SAFE_FREE(code);
 	}
 	SAFE_FREE(chaincode);
+	SAFE_FREE(source);
+	SAFE_FREE(grayPixel);
 }

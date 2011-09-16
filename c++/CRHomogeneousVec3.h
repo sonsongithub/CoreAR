@@ -32,7 +32,6 @@
 #else
 #define _CRHOMOGENEOUSVEC3_CPP_
 
-#include <iostream>
 #include "CRChainCodeElement.h"
 
 #define MINIMUM_VALUE 0.0000000000001
