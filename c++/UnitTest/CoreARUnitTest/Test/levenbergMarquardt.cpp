@@ -32,266 +32,101 @@
 
 #include "CoreAR.h"
 #include "CRTest.h"
-#include <Accelerate/Accelerate.h>
-
-void CRGetDeltaParameter(float delta_param[6], float jacobian[8][6], float hessian[6][6], float error[8], float lambda);
-float CRSumationOfSquaredVec6(float vec[6]);
-float CRSumationOfSquaredVec8(float vec[8]);
-void _CRTestMultiTransposeMat8x6Mat8x6(float result[6][6], float j[8][6]);
-void CRRTMatrix2Parameters(float *param, float matrix[4][4]);
-void CRParameters2RTMatrix(float *param, float matrix[4][4]);
-void CRGetCurrentErrorAndJacobian(float jacobian[8][6], float hessian[6][6], float *error, float *param, CRCode *gtCode, float codeSize);
-void CRGetJacobian(float jacobian[8][6], float pointsHomo[3][4], float originalPoint[4][4], float *param);
-void CRGetMatrixFromHessianAndLambda(float hessian_dash[6][6], float hessian[6][6], float lambda);
-void _CRTestMultiTransposeMat8x6Vec8(float result[6], float j[8][6], float vec[8]);
-
-void _CRTestMultiTransposeMat8x6Vec8(float result[6], float j[8][6], float vec[8]) {
-	//result = a * b;
-	for (int i = 0; i < 6; i++) {
-		result[i] = j[0][i] * vec[0] + j[1][i] * vec[1] + j[2][i] * vec[2] + j[3][i] * vec[3] + j[4][i] * vec[4] + j[5][i] * vec[5] + j[6][i] * vec[6] + j[7][i] * vec[7];
-	}
-}
-
-void CRGetMatrixFromHessianAndLambda(float hessian_dash[6][6], float hessian[6][6], float lambda) {
-	//	for (int i = 0; i < 6; i++) {
-	//		for (int j = 0; j < 6; j++) {
-	//			hessian_dash[i][j] = hessian[i][j];
-	//		}
-	//	}
-	memcpy(hessian_dash, hessian, sizeof(float)*36);
-	for (int i = 0; i < 6; i++) {
-		hessian_dash[i][i] = (1 + lambda) * hessian[i][i];
-	}
-}
-
-void CRGetDeltaParameter(float delta_param[6], float jacobian[8][6], float hessian[6][6], float error[8], float lambda) {
-	float hessian_dash[6][6];
-	
-	//	_CRTestShowMatrix6x6(hessian);
-	
-	CRGetMatrixFromHessianAndLambda(hessian_dash, hessian, lambda);
-	
-	_CRTestMultiTransposeMat8x6Vec8(delta_param, jacobian, error);
-	
-	for (int i = 0; i < 6; i++) {
-		delta_param[i] = -delta_param[i];
-	}
-	
-	int rank = 6;
-	int nrhs = 1;
-	int pivot[6];
-	int info = 0;
-	
-	sgesv_((__CLPK_integer*)&rank, (__CLPK_integer*)&nrhs, (__CLPK_real*)hessian_dash, (__CLPK_integer*)&rank, (__CLPK_integer*)pivot,(__CLPK_real*)delta_param, (__CLPK_integer*)&rank, (__CLPK_integer*)&info);
-}
-
-float CRSumationOfSquaredVec6(float vec[6]) {
-	return vec[0]*vec[0] + vec[1]*vec[1] + vec[2]*vec[2] + vec[3]*vec[3] + vec[4]*vec[4] + vec[5]*vec[5];
-}
-
-float CRSumationOfSquaredVec8(float vec[8]) {
-	return vec[0]*vec[0] + vec[1]*vec[1] + vec[2]*vec[2] + vec[3]*vec[3] + vec[4]*vec[4] + vec[5]*vec[5] + vec[6]*vec[6] + vec[7]*vec[7];
-}
-
-void _CRTestMultiTransposeMat8x6Mat8x6(float result[6][6], float j[8][6]) {
-	//result = a * b;
-	for (int i = 0; i < 6; i++) {
-		result[i][0] = j[0][i] * j[0][0] + j[1][i] * j[1][0] + j[2][i] * j[2][0] + j[3][i] * j[3][0] + j[4][i] * j[4][0] + j[5][i] * j[5][0] + j[6][i] * j[6][0] + j[7][i] * j[7][0];
-		result[i][1] = j[0][i] * j[0][1] + j[1][i] * j[1][1] + j[2][i] * j[2][1] + j[3][i] * j[3][1] + j[4][i] * j[4][1] + j[5][i] * j[5][1] + j[6][i] * j[6][1] + j[7][i] * j[7][1];
-		result[i][2] = j[0][i] * j[0][2] + j[1][i] * j[1][2] + j[2][i] * j[2][2] + j[3][i] * j[3][2] + j[4][i] * j[4][2] + j[5][i] * j[5][2] + j[6][i] * j[6][2] + j[7][i] * j[7][2];
-		result[i][3] = j[0][i] * j[0][3] + j[1][i] * j[1][3] + j[2][i] * j[2][3] + j[3][i] * j[3][3] + j[4][i] * j[4][3] + j[5][i] * j[5][3] + j[6][i] * j[6][3] + j[7][i] * j[7][3];
-		result[i][4] = j[0][i] * j[0][4] + j[1][i] * j[1][4] + j[2][i] * j[2][4] + j[3][i] * j[3][4] + j[4][i] * j[4][4] + j[5][i] * j[5][4] + j[6][i] * j[6][4] + j[7][i] * j[7][4];
-		result[i][5] = j[0][i] * j[0][5] + j[1][i] * j[1][5] + j[2][i] * j[2][5] + j[3][i] * j[3][5] + j[4][i] * j[4][5] + j[5][i] * j[5][5] + j[6][i] * j[6][5] + j[7][i] * j[7][5];
-		
-	}
-}
-
-void CRRTMatrix2Parameters(float *param, float matrix[4][4]) {
-	CRRodriguesMatrix4x42R(param, matrix);
-	param[3] = matrix[0][3];
-	param[4] = matrix[1][3];
-	param[5] = matrix[2][3];
-}
-
-void CRParameters2RTMatrix(float *param, float matrix[4][4]) {
-	CRRodriguesR2Matrix4x4(param, matrix);
-	matrix[0][3] = param[3];
-	matrix[1][3] = param[4];
-	matrix[2][3] = param[5];
-	matrix[3][0] = 0;
-	matrix[3][1] = 0;
-	matrix[3][2] = 0;
-	matrix[3][3] = 1;
-}
-
-
-void CRGetCurrentErrorAndJacobian(float jacobian[8][6], float hessian[6][6], float *error, float *param, CRCode *gtCode, float codeSize) {
-	float points[2][4];
-	float pointsHomo[3][4];
-	
-	float originalPoint[4][4];
-	
-	float rt[4][4];
-	CRParameters2RTMatrix(param, rt);
-	
-	originalPoint[0][0] =  0;	originalPoint[0][1] =  codeSize;	originalPoint[0][2] =  codeSize;	originalPoint[0][3] =  0;
-	originalPoint[1][0] =  0;	originalPoint[1][1] =  0;			originalPoint[1][2] =  codeSize;	originalPoint[1][3] =  codeSize;
-	originalPoint[2][0] =  0;	originalPoint[2][1] =  0;			originalPoint[2][2] =  0;			originalPoint[2][3] =  0;
-	originalPoint[3][0] =  1;	originalPoint[3][1] =  1;			originalPoint[3][2] =  1;			originalPoint[3][3] =  1;
-	
-	for (int i = 0; i < 3; i++) {
-		pointsHomo[i][0] = rt[i][0] * originalPoint[0][0] + rt[i][1] * originalPoint[1][0] + rt[i][2] * originalPoint[2][0] + rt[i][3] * originalPoint[3][0];
-		pointsHomo[i][1] = rt[i][0] * originalPoint[0][1] + rt[i][1] * originalPoint[1][1] + rt[i][2] * originalPoint[2][1] + rt[i][3] * originalPoint[3][1];
-		pointsHomo[i][2] = rt[i][0] * originalPoint[0][2] + rt[i][1] * originalPoint[1][2] + rt[i][2] * originalPoint[2][2] + rt[i][3] * originalPoint[3][2];
-		pointsHomo[i][3] = rt[i][0] * originalPoint[0][3] + rt[i][1] * originalPoint[1][3] + rt[i][2] * originalPoint[2][3] + rt[i][3] * originalPoint[3][3];
-	}
-	
-	for (int i = 0; i < 4; i++) {
-		points[0][i] = pointsHomo[0][i] / pointsHomo[2][i];
-		points[1][i] = pointsHomo[1][i] / pointsHomo[2][i];
-	}
-	
-	//	_CRTestShowMatrix4x4(rt);
-	//	_CRTestShowMatrix4x4(originalPoint);
-	//	_CRTestShowMatrix3x4(pointsHomo);
-	//	_CRTestShowMatrix2x4(points);
-	//	gtCode->dumpCorners();
-	
-	error[0] = (gtCode->corners + 0)->x - points[0][0];
-	error[1] = (gtCode->corners + 0)->y - points[1][0];
-	error[2] = (gtCode->corners + 1)->x - points[0][1];
-	error[3] = (gtCode->corners + 1)->y - points[1][1];
-	error[4] = (gtCode->corners + 2)->x - points[0][2];
-	error[5] = (gtCode->corners + 2)->y - points[1][2];
-	error[6] = (gtCode->corners + 3)->x - points[0][3];
-	error[7] = (gtCode->corners + 3)->y - points[1][3];
-	
-	if (jacobian != NULL) {
-		CRGetJacobian(jacobian, pointsHomo, originalPoint, param);
-		_CRTestMultiTransposeMat8x6Mat8x6(hessian, jacobian);
-	}
-}
-
-void CRGetJacobian(float jacobian[8][6], float pointsHomo[3][4], float originalPoint[4][4], float *param) {
-	
-	float m2[2][3];
-	float m3[3][3];
-	float m4[3][3];
-	float m5[3][3];
-	float m6[2][3];
-	
-	CRRodriguesR2Matrix(param, m3);
-	
-	for (int num = 0; num < 4; num++) {
-		m2[0][0] = -1/pointsHomo[2][num];	m2[0][1] =                    0;	m2[0][2] =  pointsHomo[0][num]/pointsHomo[2][num]/pointsHomo[2][num];
-		m2[1][0] =					  0;	m2[1][1] = -1/pointsHomo[2][num];	m2[1][2] =  pointsHomo[1][num]/pointsHomo[2][num]/pointsHomo[2][num];
-		
-		m4[0][0] =                      0;	m4[0][1] =  originalPoint[2][num];	m4[0][2] = -originalPoint[1][num];
-		m4[1][0] = -originalPoint[2][num];	m4[1][1] =                      0;	m4[1][2] =  originalPoint[0][num];
-		m4[2][0] =  originalPoint[1][num];	m4[2][1] = -originalPoint[0][num];	m4[2][2] =  0;
-		
-		
-		_CRTestMultiMat3x3Mat3x3(m5, m3, m4);
-		_CRTestMultiMat2x3Mat3x3(m6, m2, m5);
-		
-		jacobian[num*2  ][0] = m6[0][0];	jacobian[num*2  ][1] = m6[0][1];	jacobian[num*2  ][2] = m6[0][2];
-		jacobian[num*2+1][0] = m6[1][0];	jacobian[num*2+1][1] = m6[1][1];	jacobian[num*2+1][2] = m6[1][2];
-		
-		jacobian[num*2  ][3] = m2[0][0];	jacobian[num*2  ][4] = m2[0][1];	jacobian[num*2  ][5] = m2[0][2];
-		jacobian[num*2+1][3] = m2[1][0];	jacobian[num*2+1][4] = m2[1][1];	jacobian[num*2+1][5] = m2[1][2];
-	}
-}
 
 void levenbergMarquardt_test(void) {
-	printf("=================================================>Levenberg-Marquardt method test\n");
-	float lambda = 0.001;
-	float theshold = 0.0001;
+	printf("=================================================>Levenberg-Marquardt Algorithm test\n");
 	
-	float rt[4][4];
-	float initial_p[6];
-	initial_p[0] = 0.3117;
-	initial_p[1] = 0.0024;
-	initial_p[2] = 0.0770;
-	initial_p[3] = 0.0490;
-	initial_p[4] = 0.0093;
-	initial_p[5] = 5.0320;
+	unsigned char *pixel = NULL;
+	int width = 0;
+	int height = 0;
 	
-	CRParameters2RTMatrix(initial_p, rt);
-	_CRTestShowMatrix4x4(rt);
-	_CRTestShowVec6(initial_p);
+	CRChainCode *chaincode = new CRChainCode();
 	
-	float codeSize = 2;
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	// make test pixel data
+	//
+	////////////////////////////////////////////////////////////////////////////////
+	
+	width = 640;
+	height = 480;
 	
 	CRHomogeneousVec3 *corners = new CRHomogeneousVec3 [4];
-	(corners + 0)->x = 0.0097;	(corners + 1)->x = 0.4054;		(corners + 2)->x = 0.3344;		(corners + 3)->x = -0.0186;
-	(corners + 0)->y = 0.0019;	(corners + 1)->y = 0.0312;		(corners + 2)->y = 0.3623;		(corners + 3)->y = 0.3372;
-	(corners + 0)->w = 1.0f;	(corners + 1)->w = 1.0f;		(corners + 2)->w = 1.0f;		(corners + 3)->w = 1.0f;
+	
+	float focal = 650;
+	float xdeg = M_PI / 6.0f;
+	float ydeg = M_PI / 6.0f;;
+	float zdeg = M_PI / 10.0f;
+	
+	float xt = 0;
+	float yt = -0.2;
+	float zt = 20;
+	float pMat[4][4];
+	
+	float codeSize = 0.5;
+	
+	_CRTestMakePixelDataAndPMatrixWithProjectionSettingAndCodeSize(
+																   codeSize,
+																   pMat,
+																   &pixel,
+																   width,
+																   height,
+																   corners,
+																   focal,
+																   xdeg, 
+																   ydeg, 
+																   zdeg, 
+																   xt, 
+																   yt,
+																   zt);
+	//_CRTestDumpPixel(pixel, width, height);
+	
+	_DPRINTF("Ground truth RT Matrix\n");
+	_CRTestDumpMat(pMat);
+	_DPRINTF("\n");
+	
+	
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	// parse chain code
+	//
+	////////////////////////////////////////////////////////////////////////////////
+	chaincode->parsePixel(pixel, width, height);
 	
 	CRCode *groundTruthCode = new CRCode(corners, corners+1, corners+2, corners+3);
 	
-	float error[8];
-	float jacobian[8][6];
-	float hessian[6][6];
-	
-	float delta_param[6];
-	
-	_tic();
-	CRGetCurrentErrorAndJacobian(jacobian, hessian, error, initial_p, groundTruthCode, codeSize);
-	
-	float c = CRSumationOfSquaredVec8(error);
-	
-	for (int i = 0; i < 100; i++) {
-		//		_CRTestShowVec8(error);
-		//		_CRTestShowMatrix8x6(jacobian);
-		//		_CRTestShowMatrix6x6(hessian);
+	if (!chaincode->blobs->empty()) {
+		CRChainCodeBlob *blob = chaincode->blobs->front();
+		CRCode *code_normal = blob->code();
 		
-		float p_temp[6];
+		_DPRINTF("Using corners from the image.\n");
+		_tic();
+		code_normal->dumpCorners();
+		code_normal->normalizeCornerForImageCoord(width, height, focal, focal);
+		code_normal->dumpCorners();
+		code_normal->getSimpleHomography(codeSize);
+		_toc();
+		_DPRINTF("\n");
+		_DPRINTF("Homography matrix from the extracted corners.\n");
+		_CRTestShowMatrix3x3(code_normal->homography);
+		_DPRINTF("\n");
+		_DPRINTF("RT matrix from the extracted corners.\n");
+		_CRTestShowMatrix4x4(code_normal->rt);
 		
-		CRGetDeltaParameter(delta_param, jacobian, hessian, error, lambda);
+		code_normal->optimizeRTMatrinxWithLevenbergMarquardtMethod();
 		
-		//		_CRTestShowVec6(delta_param);
+		_CRTestShowMatrix4x4(code_normal->rt);
 		
-		p_temp[0] = initial_p[0] + delta_param[0];
-		p_temp[1] = initial_p[1] + delta_param[1];
-		p_temp[2] = initial_p[2] + delta_param[2];
-		p_temp[3] = initial_p[3] + delta_param[3];
-		p_temp[4] = initial_p[4] + delta_param[4];
-		p_temp[5] = initial_p[5] + delta_param[5];
-		
-		float error_dash[8];
-		
-		CRGetCurrentErrorAndJacobian(NULL, NULL, error_dash, p_temp, groundTruthCode, codeSize);
-		
-		float c_dash = CRSumationOfSquaredVec8(error_dash);
-		
-		printf("Error=%f\n", c_dash);
-		
-		if (c_dash > c) {
-			lambda *= 10;
-		}
-		else {
-			lambda /= 10;
-			c = c_dash;
-			initial_p[0] = p_temp[0];
-			initial_p[1] = p_temp[1];
-			initial_p[2] = p_temp[2];
-			initial_p[3] = p_temp[3];
-			initial_p[4] = p_temp[4];
-			initial_p[5] = p_temp[5];
-			float delta = CRSumationOfSquaredVec6(delta_param);
-			
-			if (delta < theshold) {
-				break;
-			}
-			CRGetCurrentErrorAndJacobian(jacobian, hessian, error, initial_p, groundTruthCode, codeSize);
-		}
+		SAFE_DELETE(code_normal);
 	}
-	_toc();
 	
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	// Release
+	//
+	////////////////////////////////////////////////////////////////////////////////
+	SAFE_FREE(pixel);
 	SAFE_DELETE(groundTruthCode);
+	SAFE_DELETE(chaincode);
 	SAFE_DELETE_ARRAY(corners);
-	
-	
-	CRParameters2RTMatrix(initial_p, rt);
-	_CRTestShowMatrix4x4(rt);
 }

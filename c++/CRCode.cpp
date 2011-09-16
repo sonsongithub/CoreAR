@@ -31,7 +31,11 @@
 #include "CRCode.h"
 
 #include <math.h>
+
 #include "CRCommon.h"
+#include "CRLevenbergMarquardt.h"
+
+#include "CRTest.h"
 
 CRCode::CRCode() {
 	corners = new CRHomogeneousVec3 [4];
@@ -48,7 +52,7 @@ void CRCode::normalizeCornerForImageCoord(float width, float height, float focal
 		(corners + i)->normalize();
 		(corners + i)->x -= (float)width/2;
 		(corners + i)->x /= (float)focalX;
-		(corners + i)->y = (float)height/2 - (corners + i)->y;
+		(corners + i)->y -= (float)height/2;
 		(corners + i)->y /= (float)focalY;
 	}
 }
@@ -78,13 +82,88 @@ void CRCode::crop(float croppingWidth, float croppingHeight, float focalX, float
 			float normalizedY = (h[1] * ii + h[4] * jj + h[7]) / (h[2] * ii + h[5] * jj + 1);
 			
 			int x = normalizedX * focalX + width/2;
-			int y = height/2 - normalizedY * focalY;
+			int y = normalizedY * focalY + height/2;
 			
 			if (x >= 0 && x < width && y < height && y >=0 ) {
 				croppedCodeImage[i + j * croppedCodeImageWidth] = source[x + y * (int)width];
 			}
 		}
 	}
+}
+
+void CRCode::optimizeRTMatrinxWithLevenbergMarquardtMethod() {
+	float lambda = 0.004;
+	float theshold = 0.0001;
+	
+	float initial_p[6];
+	initial_p[0] = 0.3117;
+	initial_p[1] = 0.0024;
+	initial_p[2] = 0.0770;
+	initial_p[3] = 0.0490;
+	initial_p[4] = 0.0093;
+	initial_p[5] = 5.0320;
+	
+	CRRTMatrix2Parameters(initial_p, this->rt);
+	_CRTestShowVec6(initial_p);
+	
+	float codeSize = 0.5;
+	
+	float error[8];
+	float jacobian[8][6];
+	float hessian[6][6];
+	
+	float delta_param[6];
+	
+	CRGetCurrentErrorAndJacobian(jacobian, hessian, error, initial_p, this, codeSize);
+	
+	float c = CRSumationOfSquaredVec8(error);
+	
+	_tic();
+	
+	for (int i = 0; i < 100; i++) {
+		float p_temp[6];
+		
+		CRGetDeltaParameter(delta_param, jacobian, hessian, error, lambda);
+		
+		p_temp[0] = initial_p[0] + delta_param[0];
+		p_temp[1] = initial_p[1] + delta_param[1];
+		p_temp[2] = initial_p[2] + delta_param[2];
+		p_temp[3] = initial_p[3] + delta_param[3];
+		p_temp[4] = initial_p[4] + delta_param[4];
+		p_temp[5] = initial_p[5] + delta_param[5];
+		
+		float error_dash[8];
+		
+		CRGetCurrentErrorAndJacobian(NULL, NULL, error_dash, p_temp, this, codeSize);
+		
+		float c_dash = CRSumationOfSquaredVec8(error_dash);
+		
+		//printf("Error=%f\n", c_dash);
+		
+		if (c_dash > c) {
+			lambda *= 10;
+		}
+		else {
+			lambda /= 10;
+			c = c_dash;
+			initial_p[0] = p_temp[0];
+			initial_p[1] = p_temp[1];
+			initial_p[2] = p_temp[2];
+			initial_p[3] = p_temp[3];
+			initial_p[4] = p_temp[4];
+			initial_p[5] = p_temp[5];
+			float delta = CRSumationOfSquaredVec6(delta_param);
+			
+			if (delta < theshold) {
+				printf("Error=%f, iteration=%d\n", c_dash, i);
+				break;
+			}
+			CRGetCurrentErrorAndJacobian(jacobian, hessian, error, initial_p, this, codeSize);
+		}
+	}
+	_toc();
+	
+	CRParameters2RTMatrix(initial_p, this->rt);
 }
 
 void CRCode::getSimpleHomography(float scale) {

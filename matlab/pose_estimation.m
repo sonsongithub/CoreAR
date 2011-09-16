@@ -9,14 +9,18 @@ else
     disp('this is test mode');
     ar.fx = 649.590771179639773;
     ar.fy = 653.240978126455161;
-    ar.codeSize = 4;
+    ar.codeSize = 1;
+    
+    imageSize = [640 480];
    
     % 2d code
-    p = getRTMatrix([pi/6, pi, 0], [0 0 10]);
+    p = getRTMatrix([pi/6, 0, pi/10], [0 0 20]);
     
     codePositionWorld = cat(1, [0 0 0;1 0 0;1 1 0;0 1 0]' * ar.codeSize, [1 1 1 1]);
     
     codeProjectedPosition = project(ar.fx, ar.fy, p * codePositionWorld);
+    
+    codeProjectedPosition + repmat(imageSize'*0.5, 1, 4)
 
     normalizedCodeProjectedPosition = codeProjectedPosition ./ repmat([ar.fx ar.fy]', 1, 4);
 end

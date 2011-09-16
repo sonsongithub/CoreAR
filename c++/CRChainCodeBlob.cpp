@@ -149,7 +149,8 @@ CRCode *CRChainCodeBlob::code() {
 	thirdCorner->normalize();
 	fourthCorner->normalize();
 	
-	CRCode *code = new CRCode(firstCorner, secondCorner, thirdCorner, fourthCorner);
+	// chaincode search algorithm is reverse order.
+	CRCode *code = new CRCode(firstCorner, fourthCorner, thirdCorner, secondCorner);
 	
 	delete line1;
 	delete line2;

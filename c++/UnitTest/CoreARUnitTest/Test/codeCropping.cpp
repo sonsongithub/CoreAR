@@ -187,7 +187,7 @@ void codeCropping_test() {
 		code->getSimpleHomography(codeSize);
 		
 		_tic();
-		code->crop(64, 64, focal, focal, source, width, height);
+		code->crop(128, 128, focal, focal, source, width, height);
 		_toc();
 		
 		write_jpeg(NULL, code->croppedCodeImage, code->croppedCodeImageWidth, code->croppedCodeImageHeight);

@@ -10,8 +10,7 @@
 
 #include "test.h"
 
-int main (int argc, const char * argv[]) {
-	
+int main (int argc, const char * argv[]) {	
 	chaincode_test();
 	corner_test();
 	homorgraphy_test();

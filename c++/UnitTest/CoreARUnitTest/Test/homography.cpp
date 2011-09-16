@@ -51,21 +51,21 @@ void homorgraphy_test() {
 	////////////////////////////////////////////////////////////////////////////////
 	
 	width = 640;
-	height = 480;
+	height =480;
 	
 	CRHomogeneousVec3 *corners = new CRHomogeneousVec3 [4];
 	
 	float focal = 650;
-	float xdeg = M_PI / 10.0f;
+	float xdeg = M_PI / 6.0f;
 	float ydeg = 0;
-	float zdeg = M_PI / 40.0f;
+	float zdeg = M_PI / 10.0f;
 	
-	float xt = 0.05;
+	float xt = 0;
 	float yt = 0;
-	float zt = 5;
+	float zt =20;
 	float pMat[4][4];
 	
-	float codeSize = 0.5;
+	float codeSize = 1;
 	
 	_CRTestMakePixelDataAndPMatrixWithProjectionSettingAndCodeSize(
 																   codeSize,
@@ -94,6 +94,7 @@ void homorgraphy_test() {
 	chaincode->parsePixel(pixel, width, height);
 	
 	CRCode *groundTruthCode = new CRCode(corners, corners+1, corners+2, corners+3);
+	groundTruthCode->dumpCorners();
 	
 	if (!chaincode->blobs->empty()) {
 		CRChainCodeBlob *blob = chaincode->blobs->front();
@@ -103,6 +104,7 @@ void homorgraphy_test() {
 		_tic();
 		code_normal->dumpCorners();
 		code_normal->normalizeCornerForImageCoord(width, height, focal, focal);
+		code_normal->dumpCorners();
 		code_normal->getSimpleHomography(codeSize);
 		_toc();
 		_DPRINTF("\n");
@@ -135,4 +137,5 @@ void homorgraphy_test() {
 	SAFE_FREE(pixel);
 	SAFE_DELETE(groundTruthCode);
 	SAFE_DELETE(chaincode);
-	SAFE_DELETE_ARRAY(corners);}
+	SAFE_DELETE_ARRAY(corners);
+}

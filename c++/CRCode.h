@@ -62,6 +62,7 @@ public:
 
 	void normalizeCornerForImageCoord(float width, float height, float focalX, float focalY);
 	void getSimpleHomography(float scale);
+	void optimizeRTMatrinxWithLevenbergMarquardtMethod();
 	void crop(float croppingWidth, float croppingHeight, float focalX, float focalY, unsigned char *source, int width, int height);
 	
 	void dumpCorners();

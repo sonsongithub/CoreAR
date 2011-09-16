@@ -1,6 +1,6 @@
 /*
  * Core AR
- * chaincode.cpp
+ * CRLevenbergMarquardt.h
  *
  * Copyright (c) Yuichi YOSHIDA, 11/07/23.
  * All rights reserved.
@@ -28,67 +28,17 @@
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "chaincode.h"
+#include "CRCode.h"
 
-#include "CoreAR.h"
-
-#include "CRTest.h"
-
-void chaincode_test() {
-	printf("=================================================>Chaincode extraction test\n");
-	
-	unsigned char *pixel = NULL;
-	int width = 0;
-	int height = 0;
-	
-	CRChainCode *chaincode = new CRChainCode();
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	// make test pixel data
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	width = 40;
-	height = 40;
-	
-	CRHomogeneousVec3 *corners = new CRHomogeneousVec3 [4];
-	
-	float focal = 650;
-	float xdeg = M_PI / 6.0f;
-	float ydeg = 0;
-	float zdeg = M_PI / 10.0f;
-	
-	float xt = 0;
-	float yt = 0;
-	float zt = 40;
-	
-	_CRTestMakePixelDataWithProjectionSetting(
-											  &pixel,
-											  width,
-											  height,
-											  corners,
-											  focal,
-											  xdeg, 
-											  ydeg, 
-											  zdeg, 
-											  xt, 
-											  yt,
-											  zt);
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	// parse chain code
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	_tic();
-	chaincode->parsePixel(pixel, width, height);
-	_toc();
-	
-	// dump
-	_CRTestDumpPixel(pixel, width, height);
-	
-	free(pixel);
-	
-	SAFE_DELETE_ARRAY(corners);
-	SAFE_DELETE(chaincode);
-}
+void CRGetDeltaParameter(float delta_param[6], float jacobian[8][6], float hessian[6][6], float error[8], float lambda);
+float CRSumationOfSquaredVec6(float vec[6]);
+float CRSumationOfSquaredVec8(float vec[8]);
+void _CRTestMultiTransposeMat8x6Mat8x6(float result[6][6], float j[8][6]);
+void CRRTMatrix2Parameters(float *param, float matrix[4][4]);
+void CRParameters2RTMatrix(float *param, float matrix[4][4]);
+void CRGetCurrentErrorAndJacobian(float jacobian[8][6], float hessian[6][6], float *error, float *param, CRCode *gtCode, float codeSize);
+void CRGetJacobian(float jacobian[8][6], float pointsHomo[3][4], float originalPoint[4][4], float *param);
+void CRGetMatrixFromHessianAndLambda(float hessian_dash[6][6], float hessian[6][6], float lambda);
+void _CRTestMultiTransposeMat8x6Vec8(float result[6], float j[8][6], float vec[8]);
+void _CRTestMultiMat3x3Mat3x3(float result[3][3], float a[3][3], float b[3][3]);
+void _CRTestMultiMat2x3Mat3x3(float result[2][3], float a[2][3], float b[3][3]);
