@@ -126,6 +126,7 @@ void homorgraphy_test() {
 	//
 	////////////////////////////////////////////////////////////////////////////////
 	SAFE_FREE(pixel);
+	SAFE_DELETE(gtCode);
 	SAFE_DELETE(chaincode);
 	SAFE_DELETE_ARRAY(corners);
 }

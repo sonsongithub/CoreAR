@@ -113,12 +113,17 @@ void corner_test() {
 	
 	CRCode *gtCode = new CRCode(corners + 0, corners + 1, corners + 2, corners + 3);
 	
+	printf("\nGround truth\n");
+	gtCode->dumpCorners();
+	
 	if (!chaincode->blobs->empty()) {
 		CRChainCodeBlob *blob = chaincode->blobs->front();
 		{
 			_tic();
 			CRCode *code = blob->code();
 			float e = _tocWithoutLog();
+			printf("Estimated corners\n");
+			code->dumpCorners();
 			float error = getErrorAfterOrderingCorners(code, gtCode);
 			printf("Error=%f\n", error);
 			printf("Extract corners\n\t%0.5f[msec]\n\n", e);
@@ -129,6 +134,8 @@ void corner_test() {
 			_tic();
 			CRCode *code = blob->codeWithoutLSM();
 			float e = _tocWithoutLog();
+			printf("Estimated corners without LSM\n");
+			code->dumpCorners();
 			float error = getErrorAfterOrderingCorners(code, gtCode);
 			printf("Error=%f(without LSM)\n", error);
 			printf("Extract corners without least square method\n\t%0.5f[msec]\n\n", e);
