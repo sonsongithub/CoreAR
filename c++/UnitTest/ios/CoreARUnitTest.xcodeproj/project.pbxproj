@@ -34,6 +34,8 @@
 		14FFF4CD1423192700AB1711 /* rodrigues.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF4C21423192700AB1711 /* rodrigues.cpp */; };
 		14FFF4CF1423196300AB1711 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FFF4CE1423196300AB1711 /* Accelerate.framework */; };
 		14FFF4D814231A0200AB1711 /* TestWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF4D714231A0200AB1711 /* TestWrapper.mm */; };
+		14FFF4EF142328AD00AB1711 /* QuartzHelpLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF4EE142328AD00AB1711 /* QuartzHelpLibrary.m */; };
+		14FFF4F214232B8900AB1711 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FFF4F114232B8900AB1711 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +88,9 @@
 		14FFF4CE1423196300AB1711 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		14FFF4D4142319DE00AB1711 /* TestWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestWrapper.h; sourceTree = "<group>"; };
 		14FFF4D714231A0200AB1711 /* TestWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TestWrapper.mm; sourceTree = "<group>"; };
+		14FFF4ED142328AD00AB1711 /* QuartzHelpLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuartzHelpLibrary.h; path = "../../../../Quartz-Help-Library/QuartzHelpLibrary.h"; sourceTree = "<group>"; };
+		14FFF4EE142328AD00AB1711 /* QuartzHelpLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuartzHelpLibrary.m; path = "../../../../Quartz-Help-Library/QuartzHelpLibrary.m"; sourceTree = "<group>"; };
+		14FFF4F114232B8900AB1711 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,10 +98,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14FFF45A142315E100AB1711 /* CoreGraphics.framework in Frameworks */,
+				14FFF4F214232B8900AB1711 /* QuartzCore.framework in Frameworks */,
 				14FFF4CF1423196300AB1711 /* Accelerate.framework in Frameworks */,
 				14FFF456142315E100AB1711 /* UIKit.framework in Frameworks */,
 				14FFF458142315E100AB1711 /* Foundation.framework in Frameworks */,
-				14FFF45A142315E100AB1711 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,8 +112,9 @@
 		14FFF446142315E000AB1711 = {
 			isa = PBXGroup;
 			children = (
-				14FFF4B41423192700AB1711 /* Test */,
+				14FFF4F0142328B500AB1711 /* Quartz Help Library */,
 				14FFF494142316AA00AB1711 /* CoreAR */,
+				14FFF4B41423192700AB1711 /* Test */,
 				14FFF45B142315E100AB1711 /* CoreARUnitTest */,
 				14FFF454142315E100AB1711 /* Frameworks */,
 				14FFF452142315E100AB1711 /* Products */,
@@ -125,6 +132,7 @@
 		14FFF454142315E100AB1711 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				14FFF4F114232B8900AB1711 /* QuartzCore.framework */,
 				14FFF4CE1423196300AB1711 /* Accelerate.framework */,
 				14FFF455142315E100AB1711 /* UIKit.framework */,
 				14FFF457142315E100AB1711 /* Foundation.framework */,
@@ -205,6 +213,15 @@
 			);
 			name = Test;
 			path = ../darwin/CoreARUnitTest/Test;
+			sourceTree = "<group>";
+		};
+		14FFF4F0142328B500AB1711 /* Quartz Help Library */ = {
+			isa = PBXGroup;
+			children = (
+				14FFF4ED142328AD00AB1711 /* QuartzHelpLibrary.h */,
+				14FFF4EE142328AD00AB1711 /* QuartzHelpLibrary.m */,
+			);
+			name = "Quartz Help Library";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -290,6 +307,7 @@
 				14FFF4CC1423192700AB1711 /* levenbergMarquardt.cpp in Sources */,
 				14FFF4CD1423192700AB1711 /* rodrigues.cpp in Sources */,
 				14FFF4D814231A0200AB1711 /* TestWrapper.mm in Sources */,
+				14FFF4EF142328AD00AB1711 /* QuartzHelpLibrary.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

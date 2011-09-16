@@ -8,6 +8,8 @@
 
 #import "CRViewController.h"
 
+#import "TestWrapper.h"
+
 @implementation CRViewController
 
 - (void)didReceiveMemoryWarning
@@ -39,6 +41,10 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+	CGImageRef imageRef = [TestWrapper corner_test];
+	
+	UIImage *image = [UIImage imageWithCGImage:imageRef];
+	[imageView setImage:image];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

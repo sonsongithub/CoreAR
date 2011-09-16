@@ -10,4 +10,7 @@
 
 @interface TestWrapper : NSObject
 
++ (void)test;
++ (CGImageRef)corner_test;
+
 @end

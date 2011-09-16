@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CRViewController : UIViewController
+@interface CRViewController : UIViewController {
+	IBOutlet UIImageView *imageView;
+}
 
 @end
