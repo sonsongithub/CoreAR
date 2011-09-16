@@ -37,7 +37,6 @@
 
 #define JPEG_PATH "/Users/sonson/code/CoreAR.framework/c++/UnitTest/CoreARUnitTest/Test/%s"
 
-
 // prototype
 void binarize(unsigned char *pixel, int width, int height, int threshold);
 unsigned char getY(unsigned char *p);
@@ -56,46 +55,34 @@ unsigned char getY(unsigned char *p) {
 	return  y;
 }
 
-int write_jpeg(char *filename, unsigned char *pixel, int width, int height) {
-	
+int write_jpeg(char *filename, unsigned char *pixel, int width, int height) {	
 	struct jpeg_compress_struct cinfo;
 	struct jpeg_error_mgr jerr;
 	FILE *outfile;
 	
-	// JPEGオブジェクトの初期化
 	cinfo.err = jpeg_std_error( &jerr );
 	jpeg_create_compress( &cinfo );
 	
-	// ファイルを開く
 	outfile = fopen( "/tmp/a.jpg", "wb" );
 	jpeg_stdio_dest( &cinfo, outfile );
 	
-	// パラメータの設定
 	cinfo.image_width = width;
 	cinfo.image_height = height;
 	cinfo.input_components = 1;
-	cinfo.in_color_space = JCS_GRAYSCALE; //JCS_RGB;
+	cinfo.in_color_space = JCS_GRAYSCALE;
 	
-	// デフォルト値の設定
-	jpeg_set_defaults( &cinfo );
+	jpeg_set_defaults(&cinfo);
+	jpeg_start_compress(&cinfo, TRUE);
 	
-	// 圧縮の開始
-	jpeg_start_compress( &cinfo, TRUE );
-	
-	// 全イメージデータを出力
+	// copy buffer per a line.
 	JSAMPARRAY buffer = (*cinfo.mem->alloc_sarray)((j_common_ptr) &cinfo, JPOOL_IMAGE, width * 1, 1);
 	for (int i = 0; i < height; i++ ) {
 		memcpy(buffer[0], pixel + i * width * 1, width * 1);
 		jpeg_write_scanlines( &cinfo, buffer, 1 );
 	}
 	
-	// 圧縮の終了
 	jpeg_finish_compress(&cinfo);
-	
-	// JPEGオブジェクトの破棄
 	jpeg_destroy_compress(&cinfo);
-	
-	// ファイルを閉じる
 	fclose(outfile);
 	
 	return 0;
@@ -176,26 +163,29 @@ void codeCropping_test() {
 	float focal = 650;
 	float codeSize = 1;
 	
+	int croppingSize = 64;
+	
 	chaincode->parsePixel(grayPixel, width, height);
 	
 	if (!chaincode->blobs->empty()) {
 		CRChainCodeBlob *blob = chaincode->blobs->front();
 		CRCode *code = blob->code();
+		
+		printf("Corners on the image.\n");
 		code->dumpCorners();
 		
 		code->normalizeCornerForImageCoord(width, height, focal, focal);
 		code->getSimpleHomography(codeSize);
 		
 		_tic();
-		code->crop(128, 128, focal, focal, source, width, height);
-		_toc();
+		code->crop(croppingSize, croppingSize, focal, focal, source, width, height);
+		printf("Cropping code image\n\t%0.5f[msec]\n\n", _tocWithoutLog());
+		
+		printf("Crop size %dx%d\n", croppingSize, croppingSize);
 		
 		write_jpeg(NULL, code->croppedCodeImage, code->croppedCodeImageWidth, code->croppedCodeImageHeight);
 		
-		code->dumpCorners();
-		
 		SAFE_FREE(code);
 	}
-	
 	SAFE_FREE(chaincode);
 }

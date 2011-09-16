@@ -45,13 +45,15 @@ void rodrigues_test(void) {
 	gt_matrix[1][0] =  0.7814;	gt_matrix[1][1] =  0.3312;	gt_matrix[1][2] = -0.5289;
 	gt_matrix[2][0] = -0.0237;	gt_matrix[2][1] =  0.8627;	gt_matrix[2][2] =  0.5052;
 	
-	CRRodriguesR2Matrix(gt_r, matrix);
-	
-	_CRTestShowMatrix3x3(matrix);
+	printf("Ground truth\n");
 	_CRTestShowMatrix3x3(gt_matrix);
-	
-	CRRodriguesMatrix2R(r, gt_matrix);
-	
-	_CRTestShowVec3(r);
 	_CRTestShowVec3(gt_r);
+	
+	printf("Rodrigues->Matrix\n");
+	CRRodriguesR2Matrix(gt_r, matrix);
+	_CRTestShowMatrix3x3(matrix);
+	
+	printf("Matrix->Rodrigues\n");
+	CRRodriguesMatrix2R(r, gt_matrix);
+	_CRTestShowVec3(r);
 }

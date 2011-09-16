@@ -82,10 +82,10 @@ void chaincode_test() {
 	////////////////////////////////////////////////////////////////////////////////
 	_tic();
 	chaincode->parsePixel(pixel, width, height);
-	_toc();
+	printf("Chain code\n\t%f[msec]\n\n", _tocWithoutLog());
 	
 	// dump
-	_CRTestDumpPixel(pixel, width, height);
+	// _CRTestDumpPixel(pixel, width, height);
 	
 	free(pixel);
 	

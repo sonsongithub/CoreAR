@@ -93,39 +93,29 @@ void homorgraphy_test() {
 	////////////////////////////////////////////////////////////////////////////////
 	chaincode->parsePixel(pixel, width, height);
 	
-	CRCode *groundTruthCode = new CRCode(corners, corners+1, corners+2, corners+3);
-	groundTruthCode->dumpCorners();
-	
 	if (!chaincode->blobs->empty()) {
 		CRChainCodeBlob *blob = chaincode->blobs->front();
 		CRCode *code_normal = blob->code();
 		
-		_DPRINTF("Using corners from the image.\n");
-		_tic();
+		_DPRINTF("Corners on the image.\n");
 		code_normal->dumpCorners();
+		
+		// normalize corners' coordinates.
 		code_normal->normalizeCornerForImageCoord(width, height, focal, focal);
+		
+		_DPRINTF("Normalized corners on the image.\n");
 		code_normal->dumpCorners();
+		
+		// caluculate homography matrix with least square method.
+		_tic();
 		code_normal->getSimpleHomography(codeSize);
-		_toc();
-		_DPRINTF("\n");
-		_DPRINTF("Homography matrix from the extracted corners.\n");
+		printf("Homography\n\t%0.5f[msec]\n\n", _tocWithoutLog());
+		
+		_DPRINTF("Homography matrix\n");
 		_CRTestShowMatrix3x3(code_normal->homography);
-		_DPRINTF("\n");
-		_DPRINTF("RT matrix from the extracted corners.\n");
+		_DPRINTF("RT matrix\n");
 		_CRTestShowMatrix4x4(code_normal->rt);
-		
-		_DPRINTF("\n");
-		_DPRINTF("Using ground truth corners\n");
-		groundTruthCode->dumpCorners();
-		groundTruthCode->normalizeCornerForImageCoord(width, height, focal, focal);
-		groundTruthCode->getSimpleHomography(codeSize);
-		_DPRINTF("\n");
-		_DPRINTF("Homography matrix from ground truth.\n");
-		_CRTestShowMatrix3x3(groundTruthCode->homography);
-		_DPRINTF("\n");
-		_DPRINTF("RT matrix from ground truth.\n");
-		_CRTestShowMatrix4x4(groundTruthCode->rt);
-		
+	
 		SAFE_DELETE(code_normal);
 	}
 	
@@ -135,7 +125,6 @@ void homorgraphy_test() {
 	//
 	////////////////////////////////////////////////////////////////////////////////
 	SAFE_FREE(pixel);
-	SAFE_DELETE(groundTruthCode);
 	SAFE_DELETE(chaincode);
 	SAFE_DELETE_ARRAY(corners);
 }

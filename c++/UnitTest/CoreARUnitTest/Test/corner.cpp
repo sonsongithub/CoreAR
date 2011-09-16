@@ -106,31 +106,29 @@ void corner_test() {
 	// parse chain code
 	//
 	////////////////////////////////////////////////////////////////////////////////
-	_tic();
 	chaincode->parsePixel(pixel, width, height);
-	_toc();
 	
 	CRCode *gtCode = new CRCode(corners + 0, corners + 1, corners + 2, corners + 3);
 	
 	if (!chaincode->blobs->empty()) {
 		CRChainCodeBlob *blob = chaincode->blobs->front();
 		{
-			printf("Get corners\n");
 			_tic();
 			CRCode *code = blob->code();
-			_toc();
+			float e = _tocWithoutLog();
 			float error = getErrorAfterOrderingCorners(code, gtCode);
 			printf("Error=%f\n", error);
+			printf("Extract corners\n\t%0.5f[msec]\n\n", e);
 			SAFE_DELETE(code);
 		}
 		
 		{
-			printf("Get corners without LSM\n");
 			_tic();
 			CRCode *code = blob->codeWithoutLSM();
-			_toc();
+			float e = _tocWithoutLog();
 			float error = getErrorAfterOrderingCorners(code, gtCode);
 			printf("Error=%f(without LSM)\n", error);
+			printf("Extract corners without least square method\n\t%0.5f[msec]\n\n", e);
 			SAFE_DELETE(code);
 		}
 	}

@@ -104,7 +104,6 @@ void CRCode::optimizeRTMatrinxWithLevenbergMarquardtMethod() {
 	initial_p[5] = 5.0320;
 	
 	CRRTMatrix2Parameters(initial_p, this->rt);
-	_CRTestShowVec6(initial_p);
 	
 	float codeSize = 0.5;
 	
@@ -117,8 +116,6 @@ void CRCode::optimizeRTMatrinxWithLevenbergMarquardtMethod() {
 	CRGetCurrentErrorAndJacobian(jacobian, hessian, error, initial_p, this, codeSize);
 	
 	float c = CRSumationOfSquaredVec8(error);
-	
-	_tic();
 	
 	for (int i = 0; i < 100; i++) {
 		float p_temp[6];
@@ -138,7 +135,7 @@ void CRCode::optimizeRTMatrinxWithLevenbergMarquardtMethod() {
 		
 		float c_dash = CRSumationOfSquaredVec8(error_dash);
 		
-		//printf("Error=%f\n", c_dash);
+		_DPRINTF("Error=%f\n", c_dash);
 		
 		if (c_dash > c) {
 			lambda *= 10;
@@ -155,13 +152,12 @@ void CRCode::optimizeRTMatrinxWithLevenbergMarquardtMethod() {
 			float delta = CRSumationOfSquaredVec6(delta_param);
 			
 			if (delta < theshold) {
-				printf("Error=%f, iteration=%d\n", c_dash, i);
+				_DPRINTF("Last error=%f, iteration times=%d\n\n", c_dash, i);
 				break;
 			}
 			CRGetCurrentErrorAndJacobian(jacobian, hessian, error, initial_p, this, codeSize);
 		}
 	}
-	_toc();
 	
 	CRParameters2RTMatrix(initial_p, this->rt);
 }

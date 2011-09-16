@@ -54,7 +54,7 @@ void levenbergMarquardt_test(void) {
 	CRHomogeneousVec3 *corners = new CRHomogeneousVec3 [4];
 	
 	float focal = 650;
-	float xdeg = M_PI / 6.0f;
+	float xdeg = 0;//M_PI / 6.0f;
 	float ydeg = M_PI / 6.0f;;
 	float zdeg = M_PI / 10.0f;
 	
@@ -79,11 +79,9 @@ void levenbergMarquardt_test(void) {
 																   xt, 
 																   yt,
 																   zt);
-	//_CRTestDumpPixel(pixel, width, height);
-	
-	_DPRINTF("Ground truth RT Matrix\n");
+	printf("Ground truth RT Matrix\n");
 	_CRTestDumpMat(pMat);
-	_DPRINTF("\n");
+	printf("\n");
 	
 	
 	////////////////////////////////////////////////////////////////////////////////
@@ -93,28 +91,27 @@ void levenbergMarquardt_test(void) {
 	////////////////////////////////////////////////////////////////////////////////
 	chaincode->parsePixel(pixel, width, height);
 	
-	CRCode *groundTruthCode = new CRCode(corners, corners+1, corners+2, corners+3);
-	
 	if (!chaincode->blobs->empty()) {
 		CRChainCodeBlob *blob = chaincode->blobs->front();
 		CRCode *code_normal = blob->code();
 		
-		_DPRINTF("Using corners from the image.\n");
-		_tic();
+		printf("Corners ont the image.\n");
 		code_normal->dumpCorners();
+		
 		code_normal->normalizeCornerForImageCoord(width, height, focal, focal);
-		code_normal->dumpCorners();
 		code_normal->getSimpleHomography(codeSize);
-		_toc();
-		_DPRINTF("\n");
-		_DPRINTF("Homography matrix from the extracted corners.\n");
+		
+		printf("Homography\n");
 		_CRTestShowMatrix3x3(code_normal->homography);
-		_DPRINTF("\n");
-		_DPRINTF("RT matrix from the extracted corners.\n");
+		
+		printf("Initial RT matrix\n");
 		_CRTestShowMatrix4x4(code_normal->rt);
 		
+		_tic();
 		code_normal->optimizeRTMatrinxWithLevenbergMarquardtMethod();
+		printf("Levenberg-Marquardt method\n\t%0.5f[msec]\n\n", _tocWithoutLog());
 		
+		printf("Optimized RT matrix\n");
 		_CRTestShowMatrix4x4(code_normal->rt);
 		
 		SAFE_DELETE(code_normal);
@@ -126,7 +123,6 @@ void levenbergMarquardt_test(void) {
 	//
 	////////////////////////////////////////////////////////////////////////////////
 	SAFE_FREE(pixel);
-	SAFE_DELETE(groundTruthCode);
 	SAFE_DELETE(chaincode);
 	SAFE_DELETE_ARRAY(corners);
 }

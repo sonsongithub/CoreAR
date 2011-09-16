@@ -53,6 +53,7 @@ static struct timeval _start, _end;
 
 static void _tic(void);
 static void _toc(void);
+static double _tocWithoutLog(void);
 
 static void _tic() {
 	gettimeofday(&_start, NULL);
@@ -63,6 +64,13 @@ static void _toc() {
 	long int e_sec = _end.tv_sec * 1000000 + _end.tv_usec;
 	long int s_sec = _start.tv_sec * 1000000 + _start.tv_usec;
 	printf( "%9.4lf[ms]\n", (double)(e_sec - s_sec) / 1000.0);
+}
+
+static double _tocWithoutLog() {
+	gettimeofday(&_end, NULL);
+	long int e_sec = _end.tv_sec * 1000000 + _end.tv_usec;
+	long int s_sec = _start.tv_sec * 1000000 + _start.tv_usec;
+	return (double)(e_sec - s_sec) / 1000.0;
 }
 
 #endif
