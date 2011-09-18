@@ -1,0 +1,387 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		14617D9214260C570022DDA1 /* CRChainCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14617D8314260C570022DDA1 /* CRChainCode.cpp */; };
+		14617D9314260C570022DDA1 /* CRChainCodeBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14617D8514260C570022DDA1 /* CRChainCodeBlob.cpp */; };
+		14617D9414260C570022DDA1 /* CRChainCodeElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14617D8714260C570022DDA1 /* CRChainCodeElement.cpp */; };
+		14617D9514260C570022DDA1 /* CRCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14617D8914260C570022DDA1 /* CRCode.cpp */; };
+		14617D9614260C570022DDA1 /* CRHomogeneousVec3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14617D8C14260C570022DDA1 /* CRHomogeneousVec3.cpp */; };
+		14617D9714260C570022DDA1 /* CRLevenbergMarquardt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14617D8E14260C570022DDA1 /* CRLevenbergMarquardt.cpp */; };
+		14617D9814260C570022DDA1 /* CRRodrigues.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14617D9014260C570022DDA1 /* CRRodrigues.cpp */; };
+		14617D9C14260C9B0022DDA1 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14617D9B14260C9B0022DDA1 /* CameraViewController.m */; };
+		14617DA314260CC40022DDA1 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14617D9D14260CC40022DDA1 /* Accelerate.framework */; };
+		14617DA414260CC40022DDA1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14617D9E14260CC40022DDA1 /* AVFoundation.framework */; };
+		14617DA514260CC40022DDA1 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14617D9F14260CC40022DDA1 /* CoreMedia.framework */; };
+		14617DA614260CC40022DDA1 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14617DA014260CC40022DDA1 /* CoreVideo.framework */; };
+		14617DA714260CC40022DDA1 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14617DA114260CC40022DDA1 /* OpenGLES.framework */; };
+		14617DA814260CC40022DDA1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14617DA214260CC40022DDA1 /* QuartzCore.framework */; };
+		14617DAE14260D180022DDA1 /* ARViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14617DAD14260D180022DDA1 /* ARViewController.m */; };
+		14830B4E14260BF300B3E7B7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14830B4D14260BF300B3E7B7 /* UIKit.framework */; };
+		14830B5014260BF300B3E7B7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14830B4F14260BF300B3E7B7 /* Foundation.framework */; };
+		14830B5214260BF300B3E7B7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14830B5114260BF300B3E7B7 /* CoreGraphics.framework */; };
+		14830B5814260BF300B3E7B7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14830B5614260BF300B3E7B7 /* InfoPlist.strings */; };
+		14830B5A14260BF300B3E7B7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 14830B5914260BF300B3E7B7 /* main.m */; };
+		14830B5E14260BF300B3E7B7 /* CoreARSampleAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 14830B5D14260BF300B3E7B7 /* CoreARSampleAppDelegate.m */; };
+		14830B6114260BF300B3E7B7 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14830B5F14260BF300B3E7B7 /* MainWindow.xib */; };
+		14830B6414260BF300B3E7B7 /* CoreARSampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14830B6314260BF300B3E7B7 /* CoreARSampleViewController.m */; };
+		14830B6714260BF300B3E7B7 /* CoreARSampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14830B6514260BF300B3E7B7 /* CoreARSampleViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		14617D8214260C570022DDA1 /* CoreAR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreAR.h; path = ../../CoreAR.h; sourceTree = "<group>"; };
+		14617D8314260C570022DDA1 /* CRChainCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCode.cpp; path = ../../CRChainCode.cpp; sourceTree = "<group>"; };
+		14617D8414260C570022DDA1 /* CRChainCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCode.h; path = ../../CRChainCode.h; sourceTree = "<group>"; };
+		14617D8514260C570022DDA1 /* CRChainCodeBlob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCodeBlob.cpp; path = ../../CRChainCodeBlob.cpp; sourceTree = "<group>"; };
+		14617D8614260C570022DDA1 /* CRChainCodeBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCodeBlob.h; path = ../../CRChainCodeBlob.h; sourceTree = "<group>"; };
+		14617D8714260C570022DDA1 /* CRChainCodeElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCodeElement.cpp; path = ../../CRChainCodeElement.cpp; sourceTree = "<group>"; };
+		14617D8814260C570022DDA1 /* CRChainCodeElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCodeElement.h; path = ../../CRChainCodeElement.h; sourceTree = "<group>"; };
+		14617D8914260C570022DDA1 /* CRCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRCode.cpp; path = ../../CRCode.cpp; sourceTree = "<group>"; };
+		14617D8A14260C570022DDA1 /* CRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRCode.h; path = ../../CRCode.h; sourceTree = "<group>"; };
+		14617D8B14260C570022DDA1 /* CRCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRCommon.h; path = ../../CRCommon.h; sourceTree = "<group>"; };
+		14617D8C14260C570022DDA1 /* CRHomogeneousVec3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRHomogeneousVec3.cpp; path = ../../CRHomogeneousVec3.cpp; sourceTree = "<group>"; };
+		14617D8D14260C570022DDA1 /* CRHomogeneousVec3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRHomogeneousVec3.h; path = ../../CRHomogeneousVec3.h; sourceTree = "<group>"; };
+		14617D8E14260C570022DDA1 /* CRLevenbergMarquardt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRLevenbergMarquardt.cpp; path = ../../CRLevenbergMarquardt.cpp; sourceTree = "<group>"; };
+		14617D8F14260C570022DDA1 /* CRLevenbergMarquardt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRLevenbergMarquardt.h; path = ../../CRLevenbergMarquardt.h; sourceTree = "<group>"; };
+		14617D9014260C570022DDA1 /* CRRodrigues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRRodrigues.cpp; path = ../../CRRodrigues.cpp; sourceTree = "<group>"; };
+		14617D9114260C570022DDA1 /* CRRodrigues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRRodrigues.h; path = ../../CRRodrigues.h; sourceTree = "<group>"; };
+		14617D9A14260C9B0022DDA1 /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraViewController.h; path = ../../../../iOSCameraImageProcessing/CameraViewController.h; sourceTree = "<group>"; };
+		14617D9B14260C9B0022DDA1 /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CameraViewController.m; path = ../../../../iOSCameraImageProcessing/CameraViewController.m; sourceTree = "<group>"; };
+		14617D9D14260CC40022DDA1 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		14617D9E14260CC40022DDA1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		14617D9F14260CC40022DDA1 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		14617DA014260CC40022DDA1 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		14617DA114260CC40022DDA1 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		14617DA214260CC40022DDA1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		14617DAC14260D180022DDA1 /* ARViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARViewController.h; sourceTree = "<group>"; };
+		14617DAD14260D180022DDA1 /* ARViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARViewController.m; sourceTree = "<group>"; };
+		14830B4914260BF300B3E7B7 /* CoreARSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreARSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		14830B4D14260BF300B3E7B7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		14830B4F14260BF300B3E7B7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		14830B5114260BF300B3E7B7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		14830B5514260BF300B3E7B7 /* CoreARSample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CoreARSample-Info.plist"; sourceTree = "<group>"; };
+		14830B5714260BF300B3E7B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		14830B5914260BF300B3E7B7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		14830B5B14260BF300B3E7B7 /* CoreARSample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CoreARSample-Prefix.pch"; sourceTree = "<group>"; };
+		14830B5C14260BF300B3E7B7 /* CoreARSampleAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreARSampleAppDelegate.h; sourceTree = "<group>"; };
+		14830B5D14260BF300B3E7B7 /* CoreARSampleAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreARSampleAppDelegate.m; sourceTree = "<group>"; };
+		14830B6014260BF300B3E7B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		14830B6214260BF300B3E7B7 /* CoreARSampleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreARSampleViewController.h; sourceTree = "<group>"; };
+		14830B6314260BF300B3E7B7 /* CoreARSampleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreARSampleViewController.m; sourceTree = "<group>"; };
+		14830B6614260BF300B3E7B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CoreARSampleViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		14830B4614260BF200B3E7B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14617DA314260CC40022DDA1 /* Accelerate.framework in Frameworks */,
+				14617DA414260CC40022DDA1 /* AVFoundation.framework in Frameworks */,
+				14617DA514260CC40022DDA1 /* CoreMedia.framework in Frameworks */,
+				14617DA614260CC40022DDA1 /* CoreVideo.framework in Frameworks */,
+				14617DA714260CC40022DDA1 /* OpenGLES.framework in Frameworks */,
+				14617DA814260CC40022DDA1 /* QuartzCore.framework in Frameworks */,
+				14830B4E14260BF300B3E7B7 /* UIKit.framework in Frameworks */,
+				14830B5014260BF300B3E7B7 /* Foundation.framework in Frameworks */,
+				14830B5214260BF300B3E7B7 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		14617D8014260C3D0022DDA1 /* CoreAR */ = {
+			isa = PBXGroup;
+			children = (
+				14617D8214260C570022DDA1 /* CoreAR.h */,
+				14617D8314260C570022DDA1 /* CRChainCode.cpp */,
+				14617D8414260C570022DDA1 /* CRChainCode.h */,
+				14617D8514260C570022DDA1 /* CRChainCodeBlob.cpp */,
+				14617D8614260C570022DDA1 /* CRChainCodeBlob.h */,
+				14617D8714260C570022DDA1 /* CRChainCodeElement.cpp */,
+				14617D8814260C570022DDA1 /* CRChainCodeElement.h */,
+				14617D8914260C570022DDA1 /* CRCode.cpp */,
+				14617D8A14260C570022DDA1 /* CRCode.h */,
+				14617D8B14260C570022DDA1 /* CRCommon.h */,
+				14617D8C14260C570022DDA1 /* CRHomogeneousVec3.cpp */,
+				14617D8D14260C570022DDA1 /* CRHomogeneousVec3.h */,
+				14617D8E14260C570022DDA1 /* CRLevenbergMarquardt.cpp */,
+				14617D8F14260C570022DDA1 /* CRLevenbergMarquardt.h */,
+				14617D9014260C570022DDA1 /* CRRodrigues.cpp */,
+				14617D9114260C570022DDA1 /* CRRodrigues.h */,
+			);
+			name = CoreAR;
+			sourceTree = "<group>";
+		};
+		14617D9914260C8B0022DDA1 /* iOSCameraImageProcessing */ = {
+			isa = PBXGroup;
+			children = (
+				14617D9A14260C9B0022DDA1 /* CameraViewController.h */,
+				14617D9B14260C9B0022DDA1 /* CameraViewController.m */,
+			);
+			name = iOSCameraImageProcessing;
+			sourceTree = "<group>";
+		};
+		14830B3E14260BF200B3E7B7 = {
+			isa = PBXGroup;
+			children = (
+				14617D9914260C8B0022DDA1 /* iOSCameraImageProcessing */,
+				14617D8014260C3D0022DDA1 /* CoreAR */,
+				14830B5314260BF300B3E7B7 /* CoreARSample */,
+				14830B4C14260BF300B3E7B7 /* Frameworks */,
+				14830B4A14260BF300B3E7B7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		14830B4A14260BF300B3E7B7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				14830B4914260BF300B3E7B7 /* CoreARSample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		14830B4C14260BF300B3E7B7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				14617D9D14260CC40022DDA1 /* Accelerate.framework */,
+				14617D9E14260CC40022DDA1 /* AVFoundation.framework */,
+				14617D9F14260CC40022DDA1 /* CoreMedia.framework */,
+				14617DA014260CC40022DDA1 /* CoreVideo.framework */,
+				14617DA114260CC40022DDA1 /* OpenGLES.framework */,
+				14617DA214260CC40022DDA1 /* QuartzCore.framework */,
+				14830B4D14260BF300B3E7B7 /* UIKit.framework */,
+				14830B4F14260BF300B3E7B7 /* Foundation.framework */,
+				14830B5114260BF300B3E7B7 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		14830B5314260BF300B3E7B7 /* CoreARSample */ = {
+			isa = PBXGroup;
+			children = (
+				14617DAC14260D180022DDA1 /* ARViewController.h */,
+				14617DAD14260D180022DDA1 /* ARViewController.m */,
+				14830B5C14260BF300B3E7B7 /* CoreARSampleAppDelegate.h */,
+				14830B5D14260BF300B3E7B7 /* CoreARSampleAppDelegate.m */,
+				14830B5F14260BF300B3E7B7 /* MainWindow.xib */,
+				14830B6214260BF300B3E7B7 /* CoreARSampleViewController.h */,
+				14830B6314260BF300B3E7B7 /* CoreARSampleViewController.m */,
+				14830B6514260BF300B3E7B7 /* CoreARSampleViewController.xib */,
+				14830B5414260BF300B3E7B7 /* Supporting Files */,
+			);
+			path = CoreARSample;
+			sourceTree = "<group>";
+		};
+		14830B5414260BF300B3E7B7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				14830B5514260BF300B3E7B7 /* CoreARSample-Info.plist */,
+				14830B5614260BF300B3E7B7 /* InfoPlist.strings */,
+				14830B5914260BF300B3E7B7 /* main.m */,
+				14830B5B14260BF300B3E7B7 /* CoreARSample-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		14830B4814260BF200B3E7B7 /* CoreARSample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 14830B6A14260BF300B3E7B7 /* Build configuration list for PBXNativeTarget "CoreARSample" */;
+			buildPhases = (
+				14830B4514260BF200B3E7B7 /* Sources */,
+				14830B4614260BF200B3E7B7 /* Frameworks */,
+				14830B4714260BF200B3E7B7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CoreARSample;
+			productName = CoreARSample;
+			productReference = 14830B4914260BF300B3E7B7 /* CoreARSample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		14830B4014260BF200B3E7B7 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 14830B4314260BF200B3E7B7 /* Build configuration list for PBXProject "CoreARSample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 14830B3E14260BF200B3E7B7;
+			productRefGroup = 14830B4A14260BF300B3E7B7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				14830B4814260BF200B3E7B7 /* CoreARSample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		14830B4714260BF200B3E7B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14830B5814260BF300B3E7B7 /* InfoPlist.strings in Resources */,
+				14830B6114260BF300B3E7B7 /* MainWindow.xib in Resources */,
+				14830B6714260BF300B3E7B7 /* CoreARSampleViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		14830B4514260BF200B3E7B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14830B5A14260BF300B3E7B7 /* main.m in Sources */,
+				14830B5E14260BF300B3E7B7 /* CoreARSampleAppDelegate.m in Sources */,
+				14830B6414260BF300B3E7B7 /* CoreARSampleViewController.m in Sources */,
+				14617D9214260C570022DDA1 /* CRChainCode.cpp in Sources */,
+				14617D9314260C570022DDA1 /* CRChainCodeBlob.cpp in Sources */,
+				14617D9414260C570022DDA1 /* CRChainCodeElement.cpp in Sources */,
+				14617D9514260C570022DDA1 /* CRCode.cpp in Sources */,
+				14617D9614260C570022DDA1 /* CRHomogeneousVec3.cpp in Sources */,
+				14617D9714260C570022DDA1 /* CRLevenbergMarquardt.cpp in Sources */,
+				14617D9814260C570022DDA1 /* CRRodrigues.cpp in Sources */,
+				14617D9C14260C9B0022DDA1 /* CameraViewController.m in Sources */,
+				14617DAE14260D180022DDA1 /* ARViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		14830B5614260BF300B3E7B7 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				14830B5714260BF300B3E7B7 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		14830B5F14260BF300B3E7B7 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				14830B6014260BF300B3E7B7 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		14830B6514260BF300B3E7B7 /* CoreARSampleViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				14830B6614260BF300B3E7B7 /* en */,
+			);
+			name = CoreARSampleViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		14830B6814260BF300B3E7B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		14830B6914260BF300B3E7B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		14830B6B14260BF300B3E7B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CoreARSample/CoreARSample-Prefix.pch";
+				INFOPLIST_FILE = "CoreARSample/CoreARSample-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		14830B6C14260BF300B3E7B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CoreARSample/CoreARSample-Prefix.pch";
+				INFOPLIST_FILE = "CoreARSample/CoreARSample-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		14830B4314260BF200B3E7B7 /* Build configuration list for PBXProject "CoreARSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				14830B6814260BF300B3E7B7 /* Debug */,
+				14830B6914260BF300B3E7B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		14830B6A14260BF300B3E7B7 /* Build configuration list for PBXNativeTarget "CoreARSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				14830B6B14260BF300B3E7B7 /* Debug */,
+				14830B6C14260BF300B3E7B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 14830B4014260BF200B3E7B7 /* Project object */;
+}
