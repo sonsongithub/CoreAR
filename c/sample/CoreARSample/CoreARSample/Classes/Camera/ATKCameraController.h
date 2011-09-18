@@ -1,8 +1,8 @@
 /*
  * Core AR
- * glcube.h
+ * ATKCameraController.h
  *
- * Copyright (c) Yuichi YOSHIDA, 10/12/10.
+ * Copyright (c) Yuichi YOSHIDA, 10/12/10
  * All rights reserved.
  * 
  * BSD License
@@ -27,29 +27,21 @@
  * CT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF T
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifdef _GL_CUBE_
-#else
-#define _GL_CUBE_
 
-#include "common.h"
+#import "CameraController.h"
+#import "CameraController+simulator.h"
 
-//------------------------------------------------------
-// on MacOSX
-//------------------------------------------------------
-#ifdef __MAC_OS_VERSION_MIN_REQUIRED
-	#include <OpenGL/OpenGL.h>
-#endif
+@class MyGLView;
 
-//------------------------------------------------------
-// on iPhone OS
-//------------------------------------------------------
-#ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
-	#import <OpenGLES/ES1/gl.h>
-	#import <OpenGLES/ES1/glext.h>
-#endif
+#include "ar.h"
 
-void drawSquare(float s, int color);
-void drawCube(float scale);
-void drawCubeRenderingMode(float s, int mode);
-
-#endif
+@interface ATKCameraController : CameraController {
+	unsigned char*					chaincodeFlag;
+	CRCodeInfoStorage				*codeInfoStorage;
+	MyGLView						*glView;
+	CRCodeImageTemplateStorage		*codeImageTemplateStorage;
+	int								frameCount;
+}
+- (MyGLView*)glView;
+- (double)fps;
+@end

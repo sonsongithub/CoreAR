@@ -1,6 +1,6 @@
 /*
  * Core AR
- * glcube.h
+ * LicenseViewController.m
  *
  * Copyright (c) Yuichi YOSHIDA, 10/12/10.
  * All rights reserved.
@@ -27,29 +27,30 @@
  * CT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF T
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifdef _GL_CUBE_
-#else
-#define _GL_CUBE_
+#import "LicenseViewController.h"
 
-#include "common.h"
+@implementation LicenseViewController
 
-//------------------------------------------------------
-// on MacOSX
-//------------------------------------------------------
-#ifdef __MAC_OS_VERSION_MIN_REQUIRED
-	#include <OpenGL/OpenGL.h>
-#endif
++ (LicenseViewController*)defaultController {
+	LicenseViewController* controller = [[LicenseViewController alloc] initWithNibName:nil bundle:nil];
+	return [controller autorelease];
+}
 
-//------------------------------------------------------
-// on iPhone OS
-//------------------------------------------------------
-#ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
-	#import <OpenGLES/ES1/gl.h>
-	#import <OpenGLES/ES1/glext.h>
-#endif
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+	
+	self.title = NSLocalizedString(@"License", nil);
+}
 
-void drawSquare(float s, int color);
-void drawCube(float scale);
-void drawCubeRenderingMode(float s, int mode);
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
 
-#endif
+- (void)viewDidUnload {
+}
+
+- (void)dealloc {
+    [super dealloc];
+}
+
+@end

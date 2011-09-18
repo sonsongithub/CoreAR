@@ -1,6 +1,6 @@
 /*
  * Core AR
- * glcube.h
+ * "NSBundle+CoreAR.m"
  *
  * Copyright (c) Yuichi YOSHIDA, 10/12/10.
  * All rights reserved.
@@ -27,29 +27,15 @@
  * CT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF T
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifdef _GL_CUBE_
-#else
-#define _GL_CUBE_
 
-#include "common.h"
+#import "NSBundle+CoreAR.h"
 
-//------------------------------------------------------
-// on MacOSX
-//------------------------------------------------------
-#ifdef __MAC_OS_VERSION_MIN_REQUIRED
-	#include <OpenGL/OpenGL.h>
-#endif
+@implementation NSBundle(_CoreAR)
 
-//------------------------------------------------------
-// on iPhone OS
-//------------------------------------------------------
-#ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
-	#import <OpenGLES/ES1/gl.h>
-	#import <OpenGLES/ES1/glext.h>
-#endif
++ (id)infoValueFromMainBundleForKey:(NSString*)key {
+	if ([[[self mainBundle] localizedInfoDictionary] objectForKey:key])
+		return [[[self mainBundle] localizedInfoDictionary] objectForKey:key];
+	return [[[self mainBundle] infoDictionary] objectForKey:key];
+}
 
-void drawSquare(float s, int color);
-void drawCube(float scale);
-void drawCubeRenderingMode(float s, int mode);
-
-#endif
+@end

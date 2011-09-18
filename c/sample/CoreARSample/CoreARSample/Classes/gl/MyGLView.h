@@ -1,8 +1,8 @@
 /*
  * Core AR
- * glcube.h
+ * MyGLView.h
  *
- * Copyright (c) Yuichi YOSHIDA, 10/12/10.
+ * Copyright (c) Yuichi YOSHIDA, 10/12/24
  * All rights reserved.
  * 
  * BSD License
@@ -27,29 +27,19 @@
  * CT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF T
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifdef _GL_CUBE_
-#else
-#define _GL_CUBE_
 
-#include "common.h"
+#import "GLView.h"
 
-//------------------------------------------------------
-// on MacOSX
-//------------------------------------------------------
-#ifdef __MAC_OS_VERSION_MIN_REQUIRED
-	#include <OpenGL/OpenGL.h>
-#endif
+#import "AR.h"
 
-//------------------------------------------------------
-// on iPhone OS
-//------------------------------------------------------
-#ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
-	#import <OpenGLES/ES1/gl.h>
-	#import <OpenGLES/ES1/glext.h>
-#endif
+@class OpenGLWaveFrontObject;
 
-void drawSquare(float s, int color);
-void drawCube(float scale);
-void drawCubeRenderingMode(float s, int mode);
-
-#endif
+@interface MyGLView : GLView {
+	float							focal;
+	float							t;
+	CRCodeInfoStorage				*codeInfoStorage;
+	CGSize cameraFrameSize;
+}
+@property (assign) CRCodeInfoStorage *codeInfoStorage;
+@property (assign) CGSize cameraFrameSize;
+@end

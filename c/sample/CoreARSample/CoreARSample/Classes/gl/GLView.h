@@ -1,8 +1,8 @@
 /*
  * Core AR
- * glcube.h
+ * GLView.h
  *
- * Copyright (c) Yuichi YOSHIDA, 10/12/10.
+ * Copyright (c) Yuichi YOSHIDA, 10/12/24
  * All rights reserved.
  * 
  * BSD License
@@ -27,29 +27,44 @@
  * CT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF T
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifdef _GL_CUBE_
-#else
-#define _GL_CUBE_
 
-#include "common.h"
+#import <UIKit/UIKit.h>
 
-//------------------------------------------------------
-// on MacOSX
-//------------------------------------------------------
-#ifdef __MAC_OS_VERSION_MIN_REQUIRED
-	#include <OpenGL/OpenGL.h>
-#endif
+#import <OpenGLES/EAGL.h>
+#import <OpenGLES/ES1/gl.h>
+#import <OpenGLES/ES1/glext.h>
+#import <OpenGLES/EAGLDrawable.h>
 
-//------------------------------------------------------
-// on iPhone OS
-//------------------------------------------------------
-#ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
-	#import <OpenGLES/ES1/gl.h>
-	#import <OpenGLES/ES1/glext.h>
-#endif
+@interface GLView : UIView {
+	// The pixel dimensions of the backbuffer
+	GLint backingWidth;
+	GLint backingHeight;
+	
+	EAGLContext *context;
+	
+	// OpenGL names for the renderbuffer and framebuffers used to render to this view
+	GLuint viewRenderbuffer, viewFramebuffer;
+	
+	// OpenGL name for the depth buffer that is attached to viewFramebuffer, if it exists (0 if it does not exist)
+	GLuint depthRenderbuffer;
+	
+	BOOL animating;
+	BOOL displayLinkSupported;
+	NSInteger animationFrameInterval;
+	// Use of the CADisplayLink class is the preferred method for controlling your animation timing.
+	// CADisplayLink will link to the main display and fire every vsync when added to a given run-loop.
+	// The NSTimer class is used only as fallback when running on a pre 3.1 device where CADisplayLink
+	// isn't available.
+	id displayLink;
+    NSTimer *animationTimer;
+}
 
-void drawSquare(float s, int color);
-void drawCube(float scale);
-void drawCubeRenderingMode(float s, int mode);
+@property (readonly, nonatomic, getter=isAnimating) BOOL animating;
+@property (nonatomic) NSInteger animationFrameInterval;
 
-#endif
+-(void)startAnimation;
+-(void)stopAnimation;
+-(void)setupOpenGLView;
+-(void)drawView;
+
+@end
