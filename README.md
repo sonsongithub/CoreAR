@@ -1,20 +1,21 @@
-INFORMATION
-=======
-Now, I'm rebuilding all basic functions with C++. By removing the code which depends on Accelerate.framework, I will make CoreAR.framework more portable. In addition to such as implementation, I'm going to code the functions to optimize estimation of visual code's position and pose. So, let me change the current codes drastically. Then, old code that is typically written by C, can be removed from CoreAR.framework. Take care about differences from previous code if you pull the code from this repositiory. Thank you.
-
 CoreAR.framework
 =======
 ![](http://sonson.jp/wp/wp-content/uploads/2011/04/coreARSample.png)
 
 License
 =======
-BSD License.
+[BSD License][].
 
 App Store
 =======
-You can take the sample application "[CoreAR]" from App Store.
+You can take the sample application "[CoreAR][]" from App Store.
 
-Sample code
+Sample code in C++
+=======
+
+To be done.
+
+Sample code in C
 =======
 
 	// Copy image buffer from camera into "pixel".
@@ -58,13 +59,15 @@ Sorry, Japanese only....
 
 Dependency
 =======
- * none
+ * [Quartz Help Library][]
+ * [Real time image processing framework for iOS][]
  
 Acknowledgement
 =======
-My colleague and DENSO IT Laboratory, Inc. have supported my work.
-Thank you.
+DENSO IT Laboratory, Inc. has supported my work. Thank you.
 
 [CoreAR]: http://click.linksynergy.com/fs-bin/click?id=he6amglY4cw&subid=&offerid=94348.1&type=10&tmpid=3910&RD_PARM1=http%3A%2F%2Fitunes.apple.com%2Fus%2Fapp%2Fcorear%2Fid428844303%3Fmt%3D8%2526ls%3D1
 [sonson.jp]: http://sonson.jp
 [BSD License]: http://www.opensource.org/licenses/bsd-license.php
+[Quartz Help Library]: https://github.com/sonsongithub/Quartz-Help-Library
+[Real time image processing framework for iOS]: https://github.com/sonsongithub/iOSCameraImageProcessing
