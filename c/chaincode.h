@@ -109,7 +109,7 @@ void CRReleaseChainCode(CRChainCode **chaincode);
 
 // chaincode storage
 
-CRChainCodeStorage *CRCreateChainCodeStorage();
+CRChainCodeStorage *CRCreateChainCodeStorage(void);
 void CRReleaseChainCodeStorage(CRChainCodeStorage **storage);
 void CRChainCodeStorageAddNewChainCode(CRChainCodeStorage *storage, CRChainCode *chaincode);
 void CRChainCodeStorageAddNewChainCodeWithFiltering(CRChainCodeStorage *storage, CRChainCode **chaincode, float aspectRatioDiff, int minimumLength, int maximumLength);

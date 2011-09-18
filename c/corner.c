@@ -35,8 +35,15 @@
 
 #include "corner.h"
 
-#pragma mark -
-#pragma mark Private method
+#pragma mark - Prototype
+
+void _CRGetIntersectionBetweenTwoLines(float *a1, float *b1, float *c1, float *a2, float *b2, float *c2, float *x, float *y);
+void _CRGetLineThroughPointsOnEdge(float *a, float *b, float *c, int *n, CRChainCodeElement *start, CRChainCodeElement *end);
+int _CRChainCodeGetLengthBetweenTwoElements(CRChainCodeElement *start, CRChainCodeElement *head, CRChainCodeElement *terminater);
+BOOL _CRChainCodeCheckEdgeLength(CRChainCode *source, CRChainCodeElement *firstCorner, CRChainCodeElement *secondCorner, CRChainCodeElement *thirdCorner, CRChainCodeElement *fourthCorner, int *lengthes);
+void _CRChainCodeDetectCorners(CRChainCode *p, int withLSM);
+
+#pragma mark - Private method
 
 void _CRGetIntersectionBetweenTwoLines(float *a1, float *b1, float *c1, float *a2, float *b2, float *c2, float *x, float *y) {
 	// |a1 -c1| |x| |-b1|

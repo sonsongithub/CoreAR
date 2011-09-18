@@ -28,7 +28,7 @@
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "glcube.h"
+#include "glteapot.h"
 
 #include "teapot.h"
 

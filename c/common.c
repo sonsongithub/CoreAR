@@ -36,6 +36,9 @@
 
 static struct timeval start, end;
 
+void tic(void);
+void toc(void);
+
 void tic() {
 	gettimeofday(&start, NULL);
 }

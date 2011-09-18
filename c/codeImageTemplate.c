@@ -41,6 +41,16 @@ static float sharedTemplateMatchingThresholed = DEFAULT_MINIMUM_MATCHING_SCORE;
 static int sharedTemplateMatchingGridSize = DEFAULT_TEMPLATE_MATHCING_GRID_SIZE;
 static int sharedTemplateMatchingBinSize = DEFAULT_TEMPLATE_BIN_SIZE;
 
+#pragma mark - Prototype
+
+float _CRCodeImageTamplateStorageGetMatchingScoreBetweenSubAreas(unsigned char *inputImage, unsigned char *template, int offsetX, int offsetY, int rangeX, int rangeY, int width, int height);
+float _CRCodeImageTamplateStorageGetMatchingScore(unsigned char *inputImage, unsigned char *template, int width, int height);
+void _CRCodeImageTamplateStorageVoteToBin(unsigned char *template, int offsetX, int offsetY, int rangeX, int rangeY, int width, int height, int binSize, float *featureVec);
+float* _CRCodeImageTamplateStorageCreateFeatureVector(unsigned char *template, int width, int height, int gridSize, int binSize);
+float dotProduct(float *vec1, float *vec2, int size);
+
+#pragma mark Implementation
+
 void CRCodeImageTemplateSetMatchingThreshold(float newValue) {
 	sharedTemplateMatchingThresholed = newValue;
 }

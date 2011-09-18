@@ -59,8 +59,21 @@ static int decodePixelBuffWidthHeight = DEFAULT_DECODE_PIXEL_BUFFER_WIDTH_HEIGHT
 
 unsigned char *sharedPixelBufferForCodeImage = NULL;
 
-#pragma mark -
-#pragma mark Private
+#pragma mark - Prototype
+
+void _CRNormalizeVec(float *x, float *y, float *z);
+void _CROuterProductVec(float x1, float y1, float z1, float x2, float y2, float z2, float *x, float *y, float *z);
+int _CRIs4CornersConvex(CRChainCodeElement **p);
+int _CRGetHomographyMatrix(float *matrix, CRCorner *p, int inputImgWidth, int inputImgHeight);
+void _CRAdjustRotationOfHomographyMatrix(float *b, int rotation);
+int _CRCheckBlackFrameAvailability(float *b, unsigned char* inputImgBaseAddress, int inputImgWidth, int inputImgHeight);
+void _CRExtractAndCopyCodeImageToSharedBuffer(float *b, unsigned char* inputImgBaseAddress, int inputImgWidth, int inputImgHeight);
+void _CRGetDefectivePMatrixFromHomographyMatrix(float *b, float *pmat);
+void _CRCalculateTranslationParameter(float *ez, float *pmat, CRCorner *c1, CRCorner *c3, float codeSize, int inputImgWidth, int inputImgHeight);
+void _CRAdjustTranslationParameterOfPMatrixOf2DCode(float *pmat, CRCorner *c, float codeSize, int inputImgWidth, int inputImgHeight);
+int _CRChainCodeExtract4Corners(CRChainCode *chaincode, CRChainCodeElement **c);
+
+#pragma mark - Private
 
 void _CRNormalizeVec(float *x, float *y, float *z) {
 	float l = sqrt(*x * *x + *y * *y + *z * *z);

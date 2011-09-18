@@ -55,20 +55,20 @@ typedef enum {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 float CRCodeImageTemplateStorageGetSizeOfCodeID(CRCodeImageTemplateStorage *storage, int codeID);
-CRCodeImageTemplateStorage *CRCreateCodeImageTemplateStorage();
+CRCodeImageTemplateStorage *CRCreateCodeImageTemplateStorage(void);
 void CRCodeImageTemplateStorageAddNewTemplate(CRCodeImageTemplateStorage *storage, CRCodeImageTemplate *newTemplate);
 void CRCodeImageTemplateStorageEvaluateCodeImage(CRCodeImageTemplateStorage *storage, unsigned char *pixel, int width, int height, int *code, int *rotation);
 void CRReleaseCodeImageTemplateStorage(CRCodeImageTemplateStorage **storage);
 
 // setting parameters
 void CRCodeImageTemplateSetMatchingThreshold(float newValue);
-float CRCodeImageTemplateGetMatchingThreshold();
+float CRCodeImageTemplateGetMatchingThreshold(void);
 
 void CRCodeImageTemplateSetTemplateMatchingGridSize(float newValue);
-int CRCodeImageTemplateGetTemplateMatchingGridSize();
+int CRCodeImageTemplateGetTemplateMatchingGridSize(void);
 
 void CRCodeImageTemplateSetTemplateMatchingBinSize(float newValue);
-int CRCodeImageTemplateGetTemplateMatchingBinSize();
+int CRCodeImageTemplateGetTemplateMatchingBinSize(void);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //

@@ -79,13 +79,13 @@ typedef struct _CRCodeImageTemplateStorage {
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-float CRGetXFocalLength();
+float CRGetXFocalLength(void);
 void CRSetXFocalLength(float newValue);
 
-float CRGetYFocalLength();
+float CRGetYFocalLength(void);
 void CRSetYFocalLength(float newValue);
 
-int CRGetDecodePixelBuffWidthHeight();
+int CRGetDecodePixelBuffWidthHeight(void);
 void CRSetDecodePixelBuffWidthHeight(int newValue);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -94,7 +94,7 @@ void CRSetDecodePixelBuffWidthHeight(int newValue);
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-CRCodeInfo *CRCreateCodeInfo();
+CRCodeInfo *CRCreateCodeInfo(void);
 void CRReleaseCodeInfo(CRCodeInfo **codeinfo);
 CRCodeInfo* CRCreateCodeInfoByParsingChainCode(CRChainCode *chaincode, unsigned char *pixel, int width, int height, CRCodeImageTemplateStorage* codeImageTemplateStorage);
 
@@ -104,11 +104,14 @@ CRCodeInfo* CRCreateCodeInfoByParsingChainCode(CRChainCode *chaincode, unsigned 
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-CRCodeInfoStorage *CRCreateCodeInfoStorage();
+CRCodeInfoStorage *CRCreateCodeInfoStorage(void);
 void CRReleaseCodeInfoStorage(CRCodeInfoStorage **storage);
 void CRCodeInfoStorageReleaseAllCodeInfo(CRCodeInfoStorage *storage);
 CRCodeInfoStorage* CRCreateCodeInfoStorageByExtractingFromChainCodeStorage(CRChainCodeStorage *storage, unsigned char *pixel, int width, int height, CRCodeImageTemplateStorage* codeImageTemplateStorage);
 void CRCodeInfoStorageAddCodeInfoByExtractingFromChainCode(CRCodeInfoStorage *codeInfoStorage, CRChainCodeStorage *storage, unsigned char *pixel, int width, int height, CRCodeImageTemplateStorage* codeImageTemplateStorage);
+
+void CRCodeInfoStorageAddCodeInfo(CRCodeInfo *newCodeInfo, CRCodeInfoStorage *storage);
+void CRCodeInfoStorageAddCodeInfoByExtractingFromChainCode(CRCodeInfoStorage *codeInfoStorage, CRChainCodeStorage *storage, unsigned char *inputImgBaseAddress, int inputImgWidth, int inputImgHeight, CRCodeImageTemplateStorage* codeImageTemplateStorage);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //
