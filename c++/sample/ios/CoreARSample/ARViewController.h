@@ -8,6 +8,11 @@
 
 #import "CameraViewController.h"
 
-@interface ARViewController : CameraViewController
+@interface ARViewController : CameraViewController {
+	unsigned char *chaincodeBuff;
+	unsigned char *cgimageBuff;
+	IBOutlet UIImageView	*imageView;
+	IBOutlet UIImageView	*cameraView;
+}
 
 @end

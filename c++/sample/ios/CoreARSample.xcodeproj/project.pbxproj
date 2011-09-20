@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1414748814281C51003FB536 /* ARViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1414748714281C51003FB536 /* ARViewController.mm */; };
+		1414748C14281C7C003FB536 /* QuartzHelpLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 1414748B14281C7C003FB536 /* QuartzHelpLibrary.m */; };
 		14617D9214260C570022DDA1 /* CRChainCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14617D8314260C570022DDA1 /* CRChainCode.cpp */; };
 		14617D9314260C570022DDA1 /* CRChainCodeBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14617D8514260C570022DDA1 /* CRChainCodeBlob.cpp */; };
 		14617D9414260C570022DDA1 /* CRChainCodeElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14617D8714260C570022DDA1 /* CRChainCodeElement.cpp */; };
@@ -21,7 +23,6 @@
 		14617DA614260CC40022DDA1 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14617DA014260CC40022DDA1 /* CoreVideo.framework */; };
 		14617DA714260CC40022DDA1 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14617DA114260CC40022DDA1 /* OpenGLES.framework */; };
 		14617DA814260CC40022DDA1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14617DA214260CC40022DDA1 /* QuartzCore.framework */; };
-		14617DAE14260D180022DDA1 /* ARViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14617DAD14260D180022DDA1 /* ARViewController.m */; };
 		14830B4E14260BF300B3E7B7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14830B4D14260BF300B3E7B7 /* UIKit.framework */; };
 		14830B5014260BF300B3E7B7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14830B4F14260BF300B3E7B7 /* Foundation.framework */; };
 		14830B5214260BF300B3E7B7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14830B5114260BF300B3E7B7 /* CoreGraphics.framework */; };
@@ -34,6 +35,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1414748714281C51003FB536 /* ARViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ARViewController.mm; sourceTree = "<group>"; };
+		1414748A14281C7C003FB536 /* QuartzHelpLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuartzHelpLibrary.h; path = "../../../../Quartz-Help-Library/QuartzHelpLibrary.h"; sourceTree = "<group>"; };
+		1414748B14281C7C003FB536 /* QuartzHelpLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuartzHelpLibrary.m; path = "../../../../Quartz-Help-Library/QuartzHelpLibrary.m"; sourceTree = "<group>"; };
 		14617D8214260C570022DDA1 /* CoreAR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreAR.h; path = ../../CoreAR.h; sourceTree = "<group>"; };
 		14617D8314260C570022DDA1 /* CRChainCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCode.cpp; path = ../../CRChainCode.cpp; sourceTree = "<group>"; };
 		14617D8414260C570022DDA1 /* CRChainCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCode.h; path = ../../CRChainCode.h; sourceTree = "<group>"; };
@@ -59,7 +63,6 @@
 		14617DA114260CC40022DDA1 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		14617DA214260CC40022DDA1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		14617DAC14260D180022DDA1 /* ARViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARViewController.h; sourceTree = "<group>"; };
-		14617DAD14260D180022DDA1 /* ARViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARViewController.m; sourceTree = "<group>"; };
 		14830B4914260BF300B3E7B7 /* CoreARSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreARSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14830B4D14260BF300B3E7B7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		14830B4F14260BF300B3E7B7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -96,6 +99,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1414748914281C6A003FB536 /* Quartz Help Library */ = {
+			isa = PBXGroup;
+			children = (
+				1414748A14281C7C003FB536 /* QuartzHelpLibrary.h */,
+				1414748B14281C7C003FB536 /* QuartzHelpLibrary.m */,
+			);
+			name = "Quartz Help Library";
+			sourceTree = "<group>";
+		};
 		14617D8014260C3D0022DDA1 /* CoreAR */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +143,7 @@
 		14830B3E14260BF200B3E7B7 = {
 			isa = PBXGroup;
 			children = (
+				1414748914281C6A003FB536 /* Quartz Help Library */,
 				14617D9914260C8B0022DDA1 /* iOSCameraImageProcessing */,
 				14617D8014260C3D0022DDA1 /* CoreAR */,
 				14830B5314260BF300B3E7B7 /* CoreARSample */,
@@ -167,7 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				14617DAC14260D180022DDA1 /* ARViewController.h */,
-				14617DAD14260D180022DDA1 /* ARViewController.m */,
+				1414748714281C51003FB536 /* ARViewController.mm */,
 				14830B5C14260BF300B3E7B7 /* CoreARSampleAppDelegate.h */,
 				14830B5D14260BF300B3E7B7 /* CoreARSampleAppDelegate.m */,
 				14830B5F14260BF300B3E7B7 /* MainWindow.xib */,
@@ -261,7 +274,8 @@
 				14617D9714260C570022DDA1 /* CRLevenbergMarquardt.cpp in Sources */,
 				14617D9814260C570022DDA1 /* CRRodrigues.cpp in Sources */,
 				14617D9C14260C9B0022DDA1 /* CameraViewController.m in Sources */,
-				14617DAE14260D180022DDA1 /* ARViewController.m in Sources */,
+				1414748814281C51003FB536 /* ARViewController.mm in Sources */,
+				1414748C14281C7C003FB536 /* QuartzHelpLibrary.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
