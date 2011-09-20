@@ -38,6 +38,19 @@
 	#define _DPRINTF(...) //printf(__VA_ARGS__)
 #endif
 
+// Parameters
+
+#pragma mark -Preprocessor
+
+#define CR_TRUE									1
+#define CR_FALSE								0
+
+#define MINIMUM_CHAINCODE_LENGTH				40
+#define MINIMUM_CHAINCODE_CIRCUMSCRIBED_WIDTH	20
+#define MINIMUM_CHAINCODE_CIRCUMSCRIBED_HEIGHT	20
+
+//#define USE_INSIDE_CHAINCODE
+
 // safe release
 #define SAFE_FREE(p)			if(p){free(p);p=NULL;}
 #define SAFE_DELETE(p)			if(p){delete(p);p=NULL;}

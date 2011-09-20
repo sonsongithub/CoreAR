@@ -39,10 +39,6 @@
 #include "CRHomogeneousVec3.h"
 #include "CRCode.h"
 
-#define MINIMUM_CHAINCODE_LENGTH 20
-
-//#define USE_INSIDE_CHAINCODE
-
 #ifdef USE_INSIDE_CHAINCODE
 typedef enum {
 	CRChainCodeOutside		= 0,
@@ -52,6 +48,11 @@ typedef enum {
 
 class CRChainCodeBlob {
 public:
+	int					top;
+	int					bottom;
+	int					left;
+	int					right;
+	
 	std::list<CRChainCodeElement*> *elements;
 #ifdef USE_INSIDE_CHAINCODE
 	CRChainCodeType	type;
@@ -60,6 +61,8 @@ public:
 	CRChainCodeBlob();
 	~CRChainCodeBlob();
 	void appendChainCodeElement(int x, int y, int code);
+	void dump(void);
+	int isValid(int width, int height);
 	
 	CRCode* code();
 	CRCode* codeWithoutLSM();

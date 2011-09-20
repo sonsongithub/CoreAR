@@ -84,6 +84,15 @@ void chaincode_test() {
 	chaincode->parsePixel(pixel, width, height);
 	float e = _tocWithoutLog();
 	
+	std::list<CRChainCodeBlob*>::iterator blobIterator = chaincode->blobs->begin();
+	while(blobIterator != chaincode->blobs->end()) {
+		(*blobIterator)->dump();
+		if ((*blobIterator)->isValid(width, height) == CR_TRUE) {
+			printf("Valid blob\n");
+		}
+		blobIterator++;
+	}
+	
 	_CRTestDumpPixel(pixel, width, height);
 	
 	printf("Chain code\n\t%f[msec]\n\n", e);

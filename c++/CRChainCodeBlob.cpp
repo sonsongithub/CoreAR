@@ -51,7 +51,54 @@ CRChainCodeBlob::~CRChainCodeBlob() {
 
 void CRChainCodeBlob::appendChainCodeElement(int x, int y, int code) {
 	CRChainCodeElement *element = new CRChainCodeElement(x, y, code);
+	
+	if (this->elements->empty()) {
+		left = x;
+		right = x;
+		top = y;
+		bottom = y;
+	}
+	else {
+		if (left > x)
+			left = x;
+		else if (right < x)
+			right = x;
+		if (top > y)
+			top = y;
+		else if (bottom < y)
+			bottom = y;
+	}
+	
 	this->elements->push_back(element);
+}
+
+void CRChainCodeBlob::dump() {
+	printf("CRChainCodeBlob\n");
+	printf("Rect (%d %d %d %d)\n", left, top, right, bottom);
+	printf("Elements = %lu\n", this->elements->size());
+}
+
+int CRChainCodeBlob::isValid(int width, int height) {
+	
+	if (left == 0)
+		return CR_FALSE;
+	if (right == width - 1)
+		return CR_FALSE;
+	if (top == 0)
+		return CR_FALSE;
+	if (bottom == height - 1)
+		return CR_FALSE;
+	
+	if (right - left < MINIMUM_CHAINCODE_CIRCUMSCRIBED_WIDTH)
+		return CR_FALSE;
+	
+	if (bottom - top < MINIMUM_CHAINCODE_CIRCUMSCRIBED_HEIGHT)
+		return CR_FALSE;
+	
+	if (this->elements->size() < MINIMUM_CHAINCODE_LENGTH)
+		return CR_FALSE;
+	
+	return CR_TRUE;
 }
 
 CRHomogeneousVec3* CRChainCodeBlob::getLineThroughPoints(CRChainCodeElement *start, CRChainCodeElement *end) {
