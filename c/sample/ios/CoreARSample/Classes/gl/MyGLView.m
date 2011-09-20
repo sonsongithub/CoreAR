@@ -96,6 +96,8 @@
 					glPushMatrix();
 					glMultMatrixf(p->p);
 					
+					CRCodeInfoDumpMatrix(p);
+					
 					float codeSize = p->size;
 					glRotatef(90, 0, 0, 1);
 					glRotatef(-90, 1, 0, 0);

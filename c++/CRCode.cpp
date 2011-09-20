@@ -63,6 +63,13 @@ void CRCode::dumpCorners() {
 	printf("%f %f %f %f\n\n", (corners+0)->w, (corners+1)->w, (corners+2)->w, (corners+3)->w);
 }
 
+void CRCode::dumpRTMatrix() {
+	printf("%f %f %f %f;\n", matrix[ 0], matrix[ 4], matrix[ 8], matrix[12]);
+	printf("%f %f %f %f;\n", matrix[ 1], matrix[ 5], matrix[ 9], matrix[13]);
+	printf("%f %f %f %f;\n", matrix[ 2], matrix[ 6], matrix[10], matrix[14]);
+	printf("%f %f %f %f;\n", matrix[ 3], matrix[ 7], matrix[11], matrix[15]);
+}
+
 void CRCode::crop(float croppingWidth, float croppingHeight, float focalX, float focalY, unsigned char *source, int width, int height) {
 	
 	croppedCodeImageWidth = croppingWidth;
@@ -71,7 +78,7 @@ void CRCode::crop(float croppingWidth, float croppingHeight, float focalX, float
 	SAFE_FREE(croppedCodeImage);
 	croppedCodeImage = (unsigned char*)malloc(sizeof(unsigned char) * croppedCodeImageWidth * croppedCodeImageHeight);
 	
-	float codeContentSize = 1;
+	float codeContentSize = 4;
 	
 	for (int i = 0; i < croppedCodeImageWidth; i++) {
 		for (int j = 0; j < croppedCodeImageHeight; j++) {
@@ -96,12 +103,6 @@ void CRCode::optimizeRTMatrinxWithLevenbergMarquardtMethod() {
 	float theshold = 0.0001;
 	
 	float initial_p[6];
-	initial_p[0] = 0.3117;
-	initial_p[1] = 0.0024;
-	initial_p[2] = 0.0770;
-	initial_p[3] = 0.0490;
-	initial_p[4] = 0.0093;
-	initial_p[5] = 5.0320;
 	
 	CRRTMatrix2Parameters(initial_p, this->rt);
 	
@@ -160,6 +161,11 @@ void CRCode::optimizeRTMatrinxWithLevenbergMarquardtMethod() {
 	}
 	
 	CRParameters2RTMatrix(initial_p, this->rt);
+	
+	matrix[ 0] = rt[0][0];	matrix[ 4] = rt[0][1];	matrix[ 8] = rt[0][2];	matrix[12] = rt[0][3];
+	matrix[ 1] = rt[1][0];	matrix[ 5] = rt[1][1];	matrix[ 9] = rt[1][2];	matrix[13] = rt[1][3];
+	matrix[ 2] = rt[2][0];	matrix[ 6] = rt[2][1];	matrix[10] = rt[2][2];	matrix[14] = rt[2][3];
+	matrix[ 3] = rt[3][0];	matrix[ 7] = rt[3][1];	matrix[11] = rt[3][2];	matrix[15] = rt[3][3];
 }
 
 void CRCode::getSimpleHomography(float scale) {
@@ -225,6 +231,11 @@ void CRCode::getSimpleHomography(float scale) {
 	rt[1][3] = homography[1][2] / length * scale;
 	rt[2][3] = homography[2][2] / length * scale;
 	rt[3][3] = 1;
+	
+	matrix[ 0] = rt[0][0];	matrix[ 4] = rt[0][1];	matrix[ 8] = rt[0][2];	matrix[12] = rt[0][3];
+	matrix[ 1] = rt[1][0];	matrix[ 5] = rt[1][1];	matrix[ 9] = rt[1][2];	matrix[13] = rt[1][3];
+	matrix[ 2] = rt[2][0];	matrix[ 6] = rt[2][1];	matrix[10] = rt[2][2];	matrix[14] = rt[2][3];
+	matrix[ 3] = rt[3][0];	matrix[ 7] = rt[3][1];	matrix[11] = rt[3][2];	matrix[15] = rt[3][3];
 }
 
 CRCode::CRCode(CRHomogeneousVec3 *firstCorner, CRHomogeneousVec3 *secondCorner, CRHomogeneousVec3 *thirdCorner, CRHomogeneousVec3 *fourthCorner) {

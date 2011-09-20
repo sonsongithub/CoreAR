@@ -8,7 +8,7 @@
 
 #import "CoreARSampleViewController.h"
 
-#import "ARViewController.h"
+#import "ARViewController.hpp"
 
 @implementation CoreARSampleViewController
 

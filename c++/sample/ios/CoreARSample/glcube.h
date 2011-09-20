@@ -1,8 +1,8 @@
 /*
  * Core AR
- * CRCode.h
+ * glcube.h
  *
- * Copyright (c) Yuichi YOSHIDA, 11/07/23.
+ * Copyright (c) Yuichi YOSHIDA, 10/12/10.
  * All rights reserved.
  * 
  * BSD License
@@ -27,47 +27,35 @@
  * CT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF T
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
-#ifdef _CRCODE_CPP_
+#ifdef _GL_CUBE_
 #else
-#define _CRCODE_CPP_
+#define _GL_CUBE_
 
-#include <iostream>
+//------------------------------------------------------
+// on MacOSX
+//------------------------------------------------------
+#ifdef __MAC_OS_VERSION_MIN_REQUIRED
+	#include <OpenGL/OpenGL.h>
+#endif
 
-#include "CRHomogeneousVec3.h"
+//------------------------------------------------------
+// on iPhone OS
+//------------------------------------------------------
+#ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
+	#import <OpenGLES/ES1/gl.h>
+	#import <OpenGLES/ES1/glext.h>
+#endif
 
-class CRCode {
-public:
-	float				top;
-	float				bottom;
-	float				left;
-	float				right;
-	CRHomogeneousVec3	*corners;
-	CRHomogeneousVec3	*firstCorner;
-	CRHomogeneousVec3	*secondCorner;
-	CRHomogeneousVec3	*thirdCorner;
-	CRHomogeneousVec3	*fourthCorner;
+#ifdef __cplusplus
+extern "C" {
+#endif
 	
-	float				h[8];
-	float				homography[3][3];
-	float				rt[4][4];
-	float				matrix[16];
-	
-	int					croppedCodeImageWidth;
-	int					croppedCodeImageHeight;
-	unsigned char		*croppedCodeImage;
-public:
-	CRCode();
-	CRCode(CRHomogeneousVec3 *firstCorner, CRHomogeneousVec3 *secondCorner, CRHomogeneousVec3 *thirdCorner, CRHomogeneousVec3 *fourthCorner);
-	~CRCode();
+void drawSquare(float s, int color);
+void drawCube(float scale);
+void drawCubeRenderingMode(float s, int mode);
 
-	void normalizeCornerForImageCoord(float width, float height, float focalX, float focalY);
-	void getSimpleHomography(float scale);
-	void optimizeRTMatrinxWithLevenbergMarquardtMethod();
-	void crop(float croppingWidth, float croppingHeight, float focalX, float focalY, unsigned char *source, int width, int height);
-	
-	void dumpCorners();
-	void dumpRTMatrix();
-};
-
+#ifdef __cplusplus
+}
+#endif
+		
 #endif

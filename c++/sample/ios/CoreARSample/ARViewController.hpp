@@ -28,6 +28,9 @@
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+//#define _SHOW_DEBUG_BINARIZED_CAMERA_IMAGE
+//#define _SHOW_DEBUG_CROPPING_CODE
+
 #import "CameraViewController.h"
 
 #include "CoreAR.h"
@@ -36,11 +39,16 @@
 
 @interface ARViewController : CameraViewController {
 	unsigned char	*chaincodeBuff;
-	unsigned char	*cgimageBuff;
-	UIImageView		*codeImageView;
-	UIImageView		*cameraView;
 	GLOverlayView	*myGLView;
 	CRCodeListRef	codeListRef;
+	
+#ifdef _SHOW_DEBUG_BINARIZED_CAMERA_IMAGE
+	unsigned char	*cgimageBuff;
+	UIImageView		*codeImageView;
+#endif
+#ifdef _SHOW_DEBUG_CROPPING_CODE
+	UIImageView		*cameraView;
+#endif
 }
 
 @end

@@ -32,8 +32,9 @@
 		14830B5A14260BF300B3E7B7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 14830B5914260BF300B3E7B7 /* main.m */; };
 		14830B5E14260BF300B3E7B7 /* CoreARSampleAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 14830B5D14260BF300B3E7B7 /* CoreARSampleAppDelegate.m */; };
 		14830B6114260BF300B3E7B7 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14830B5F14260BF300B3E7B7 /* MainWindow.xib */; };
-		14830B6414260BF300B3E7B7 /* CoreARSampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14830B6314260BF300B3E7B7 /* CoreARSampleViewController.m */; };
 		14830B6714260BF300B3E7B7 /* CoreARSampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14830B6514260BF300B3E7B7 /* CoreARSampleViewController.xib */; };
+		14C2337C14282F0400B3B23A /* glcube.c in Sources */ = {isa = PBXBuildFile; fileRef = 14C2337A14282F0400B3B23A /* glcube.c */; };
+		14C2337E14282F6800B3B23A /* CoreARSampleViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14C2337D14282F6800B3B23A /* CoreARSampleViewController.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,10 +80,12 @@
 		14830B5D14260BF300B3E7B7 /* CoreARSampleAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreARSampleAppDelegate.m; sourceTree = "<group>"; };
 		14830B6014260BF300B3E7B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		14830B6214260BF300B3E7B7 /* CoreARSampleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreARSampleViewController.h; sourceTree = "<group>"; };
-		14830B6314260BF300B3E7B7 /* CoreARSampleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreARSampleViewController.m; sourceTree = "<group>"; };
 		14830B6614260BF300B3E7B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CoreARSampleViewController.xib; sourceTree = "<group>"; };
 		14C233741428285200B3B23A /* GLOverlayView.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GLOverlayView.hpp; sourceTree = "<group>"; };
 		14C2337514282AFC00B3B23A /* ARViewController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ARViewController.hpp; sourceTree = "<group>"; };
+		14C2337A14282F0400B3B23A /* glcube.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glcube.c; sourceTree = "<group>"; };
+		14C2337B14282F0400B3B23A /* glcube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glcube.h; sourceTree = "<group>"; };
+		14C2337D14282F6800B3B23A /* CoreARSampleViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CoreARSampleViewController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +188,8 @@
 		14830B5314260BF300B3E7B7 /* CoreARSample */ = {
 			isa = PBXGroup;
 			children = (
+				14C2337A14282F0400B3B23A /* glcube.c */,
+				14C2337B14282F0400B3B23A /* glcube.h */,
 				1414749114281DED003FB536 /* GLView.h */,
 				1414749214281DED003FB536 /* GLView.m */,
 				14C233741428285200B3B23A /* GLOverlayView.hpp */,
@@ -195,7 +200,7 @@
 				14830B5D14260BF300B3E7B7 /* CoreARSampleAppDelegate.m */,
 				14830B5F14260BF300B3E7B7 /* MainWindow.xib */,
 				14830B6214260BF300B3E7B7 /* CoreARSampleViewController.h */,
-				14830B6314260BF300B3E7B7 /* CoreARSampleViewController.m */,
+				14C2337D14282F6800B3B23A /* CoreARSampleViewController.mm */,
 				14830B6514260BF300B3E7B7 /* CoreARSampleViewController.xib */,
 				14830B5414260BF300B3E7B7 /* Supporting Files */,
 			);
@@ -275,7 +280,6 @@
 			files = (
 				14830B5A14260BF300B3E7B7 /* main.m in Sources */,
 				14830B5E14260BF300B3E7B7 /* CoreARSampleAppDelegate.m in Sources */,
-				14830B6414260BF300B3E7B7 /* CoreARSampleViewController.m in Sources */,
 				14617D9214260C570022DDA1 /* CRChainCode.cpp in Sources */,
 				14617D9314260C570022DDA1 /* CRChainCodeBlob.cpp in Sources */,
 				14617D9414260C570022DDA1 /* CRChainCodeElement.cpp in Sources */,
@@ -288,6 +292,8 @@
 				1414748C14281C7C003FB536 /* QuartzHelpLibrary.m in Sources */,
 				1414749514281DED003FB536 /* GLView.m in Sources */,
 				14147499142820C2003FB536 /* GLOverlayView.mm in Sources */,
+				14C2337C14282F0400B3B23A /* glcube.c in Sources */,
+				14C2337E14282F6800B3B23A /* CoreARSampleViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

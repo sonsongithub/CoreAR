@@ -96,6 +96,7 @@ void CRSetDecodePixelBuffWidthHeight(int newValue);
 
 CRCodeInfo *CRCreateCodeInfo(void);
 void CRReleaseCodeInfo(CRCodeInfo **codeinfo);
+void CRCodeInfoDumpMatrix(CRCodeInfo *codeinfo);
 CRCodeInfo* CRCreateCodeInfoByParsingChainCode(CRChainCode *chaincode, unsigned char *pixel, int width, int height, CRCodeImageTemplateStorage* codeImageTemplateStorage);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

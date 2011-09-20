@@ -39,20 +39,26 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	
+
+#ifdef _SHOW_DEBUG_BINARIZED_CAMERA_IMAGE	
 	// test image view
 	cameraView = [[UIImageView alloc] initWithFrame:self.view.frame];
 	[self.view addSubview:cameraView];
-	
+#endif
+#ifdef _SHOW_DEBUG_CROPPING_CODE
 	// code image
 	codeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(172, 312, 128, 128)];
 	[self.view addSubview:codeImageView];
+#endif	
 	
 	if (codeListRef == NULL)
 		codeListRef = new CRCodeList();
 	
 	// OpenGL overlaid content view
 	myGLView = [[GLOverlayView alloc] initWithFrame:self.view.frame];
+	[myGLView setCameraFrameSize:CGSizeMake(480, 360)];
+	[myGLView setupOpenGLView];
+	[myGLView startAnimation];
 	[self.view addSubview:myGLView];
 	[myGLView release];
 	[myGLView setCodeListRef:codeListRef];
@@ -70,9 +76,10 @@
 	if (chaincodeBuff == NULL)
 		chaincodeBuff = (unsigned char*)malloc(sizeof(unsigned char) * width * height);
 	
+#ifdef _SHOW_DEBUG_BINARIZED_CAMERA_IMAGE
 	if (cgimageBuff == NULL)
 		cgimageBuff = (unsigned char*)malloc(sizeof(unsigned char) * width * height);
-	
+#endif	
 	
 	int threshold = 80;
 	
@@ -83,14 +90,16 @@
 		}
 	}
 	
+#ifdef _SHOW_DEBUG_BINARIZED_CAMERA_IMAGE
 	// copy for preview
 	for (int y = 0; y < height; y++) {
 		for (int x = 0; x < width; x++) {
 			*(cgimageBuff + (height - 1 - y) + x * height) = *(chaincodeBuff + x + y * width) * 120;
 		}
 	}
+#endif
 	
-	float focal = 650;
+	float focal = 457.89;
 	float codeSize = 1;
 	
 	int croppingSize = 64;
@@ -112,46 +121,55 @@
 	codeListRef->clear();
 	
 	if (!chaincode->blobs->empty()) {
-		CRChainCodeBlob *blob = chaincode->blobs->front();
-		printf("elements=%lu\n", blob->elements->size());
-		CRCode *code = blob->code();
-		
-		if (code) {
-			// get homography
-			code->normalizeCornerForImageCoord(width, height, focal, focal);
-			code->getSimpleHomography(codeSize);
-			
-			// cropping code image area
-			code->crop(croppingSize, croppingSize, focal, focal, buffer, width, height);
-			
-			codeListRef->push_back(code);
-			
-			// draw code edge into preview buffer
-			std::list<CRChainCodeElement*>::iterator it = blob->elements->begin();
-			while(it != blob->elements->end()) {
-				CRChainCodeElement* e = (CRChainCodeElement*)*it;
-				*(cgimageBuff + (height - 1 - e->y) + e->x * height) = 255;
-				++it;
+
+		std::list<CRChainCodeBlob*>::iterator blobIterator = chaincode->blobs->begin();
+		while(blobIterator != chaincode->blobs->end()) {
+				
+			CRCode *code = (*blobIterator)->code();
+			blobIterator++;
+				
+			if(code) {
+				
+				// get homography
+				code->normalizeCornerForImageCoord(width, height, focal, focal);
+				code->getSimpleHomography(codeSize);
+				code->optimizeRTMatrinxWithLevenbergMarquardtMethod();
+				
+				// cropping code image area
+				code->crop(croppingSize, croppingSize, focal, focal, buffer, width, height);
+				
+#ifdef _SHOW_DEBUG_CROPPING_CODE
+				// draw code image area
+				CGImageRef output = CGImageCreateWithPixelBuffer(code->croppedCodeImage, code->croppedCodeImageWidth, code->croppedCodeImageHeight, 1, QH_PIXEL_GRAYSCALE);
+				UIImage *image = [UIImage imageWithCGImage:output];
+				[codeImageView setImage:image];
+				[codeImageView.superview bringSubviewToFront:codeImageView];
+				CGImageRelease(output);
+#endif
+				
+				codeListRef->push_back(code);
+
+#ifdef _SHOW_DEBUG_BINARIZED_CAMERA_IMAGE
+				// draw code edge into preview buffer
+				std::list<CRChainCodeElement*>::iterator elementIterator = (*blobIterator)->elements->begin();
+				while(elementIterator != (*blobIterator)->elements->end()) {
+					CRChainCodeElement* e = (CRChainCodeElement*)*elementIterator;
+					*(cgimageBuff + (height - 1 - e->y) + e->x * height) = 255;
+					elementIterator++;
+				}
+#endif
 			}
-			
-			// draw code image area
-			CGImageRef output = CGImageCreateWithPixelBuffer(code->croppedCodeImage, code->croppedCodeImageWidth, code->croppedCodeImageHeight, 1, QH_PIXEL_GRAYSCALE);
-			UIImage *image = [UIImage imageWithCGImage:output];
-			[codeImageView setImage:image];
-			[codeImageView.superview bringSubviewToFront:codeImageView];
-			CGImageRelease(output);
-			
-			[myGLView drawView];
 		}
 	}
 	
+	[myGLView drawView];
+
+#ifdef _SHOW_DEBUG_BINARIZED_CAMERA_IMAGE
 	CGImageRef cameraBuff = CGImageCreateWithPixelBuffer(cgimageBuff, height, width, 1, QH_PIXEL_GRAYSCALE);
-	
 	UIImage *image = [UIImage imageWithCGImage:cameraBuff];
-	
 	[cameraView setImage:image];
-	
 	CGImageRelease(cameraBuff);
+#endif
 	
 	SAFE_DELETE(chaincode);
 }

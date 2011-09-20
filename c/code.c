@@ -496,6 +496,13 @@ void CRReleaseCodeInfo(CRCodeInfo **codeinfo) {
 	*codeinfo = NULL;
 }
 
+void CRCodeInfoDumpMatrix(CRCodeInfo *codeinfo) {
+	printf(" %f,%f,%f,%f;\n", codeinfo->p[0], codeinfo->p[4], codeinfo->p[8], codeinfo->p[12]);
+	printf(" %f,%f,%f,%f;\n", codeinfo->p[1], codeinfo->p[5], codeinfo->p[9], codeinfo->p[13]);
+	printf(" %f,%f,%f,%f;\n", codeinfo->p[2], codeinfo->p[6], codeinfo->p[10], codeinfo->p[14]);
+	printf(" %f,%f,%f,%f;\n\n", codeinfo->p[3], codeinfo->p[7], codeinfo->p[11], codeinfo->p[15]);
+}
+
 CRCodeInfo* CRCreateCodeInfoByParsingChainCode(CRChainCode *chaincode, unsigned char *inputImgBaseAddress, int inputImgWidth, int inputImgHeight, CRCodeImageTemplateStorage* codeImageTemplateStorage) {	
 	CRCorner c[4];
 	
