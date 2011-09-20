@@ -36,6 +36,8 @@
 
 #include "CRHomogeneousVec3.h"
 
+#include <Accelerate/Accelerate.h>
+
 class CRCode {
 public:
 	float				top;
@@ -68,6 +70,8 @@ public:
 	
 	void dumpCorners();
 	void dumpRTMatrix();
+	void dumpInitialHomography();
+	int _CRGetHomographyMatrix();
 };
 
 #endif

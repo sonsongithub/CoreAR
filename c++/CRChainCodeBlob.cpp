@@ -80,13 +80,13 @@ void CRChainCodeBlob::dump() {
 
 int CRChainCodeBlob::isValid(int width, int height) {
 	
-	if (left == 0)
+	if (left == 1)
 		return CR_FALSE;
-	if (right == width - 1)
+	if (right == width - 2)
 		return CR_FALSE;
-	if (top == 0)
+	if (top == 1)
 		return CR_FALSE;
-	if (bottom == height - 1)
+	if (bottom == height - 2)
 		return CR_FALSE;
 	
 	if (right - left < MINIMUM_CHAINCODE_CIRCUMSCRIBED_WIDTH)
@@ -156,6 +156,10 @@ CRCode *CRChainCodeBlob::codeWithoutLSM() {
 	CRChainCodeElement *thirdCornerElement  = this->thirdCorner(firstCornerElement);
 	CRChainCodeElement *secondCornerElement = this->secondCorner(firstCornerElement, thirdCornerElement);
 	CRChainCodeElement *fourthCornerElement = this->fourthCorner(firstCornerElement, thirdCornerElement);
+	
+	
+	if (!firstCornerElement || !thirdCornerElement || !secondCornerElement || !fourthCornerElement)
+		return NULL;
 	
 	CRHomogeneousVec3* firstCorner  = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(firstCornerElement);
 	CRHomogeneousVec3* secondCorner = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(secondCornerElement);

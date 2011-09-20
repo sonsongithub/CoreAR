@@ -58,16 +58,25 @@ void CRCode::normalizeCornerForImageCoord(float width, float height, float focal
 }
 
 void CRCode::dumpCorners() {
+	printf("Corners\n");
 	printf("%f %f %f %f\n", (corners+0)->x, (corners+1)->x, (corners+2)->x, (corners+3)->x);
 	printf("%f %f %f %f\n", (corners+0)->y, (corners+1)->y, (corners+2)->y, (corners+3)->y);
 	printf("%f %f %f %f\n\n", (corners+0)->w, (corners+1)->w, (corners+2)->w, (corners+3)->w);
 }
 
 void CRCode::dumpRTMatrix() {
+	printf("Matrix\n");
 	printf("%f %f %f %f;\n", matrix[ 0], matrix[ 4], matrix[ 8], matrix[12]);
 	printf("%f %f %f %f;\n", matrix[ 1], matrix[ 5], matrix[ 9], matrix[13]);
 	printf("%f %f %f %f;\n", matrix[ 2], matrix[ 6], matrix[10], matrix[14]);
-	printf("%f %f %f %f;\n", matrix[ 3], matrix[ 7], matrix[11], matrix[15]);
+	printf("%f %f %f %f;\n\n", matrix[ 3], matrix[ 7], matrix[11], matrix[15]);
+}
+
+void CRCode::dumpInitialHomography() {
+	printf("Homography\n");
+	printf("%f %f %f;\n", homography[0][0], homography[0][1], homography[0][2]);
+	printf("%f %f %f;\n", homography[1][0], homography[1][1], homography[1][2]);
+	printf("%f %f %f;\n\n", homography[2][0], homography[2][1], homography[2][2]);
 }
 
 void CRCode::crop(float croppingWidth, float croppingHeight, float focalX, float focalY, unsigned char *source, int width, int height) {
@@ -166,6 +175,104 @@ void CRCode::optimizeRTMatrinxWithLevenbergMarquardtMethod() {
 	matrix[ 1] = rt[1][0];	matrix[ 5] = rt[1][1];	matrix[ 9] = rt[1][2];	matrix[13] = rt[1][3];
 	matrix[ 2] = rt[2][0];	matrix[ 6] = rt[2][1];	matrix[10] = rt[2][2];	matrix[14] = rt[2][3];
 	matrix[ 3] = rt[3][0];	matrix[ 7] = rt[3][1];	matrix[11] = rt[3][2];	matrix[15] = rt[3][3];
+}
+
+int CRCode::_CRGetHomographyMatrix() {
+	
+	float x1 = (corners + 0)->x;
+	float y1 = (corners + 0)->y;
+	float x2 = (corners + 1)->x;
+	float y2 = (corners + 1)->y;
+	float x3 = (corners + 2)->x;
+	float y3 = (corners + 2)->y;
+	float x4 = (corners + 3)->x;
+	float y4 = (corners + 3)->y;
+	
+
+	float a[64];
+	float b[8];
+	
+	float code = 0.5;
+	
+	a[0] = -code;  a[ 8] =  code;   a[16] = 1;  a[24] =     0;  a[32] =     0;  a[40] = 0;  a[48] = -x1 * (-code);  a[56] = -x1 * ( code);
+	a[1] =     0;  a[ 9] =     0;   a[17] = 0;  a[25] = -code;  a[33] =  code;  a[41] = 1;  a[49] = -y1 * (-code);  a[57] = -y1 * ( code);
+	
+	a[2] =  code;  a[10] =  code;   a[18] = 1;  a[26] =     0;  a[34] =     0;  a[42] = 0;  a[50] = -x2 * ( code);  a[58] = -x2 * ( code);
+	a[3] =     0;  a[11] =     0;   a[19] = 0;  a[27] =  code;  a[35] =  code;  a[43] = 1;  a[51] = -y2 * ( code);  a[59] = -y2 * ( code);
+	
+	a[4] =  code;  a[12] = -code;   a[20] = 1;  a[28] =    0;   a[36] =     0;  a[44] = 0;  a[52] = -x3 * ( code);  a[60] = -x3 * (-code);
+	a[5] =     0;  a[13] =     0;   a[21] = 0;  a[29] =  code;  a[37] = -code;  a[45] = 1;  a[53] = -y3 * ( code);  a[61] = -y3 * (-code);
+	
+	a[6] = -code;  a[14] = -code;   a[22] = 1;  a[30] =     0;  a[38] =     0;  a[46] = 0;  a[54] = -x4 * (-code);  a[62] = -x4 * (-code);
+	a[7] =     0;  a[15] =     0;   a[23] = 0;  a[31] = -code;  a[39] = -code;  a[47] = 1;  a[55] = -y4 * (-code);  a[63] = -y4 * (-code);
+	
+	b[0] = x1;
+	b[1] = y1;
+	b[2] = x2;
+	b[3] = y2;
+	b[4] = x3;
+	b[5] = y3;
+	b[6] = x4;
+	b[7] = y4;
+	
+	int rank = 8;
+	int nrhs = 1;
+	int pivot[8];
+	int info = 0;
+	
+	sgesv_((__CLPK_integer*)&rank, (__CLPK_integer*)&nrhs, (__CLPK_real*)a, (__CLPK_integer*)&rank, (__CLPK_integer*)pivot,(__CLPK_real*)b, (__CLPK_integer*)&rank, (__CLPK_integer*)&info);
+	
+	printf("Old homography\n");
+	printf("%f %f %f;\n", b[0], b[1], b[2]);
+	printf("%f %f %f;\n", b[3], b[4], b[5]);
+	printf("%f %f 1;\n\n", b[6], b[7]);
+	
+	homography[0][0] = b[0];
+	homography[1][0] = b[3];
+	homography[2][0] = b[6];
+	
+	homography[0][1] = b[1];
+	homography[1][1] = b[4];
+	homography[2][1] = b[7];
+	
+	homography[0][2] = b[2];
+	homography[1][2] = b[5];
+	homography[2][2] = 1;
+	
+	float scale = 1;
+	
+	float e1_length = homography[0][0] * homography[0][0] + homography[1][0] * homography[1][0] + homography[2][0] * homography[2][0];
+	float e2_length = homography[0][1] * homography[0][1] + homography[1][1] * homography[1][1] + homography[2][1] * homography[2][1];
+	e1_length = sqrtf(e1_length);
+	e2_length = sqrtf(e2_length);
+	float length = (e1_length + e2_length) * 0.5;
+	
+	rt[0][0] = homography[0][0] / e1_length;
+	rt[1][0] = homography[1][0] / e1_length;
+	rt[2][0] = homography[2][0] / e1_length;
+	rt[3][0] = 0;
+	
+	rt[0][1] = homography[0][1] / e2_length;
+	rt[1][1] = homography[1][1] / e2_length;
+	rt[2][1] = homography[2][1] / e2_length;
+	rt[3][1] = 0;
+	
+	rt[0][2] = rt[2][0] * rt[1][1] - rt[1][0] * rt[2][1];
+	rt[1][2] = rt[2][0] * rt[0][1] - rt[0][0] * rt[2][1];
+	rt[2][2] = rt[0][0] * rt[1][1] - rt[1][0] * rt[0][1];
+	rt[3][2] = 0;
+	
+	rt[0][3] = homography[0][2] / length * scale;
+	rt[1][3] = homography[1][2] / length * scale;
+	rt[2][3] = homography[2][2] / length * scale;
+	rt[3][3] = 1;
+	
+	matrix[ 0] = rt[0][0];	matrix[ 4] = rt[0][1];	matrix[ 8] = rt[0][2];	matrix[12] = rt[0][3];
+	matrix[ 1] = rt[1][0];	matrix[ 5] = rt[1][1];	matrix[ 9] = rt[1][2];	matrix[13] = rt[1][3];
+	matrix[ 2] = rt[2][0];	matrix[ 6] = rt[2][1];	matrix[10] = rt[2][2];	matrix[14] = rt[2][3];
+	matrix[ 3] = rt[3][0];	matrix[ 7] = rt[3][1];	matrix[11] = rt[3][2];	matrix[15] = rt[3][3];
+	
+	return (info == 0);	// check result of sgesv_
 }
 
 void CRCode::getSimpleHomography(float scale) {

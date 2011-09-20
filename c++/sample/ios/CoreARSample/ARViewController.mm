@@ -81,7 +81,7 @@
 		cgimageBuff = (unsigned char*)malloc(sizeof(unsigned char) * width * height);
 #endif	
 	
-	int threshold = 80;
+	int threshold = 100;
 	
 	// binarize for chain code
 	for (int y = 0; y < height; y++) {
@@ -124,15 +124,28 @@
 
 		std::list<CRChainCodeBlob*>::iterator blobIterator = chaincode->blobs->begin();
 		while(blobIterator != chaincode->blobs->end()) {
-				
-			CRCode *code = (*blobIterator)->code();
-			blobIterator++;
+			
+			if (!(*blobIterator)->isValid(width, height)) {
+				blobIterator++;
+				continue;
+			}
+			
+			
+			CRCode *code = (*blobIterator)->codeWithoutLSM();
 				
 			if(code) {
 				
 				// get homography
+				code->dumpCorners();
+				
 				code->normalizeCornerForImageCoord(width, height, focal, focal);
+				
 				code->getSimpleHomography(codeSize);
+
+				code->dumpInitialHomography();
+				
+				//code->_CRGetHomographyMatrix();
+				
 				code->optimizeRTMatrinxWithLevenbergMarquardtMethod();
 				
 				// cropping code image area
@@ -159,6 +172,8 @@
 				}
 #endif
 			}
+			
+			blobIterator++;
 		}
 	}
 	

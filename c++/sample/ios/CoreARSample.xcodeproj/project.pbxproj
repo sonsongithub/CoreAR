@@ -121,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				14617D8214260C570022DDA1 /* CoreAR.h */,
+				14617D8B14260C570022DDA1 /* CRCommon.h */,
 				14617D8314260C570022DDA1 /* CRChainCode.cpp */,
 				14617D8414260C570022DDA1 /* CRChainCode.h */,
 				14617D8514260C570022DDA1 /* CRChainCodeBlob.cpp */,
@@ -129,7 +130,6 @@
 				14617D8814260C570022DDA1 /* CRChainCodeElement.h */,
 				14617D8914260C570022DDA1 /* CRCode.cpp */,
 				14617D8A14260C570022DDA1 /* CRCode.h */,
-				14617D8B14260C570022DDA1 /* CRCommon.h */,
 				14617D8C14260C570022DDA1 /* CRHomogeneousVec3.cpp */,
 				14617D8D14260C570022DDA1 /* CRHomogeneousVec3.h */,
 				14617D8E14260C570022DDA1 /* CRLevenbergMarquardt.cpp */,

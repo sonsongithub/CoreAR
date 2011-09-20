@@ -28,7 +28,7 @@
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-//#define _SHOW_DEBUG_BINARIZED_CAMERA_IMAGE
+#define _SHOW_DEBUG_BINARIZED_CAMERA_IMAGE
 //#define _SHOW_DEBUG_CROPPING_CODE
 
 #import "CameraViewController.h"
@@ -44,10 +44,10 @@
 	
 #ifdef _SHOW_DEBUG_BINARIZED_CAMERA_IMAGE
 	unsigned char	*cgimageBuff;
-	UIImageView		*codeImageView;
+	UIImageView		*cameraView;
 #endif
 #ifdef _SHOW_DEBUG_CROPPING_CODE
-	UIImageView		*cameraView;
+	UIImageView		*codeImageView;
 #endif
 }
 
