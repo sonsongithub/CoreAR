@@ -1,8 +1,8 @@
 /*
  * Core AR
- * CoreAR.h
+ * GLView.h
  *
- * Copyright (c) Yuichi YOSHIDA, 11/07/23.
+ * Copyright (c) Yuichi YOSHIDA, 10/12/24
  * All rights reserved.
  * 
  * BSD License
@@ -28,23 +28,43 @@
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef _COREAR_
-#else
-#define _COREAR_
+#import <UIKit/UIKit.h>
 
-#include <math.h>
+#import <OpenGLES/EAGL.h>
+#import <OpenGLES/ES1/gl.h>
+#import <OpenGLES/ES1/glext.h>
+#import <OpenGLES/EAGLDrawable.h>
 
-#include "CRChainCode.h"
-#include "CRChainCodeBlob.h"
-#include "CRChainCodeElement.h"
-#include "CRCode.h"
-#include "CRHomogeneousVec3.h"
-#include "CRRodrigues.h"
-#include "CRCommon.h"
+@interface GLView : UIView {
+	// The pixel dimensions of the backbuffer
+	GLint backingWidth;
+	GLint backingHeight;
+	
+	EAGLContext *context;
+	
+	// OpenGL names for the renderbuffer and framebuffers used to render to this view
+	GLuint viewRenderbuffer, viewFramebuffer;
+	
+	// OpenGL name for the depth buffer that is attached to viewFramebuffer, if it exists (0 if it does not exist)
+	GLuint depthRenderbuffer;
+	
+	BOOL animating;
+	BOOL displayLinkSupported;
+	NSInteger animationFrameInterval;
+	// Use of the CADisplayLink class is the preferred method for controlling your animation timing.
+	// CADisplayLink will link to the main display and fire every vsync when added to a given run-loop.
+	// The NSTimer class is used only as fallback when running on a pre 3.1 device where CADisplayLink
+	// isn't available.
+	id displayLink;
+    NSTimer *animationTimer;
+}
 
-#include <list>
+@property (readonly, nonatomic, getter=isAnimating) BOOL animating;
+@property (nonatomic) NSInteger animationFrameInterval;
 
-typedef std::list<CRCode*>	CRCodeList;
-typedef std::list<CRCode*>*	CRCodeListRef;
+-(void)startAnimation;
+-(void)stopAnimation;
+-(void)setupOpenGLView;
+-(void)drawView;
 
-#endif
+@end

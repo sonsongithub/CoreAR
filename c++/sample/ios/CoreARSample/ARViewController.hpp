@@ -1,8 +1,8 @@
 /*
  * Core AR
- * CoreAR.h
+ * ARViewController.h
  *
- * Copyright (c) Yuichi YOSHIDA, 11/07/23.
+ * Copyright (c) Yuichi YOSHIDA, 11/09/20
  * All rights reserved.
  * 
  * BSD License
@@ -28,23 +28,19 @@
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef _COREAR_
-#else
-#define _COREAR_
+#import "CameraViewController.h"
 
-#include <math.h>
+#include "CoreAR.h"
 
-#include "CRChainCode.h"
-#include "CRChainCodeBlob.h"
-#include "CRChainCodeElement.h"
-#include "CRCode.h"
-#include "CRHomogeneousVec3.h"
-#include "CRRodrigues.h"
-#include "CRCommon.h"
+@class GLOverlayView;
 
-#include <list>
+@interface ARViewController : CameraViewController {
+	unsigned char	*chaincodeBuff;
+	unsigned char	*cgimageBuff;
+	UIImageView		*codeImageView;
+	UIImageView		*cameraView;
+	GLOverlayView	*myGLView;
+	CRCodeListRef	codeListRef;
+}
 
-typedef std::list<CRCode*>	CRCodeList;
-typedef std::list<CRCode*>*	CRCodeListRef;
-
-#endif
+@end

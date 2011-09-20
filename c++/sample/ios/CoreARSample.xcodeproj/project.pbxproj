@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1414748814281C51003FB536 /* ARViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1414748714281C51003FB536 /* ARViewController.mm */; };
 		1414748C14281C7C003FB536 /* QuartzHelpLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 1414748B14281C7C003FB536 /* QuartzHelpLibrary.m */; };
+		1414749514281DED003FB536 /* GLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1414749214281DED003FB536 /* GLView.m */; };
+		14147499142820C2003FB536 /* GLOverlayView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14147498142820C2003FB536 /* GLOverlayView.mm */; };
 		14617D9214260C570022DDA1 /* CRChainCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14617D8314260C570022DDA1 /* CRChainCode.cpp */; };
 		14617D9314260C570022DDA1 /* CRChainCodeBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14617D8514260C570022DDA1 /* CRChainCodeBlob.cpp */; };
 		14617D9414260C570022DDA1 /* CRChainCodeElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14617D8714260C570022DDA1 /* CRChainCodeElement.cpp */; };
@@ -38,6 +40,9 @@
 		1414748714281C51003FB536 /* ARViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ARViewController.mm; sourceTree = "<group>"; };
 		1414748A14281C7C003FB536 /* QuartzHelpLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuartzHelpLibrary.h; path = "../../../../Quartz-Help-Library/QuartzHelpLibrary.h"; sourceTree = "<group>"; };
 		1414748B14281C7C003FB536 /* QuartzHelpLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuartzHelpLibrary.m; path = "../../../../Quartz-Help-Library/QuartzHelpLibrary.m"; sourceTree = "<group>"; };
+		1414749114281DED003FB536 /* GLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLView.h; sourceTree = "<group>"; };
+		1414749214281DED003FB536 /* GLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLView.m; sourceTree = "<group>"; };
+		14147498142820C2003FB536 /* GLOverlayView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GLOverlayView.mm; sourceTree = "<group>"; };
 		14617D8214260C570022DDA1 /* CoreAR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreAR.h; path = ../../CoreAR.h; sourceTree = "<group>"; };
 		14617D8314260C570022DDA1 /* CRChainCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCode.cpp; path = ../../CRChainCode.cpp; sourceTree = "<group>"; };
 		14617D8414260C570022DDA1 /* CRChainCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCode.h; path = ../../CRChainCode.h; sourceTree = "<group>"; };
@@ -62,7 +67,6 @@
 		14617DA014260CC40022DDA1 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		14617DA114260CC40022DDA1 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		14617DA214260CC40022DDA1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		14617DAC14260D180022DDA1 /* ARViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARViewController.h; sourceTree = "<group>"; };
 		14830B4914260BF300B3E7B7 /* CoreARSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreARSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14830B4D14260BF300B3E7B7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		14830B4F14260BF300B3E7B7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -77,6 +81,8 @@
 		14830B6214260BF300B3E7B7 /* CoreARSampleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreARSampleViewController.h; sourceTree = "<group>"; };
 		14830B6314260BF300B3E7B7 /* CoreARSampleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreARSampleViewController.m; sourceTree = "<group>"; };
 		14830B6614260BF300B3E7B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CoreARSampleViewController.xib; sourceTree = "<group>"; };
+		14C233741428285200B3B23A /* GLOverlayView.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GLOverlayView.hpp; sourceTree = "<group>"; };
+		14C2337514282AFC00B3B23A /* ARViewController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ARViewController.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,7 +185,11 @@
 		14830B5314260BF300B3E7B7 /* CoreARSample */ = {
 			isa = PBXGroup;
 			children = (
-				14617DAC14260D180022DDA1 /* ARViewController.h */,
+				1414749114281DED003FB536 /* GLView.h */,
+				1414749214281DED003FB536 /* GLView.m */,
+				14C233741428285200B3B23A /* GLOverlayView.hpp */,
+				14147498142820C2003FB536 /* GLOverlayView.mm */,
+				14C2337514282AFC00B3B23A /* ARViewController.hpp */,
 				1414748714281C51003FB536 /* ARViewController.mm */,
 				14830B5C14260BF300B3E7B7 /* CoreARSampleAppDelegate.h */,
 				14830B5D14260BF300B3E7B7 /* CoreARSampleAppDelegate.m */,
@@ -276,6 +286,8 @@
 				14617D9C14260C9B0022DDA1 /* CameraViewController.m in Sources */,
 				1414748814281C51003FB536 /* ARViewController.mm in Sources */,
 				1414748C14281C7C003FB536 /* QuartzHelpLibrary.m in Sources */,
+				1414749514281DED003FB536 /* GLView.m in Sources */,
+				14147499142820C2003FB536 /* GLOverlayView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

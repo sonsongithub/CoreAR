@@ -1,8 +1,8 @@
 /*
  * Core AR
- * CoreAR.h
+ * GLOverlayView.h
  *
- * Copyright (c) Yuichi YOSHIDA, 11/07/23.
+ * Copyright (c) Yuichi YOSHIDA, 11/09/20
  * All rights reserved.
  * 
  * BSD License
@@ -28,23 +28,16 @@
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef _COREAR_
-#else
-#define _COREAR_
+#import "GLView.h"
 
-#include <math.h>
+#import "CoreAR.h"
 
-#include "CRChainCode.h"
-#include "CRChainCodeBlob.h"
-#include "CRChainCodeElement.h"
-#include "CRCode.h"
-#include "CRHomogeneousVec3.h"
-#include "CRRodrigues.h"
-#include "CRCommon.h"
-
-#include <list>
-
-typedef std::list<CRCode*>	CRCodeList;
-typedef std::list<CRCode*>*	CRCodeListRef;
-
-#endif
+@interface GLOverlayView : GLView {
+	float							focal;
+	float							t;
+	CGSize							cameraFrameSize;
+	CRCodeListRef					codeListRef;
+}
+@property (assign) CGSize cameraFrameSize;
+@property (assign) CRCodeListRef codeListRef;
+@end

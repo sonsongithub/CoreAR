@@ -115,6 +115,7 @@ CRCode *CRChainCodeBlob::codeWithoutLSM() {
 	CRHomogeneousVec3* thirdCorner  = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(thirdCornerElement);
 	CRHomogeneousVec3* fourthCorner = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(fourthCornerElement);
 	
+	// chaincode search algorithm is reverse order.
 	CRCode *code = new CRCode(firstCorner, fourthCorner, thirdCorner, secondCorner);
 	
 	delete firstCorner;
