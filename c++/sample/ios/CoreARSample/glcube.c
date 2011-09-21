@@ -182,6 +182,7 @@ void drawCubeRenderingMode(float s, int mode) {
 	glEnable(GL_NORMALIZE);
 	glScalef(s, s, s);
 	
+	glTranslatef(-0.5, 0.5, 0);
 	if (mode == 0) {
 		for (int i = 0; i < 6; i++) {
 			glVertexPointer(3, GL_FLOAT, 0, cubeVertices + i * 12);

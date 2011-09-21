@@ -130,8 +130,7 @@
 				continue;
 			}
 			
-			
-			CRCode *code = (*blobIterator)->codeWithoutLSM();
+			CRCode *code = (*blobIterator)->code();
 				
 			if(code) {
 				
@@ -161,7 +160,6 @@
 				[codeImageView.superview bringSubviewToFront:codeImageView];
 				CGImageRelease(output);
 #endif
-				
 				codeListRef->push_back(code);
 
 #ifdef _SHOW_DEBUG_BINARIZED_CAMERA_IMAGE
