@@ -55,7 +55,9 @@
 		codeListRef = new CRCodeList();
 	
 	// OpenGL overlaid content view
-	myGLView = [[GLOverlayView alloc] initWithFrame:self.view.frame];
+	CGRect r = self.view.frame;
+	r.size.height = 426;
+	myGLView = [[GLOverlayView alloc] initWithFrame:r];
 	[myGLView setCameraFrameSize:CGSizeMake(480, 360)];
 	[myGLView setupOpenGLView];
 	[myGLView startAnimation];
@@ -99,7 +101,7 @@
 	}
 #endif
 	
-	float focal = 650;
+	float focal = 457.89;
 	float codeSize = 1;
 	
 	int croppingSize = 64;
@@ -107,9 +109,6 @@
 	CRChainCode *chaincode = new CRChainCode();
 	
 	chaincode->parsePixel(chaincodeBuff, width, height);
-	
-//	printf("blobs=%lu\n", chaincode->blobs->size());
-	
 	
 	CRCodeList::iterator it = codeListRef->begin();
 	while(it != codeListRef->end()) {

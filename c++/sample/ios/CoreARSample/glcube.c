@@ -66,35 +66,35 @@ static GLubyte cubeColors[] = {
 
 
 static GLfloat cubeVertices[] = {
-	-0.5f,	-0.5f,	-1.0f,
-	 0.5f,	-0.5f,	-1.0f,
-	-0.5f,	 0.5f,	-1.0f,
-	 0.5f,	 0.5f,	-1.0f,
+	 0.0f,	 0.0f,	-1.0f,
+	 1.0f,	 0.0f,	-1.0f,
+	 0.0f,	 1.0f,	-1.0f,
+	 1.0f,	 1.0f,	-1.0f,
 	
-	-0.5f,	-0.5f,	 0.0f,
-	 0.5f,	-0.5f,	 0.0f,
-	-0.5f,	 0.5f,	 0.0f,
-	 0.5f,	 0.5f,	 0.0f,
+	 0.0f,	 0.0f,	 0.0f,
+	 1.0f,	 0.0f,	 0.0f,
+	 0.0f,	 1.0f,	 0.0f,
+	 1.0f,	 1.0f,	 0.0f,
 	
-	 0.5f,	-0.5f,	-1.0f,
-	 0.5f,	 0.5f,	-1.0f,
-	 0.5f,	-0.5f,	 0.0f,
-	 0.5f,	 0.5f,	 0.0f,
+	 1.0f,	 0.0f,	-1.0f,
+	 1.0f,	 1.0f,	-1.0f,
+	 1.0f,	 0.0f,	 0.0f,
+	 1.0f,	 1.0f,	 0.0f,
 	
-	-0.5f,	-0.5f,	-1.0f,
-	-0.5f,	 0.5f,	-1.0f,
-	-0.5f,	-0.5f,	 0.0f,
-	-0.5f,	 0.5f,	 0.0f,
+	 0.0f,	 0.0f,	-1.0f,
+	 0.0f,	 1.0f,	-1.0f,
+	 0.0f,	 0.0f,	 0.0f,
+	 0.0f,	 1.0f,	 0.0f,
 	
-	-0.5f,	 0.5f,	-1.0f,
-	-0.5f,	 0.5f,	 0.0f,
-	 0.5f,	 0.5f,	-1.0f,
-	 0.5f,	 0.5f,	 0.0f,
+	 0.0f,	 1.0f,	-1.0f,
+	 0.0f,	 1.0f,	 0.0f,
+	 1.0f,	 1.0f,	-1.0f,
+	 1.0f,	 1.0f,	 0.0f,
 	
-	-0.5f,	-0.5f,	-1.0f,
-	-0.5f,	-0.5f,	 0.0f,
-	 0.5f,	-0.5f,	-1.0f,
-	 0.5f,	-0.5f,	 0.0f,
+	 0.0f,	 0.0f,	-1.0f,
+	 0.0f,	 0.0f,	 0.0f,
+	 1.0f,	 0.0f,	-1.0f,
+	 1.0f,	 0.0f,	 0.0f,
 };
 
 static GLfloat cubeNormals[] = {
@@ -182,7 +182,6 @@ void drawCubeRenderingMode(float s, int mode) {
 	glEnable(GL_NORMALIZE);
 	glScalef(s, s, s);
 	
-	glTranslatef(-0.5, 0.5, 0);
 	if (mode == 0) {
 		for (int i = 0; i < 6; i++) {
 			glVertexPointer(3, GL_FLOAT, 0, cubeVertices + i * 12);

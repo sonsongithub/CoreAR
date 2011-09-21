@@ -65,7 +65,7 @@
 	
 	CGRect rect = self.frame;
 
-	float focalLength = 650;
+	float focalLength = 457.89;
 	
 	float focal_inv_x = 1 / focalLength;
 	float focal_inv_y = 1 / focalLength;
@@ -89,22 +89,23 @@
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	glRotatef( 90, 0, 0, 1);
-	glRotatef(180, 0, 1, 0);
+//	glRotatef( 90, 0, 0, 1);
+//	glRotatef(180, 0, 1, 0);
 	
 	float mm[16];
-		
-	mm[ 0] =  0;	mm[ 4] =  1;	mm[ 8] =  0;	mm[12] = 0;
+	
+	mm[ 0] =  0;	mm[ 4] = -1;	mm[ 8] =  0;	mm[12] = 0;
 	mm[ 1] = -1;	mm[ 5] =  0;	mm[ 9] =  0;	mm[13] = 0;
-	mm[ 2] =  0;	mm[ 6] =  0;	mm[10] =  1;	mm[14] = 0;
+	mm[ 2] =  0;	mm[ 6] =  0;	mm[10] = -1;	mm[14] = 0;
 	mm[ 3] =  0;	mm[ 7] =  0;	mm[11] =  0;	mm[15] = 1;
+	
+	glMultMatrixf(mm);
 	
 	if (codeListRef) {
 		CRCodeList::iterator it = codeListRef->begin();
 		while(it != codeListRef->end()) {
 			glPushMatrix();
 			glMultMatrixf((*it)->optimizedMatrixGL);
-			glMultMatrixf(mm);
 			drawCube(1);
 			glPopMatrix();
 			++it;
