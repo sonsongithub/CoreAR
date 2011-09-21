@@ -86,7 +86,7 @@
     
 	glScalef(ratio, ratio, 1);
 	
-	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	glRotatef( 90, 0, 0, 1);
@@ -103,7 +103,7 @@
 		CRCodeList::iterator it = codeListRef->begin();
 		while(it != codeListRef->end()) {
 			glPushMatrix();
-			glMultMatrixf((*it)->matrixGL);
+			glMultMatrixf((*it)->optimizedMatrixGL);
 			glMultMatrixf(mm);
 			drawCube(1);
 			glPopMatrix();

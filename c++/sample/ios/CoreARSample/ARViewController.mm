@@ -141,7 +141,7 @@
 				
 				//code->_CRGetHomographyMatrix();
 				
-				//code->optimizeRTMatrinxWithLevenbergMarquardtMethod();
+				code->optimizeRTMatrinxWithLevenbergMarquardtMethod();
 				
 				//code->dumpHomography();
 				//code->dumpMatrix();
