@@ -65,7 +65,7 @@
 	
 	CGRect rect = self.frame;
 
-	float focalLength = 457.89;
+	float focalLength = 650;
 	
 	float focal_inv_x = 1 / focalLength;
 	float focal_inv_y = 1 / focalLength;
@@ -103,12 +103,11 @@
 		CRCodeList::iterator it = codeListRef->begin();
 		while(it != codeListRef->end()) {
 			glPushMatrix();
-			glMultMatrixf((*it)->optimizedMatrixGL);
+			glMultMatrixf((*it)->matrixGL);
 			glMultMatrixf(mm);
 			drawCube(1);
 			glPopMatrix();
 			++it;
-			printf("%lu\n", codeListRef->size());
 		}
 	}
 	

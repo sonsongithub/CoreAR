@@ -65,9 +65,9 @@
 }
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
-	[super captureOutput:captureOutput didOutputSampleBuffer:sampleBuffer fromConnection:connection];
+	_tic();
 	
-	// image proccessing
+	[super captureOutput:captureOutput didOutputSampleBuffer:sampleBuffer fromConnection:connection];
 	
 	int width = (int)bufferSize.width;
 	int height = (int)bufferSize.height;
@@ -99,18 +99,16 @@
 	}
 #endif
 	
-	float focal = 457.89;
+	float focal = 650;
 	float codeSize = 1;
 	
 	int croppingSize = 64;
 	
 	CRChainCode *chaincode = new CRChainCode();
 	
-	_tic();
 	chaincode->parsePixel(chaincodeBuff, width, height);
-	_toc();
 	
-	printf("blobs=%lu\n", chaincode->blobs->size());
+//	printf("blobs=%lu\n", chaincode->blobs->size());
 	
 	
 	CRCodeList::iterator it = codeListRef->begin();
@@ -135,7 +133,7 @@
 			if(code) {
 				
 				// get homography
-				code->dumpCorners();
+				//code->dumpCorners();
 				
 				code->normalizeCornerForImageCoord(width, height, focal, focal);
 				
@@ -143,11 +141,11 @@
 				
 				//code->_CRGetHomographyMatrix();
 				
-				code->optimizeRTMatrinxWithLevenbergMarquardtMethod();
+				//code->optimizeRTMatrinxWithLevenbergMarquardtMethod();
 				
-				code->dumpHomography();
-				code->dumpMatrix();
-				code->dumpOptimizedMatrix();
+				//code->dumpHomography();
+				//code->dumpMatrix();
+				//code->dumpOptimizedMatrix();
 				
 				// cropping code image area
 				code->crop(croppingSize, croppingSize, focal, focal, codeSize, buffer, width, height);
@@ -187,6 +185,7 @@
 #endif
 	
 	SAFE_DELETE(chaincode);
+	_toc();
 }
 
 @end
