@@ -109,9 +109,9 @@ void levenbergMarquardt_test(void) {
 		printf("Initial RT matrix\n");
 		_CRTestShowMatrix4x4(code_normal->matrix);
 		
-		_tic();
+		_CRTic();
 		code_normal->optimizeRTMatrinxWithLevenbergMarquardtMethod();
-		printf("Levenberg-Marquardt method\n\t%0.5f[msec]\n\n", _tocWithoutLog());
+		printf("Levenberg-Marquardt method\n\t%0.5f[msec]\n\n", _CRTocWithoutLog());
 		
 		printf("Optimized RT matrix\n");
 		_CRTestShowMatrix4x4(code_normal->optimizedMatrix);

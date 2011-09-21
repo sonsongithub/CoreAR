@@ -119,9 +119,9 @@ void corner_test() {
 	if (!chaincode->blobs->empty()) {
 		CRChainCodeBlob *blob = chaincode->blobs->front();
 		{
-			_tic();
+			_CRTic();
 			CRCode *code = blob->code();
-			float e = _tocWithoutLog();
+			float e = _CRTocWithoutLog();
 			printf("Estimated corners\n");
 			code->dumpCorners();
 			float error = getErrorAfterOrderingCorners(code, gtCode);
@@ -131,9 +131,9 @@ void corner_test() {
 		}
 		
 		{
-			_tic();
+			_CRTic();
 			CRCode *code = blob->codeWithoutLSM();
-			float e = _tocWithoutLog();
+			float e = _CRTocWithoutLog();
 			printf("Estimated corners without LSM\n");
 			code->dumpCorners();
 			float error = getErrorAfterOrderingCorners(code, gtCode);

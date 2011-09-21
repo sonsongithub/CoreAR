@@ -112,9 +112,9 @@ void homorgraphy_test() {
 		code_normal->dumpCorners();
 		
 		// caluculate homography matrix with least square method.
-		_tic();
+		_CRTic();
 		code_normal->getSimpleHomography(codeSize);
-		printf("Homography\n\t%0.5f[msec]\n\n", _tocWithoutLog());
+		printf("Homography\n\t%0.5f[msec]\n\n", _CRTocWithoutLog());
 		
 		printf("Homography matrix\n");
 		_CRTestShowMatrix3x3(code_normal->homography);

@@ -80,9 +80,9 @@ void chaincode_test() {
 	// parse chain code
 	//
 	////////////////////////////////////////////////////////////////////////////////
-	_tic();
+	_CRTic();
 	chaincode->parsePixel(pixel, width, height);
-	float e = _tocWithoutLog();
+	float e = _CRTocWithoutLog();
 	
 	std::list<CRChainCodeBlob*>::iterator blobIterator = chaincode->blobs->begin();
 	while(blobIterator != chaincode->blobs->end()) {

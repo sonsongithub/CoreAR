@@ -64,22 +64,22 @@
 
 static struct timeval _start, _end;
 
-static void _tic(void);
-static void _toc(void);
-static double _tocWithoutLog(void);
+static void _CRTic(void);
+static void _CRToc(void);
+static double _CRTocWithoutLog(void);
 
-static void _tic() {
+static void _CRTic() {
 	gettimeofday(&_start, NULL);
 }
 
-static void _toc() {
+static void _CRToc() {
 	gettimeofday(&_end, NULL);
 	long int e_sec = _end.tv_sec * 1000000 + _end.tv_usec;
 	long int s_sec = _start.tv_sec * 1000000 + _start.tv_usec;
 	printf( "%9.4lf[ms]\n", (double)(e_sec - s_sec) / 1000.0);
 }
 
-static double _tocWithoutLog() {
+static double _CRTocWithoutLog() {
 	gettimeofday(&_end, NULL);
 	long int e_sec = _end.tv_sec * 1000000 + _end.tv_usec;
 	long int s_sec = _start.tv_sec * 1000000 + _start.tv_usec;
