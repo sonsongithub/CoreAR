@@ -59,32 +59,32 @@ void CRCode::normalizeCornerForImageCoord(float width, float height, float focal
 
 void CRCode::dumpCorners() {
 	printf("Corners\n");
-	printf("%+3.2f %+3.2f %+3.2f %+3.2f\n", (corners+0)->x, (corners+1)->x, (corners+2)->x, (corners+3)->x);
-	printf("%+3.2f %+3.2f %+3.2f %+3.2f\n", (corners+0)->y, (corners+1)->y, (corners+2)->y, (corners+3)->y);
-	printf("%+3.2f %+3.2f %+3.2f %+3.2f\n\n", (corners+0)->w, (corners+1)->w, (corners+2)->w, (corners+3)->w);
+	printf("%+7.2f %+7.2f %+7.2f %+7.2f\n", (corners+0)->x, (corners+1)->x, (corners+2)->x, (corners+3)->x);
+	printf("%+7.2f %+7.2f %+7.2f %+7.2f\n", (corners+0)->y, (corners+1)->y, (corners+2)->y, (corners+3)->y);
+	printf("%+7.2f %+7.2f %+7.2f %+7.2f\n\n", (corners+0)->w, (corners+1)->w, (corners+2)->w, (corners+3)->w);
 }
 
 void CRCode::dumpMatrix() {
 	printf("Matrix\n");
-	printf("%+3.2f %+3.2f %+3.2f %+3.2f;\n", matrixGL[ 0], matrixGL[ 4], matrixGL[ 8], matrixGL[12]);
-	printf("%+3.2f %+3.2f %+3.2f %+3.2f;\n", matrixGL[ 1], matrixGL[ 5], matrixGL[ 9], matrixGL[13]);
-	printf("%+3.2f %+3.2f %+3.2f %+3.2f;\n", matrixGL[ 2], matrixGL[ 6], matrixGL[10], matrixGL[14]);
-	printf("%+3.2f %+3.2f %+3.2f %+3.2f;\n\n", matrixGL[ 3], matrixGL[ 7], matrixGL[11], matrixGL[15]);
+	printf("%+7.2f %+7.2f %+7.2f %+7.2f;\n", matrixGL[ 0], matrixGL[ 4], matrixGL[ 8], matrixGL[12]);
+	printf("%+7.2f %+7.2f %+7.2f %+7.2f;\n", matrixGL[ 1], matrixGL[ 5], matrixGL[ 9], matrixGL[13]);
+	printf("%+7.2f %+7.2f %+7.2f %+7.2f;\n", matrixGL[ 2], matrixGL[ 6], matrixGL[10], matrixGL[14]);
+	printf("%+7.2f %+7.2f %+7.2f %+7.2f;\n\n", matrixGL[ 3], matrixGL[ 7], matrixGL[11], matrixGL[15]);
 }
 
 void CRCode::dumpOptimizedMatrix() {
 	printf("Optimized matrix\n");
-	printf("%+3.2f %+3.2f %+3.2f %+3.2f;\n", optimizedMatrixGL[ 0], optimizedMatrixGL[ 4], optimizedMatrixGL[ 8], optimizedMatrixGL[12]);
-	printf("%+3.2f %+3.2f %+3.2f %+3.2f;\n", optimizedMatrixGL[ 1], optimizedMatrixGL[ 5], optimizedMatrixGL[ 9], optimizedMatrixGL[13]);
-	printf("%+3.2f %+3.2f %+3.2f %+3.2f;\n", optimizedMatrixGL[ 2], optimizedMatrixGL[ 6], optimizedMatrixGL[10], optimizedMatrixGL[14]);
-	printf("%+3.2f %+3.2f %+3.2f %+3.2f;\n\n", optimizedMatrixGL[ 3], optimizedMatrixGL[ 7], optimizedMatrixGL[11], optimizedMatrixGL[15]);
+	printf("%+7.2f %+7.2f %+7.2f %+7.2f;\n", optimizedMatrixGL[ 0], optimizedMatrixGL[ 4], optimizedMatrixGL[ 8], optimizedMatrixGL[12]);
+	printf("%+7.2f %+7.2f %+7.2f %+7.2f;\n", optimizedMatrixGL[ 1], optimizedMatrixGL[ 5], optimizedMatrixGL[ 9], optimizedMatrixGL[13]);
+	printf("%+7.2f %+7.2f %+7.2f %+7.2f;\n", optimizedMatrixGL[ 2], optimizedMatrixGL[ 6], optimizedMatrixGL[10], optimizedMatrixGL[14]);
+	printf("%+7.2f %+7.2f %+7.2f %+7.2f;\n\n", optimizedMatrixGL[ 3], optimizedMatrixGL[ 7], optimizedMatrixGL[11], optimizedMatrixGL[15]);
 }
 
 void CRCode::dumpHomography() {
 	printf("Homography\n");
-	printf("%+3.2f %+3.2f %+3.2f;\n", homography[0][0], homography[0][1], homography[0][2]);
-	printf("%+3.2f %+3.2f %+3.2f;\n", homography[1][0], homography[1][1], homography[1][2]);
-	printf("%+3.2f %+3.2f %+3.2f;\n\n", homography[2][0], homography[2][1], homography[2][2]);
+	printf("%+7.2f %+7.2f %+7.2f;\n", homography[0][0], homography[0][1], homography[0][2]);
+	printf("%+7.2f %+7.2f %+7.2f;\n", homography[1][0], homography[1][1], homography[1][2]);
+	printf("%+7.2f %+7.2f %+7.2f;\n\n", homography[2][0], homography[2][1], homography[2][2]);
 }
 
 void CRCode::crop(float croppingWidth, float croppingHeight, float focalX, float focalY, float codeSize, unsigned char *source, int width, int height) {
@@ -335,7 +335,7 @@ void CRCode::getSimpleHomography(float scale) {
 	matrix[2][1] = homography[2][1] / e2_length;
 	matrix[3][1] = 0;
 	
-	matrix[0][2] = matrix[2][0] * matrix[1][1] - matrix[1][0] * matrix[2][1];
+	matrix[0][2] = matrix[1][0] * matrix[2][1] - matrix[2][0] * matrix[1][1];
 	matrix[1][2] = matrix[2][0] * matrix[0][1] - matrix[0][0] * matrix[2][1];
 	matrix[2][2] = matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1];
 	matrix[3][2] = 0;

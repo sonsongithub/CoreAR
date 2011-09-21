@@ -55,7 +55,7 @@ void homorgraphy_test() {
 	
 	float focal = 650;
 	float xdeg = 0;
-	float ydeg = 0;
+	float ydeg = M_PI / 10.0f;
 	float zdeg = M_PI / 10.0f;
 	
 	float xt = -0.3;
