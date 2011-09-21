@@ -52,8 +52,11 @@ public:
 	
 	float				h[8];
 	float				homography[3][3];
-	float				rt[4][4];
-	float				matrix[16];
+	
+	float				matrix[4][4];
+	float				matrixGL[16];
+	float				optimizedMatrix[4][4];
+	float				optimizedMatrixGL[16];
 	
 	int					croppedCodeImageWidth;
 	int					croppedCodeImageHeight;
@@ -66,11 +69,14 @@ public:
 	void normalizeCornerForImageCoord(float width, float height, float focalX, float focalY);
 	void getSimpleHomography(float scale);
 	void optimizeRTMatrinxWithLevenbergMarquardtMethod();
-	void crop(float croppingWidth, float croppingHeight, float focalX, float focalY, unsigned char *source, int width, int height);
+	void crop(float croppingWidth, float croppingHeight, float focalX, float focalY, float codeSize, unsigned char *source, int width, int height);
+
 	
 	void dumpCorners();
-	void dumpRTMatrix();
-	void dumpInitialHomography();
+	void dumpMatrix();
+	void dumpOptimizedMatrix();
+	void dumpHomography();
+	
 	int _CRGetHomographyMatrix();
 };
 

@@ -103,8 +103,7 @@
 		CRCodeList::iterator it = codeListRef->begin();
 		while(it != codeListRef->end()) {
 			glPushMatrix();
-			(*it)->dumpRTMatrix();
-			glMultMatrixf((*it)->matrix);
+			glMultMatrixf((*it)->optimizedMatrixGL);
 			glMultMatrixf(mm);
 			drawCube(1);
 			glPopMatrix();

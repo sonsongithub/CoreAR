@@ -29,7 +29,7 @@
  */
 
 #define _SHOW_DEBUG_BINARIZED_CAMERA_IMAGE
-//#define _SHOW_DEBUG_CROPPING_CODE
+#define _SHOW_DEBUG_CROPPING_CODE
 
 #import "CameraViewController.h"
 

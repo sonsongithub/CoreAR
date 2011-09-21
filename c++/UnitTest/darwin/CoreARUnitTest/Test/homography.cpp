@@ -60,7 +60,7 @@ void homorgraphy_test() {
 	
 	float xt = -0.3;
 	float yt = -0.5;
-	float zt = 40;
+	float zt = 20;
 	float pMat[4][4];
 	
 	float codeSize = 1;
@@ -80,9 +80,9 @@ void homorgraphy_test() {
 																   yt,
 																   zt);
 	
-	_DPRINTF("Ground truth RT Matrix\n");
+	printf("Ground truth RT Matrix\n");
 	_CRTestDumpMat(pMat);
-	_DPRINTF("\n");
+	printf("\n");
 	
 	////////////////////////////////////////////////////////////////////////////////
 	//
@@ -93,18 +93,22 @@ void homorgraphy_test() {
 	
 	CRCode *gtCode = new CRCode(corners, corners+1, corners+2, corners+3);
 	gtCode->dumpCorners();
+	gtCode->normalizeCornerForImageCoord(width, height, focal, focal);
+	gtCode->getSimpleHomography(codeSize);
+	gtCode->dumpHomography();
+	gtCode->dumpMatrix();
 	
 	if (!chaincode->blobs->empty()) {
 		CRChainCodeBlob *blob = chaincode->blobs->front();
 		CRCode *code_normal = blob->code();
 		
-		_DPRINTF("Corners on the image.\n");
+		printf("Corners on the image.\n");
 		code_normal->dumpCorners();
 		
 		// normalize corners' coordinates.
 		code_normal->normalizeCornerForImageCoord(width, height, focal, focal);
 		
-		_DPRINTF("Normalized corners on the image.\n");
+		printf("Normalized corners on the image.\n");
 		code_normal->dumpCorners();
 		
 		// caluculate homography matrix with least square method.
@@ -112,10 +116,10 @@ void homorgraphy_test() {
 		code_normal->getSimpleHomography(codeSize);
 		printf("Homography\n\t%0.5f[msec]\n\n", _tocWithoutLog());
 		
-		_DPRINTF("Homography matrix\n");
+		printf("Homography matrix\n");
 		_CRTestShowMatrix3x3(code_normal->homography);
-		_DPRINTF("RT matrix\n");
-		_CRTestShowMatrix4x4(code_normal->rt);
+		printf("RT matrix\n");
+		_CRTestShowMatrix4x4(code_normal->matrix);
 	
 		SAFE_DELETE(code_normal);
 	}

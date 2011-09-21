@@ -141,15 +141,17 @@
 				code->normalizeCornerForImageCoord(width, height, focal, focal);
 				
 				code->getSimpleHomography(codeSize);
-
-				code->dumpInitialHomography();
 				
 				//code->_CRGetHomographyMatrix();
 				
 				code->optimizeRTMatrinxWithLevenbergMarquardtMethod();
 				
+				code->dumpHomography();
+				code->dumpMatrix();
+				code->dumpOptimizedMatrix();
+				
 				// cropping code image area
-				code->crop(croppingSize, croppingSize, focal, focal, buffer, width, height);
+				code->crop(croppingSize, croppingSize, focal, focal, codeSize, buffer, width, height);
 				
 #ifdef _SHOW_DEBUG_CROPPING_CODE
 				// draw code image area

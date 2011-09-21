@@ -178,7 +178,7 @@ void codeCropping_test() {
 		code->getSimpleHomography(codeSize);
 		
 		_tic();
-		code->crop(croppingSize, croppingSize, focal, focal, source, width, height);
+		code->crop(croppingSize, croppingSize, focal, focal, codeSize, source, width, height);
 		printf("Cropping code image\n\t%0.5f[msec]\n\n", _tocWithoutLog());
 		
 		printf("Crop size %dx%d\n", croppingSize, croppingSize);

@@ -59,27 +59,35 @@ void CRCode::normalizeCornerForImageCoord(float width, float height, float focal
 
 void CRCode::dumpCorners() {
 	printf("Corners\n");
-	printf("%f %f %f %f\n", (corners+0)->x, (corners+1)->x, (corners+2)->x, (corners+3)->x);
-	printf("%f %f %f %f\n", (corners+0)->y, (corners+1)->y, (corners+2)->y, (corners+3)->y);
-	printf("%f %f %f %f\n\n", (corners+0)->w, (corners+1)->w, (corners+2)->w, (corners+3)->w);
+	printf("%+3.2f %+3.2f %+3.2f %+3.2f\n", (corners+0)->x, (corners+1)->x, (corners+2)->x, (corners+3)->x);
+	printf("%+3.2f %+3.2f %+3.2f %+3.2f\n", (corners+0)->y, (corners+1)->y, (corners+2)->y, (corners+3)->y);
+	printf("%+3.2f %+3.2f %+3.2f %+3.2f\n\n", (corners+0)->w, (corners+1)->w, (corners+2)->w, (corners+3)->w);
 }
 
-void CRCode::dumpRTMatrix() {
+void CRCode::dumpMatrix() {
 	printf("Matrix\n");
-	printf("%f %f %f %f;\n", matrix[ 0], matrix[ 4], matrix[ 8], matrix[12]);
-	printf("%f %f %f %f;\n", matrix[ 1], matrix[ 5], matrix[ 9], matrix[13]);
-	printf("%f %f %f %f;\n", matrix[ 2], matrix[ 6], matrix[10], matrix[14]);
-	printf("%f %f %f %f;\n\n", matrix[ 3], matrix[ 7], matrix[11], matrix[15]);
+	printf("%+3.2f %+3.2f %+3.2f %+3.2f;\n", matrixGL[ 0], matrixGL[ 4], matrixGL[ 8], matrixGL[12]);
+	printf("%+3.2f %+3.2f %+3.2f %+3.2f;\n", matrixGL[ 1], matrixGL[ 5], matrixGL[ 9], matrixGL[13]);
+	printf("%+3.2f %+3.2f %+3.2f %+3.2f;\n", matrixGL[ 2], matrixGL[ 6], matrixGL[10], matrixGL[14]);
+	printf("%+3.2f %+3.2f %+3.2f %+3.2f;\n\n", matrixGL[ 3], matrixGL[ 7], matrixGL[11], matrixGL[15]);
 }
 
-void CRCode::dumpInitialHomography() {
+void CRCode::dumpOptimizedMatrix() {
+	printf("Optimized matrix\n");
+	printf("%+3.2f %+3.2f %+3.2f %+3.2f;\n", optimizedMatrixGL[ 0], optimizedMatrixGL[ 4], optimizedMatrixGL[ 8], optimizedMatrixGL[12]);
+	printf("%+3.2f %+3.2f %+3.2f %+3.2f;\n", optimizedMatrixGL[ 1], optimizedMatrixGL[ 5], optimizedMatrixGL[ 9], optimizedMatrixGL[13]);
+	printf("%+3.2f %+3.2f %+3.2f %+3.2f;\n", optimizedMatrixGL[ 2], optimizedMatrixGL[ 6], optimizedMatrixGL[10], optimizedMatrixGL[14]);
+	printf("%+3.2f %+3.2f %+3.2f %+3.2f;\n\n", optimizedMatrixGL[ 3], optimizedMatrixGL[ 7], optimizedMatrixGL[11], optimizedMatrixGL[15]);
+}
+
+void CRCode::dumpHomography() {
 	printf("Homography\n");
-	printf("%f %f %f;\n", homography[0][0], homography[0][1], homography[0][2]);
-	printf("%f %f %f;\n", homography[1][0], homography[1][1], homography[1][2]);
-	printf("%f %f %f;\n\n", homography[2][0], homography[2][1], homography[2][2]);
+	printf("%+3.2f %+3.2f %+3.2f;\n", homography[0][0], homography[0][1], homography[0][2]);
+	printf("%+3.2f %+3.2f %+3.2f;\n", homography[1][0], homography[1][1], homography[1][2]);
+	printf("%+3.2f %+3.2f %+3.2f;\n\n", homography[2][0], homography[2][1], homography[2][2]);
 }
 
-void CRCode::crop(float croppingWidth, float croppingHeight, float focalX, float focalY, unsigned char *source, int width, int height) {
+void CRCode::crop(float croppingWidth, float croppingHeight, float focalX, float focalY, float codeSize, unsigned char *source, int width, int height) {
 	
 	croppedCodeImageWidth = croppingWidth;
 	croppedCodeImageHeight = croppingHeight;
@@ -87,15 +95,13 @@ void CRCode::crop(float croppingWidth, float croppingHeight, float focalX, float
 	SAFE_FREE(croppedCodeImage);
 	croppedCodeImage = (unsigned char*)malloc(sizeof(unsigned char) * croppedCodeImageWidth * croppedCodeImageHeight);
 	
-	float codeContentSize = 4;
-	
 	for (int i = 0; i < croppedCodeImageWidth; i++) {
 		for (int j = 0; j < croppedCodeImageHeight; j++) {
-			float ii = codeContentSize * 0.25 + 0.5 * i * codeContentSize / (croppedCodeImageWidth - 1);
-			float jj = codeContentSize * 0.25 + 0.5 * j * codeContentSize / (croppedCodeImageHeight - 1);
+			float ii = codeSize * 0.25 + 0.5 * i * codeSize / (croppedCodeImageWidth - 1);
+			float jj = codeSize * 0.25 + 0.5 * j * codeSize / (croppedCodeImageHeight - 1);
 			
-			float normalizedX = (h[0] * ii + h[3] * jj + h[6]) / (h[2] * ii + h[5] * jj + 1);
-			float normalizedY = (h[1] * ii + h[4] * jj + h[7]) / (h[2] * ii + h[5] * jj + 1);
+			float normalizedX = (homography[0][0] * ii + homography[0][1] * jj + homography[0][2]) / (homography[2][0] * ii + homography[2][1] * jj + 1);
+			float normalizedY = (homography[1][0] * ii + homography[1][1] * jj + homography[1][2]) / (homography[2][0] * ii + homography[2][1] * jj + 1);
 			
 			int x = normalizedX * focalX + width/2;
 			int y = normalizedY * focalY + height/2;
@@ -113,7 +119,7 @@ void CRCode::optimizeRTMatrinxWithLevenbergMarquardtMethod() {
 	
 	float initial_p[6];
 	
-	CRRTMatrix2Parameters(initial_p, this->rt);
+	CRRTMatrix2Parameters(initial_p, this->matrix);
 	
 	float codeSize = 1;
 	
@@ -169,12 +175,12 @@ void CRCode::optimizeRTMatrinxWithLevenbergMarquardtMethod() {
 		}
 	}
 	
-	CRParameters2RTMatrix(initial_p, this->rt);
+	CRParameters2RTMatrix(initial_p, this->optimizedMatrix);
 	
-	matrix[ 0] = rt[0][0];	matrix[ 4] = rt[0][1];	matrix[ 8] = rt[0][2];	matrix[12] = rt[0][3];
-	matrix[ 1] = rt[1][0];	matrix[ 5] = rt[1][1];	matrix[ 9] = rt[1][2];	matrix[13] = rt[1][3];
-	matrix[ 2] = rt[2][0];	matrix[ 6] = rt[2][1];	matrix[10] = rt[2][2];	matrix[14] = rt[2][3];
-	matrix[ 3] = rt[3][0];	matrix[ 7] = rt[3][1];	matrix[11] = rt[3][2];	matrix[15] = rt[3][3];
+	optimizedMatrixGL[ 0] = optimizedMatrix[0][0];	optimizedMatrixGL[ 4] = optimizedMatrix[0][1];	optimizedMatrixGL[ 8] = optimizedMatrix[0][2];	optimizedMatrixGL[12] = optimizedMatrix[0][3];
+	optimizedMatrixGL[ 1] = optimizedMatrix[1][0];	optimizedMatrixGL[ 5] = optimizedMatrix[1][1];	optimizedMatrixGL[ 9] = optimizedMatrix[1][2];	optimizedMatrixGL[13] = optimizedMatrix[1][3];
+	optimizedMatrixGL[ 2] = optimizedMatrix[2][0];	optimizedMatrixGL[ 6] = optimizedMatrix[2][1];	optimizedMatrixGL[10] = optimizedMatrix[2][2];	optimizedMatrixGL[14] = optimizedMatrix[2][3];
+	optimizedMatrixGL[ 3] = optimizedMatrix[3][0];	optimizedMatrixGL[ 7] = optimizedMatrix[3][1];	optimizedMatrixGL[11] = optimizedMatrix[3][2];	optimizedMatrixGL[15] = optimizedMatrix[3][3];
 }
 
 int CRCode::_CRGetHomographyMatrix() {
@@ -247,30 +253,30 @@ int CRCode::_CRGetHomographyMatrix() {
 	e2_length = sqrtf(e2_length);
 	float length = (e1_length + e2_length) * 0.5;
 	
-	rt[0][0] = homography[0][0] / e1_length;
-	rt[1][0] = homography[1][0] / e1_length;
-	rt[2][0] = homography[2][0] / e1_length;
-	rt[3][0] = 0;
+	matrix[0][0] = homography[0][0] / e1_length;
+	matrix[1][0] = homography[1][0] / e1_length;
+	matrix[2][0] = homography[2][0] / e1_length;
+	matrix[3][0] = 0;
 	
-	rt[0][1] = homography[0][1] / e2_length;
-	rt[1][1] = homography[1][1] / e2_length;
-	rt[2][1] = homography[2][1] / e2_length;
-	rt[3][1] = 0;
+	matrix[0][1] = homography[0][1] / e2_length;
+	matrix[1][1] = homography[1][1] / e2_length;
+	matrix[2][1] = homography[2][1] / e2_length;
+	matrix[3][1] = 0;
 	
-	rt[0][2] = rt[2][0] * rt[1][1] - rt[1][0] * rt[2][1];
-	rt[1][2] = rt[2][0] * rt[0][1] - rt[0][0] * rt[2][1];
-	rt[2][2] = rt[0][0] * rt[1][1] - rt[1][0] * rt[0][1];
-	rt[3][2] = 0;
+	matrix[0][2] = matrix[2][0] * matrix[1][1] - matrix[1][0] * matrix[2][1];
+	matrix[1][2] = matrix[2][0] * matrix[0][1] - matrix[0][0] * matrix[2][1];
+	matrix[2][2] = matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1];
+	matrix[3][2] = 0;
 	
-	rt[0][3] = homography[0][2] / length * scale;
-	rt[1][3] = homography[1][2] / length * scale;
-	rt[2][3] = homography[2][2] / length * scale;
-	rt[3][3] = 1;
+	matrix[0][3] = homography[0][2] / length * scale;
+	matrix[1][3] = homography[1][2] / length * scale;
+	matrix[2][3] = homography[2][2] / length * scale;
+	matrix[3][3] = 1;
 	
-	matrix[ 0] = rt[0][0];	matrix[ 4] = rt[0][1];	matrix[ 8] = rt[0][2];	matrix[12] = rt[0][3];
-	matrix[ 1] = rt[1][0];	matrix[ 5] = rt[1][1];	matrix[ 9] = rt[1][2];	matrix[13] = rt[1][3];
-	matrix[ 2] = rt[2][0];	matrix[ 6] = rt[2][1];	matrix[10] = rt[2][2];	matrix[14] = rt[2][3];
-	matrix[ 3] = rt[3][0];	matrix[ 7] = rt[3][1];	matrix[11] = rt[3][2];	matrix[15] = rt[3][3];
+	matrixGL[ 0] = matrix[0][0];	matrixGL[ 4] = matrix[0][1];	matrixGL[ 8] = matrix[0][2];	matrixGL[12] = matrix[0][3];
+	matrixGL[ 1] = matrix[1][0];	matrixGL[ 5] = matrix[1][1];	matrixGL[ 9] = matrix[1][2];	matrixGL[13] = matrix[1][3];
+	matrixGL[ 2] = matrix[2][0];	matrixGL[ 6] = matrix[2][1];	matrixGL[10] = matrix[2][2];	matrixGL[14] = matrix[2][3];
+	matrixGL[ 3] = matrix[3][0];	matrixGL[ 7] = matrix[3][1];	matrixGL[11] = matrix[3][2];	matrixGL[15] = matrix[3][3];
 	
 	return (info == 0);	// check result of sgesv_
 }
@@ -319,30 +325,30 @@ void CRCode::getSimpleHomography(float scale) {
 	e2_length = sqrtf(e2_length);
 	float length = (e1_length + e2_length) * 0.5;
 	
-	rt[0][0] = homography[0][0] / e1_length;
-	rt[1][0] = homography[1][0] / e1_length;
-	rt[2][0] = homography[2][0] / e1_length;
-	rt[3][0] = 0;
+	matrix[0][0] = homography[0][0] / e1_length;
+	matrix[1][0] = homography[1][0] / e1_length;
+	matrix[2][0] = homography[2][0] / e1_length;
+	matrix[3][0] = 0;
 	
-	rt[0][1] = homography[0][1] / e2_length;
-	rt[1][1] = homography[1][1] / e2_length;
-	rt[2][1] = homography[2][1] / e2_length;
-	rt[3][1] = 0;
+	matrix[0][1] = homography[0][1] / e2_length;
+	matrix[1][1] = homography[1][1] / e2_length;
+	matrix[2][1] = homography[2][1] / e2_length;
+	matrix[3][1] = 0;
 	
-	rt[0][2] = rt[2][0] * rt[1][1] - rt[1][0] * rt[2][1];
-	rt[1][2] = rt[2][0] * rt[0][1] - rt[0][0] * rt[2][1];
-	rt[2][2] = rt[0][0] * rt[1][1] - rt[1][0] * rt[0][1];
-	rt[3][2] = 0;
+	matrix[0][2] = matrix[2][0] * matrix[1][1] - matrix[1][0] * matrix[2][1];
+	matrix[1][2] = matrix[2][0] * matrix[0][1] - matrix[0][0] * matrix[2][1];
+	matrix[2][2] = matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1];
+	matrix[3][2] = 0;
 	
-	rt[0][3] = homography[0][2] / length * scale;
-	rt[1][3] = homography[1][2] / length * scale;
-	rt[2][3] = homography[2][2] / length * scale;
-	rt[3][3] = 1;
+	matrix[0][3] = homography[0][2] / length * scale;
+	matrix[1][3] = homography[1][2] / length * scale;
+	matrix[2][3] = homography[2][2] / length * scale;
+	matrix[3][3] = 1;
 	
-	matrix[ 0] = rt[0][0];	matrix[ 4] = rt[0][1];	matrix[ 8] = rt[0][2];	matrix[12] = rt[0][3];
-	matrix[ 1] = rt[1][0];	matrix[ 5] = rt[1][1];	matrix[ 9] = rt[1][2];	matrix[13] = rt[1][3];
-	matrix[ 2] = rt[2][0];	matrix[ 6] = rt[2][1];	matrix[10] = rt[2][2];	matrix[14] = rt[2][3];
-	matrix[ 3] = rt[3][0];	matrix[ 7] = rt[3][1];	matrix[11] = rt[3][2];	matrix[15] = rt[3][3];
+	matrixGL[ 0] = matrix[0][0];	matrixGL[ 4] = matrix[0][1];	matrixGL[ 8] = matrix[0][2];	matrixGL[12] = matrix[0][3];
+	matrixGL[ 1] = matrix[1][0];	matrixGL[ 5] = matrix[1][1];	matrixGL[ 9] = matrix[1][2];	matrixGL[13] = matrix[1][3];
+	matrixGL[ 2] = matrix[2][0];	matrixGL[ 6] = matrix[2][1];	matrixGL[10] = matrix[2][2];	matrixGL[14] = matrix[2][3];
+	matrixGL[ 3] = matrix[3][0];	matrixGL[ 7] = matrix[3][1];	matrixGL[11] = matrix[3][2];	matrixGL[15] = matrix[3][3];
 }
 
 CRCode::CRCode(CRHomogeneousVec3 *firstCorner, CRHomogeneousVec3 *secondCorner, CRHomogeneousVec3 *thirdCorner, CRHomogeneousVec3 *fourthCorner) {

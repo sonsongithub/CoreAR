@@ -75,8 +75,8 @@ void corner_test() {
 	//
 	////////////////////////////////////////////////////////////////////////////////
 	
-	width = 40;
-	height = 40;
+	width = 80;
+	height = 80;
 	
 	CRHomogeneousVec3 *corners = new CRHomogeneousVec3 [4];
 	
@@ -87,7 +87,7 @@ void corner_test() {
 	
 	float xt = -0.3;
 	float yt = -0.5;
-	float zt = 40;
+	float zt = 20;
 	
 	_CRTestMakePixelDataWithProjectionSetting(
 											  &pixel,

@@ -48,8 +48,8 @@ void levenbergMarquardt_test(void) {
 	//
 	////////////////////////////////////////////////////////////////////////////////
 	
-	width = 40;
-	height = 40;
+	width = 80;
+	height = 80;
 	
 	CRHomogeneousVec3 *corners = new CRHomogeneousVec3 [4];
 	
@@ -60,7 +60,7 @@ void levenbergMarquardt_test(void) {
 	
 	float xt = -0.3;
 	float yt = -0.5;
-	float zt = 40;
+	float zt = 20;
 	float pMat[4][4];
 	
 	float codeSize = 1;
@@ -107,14 +107,14 @@ void levenbergMarquardt_test(void) {
 		_CRTestShowMatrix3x3(code_normal->homography);
 		
 		printf("Initial RT matrix\n");
-		_CRTestShowMatrix4x4(code_normal->rt);
+		_CRTestShowMatrix4x4(code_normal->matrix);
 		
 		_tic();
 		code_normal->optimizeRTMatrinxWithLevenbergMarquardtMethod();
 		printf("Levenberg-Marquardt method\n\t%0.5f[msec]\n\n", _tocWithoutLog());
 		
 		printf("Optimized RT matrix\n");
-		_CRTestShowMatrix4x4(code_normal->rt);
+		_CRTestShowMatrix4x4(code_normal->optimizedMatrix);
 		
 		SAFE_DELETE(code_normal);
 	}
