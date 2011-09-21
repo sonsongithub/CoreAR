@@ -2,6 +2,12 @@ CoreAR.framework
 =======
 ![](http://sonson.jp/wp/wp-content/uploads/2011/04/coreARSample.png)
 
+Introduction and information
+=======
+CoreAR.framework is open source AR framework. You can make an AR application using visual code like ARToolKit using this framework. CoreAR.framework does not depend on the other computer vision library like OpenCV. Considered portability, this framework is written only C or C++. The pixel array of an image is passed to CoreAR.framework and then visual code's identification number, rotation and translation matrix are obtained from the image including a visual code. Image processing speed of this framework is about 15 fps on iPhone4.
+
+Take notice that CoreAR.framework depends on [Quartz Help Library][] and [Real time image processing framework for iOS][]. You have to download these libraries and put on them at the path where CoreAR.framework has been installed.
+
 License
 =======
 [BSD License][].
@@ -51,6 +57,14 @@ Sample code in C
 	CRReleaseChainCodeStorage(&storage);
 	CRReleaseCodeInfoStorage(&codeInfoStorage);
 	free(pixel);
+
+Frequently Asked Questions
+=======
+ * I can't compile CoreAR.framework...
+   * Ans. CoreAR.framework depends on [Quartz Help Library][] and [Real time image processing framework for iOS][]. You have to download these libraries and put on them at the path where CoreAR.framework has been installed.
+   
+ * How do I render a 3D model on the code with CoreAR.framework?
+   * Ans. CoreAR.framework does not support rendering any 3D model files. You have to write a code to render 3D model files with OpenGLES. Sample program does not render a cube and Utah teapot with 3D model files but with OpenGLES code.
 
 Blog
 =======
