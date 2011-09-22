@@ -69,7 +69,7 @@ static float focalLength = 457.89;
 }
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
-	_tic();
+	_CRTic();
 	
 	[super captureOutput:captureOutput didOutputSampleBuffer:sampleBuffer fromConnection:connection];
 	
@@ -175,7 +175,7 @@ static float focalLength = 457.89;
 #endif
 	
 	SAFE_DELETE(chaincode);
-	_toc();
+	_CRToc();
 }
 
 @end
