@@ -40,4 +40,5 @@
 }
 @property (assign) CGSize cameraFrameSize;
 @property (assign) CRCodeListRef codeListRef;
+-(void)setupOpenGLViewWithFocalX:(float)focalX focalY:(float)focalY;
 @end

@@ -35,6 +35,8 @@
 #import "GLOverlayView.hpp"
 #import "QuartzHelpLibrary.h"
 
+static float focalLength = 457.89;
+
 @implementation ARViewController
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -59,7 +61,7 @@
 	r.size.height = 426;
 	myGLView = [[GLOverlayView alloc] initWithFrame:r];
 	[myGLView setCameraFrameSize:CGSizeMake(480, 360)];
-	[myGLView setupOpenGLView];
+	[myGLView setupOpenGLViewWithFocalX:focalLength focalY:focalLength];
 	[myGLView startAnimation];
 	[self.view addSubview:myGLView];
 	[myGLView release];
@@ -101,7 +103,6 @@
 	}
 #endif
 	
-	float focal = 457.89;
 	float codeSize = 1;
 	
 	int croppingSize = 64;
@@ -134,7 +135,7 @@
 				// get homography
 				//code->dumpCorners();
 				
-				code->normalizeCornerForImageCoord(width, height, focal, focal);
+				code->normalizeCornerForImageCoord(width, height, focalLength, focalLength);
 				
 				code->getSimpleHomography(codeSize);
 				
@@ -147,7 +148,7 @@
 				//code->dumpOptimizedMatrix();
 				
 				// cropping code image area
-				code->crop(croppingSize, croppingSize, focal, focal, codeSize, buffer, width, height);
+				code->crop(croppingSize, croppingSize, focalLength, focalLength, codeSize, buffer, width, height);
 				
 #ifdef _SHOW_DEBUG_CROPPING_CODE
 				// draw code image area

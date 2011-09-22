@@ -41,13 +41,13 @@
 @synthesize cameraFrameSize;
 @synthesize codeListRef;
 
--(void)setupOpenGLView {
+-(void)setupOpenGLViewWithFocalX:(float)focalX focalY:(float)focalY {
 	const GLfloat			lightAmbient[] = {0.2, 0.2, 0.2, 1.0};
 	const GLfloat			lightDiffuse[] = {1.0, 0.6, 0.0, 1.0};
 	const GLfloat			matAmbient[] = {0.6, 0.6, 0.6, 1.0};
 	const GLfloat			matDiffuse[] = {1.0, 1.0, 1.0, 1.0};	
 	const GLfloat			matSpecular[] = {1.0, 1.0, 1.0, 1.0};
-	const GLfloat			lightPosition[] = {0.0, 0.0, 1.0, 0.0}; 
+	const GLfloat			lightPosition[] = {0.0, 1.0, 1.0, 0.0}; 
 	const GLfloat			lightShininess = 100.0;
 	
 	//Configure OpenGL lighting
@@ -64,15 +64,17 @@
 	glEnable(GL_DEPTH_TEST);
 	
 	CGRect rect = self.frame;
-
-	float focalLength = 457.89;
-	
-	float focal_inv_x = 1 / focalLength;
-	float focal_inv_y = 1 / focalLength;
 	
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glFrustumf(-0.5*rect.size.width*focal_inv_x, 0.5*rect.size.width*focal_inv_x, -0.5*rect.size.height*focal_inv_y, 0.5*rect.size.height*focal_inv_y, 1, 1000);
+	
+	float left = -0.5 * cameraFrameSize.height / focalY;
+	float right = 0.5 * cameraFrameSize.height / focalY;
+	float top = -0.5 * cameraFrameSize.width / focalX;
+	float bottom = 0.5 * cameraFrameSize.width / focalX;
+	
+	glFrustumf(left, right, top, bottom, 1, 1000);
+	
 	glViewport(0, 0, rect.size.width, rect.size.height);
 }
 
@@ -81,25 +83,18 @@
 	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-    
-    float ratio = self.frame.size.width / cameraFrameSize.height;
-    
-	glScalef(ratio, ratio, 1);
 	
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-//	glRotatef( 90, 0, 0, 1);
-//	glRotatef(180, 0, 1, 0);
+	float matrixFromCameraToOpenGL[16];
 	
-	float mm[16];
+	matrixFromCameraToOpenGL[ 0] =  0;	matrixFromCameraToOpenGL[ 4] = -1;	matrixFromCameraToOpenGL[ 8] =  0;	matrixFromCameraToOpenGL[12] = 0;
+	matrixFromCameraToOpenGL[ 1] = -1;	matrixFromCameraToOpenGL[ 5] =  0;	matrixFromCameraToOpenGL[ 9] =  0;	matrixFromCameraToOpenGL[13] = 0;
+	matrixFromCameraToOpenGL[ 2] =  0;	matrixFromCameraToOpenGL[ 6] =  0;	matrixFromCameraToOpenGL[10] = -1;	matrixFromCameraToOpenGL[14] = 0;
+	matrixFromCameraToOpenGL[ 3] =  0;	matrixFromCameraToOpenGL[ 7] =  0;	matrixFromCameraToOpenGL[11] =  0;	matrixFromCameraToOpenGL[15] = 1;
 	
-	mm[ 0] =  0;	mm[ 4] = -1;	mm[ 8] =  0;	mm[12] = 0;
-	mm[ 1] = -1;	mm[ 5] =  0;	mm[ 9] =  0;	mm[13] = 0;
-	mm[ 2] =  0;	mm[ 6] =  0;	mm[10] = -1;	mm[14] = 0;
-	mm[ 3] =  0;	mm[ 7] =  0;	mm[11] =  0;	mm[15] = 1;
-	
-	glMultMatrixf(mm);
+	glMultMatrixf(matrixFromCameraToOpenGL);
 	
 	if (codeListRef) {
 		CRCodeList::iterator it = codeListRef->begin();
