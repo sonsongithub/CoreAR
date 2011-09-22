@@ -35,6 +35,7 @@
 		14830B6714260BF300B3E7B7 /* CoreARSampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14830B6514260BF300B3E7B7 /* CoreARSampleViewController.xib */; };
 		14C2337C14282F0400B3B23A /* glcube.c in Sources */ = {isa = PBXBuildFile; fileRef = 14C2337A14282F0400B3B23A /* glcube.c */; };
 		14C2337E14282F6800B3B23A /* CoreARSampleViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14C2337D14282F6800B3B23A /* CoreARSampleViewController.mm */; };
+		14F7C446142AFA08009195AD /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14F7C444142AFA08009195AD /* MainWindow-iPad.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,7 @@
 		14C2337A14282F0400B3B23A /* glcube.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glcube.c; sourceTree = "<group>"; };
 		14C2337B14282F0400B3B23A /* glcube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glcube.h; sourceTree = "<group>"; };
 		14C2337D14282F6800B3B23A /* CoreARSampleViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CoreARSampleViewController.mm; sourceTree = "<group>"; };
+		14F7C445142AFA08009195AD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/MainWindow-iPad.xib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +201,7 @@
 				14830B5C14260BF300B3E7B7 /* CoreARSampleAppDelegate.h */,
 				14830B5D14260BF300B3E7B7 /* CoreARSampleAppDelegate.m */,
 				14830B5F14260BF300B3E7B7 /* MainWindow.xib */,
+				14F7C444142AFA08009195AD /* MainWindow-iPad.xib */,
 				14830B6214260BF300B3E7B7 /* CoreARSampleViewController.h */,
 				14C2337D14282F6800B3B23A /* CoreARSampleViewController.mm */,
 				14830B6514260BF300B3E7B7 /* CoreARSampleViewController.xib */,
@@ -268,6 +271,7 @@
 				14830B5814260BF300B3E7B7 /* InfoPlist.strings in Resources */,
 				14830B6114260BF300B3E7B7 /* MainWindow.xib in Resources */,
 				14830B6714260BF300B3E7B7 /* CoreARSampleViewController.xib in Resources */,
+				14F7C446142AFA08009195AD /* MainWindow-iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +328,14 @@
 			name = CoreARSampleViewController.xib;
 			sourceTree = "<group>";
 		};
+		14F7C444142AFA08009195AD /* MainWindow-iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				14F7C445142AFA08009195AD /* en */,
+			);
+			name = "MainWindow-iPad.xib";
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -376,7 +388,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreARSample/CoreARSample-Prefix.pch";
 				INFOPLIST_FILE = "CoreARSample/CoreARSample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -387,7 +401,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreARSample/CoreARSample-Prefix.pch";
 				INFOPLIST_FILE = "CoreARSample/CoreARSample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
