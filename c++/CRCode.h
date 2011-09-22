@@ -50,7 +50,6 @@ public:
 	CRHomogeneousVec3	*thirdCorner;
 	CRHomogeneousVec3	*fourthCorner;
 	
-	float				h[8];
 	float				homography[3][3];
 	
 	float				matrix[4][4];

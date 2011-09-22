@@ -151,7 +151,7 @@ void CRCode::optimizeRTMatrinxWithLevenbergMarquardtMethod() {
 		
 		float c_dash = CRSumationOfSquaredVec8(error_dash);
 		
-		_DPRINTF("Error=%f\n", c_dash);
+		_DPRINTF("Error=%+7.5f\n", c_dash);
 		
 		if (c_dash > c) {
 			lambda *= 10;
@@ -168,7 +168,7 @@ void CRCode::optimizeRTMatrinxWithLevenbergMarquardtMethod() {
 			float delta = CRSumationOfSquaredVec6(delta_param);
 			
 			if (delta < theshold) {
-				_DPRINTF("Last error=%f, iteration times=%d\n\n", c_dash, i);
+				_DPRINTF("Last error=%+7.2f, iteration times=%d\n\n", c_dash, i);
 				break;
 			}
 			CRGetCurrentErrorAndJacobian(jacobian, hessian, error, initial_p, this, codeSize);
@@ -229,9 +229,9 @@ int CRCode::_CRGetHomographyMatrix() {
 	sgesv_((__CLPK_integer*)&rank, (__CLPK_integer*)&nrhs, (__CLPK_real*)a, (__CLPK_integer*)&rank, (__CLPK_integer*)pivot,(__CLPK_real*)b, (__CLPK_integer*)&rank, (__CLPK_integer*)&info);
 	
 	printf("Old homography\n");
-	printf("%f %f %f;\n", b[0], b[1], b[2]);
-	printf("%f %f %f;\n", b[3], b[4], b[5]);
-	printf("%f %f 1;\n\n", b[6], b[7]);
+	printf("%+7.2f %+7.2f %+7.2f;\n", b[0], b[1], b[2]);
+	printf("%+7.2f %+7.2f %+7.2f;\n", b[3], b[4], b[5]);
+	printf("%+7.2f %+7.2f 1;\n\n", b[6], b[7]);
 	
 	homography[0][0] = b[0];
 	homography[1][0] = b[3];
@@ -282,7 +282,7 @@ int CRCode::_CRGetHomographyMatrix() {
 }
 
 void CRCode::getSimpleHomography(float scale) {
-	
+	float h[8];
 	float uv[2][4];
 	
 	for (int i = 0; i < 4; i++) {

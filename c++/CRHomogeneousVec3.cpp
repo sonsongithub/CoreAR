@@ -69,5 +69,5 @@ void CRHomogeneousVec3::normalize() {
 }
 
 void CRHomogeneousVec3::dump() {
-	printf("%f,%f,%f\n", x, y, w);
+	printf("%+7.2f,%+7.2f,%+7.2f\n", x, y, w);
 }

@@ -58,7 +58,7 @@ static float focalLength = 457.89;
 	
 	// OpenGL overlaid content view
 	CGRect r = self.view.frame;
-	r.size.height = 426;
+	r.size.height = r.size.width / 360.0 * 480.0;
 	myGLView = [[GLOverlayView alloc] initWithFrame:r];
 	[myGLView setCameraFrameSize:CGSizeMake(480, 360)];
 	[myGLView setupOpenGLViewWithFocalX:focalLength focalY:focalLength];
@@ -131,21 +131,11 @@ static float focalLength = 457.89;
 			CRCode *code = (*blobIterator)->code();
 				
 			if(code) {
-				
-				// get homography
-				//code->dumpCorners();
-				
 				code->normalizeCornerForImageCoord(width, height, focalLength, focalLength);
 				
 				code->getSimpleHomography(codeSize);
 				
-				//code->_CRGetHomographyMatrix();
-				
 				code->optimizeRTMatrinxWithLevenbergMarquardtMethod();
-				
-				//code->dumpHomography();
-				//code->dumpMatrix();
-				//code->dumpOptimizedMatrix();
 				
 				// cropping code image area
 				code->crop(croppingSize, croppingSize, focalLength, focalLength, codeSize, buffer, width, height);
