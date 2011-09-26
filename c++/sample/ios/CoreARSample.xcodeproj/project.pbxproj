@@ -11,6 +11,13 @@
 		1414748C14281C7C003FB536 /* QuartzHelpLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 1414748B14281C7C003FB536 /* QuartzHelpLibrary.m */; };
 		1414749514281DED003FB536 /* GLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1414749214281DED003FB536 /* GLView.m */; };
 		14147499142820C2003FB536 /* GLOverlayView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14147498142820C2003FB536 /* GLOverlayView.mm */; };
+		142E23FD14301BDA00D94B03 /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 142E23F614301BDA00D94B03 /* Default-Landscape.png */; };
+		142E23FE14301BDA00D94B03 /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 142E23F714301BDA00D94B03 /* Default-Portrait.png */; };
+		142E23FF14301BDA00D94B03 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 142E23F814301BDA00D94B03 /* Default.png */; };
+		142E240014301BDA00D94B03 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 142E23F914301BDA00D94B03 /* Default@2x.png */; };
+		142E240114301BDA00D94B03 /* icon114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 142E23FA14301BDA00D94B03 /* icon114x114.png */; };
+		142E240214301BDA00D94B03 /* icon57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 142E23FB14301BDA00D94B03 /* icon57x57.png */; };
+		142E240314301BDA00D94B03 /* icon72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = 142E23FC14301BDA00D94B03 /* icon72x72.png */; };
 		14617D9214260C570022DDA1 /* CRChainCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14617D8314260C570022DDA1 /* CRChainCode.cpp */; };
 		14617D9314260C570022DDA1 /* CRChainCodeBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14617D8514260C570022DDA1 /* CRChainCodeBlob.cpp */; };
 		14617D9414260C570022DDA1 /* CRChainCodeElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14617D8714260C570022DDA1 /* CRChainCodeElement.cpp */; };
@@ -45,6 +52,13 @@
 		1414749114281DED003FB536 /* GLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLView.h; sourceTree = "<group>"; };
 		1414749214281DED003FB536 /* GLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLView.m; sourceTree = "<group>"; };
 		14147498142820C2003FB536 /* GLOverlayView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GLOverlayView.mm; sourceTree = "<group>"; };
+		142E23F614301BDA00D94B03 /* Default-Landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape.png"; sourceTree = "<group>"; };
+		142E23F714301BDA00D94B03 /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
+		142E23F814301BDA00D94B03 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		142E23F914301BDA00D94B03 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		142E23FA14301BDA00D94B03 /* icon114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon114x114.png; sourceTree = "<group>"; };
+		142E23FB14301BDA00D94B03 /* icon57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon57x57.png; sourceTree = "<group>"; };
+		142E23FC14301BDA00D94B03 /* icon72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon72x72.png; sourceTree = "<group>"; };
 		14617D8214260C570022DDA1 /* CoreAR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreAR.h; path = ../../CoreAR.h; sourceTree = "<group>"; };
 		14617D8314260C570022DDA1 /* CRChainCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCode.cpp; path = ../../CRChainCode.cpp; sourceTree = "<group>"; };
 		14617D8414260C570022DDA1 /* CRChainCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCode.h; path = ../../CRChainCode.h; sourceTree = "<group>"; };
@@ -117,6 +131,21 @@
 				1414748B14281C7C003FB536 /* QuartzHelpLibrary.m */,
 			);
 			name = "Quartz Help Library";
+			sourceTree = "<group>";
+		};
+		142E23F514301BDA00D94B03 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				142E23F614301BDA00D94B03 /* Default-Landscape.png */,
+				142E23F714301BDA00D94B03 /* Default-Portrait.png */,
+				142E23F814301BDA00D94B03 /* Default.png */,
+				142E23F914301BDA00D94B03 /* Default@2x.png */,
+				142E23FA14301BDA00D94B03 /* icon114x114.png */,
+				142E23FB14301BDA00D94B03 /* icon57x57.png */,
+				142E23FC14301BDA00D94B03 /* icon72x72.png */,
+			);
+			name = images;
+			path = Resources/images;
 			sourceTree = "<group>";
 		};
 		14617D8014260C3D0022DDA1 /* CoreAR */ = {
@@ -205,6 +234,7 @@
 				14830B6214260BF300B3E7B7 /* CoreARSampleViewController.h */,
 				14C2337D14282F6800B3B23A /* CoreARSampleViewController.mm */,
 				14830B6514260BF300B3E7B7 /* CoreARSampleViewController.xib */,
+				142E23F514301BDA00D94B03 /* images */,
 				14830B5414260BF300B3E7B7 /* Supporting Files */,
 			);
 			path = CoreARSample;
@@ -246,6 +276,9 @@
 /* Begin PBXProject section */
 		14830B4014260BF200B3E7B7 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = 14830B4314260BF200B3E7B7 /* Build configuration list for PBXProject "CoreARSample" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -272,6 +305,13 @@
 				14830B6114260BF300B3E7B7 /* MainWindow.xib in Resources */,
 				14830B6714260BF300B3E7B7 /* CoreARSampleViewController.xib in Resources */,
 				14F7C446142AFA08009195AD /* MainWindow-iPad.xib in Resources */,
+				142E23FD14301BDA00D94B03 /* Default-Landscape.png in Resources */,
+				142E23FE14301BDA00D94B03 /* Default-Portrait.png in Resources */,
+				142E23FF14301BDA00D94B03 /* Default.png in Resources */,
+				142E240014301BDA00D94B03 /* Default@2x.png in Resources */,
+				142E240114301BDA00D94B03 /* icon114x114.png in Resources */,
+				142E240214301BDA00D94B03 /* icon57x57.png in Resources */,
+				142E240314301BDA00D94B03 /* icon72x72.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,11 +390,12 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					_DEBUG,
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -371,7 +412,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -388,7 +430,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreARSample/CoreARSample-Prefix.pch";
 				INFOPLIST_FILE = "CoreARSample/CoreARSample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -401,7 +443,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreARSample/CoreARSample-Prefix.pch";
 				INFOPLIST_FILE = "CoreARSample/CoreARSample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
