@@ -40,10 +40,10 @@
 
 class CRCode {
 public:
-	float				top;
-	float				bottom;
-	float				left;
-	float				right;
+	int				top;
+	int				bottom;
+	int				left;
+	int				right;
 	CRHomogeneousVec3	*corners;
 	CRHomogeneousVec3	*firstCorner;
 	CRHomogeneousVec3	*secondCorner;

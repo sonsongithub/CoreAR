@@ -169,6 +169,11 @@ CRCode *CRChainCodeBlob::codeWithoutLSM() {
 	// chaincode search algorithm is reverse order.
 	CRCode *code = new CRCode(firstCorner, fourthCorner, thirdCorner, secondCorner);
 	
+	code->left = this->left;
+	code->right= this->right;
+	code->top = this->top;
+	code->bottom = this->bottom;
+	
 	delete firstCorner;
 	delete secondCorner;
 	delete thirdCorner;
@@ -206,6 +211,11 @@ CRCode *CRChainCodeBlob::code() {
 	
 	// chaincode search algorithm is reverse order.
 	CRCode *code = new CRCode(firstCorner, fourthCorner, thirdCorner, secondCorner);
+	
+	code->left = this->left;
+	code->right= this->right;
+	code->top = this->top;
+	code->bottom = this->bottom;
 	
 	delete line1;
 	delete line2;
