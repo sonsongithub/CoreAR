@@ -209,6 +209,51 @@ CRCode *CRChainCodeBlob::code() {
 	thirdCorner->normalize();
 	fourthCorner->normalize();
 	
+	CRHomogeneousVec3 *side14 = CRHomogeneousVec3::diff(fourthCorner, firstCorner);
+	CRHomogeneousVec3 *side12 = CRHomogeneousVec3::diff(secondCorner, firstCorner);
+	CRHomogeneousVec3 *outer14_12 = CRHomogeneousVec3::outerProduct(side14, side12);
+	
+	CRHomogeneousVec3 *side21 = CRHomogeneousVec3::diff(firstCorner, secondCorner);
+	CRHomogeneousVec3 *side23 = CRHomogeneousVec3::diff(thirdCorner, secondCorner);
+	CRHomogeneousVec3 *outer21_23 = CRHomogeneousVec3::outerProduct(side21, side23);
+	
+	CRHomogeneousVec3 *side32 = CRHomogeneousVec3::diff(secondCorner, thirdCorner);
+	CRHomogeneousVec3 *side34 = CRHomogeneousVec3::diff(fourthCorner, thirdCorner);
+	CRHomogeneousVec3 *outer32_34 = CRHomogeneousVec3::outerProduct(side32, side34);
+	
+	CRHomogeneousVec3 *side43 = CRHomogeneousVec3::diff(thirdCorner, fourthCorner);
+	CRHomogeneousVec3 *side41 = CRHomogeneousVec3::diff(firstCorner, fourthCorner);
+	CRHomogeneousVec3 *outer43_41 = CRHomogeneousVec3::outerProduct(side43, side41);
+	
+	outer14_12->dump();
+	outer21_23->dump();
+	outer32_34->dump();
+	outer43_41->dump();
+	
+	bool isConvex1 = (outer14_12->w > 0);
+	bool isConvex2 = (outer21_23->w > 0);
+	bool isConvex3 = (outer32_34->w > 0);
+	bool isConvex4 = (outer43_41->w > 0);
+	
+	delete side14;
+	delete side12;
+	delete outer14_12;
+	
+	delete side21;
+	delete side23;
+	delete outer21_23;
+	
+	delete side32;
+	delete side34;
+	delete outer32_34;
+	
+	delete side43;
+	delete side41;
+	delete outer43_41;
+	
+	if (!isConvex1 || !isConvex2 || !isConvex3 || !isConvex4)
+		return NULL;
+	
 	// chaincode search algorithm is reverse order.
 	CRCode *code = new CRCode(firstCorner, fourthCorner, thirdCorner, secondCorner);
 	

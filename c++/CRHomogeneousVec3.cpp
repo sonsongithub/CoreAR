@@ -50,6 +50,16 @@ CRHomogeneousVec3* CRHomogeneousVec3::outerProduct(CRHomogeneousVec3 *p1, CRHomo
 	return p;
 }
 
+CRHomogeneousVec3* CRHomogeneousVec3::diff(CRHomogeneousVec3 *p1, CRHomogeneousVec3 *p2) {
+	CRHomogeneousVec3 *p = new CRHomogeneousVec3 ();
+	
+	p->x = p1->x - p2->x;
+	p->y = p1->y - p2->y;
+	p->w = p1->w - p2->w;
+	
+	return p;
+}
+
 CRHomogeneousVec3* CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(CRChainCodeElement* element) {
 	CRHomogeneousVec3 *p = new CRHomogeneousVec3 ();
 	p->x = element->x;

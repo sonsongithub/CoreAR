@@ -47,6 +47,7 @@ public:
 	void dump();
 	void normalize();
 public:
+	static CRHomogeneousVec3* diff(CRHomogeneousVec3 *p1, CRHomogeneousVec3 *p2);
 	static CRHomogeneousVec3* outerProduct(CRHomogeneousVec3 *p1, CRHomogeneousVec3 *p2);
 	static CRHomogeneousVec3* homogeneousVec3FromChainCodeElement(CRChainCodeElement* element);
 };
