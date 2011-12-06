@@ -148,67 +148,8 @@ CRHomogeneousVec3* CRChainCodeBlob::getLineThroughPoints(CRChainCodeElement *sta
 	return line;
 }
 
-CRCode *CRChainCodeBlob::codeWithoutLSM() {
-	if (this->elements->size() < MINIMUM_CHAINCODE_LENGTH)
-		return NULL;
-	
-	CRChainCodeElement *firstCornerElement  = this->firstCorner();
-	CRChainCodeElement *thirdCornerElement  = this->thirdCorner(firstCornerElement);
-	CRChainCodeElement *secondCornerElement = this->secondCorner(firstCornerElement, thirdCornerElement);
-	CRChainCodeElement *fourthCornerElement = this->fourthCorner(firstCornerElement, thirdCornerElement);
-	
-	
-	if (!firstCornerElement || !thirdCornerElement || !secondCornerElement || !fourthCornerElement)
-		return NULL;
-	
-	CRHomogeneousVec3* firstCorner  = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(firstCornerElement);
-	CRHomogeneousVec3* secondCorner = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(secondCornerElement);
-	CRHomogeneousVec3* thirdCorner  = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(thirdCornerElement);
-	CRHomogeneousVec3* fourthCorner = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(fourthCornerElement);
-	
-	// chaincode search algorithm is reverse order.
-	CRCode *code = new CRCode(firstCorner, fourthCorner, thirdCorner, secondCorner);
-	
-	code->left = this->left;
-	code->right= this->right;
-	code->top = this->top;
-	code->bottom = this->bottom;
-	
-	delete firstCorner;
-	delete secondCorner;
-	delete thirdCorner;
-	delete fourthCorner;
-	
-	return code;
-}
+int CRChainCodeBlob::isConvex(CRHomogeneousVec3 *firstCorner, CRHomogeneousVec3 *secondCorner, CRHomogeneousVec3 *thirdCorner, CRHomogeneousVec3 *fourthCorner) {
 
-CRCode *CRChainCodeBlob::code() {
-	if (this->elements->size() < MINIMUM_CHAINCODE_LENGTH)
-		return NULL;
-	
-	CRChainCodeElement *firstCornerElement  = this->firstCorner();
-	CRChainCodeElement *thirdCornerElement  = this->thirdCorner(firstCornerElement);
-	CRChainCodeElement *secondCornerElement = this->secondCorner(firstCornerElement, thirdCornerElement);
-	CRChainCodeElement *fourthCornerElement = this->fourthCorner(firstCornerElement, thirdCornerElement);
-	
-	if (!firstCornerElement || !thirdCornerElement || !secondCornerElement || !fourthCornerElement)
-		return NULL;
-	
-	CRHomogeneousVec3 *line1 = this->getLineThroughPoints(firstCornerElement, secondCornerElement);
-	CRHomogeneousVec3 *line2 = this->getLineThroughPoints(secondCornerElement, thirdCornerElement);
-	CRHomogeneousVec3 *line3 = this->getLineThroughPoints(thirdCornerElement, fourthCornerElement);
-	CRHomogeneousVec3 *line4 = this->getLineThroughPoints(fourthCornerElement, firstCornerElement);
-	
-	CRHomogeneousVec3* firstCorner  = CRHomogeneousVec3::outerProduct(line4, line1);
-	CRHomogeneousVec3* secondCorner = CRHomogeneousVec3::outerProduct(line1, line2);
-	CRHomogeneousVec3* thirdCorner  = CRHomogeneousVec3::outerProduct(line2, line3);
-	CRHomogeneousVec3* fourthCorner = CRHomogeneousVec3::outerProduct(line3, line4);
-	
-	firstCorner->normalize();
-	secondCorner->normalize();
-	thirdCorner->normalize();
-	fourthCorner->normalize();
-	
 	CRHomogeneousVec3 *side14 = CRHomogeneousVec3::diff(fourthCorner, firstCorner);
 	CRHomogeneousVec3 *side12 = CRHomogeneousVec3::diff(secondCorner, firstCorner);
 	CRHomogeneousVec3 *outer14_12 = CRHomogeneousVec3::outerProduct(side14, side12);
@@ -252,6 +193,81 @@ CRCode *CRChainCodeBlob::code() {
 	delete outer43_41;
 	
 	if (!isConvex1 || !isConvex2 || !isConvex3 || !isConvex4)
+		return CR_FALSE;
+	
+	return CR_TRUE;
+}
+
+CRCode *CRChainCodeBlob::codeWithoutLSM() {
+	if (this->elements->size() < MINIMUM_CHAINCODE_LENGTH)
+		return NULL;
+	
+	CRChainCodeElement *thirdCornerElement  = this->thirdCorner();
+	CRChainCodeElement *firstCornerElement  = this->firstCorner(thirdCornerElement);
+	
+	this->reorderChaincode(firstCornerElement);
+	
+	CRChainCodeElement *secondCornerElement = this->secondCorner(firstCornerElement, thirdCornerElement);
+	CRChainCodeElement *fourthCornerElement = this->fourthCorner(firstCornerElement, thirdCornerElement);
+	
+	if (!firstCornerElement || !thirdCornerElement || !secondCornerElement || !fourthCornerElement)
+		return NULL;
+	
+	CRHomogeneousVec3* firstCorner  = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(firstCornerElement);
+	CRHomogeneousVec3* secondCorner = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(secondCornerElement);
+	CRHomogeneousVec3* thirdCorner  = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(thirdCornerElement);
+	CRHomogeneousVec3* fourthCorner = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(fourthCornerElement);
+	
+	if (this->isConvex(firstCorner, secondCorner, thirdCorner, fourthCorner) == CR_FALSE)
+		return NULL;
+	
+	// chaincode search algorithm is reverse order.
+	CRCode *code = new CRCode(firstCorner, fourthCorner, thirdCorner, secondCorner);
+	
+	code->left = this->left;
+	code->right= this->right;
+	code->top = this->top;
+	code->bottom = this->bottom;
+	
+	delete firstCorner;
+	delete secondCorner;
+	delete thirdCorner;
+	delete fourthCorner;
+	
+	return code;
+}
+
+CRCode *CRChainCodeBlob::code() {
+	if (this->elements->size() < MINIMUM_CHAINCODE_LENGTH)
+		return NULL;
+	
+	CRChainCodeElement *thirdCornerElement  = this->thirdCorner();
+	CRChainCodeElement *firstCornerElement  = this->firstCorner(thirdCornerElement);
+	
+	this->reorderChaincode(firstCornerElement);
+	
+	CRChainCodeElement *secondCornerElement = this->secondCorner(firstCornerElement, thirdCornerElement);
+	CRChainCodeElement *fourthCornerElement = this->fourthCorner(firstCornerElement, thirdCornerElement);
+	
+	if (!firstCornerElement || !thirdCornerElement || !secondCornerElement || !fourthCornerElement)
+		return NULL;
+	
+	CRHomogeneousVec3 *line1 = this->getLineThroughPoints(firstCornerElement, secondCornerElement);
+	CRHomogeneousVec3 *line2 = this->getLineThroughPoints(secondCornerElement, thirdCornerElement);
+	CRHomogeneousVec3 *line3 = this->getLineThroughPoints(thirdCornerElement, fourthCornerElement);
+	CRHomogeneousVec3 *line4 = this->getLineThroughPoints(fourthCornerElement, firstCornerElement);
+	
+	CRHomogeneousVec3* firstCorner  = CRHomogeneousVec3::outerProduct(line4, line1);
+	CRHomogeneousVec3* secondCorner = CRHomogeneousVec3::outerProduct(line1, line2);
+	CRHomogeneousVec3* thirdCorner  = CRHomogeneousVec3::outerProduct(line2, line3);
+	CRHomogeneousVec3* fourthCorner = CRHomogeneousVec3::outerProduct(line3, line4);
+	
+	firstCorner->normalize();
+	secondCorner->normalize();
+	thirdCorner->normalize();
+	fourthCorner->normalize();
+	
+	if (this->isConvex(firstCorner, secondCorner, thirdCorner, fourthCorner) == CR_FALSE)
 		return NULL;
 	
 	// chaincode search algorithm is reverse order.
@@ -275,8 +291,44 @@ CRCode *CRChainCodeBlob::code() {
 	return code;
 }
 
-CRChainCodeElement* CRChainCodeBlob::firstCorner() {
-	return this->elements->front();
+void CRChainCodeBlob::reorderChaincode(CRChainCodeElement *first) {
+	std::list<CRChainCodeElement*> *reorderedElements = new std::list<CRChainCodeElement*>();
+	
+	std::list<CRChainCodeElement*>::iterator it = elements->begin();
+	while(it != elements->end()) {
+		if (*it == first)
+			break;
+		++it;
+	}
+	while(it != elements->end()) {
+		reorderedElements->push_back(*it);
+		++it;
+	}
+	it = elements->begin();
+	while(it != elements->end()) {
+		if (*it == first)
+			break;
+		reorderedElements->push_back(*it);
+		++it;
+	}
+	delete elements;
+	elements = reorderedElements;
+}
+
+CRChainCodeElement* CRChainCodeBlob::firstCorner(CRChainCodeElement *third) {
+	int maxLength = 0;
+	CRChainCodeElement* tempFirstCorner = NULL;
+	std::list<CRChainCodeElement*>::iterator it = elements->begin();
+	while(it != elements->end()) {
+		CRChainCodeElement* e = (CRChainCodeElement*)*it;
+		int length = (third->x - e->x) * (third->x - e->x) + (third->y - e->y) * (third->y - e->y);
+		if (length > maxLength) {
+			maxLength = length;
+			tempFirstCorner = e;
+		}
+		++it;
+	}
+	return tempFirstCorner;
 }
 
 CRChainCodeElement* CRChainCodeBlob::secondCorner(CRChainCodeElement *first, CRChainCodeElement *third) {
@@ -333,13 +385,14 @@ CRChainCodeElement* CRChainCodeBlob::fourthCorner(CRChainCodeElement *first, CRC
 	return tempThirdCorner;
 }
 
-CRChainCodeElement* CRChainCodeBlob::thirdCorner(CRChainCodeElement *first) {
+CRChainCodeElement* CRChainCodeBlob::thirdCorner() {
+	
 	int maxLength = 0;
 	CRChainCodeElement* tempThirdCorner = NULL;
 	std::list<CRChainCodeElement*>::iterator it = elements->begin();
 	while(it != elements->end()) {
 		CRChainCodeElement* e = (CRChainCodeElement*)*it;
-		int length = (first->x - e->x) * (first->x - e->x) + (first->y - e->y) * (first->y - e->y);
+		int length = (e->x) * (e->x) + (e->y) * (e->y);
 		if (length > maxLength) {
 			maxLength = length;
 			tempThirdCorner = e;

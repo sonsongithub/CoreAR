@@ -66,10 +66,12 @@ public:
 	
 	CRCode* code();
 	CRCode* codeWithoutLSM();
-	CRChainCodeElement* firstCorner();
+	CRChainCodeElement* firstCorner(CRChainCodeElement *third);
 	CRChainCodeElement* secondCorner(CRChainCodeElement *first, CRChainCodeElement *third);
-	CRChainCodeElement* thirdCorner(CRChainCodeElement *first);
+	CRChainCodeElement* thirdCorner();
 	CRChainCodeElement* fourthCorner(CRChainCodeElement *first, CRChainCodeElement *third);
+	void reorderChaincode(CRChainCodeElement *first);
+	int isConvex(CRHomogeneousVec3 *firstCorner, CRHomogeneousVec3 *secondCorner, CRHomogeneousVec3 *thirdCorner, CRHomogeneousVec3 *fourthCorner);
 	
 	CRHomogeneousVec3* getLineThroughPoints(CRChainCodeElement *start, CRChainCodeElement *end);
 };
