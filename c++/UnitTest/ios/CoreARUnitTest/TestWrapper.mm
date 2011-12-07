@@ -64,9 +64,10 @@
 		code->normalizeCornerForImageCoord(width, height, focal, focal);
 		code->getSimpleHomography(codeSize);
 		
-		_tic();
-		code->crop(croppingSize, croppingSize, focal, focal, pixel, width, height);
-		printf("Cropping code image\n\t%0.5f[msec]\n\n", _tocWithoutLog());
+		_CRTic();
+		//code->crop(croppingSize, croppingSize, focal, focal, pixel, width, height);
+		code->crop(croppingSize, croppingSize, focal, focal, 1, pixel, width, height);
+		printf("Cropping code image\n\t%0.5f[msec]\n\n", _CRTocWithoutLog());
 		
 		output = CGImageCreateWithPixelBuffer(code->croppedCodeImage, code->croppedCodeImageWidth, code->croppedCodeImageHeight, 1, QH_PIXEL_GRAYSCALE);
 		
