@@ -33,21 +33,21 @@
 #include <math.h>
 #include "CRCommon.h"
 
-typedef struct _TEMP_DATA {
+typedef struct _CRDiffVectorInfo {
 	int x;
 	int y;
 	float dx;
 	float dy;
 	int label;
-}DiffData;
+}CRDiffVectorInfo;
 
-void dumpDiffData(DiffData p);
-CRHomogeneousVec3 *getLineFromDiffList(DiffData *list, int numberOfElements, int targetLabel);
+void CRDiffVectorInfoDump(CRDiffVectorInfo p);
+CRHomogeneousVec3 *CreateLineFromCRDiffVectorInfoList(CRDiffVectorInfo *list, int numberOfElements, int targetLabel);
 int isConvex(CRHomogeneousVec3 *firstCorner, CRHomogeneousVec3 *secondCorner, CRHomogeneousVec3 *thirdCorner, CRHomogeneousVec3 *fourthCorner);
 
 #pragma mark - Tool
 
-void dumpDiffData(DiffData p) {
+void CRDiffVectorInfoDump(CRDiffVectorInfo p) {
 	printf("------------------------\n");
 	printf(" x=%d\n", p.x);
 	printf(" y=%d\n", p.y);
@@ -56,7 +56,7 @@ void dumpDiffData(DiffData p) {
 	printf("label=%d\n", p.label);
 }
 
-CRHomogeneousVec3 *getLineFromDiffList(DiffData *list, int numberOfElements, int targetLabel) {
+CRHomogeneousVec3 *CreateLineFromCRDiffVectorInfoList(CRDiffVectorInfo *list, int numberOfElements, int targetLabel) {
 	float sigma_x = 0;
 	float sigma_y = 0;
 	float sigma_xy = 0;
@@ -214,14 +214,14 @@ int CRChainCodeBlob::isValid(int width, int height) {
 CRCode *CRChainCodeBlob::code() {
 	CRCode *code = NULL;
 	
-	DiffData seed[4];
+	CRDiffVectorInfo seed[4];
 	CRHomogeneousVec3 *line1 = NULL, *line2 = NULL, *line3 = NULL, *line4 = NULL;
 	CRHomogeneousVec3 *firstCorner = NULL, *secondCorner = NULL, *thirdCorner = NULL, *fourthCorner = NULL;
 
 	int step = 2;
 	
 	int diffListSize = (int)(this->elements->size() - step);
-	DiffData *diffList = (DiffData*)malloc(sizeof(DiffData) * diffListSize);
+	CRDiffVectorInfo *diffList = (CRDiffVectorInfo*)malloc(sizeof(CRDiffVectorInfo) * diffListSize);
 	
 	int i = 0;
 	
@@ -304,10 +304,10 @@ CRCode *CRChainCodeBlob::code() {
 			break;
 	}
 	
-	line1 = getLineFromDiffList(diffList, diffListSize, 0);
-	line2 = getLineFromDiffList(diffList, diffListSize, 1);
-	line3 = getLineFromDiffList(diffList, diffListSize, 2);
-	line4 = getLineFromDiffList(diffList, diffListSize, 3);
+	line1 = CreateLineFromCRDiffVectorInfoList(diffList, diffListSize, 0);
+	line2 = CreateLineFromCRDiffVectorInfoList(diffList, diffListSize, 1);
+	line3 = CreateLineFromCRDiffVectorInfoList(diffList, diffListSize, 2);
+	line4 = CreateLineFromCRDiffVectorInfoList(diffList, diffListSize, 3);
 	
 	firstCorner  = CRHomogeneousVec3::outerProduct(line4, line1);	firstCorner->normalize();
 	secondCorner = CRHomogeneousVec3::outerProduct(line1, line2);	secondCorner->normalize();
