@@ -33,6 +33,116 @@
 #include <math.h>
 #include "CRCommon.h"
 
+typedef struct _TEMP_DATA {
+	int x;
+	int y;
+	float dx;
+	float dy;
+	int label;
+}DiffData;
+
+void dumpDiffData(DiffData p);
+CRHomogeneousVec3 *getLineFromDiffList(DiffData *list, int numberOfElements, int targetLabel);
+int isConvex(CRHomogeneousVec3 *firstCorner, CRHomogeneousVec3 *secondCorner, CRHomogeneousVec3 *thirdCorner, CRHomogeneousVec3 *fourthCorner);
+
+#pragma mark - Tool
+
+void dumpDiffData(DiffData p) {
+	printf("------------------------\n");
+	printf(" x=%d\n", p.x);
+	printf(" y=%d\n", p.y);
+	printf("dx=%f\n", p.dx);
+	printf("dy=%f\n", p.dy);
+	printf("label=%d\n", p.label);
+}
+
+CRHomogeneousVec3 *getLineFromDiffList(DiffData *list, int numberOfElements, int targetLabel) {
+	float sigma_x = 0;
+	float sigma_y = 0;
+	float sigma_xy = 0;
+	float sigma_xx = 0;
+	int n = 0;
+	
+	for (int i = 0; i < numberOfElements; i++) {
+		if ((list+i)->label == targetLabel) {
+			sigma_x += (list+i)->x;
+			sigma_y += (list+i)->y;
+			sigma_xy += ((list+i)->x * (list+i)->y);
+			sigma_xx += ((list+i)->x * (list+i)->x);
+			n++;
+		}
+	}
+	
+	CRHomogeneousVec3 *line = new CRHomogeneousVec3();
+	
+	float t = n * sigma_xx - sigma_x * sigma_x;
+	if (t == 0) {
+		line->x = -1;
+		line->y = 0;
+		line->w = list->x;
+	}
+	else {
+		line->x = (n * sigma_xy - sigma_x * sigma_y) / t;
+		line->y = -1;
+		line->w = (sigma_xx * sigma_y- sigma_xy * sigma_x) / t;
+	}
+	
+	return line;
+}
+
+
+int isConvex(CRHomogeneousVec3 *firstCorner, CRHomogeneousVec3 *secondCorner, CRHomogeneousVec3 *thirdCorner, CRHomogeneousVec3 *fourthCorner) {
+	
+	CRHomogeneousVec3 *side14 = CRHomogeneousVec3::diff(fourthCorner, firstCorner);
+	CRHomogeneousVec3 *side12 = CRHomogeneousVec3::diff(secondCorner, firstCorner);
+	CRHomogeneousVec3 *outer14_12 = CRHomogeneousVec3::outerProduct(side14, side12);
+	
+	CRHomogeneousVec3 *side21 = CRHomogeneousVec3::diff(firstCorner, secondCorner);
+	CRHomogeneousVec3 *side23 = CRHomogeneousVec3::diff(thirdCorner, secondCorner);
+	CRHomogeneousVec3 *outer21_23 = CRHomogeneousVec3::outerProduct(side21, side23);
+	
+	CRHomogeneousVec3 *side32 = CRHomogeneousVec3::diff(secondCorner, thirdCorner);
+	CRHomogeneousVec3 *side34 = CRHomogeneousVec3::diff(fourthCorner, thirdCorner);
+	CRHomogeneousVec3 *outer32_34 = CRHomogeneousVec3::outerProduct(side32, side34);
+	
+	CRHomogeneousVec3 *side43 = CRHomogeneousVec3::diff(thirdCorner, fourthCorner);
+	CRHomogeneousVec3 *side41 = CRHomogeneousVec3::diff(firstCorner, fourthCorner);
+	CRHomogeneousVec3 *outer43_41 = CRHomogeneousVec3::outerProduct(side43, side41);
+	
+	outer14_12->dump();
+	outer21_23->dump();
+	outer32_34->dump();
+	outer43_41->dump();
+	
+	bool isConvex1 = (outer14_12->w > 0);
+	bool isConvex2 = (outer21_23->w > 0);
+	bool isConvex3 = (outer32_34->w > 0);
+	bool isConvex4 = (outer43_41->w > 0);
+	
+	delete side14;
+	delete side12;
+	delete outer14_12;
+	
+	delete side21;
+	delete side23;
+	delete outer21_23;
+	
+	delete side32;
+	delete side34;
+	delete outer32_34;
+	
+	delete side43;
+	delete side41;
+	delete outer43_41;
+	
+	if (!isConvex1 || !isConvex2 || !isConvex3 || !isConvex4)
+		return CR_FALSE;
+	
+	return CR_TRUE;
+}
+
+#pragma mark - CRChainCodeBlob Implementation
+
 CRChainCodeBlob::CRChainCodeBlob() {
 //	_DPRINTF("CRChainCodeBlob constructor\n");
 	elements = new std::list<CRChainCodeElement*>();
@@ -101,197 +211,7 @@ int CRChainCodeBlob::isValid(int width, int height) {
 	return CR_TRUE;
 }
 
-CRHomogeneousVec3* CRChainCodeBlob::getLineThroughPoints(CRChainCodeElement *start, CRChainCodeElement *end) {
-	float sigma_x = 0;
-	float sigma_y = 0;
-	float sigma_xy = 0;
-	float sigma_xx = 0;
-	int n = 0;
-	
-	std::list<CRChainCodeElement*>::iterator it = elements->begin();
-	while(it != elements->end()) {
-		CRChainCodeElement* e = (CRChainCodeElement*)*it;
-		if (e == start)
-			break;
-		++it;
-	}
-	while(it != elements->end()) {
-		CRChainCodeElement* e = (CRChainCodeElement*)*it;
-		
-		sigma_x += e->x;
-		sigma_y += e->y;
-		sigma_xy += (e->x * e->y);
-		sigma_xx += (e->x * e->x);
-		
-		n++;
-		
-		if (e == end)
-			break;
-		
-		++it;
-	}
-	
-	CRHomogeneousVec3 *line = new CRHomogeneousVec3();
-	
-	float t = n * sigma_xx - sigma_x * sigma_x;
-	if (t == 0) {
-		line->x = -1;
-		line->y = 0;
-		line->w = start->x;
-	}
-	else {
-		line->x = (n * sigma_xy - sigma_x * sigma_y) / t;
-		line->y = -1;
-		line->w = (sigma_xx * sigma_y- sigma_xy * sigma_x) / t;
-	}
-	
-	return line;
-}
-
-int CRChainCodeBlob::isConvex(CRHomogeneousVec3 *firstCorner, CRHomogeneousVec3 *secondCorner, CRHomogeneousVec3 *thirdCorner, CRHomogeneousVec3 *fourthCorner) {
-
-	CRHomogeneousVec3 *side14 = CRHomogeneousVec3::diff(fourthCorner, firstCorner);
-	CRHomogeneousVec3 *side12 = CRHomogeneousVec3::diff(secondCorner, firstCorner);
-	CRHomogeneousVec3 *outer14_12 = CRHomogeneousVec3::outerProduct(side14, side12);
-	
-	CRHomogeneousVec3 *side21 = CRHomogeneousVec3::diff(firstCorner, secondCorner);
-	CRHomogeneousVec3 *side23 = CRHomogeneousVec3::diff(thirdCorner, secondCorner);
-	CRHomogeneousVec3 *outer21_23 = CRHomogeneousVec3::outerProduct(side21, side23);
-	
-	CRHomogeneousVec3 *side32 = CRHomogeneousVec3::diff(secondCorner, thirdCorner);
-	CRHomogeneousVec3 *side34 = CRHomogeneousVec3::diff(fourthCorner, thirdCorner);
-	CRHomogeneousVec3 *outer32_34 = CRHomogeneousVec3::outerProduct(side32, side34);
-	
-	CRHomogeneousVec3 *side43 = CRHomogeneousVec3::diff(thirdCorner, fourthCorner);
-	CRHomogeneousVec3 *side41 = CRHomogeneousVec3::diff(firstCorner, fourthCorner);
-	CRHomogeneousVec3 *outer43_41 = CRHomogeneousVec3::outerProduct(side43, side41);
-	
-	outer14_12->dump();
-	outer21_23->dump();
-	outer32_34->dump();
-	outer43_41->dump();
-	
-	bool isConvex1 = (outer14_12->w > 0);
-	bool isConvex2 = (outer21_23->w > 0);
-	bool isConvex3 = (outer32_34->w > 0);
-	bool isConvex4 = (outer43_41->w > 0);
-	
-	delete side14;
-	delete side12;
-	delete outer14_12;
-	
-	delete side21;
-	delete side23;
-	delete outer21_23;
-	
-	delete side32;
-	delete side34;
-	delete outer32_34;
-	
-	delete side43;
-	delete side41;
-	delete outer43_41;
-	
-	if (!isConvex1 || !isConvex2 || !isConvex3 || !isConvex4)
-		return CR_FALSE;
-	
-	return CR_TRUE;
-}
-
-CRCode *CRChainCodeBlob::codeWithoutLSM() {
-	if (this->elements->size() < MINIMUM_CHAINCODE_LENGTH)
-		return NULL;
-	
-	CRChainCodeElement *thirdCornerElement  = this->thirdCorner();
-	CRChainCodeElement *firstCornerElement  = this->firstCorner(thirdCornerElement);
-	
-	this->reorderChaincode(firstCornerElement);
-	
-	CRChainCodeElement *secondCornerElement = this->secondCorner(firstCornerElement, thirdCornerElement);
-	CRChainCodeElement *fourthCornerElement = this->fourthCorner(firstCornerElement, thirdCornerElement);
-	
-	if (!firstCornerElement || !thirdCornerElement || !secondCornerElement || !fourthCornerElement)
-		return NULL;
-	
-	CRHomogeneousVec3* firstCorner  = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(firstCornerElement);
-	CRHomogeneousVec3* secondCorner = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(secondCornerElement);
-	CRHomogeneousVec3* thirdCorner  = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(thirdCornerElement);
-	CRHomogeneousVec3* fourthCorner = CRHomogeneousVec3::homogeneousVec3FromChainCodeElement(fourthCornerElement);
-	
-	if (this->isConvex(firstCorner, secondCorner, thirdCorner, fourthCorner) == CR_FALSE)
-		return NULL;
-	
-	// chaincode search algorithm is reverse order.
-	CRCode *code = new CRCode(firstCorner, fourthCorner, thirdCorner, secondCorner);
-	
-	code->left = this->left;
-	code->right= this->right;
-	code->top = this->top;
-	code->bottom = this->bottom;
-	
-	delete firstCorner;
-	delete secondCorner;
-	delete thirdCorner;
-	delete fourthCorner;
-	
-	return code;
-}
-
-typedef struct _TEMP_DATA {
-	int x;
-	int y;
-	float dx;
-	float dy;
-	int label;
-}DiffData;
-
-void dumpDiffData(DiffData p);
-void dumpDiffData(DiffData p) {
-	printf("------------------------\n");
-	printf(" x=%d\n", p.x);
-	printf(" y=%d\n", p.y);
-	printf("dx=%f\n", p.dx);
-	printf("dy=%f\n", p.dy);
-	printf("label=%d\n", p.label);
-}
-
-CRHomogeneousVec3 *getLineFromDiffList(DiffData *list, int numberOfElements, int targetLabel);
-
-CRHomogeneousVec3 *getLineFromDiffList(DiffData *list, int numberOfElements, int targetLabel) {
-	float sigma_x = 0;
-	float sigma_y = 0;
-	float sigma_xy = 0;
-	float sigma_xx = 0;
-	int n = 0;
-	
-	for (int i = 0; i < numberOfElements; i++) {
-		if ((list+i)->label == targetLabel) {
-			sigma_x += (list+i)->x;
-			sigma_y += (list+i)->y;
-			sigma_xy += ((list+i)->x * (list+i)->y);
-			sigma_xx += ((list+i)->x * (list+i)->x);
-			n++;
-		}
-	}
-	
-	CRHomogeneousVec3 *line = new CRHomogeneousVec3();
-
-	float t = n * sigma_xx - sigma_x * sigma_x;
-	if (t == 0) {
-		line->x = -1;
-		line->y = 0;
-		line->w = list->x;
-	}
-	else {
-		line->x = (n * sigma_xy - sigma_x * sigma_y) / t;
-		line->y = -1;
-		line->w = (sigma_xx * sigma_y- sigma_xy * sigma_x) / t;
-	}
-	
-	return line;
-}
-
-CRCode *CRChainCodeBlob::code_new() {
+CRCode *CRChainCodeBlob::code() {
 	CRCode *code = NULL;
 	
 	DiffData seed[4];
@@ -394,7 +314,7 @@ CRCode *CRChainCodeBlob::code_new() {
 	thirdCorner  = CRHomogeneousVec3::outerProduct(line2, line3);	thirdCorner->normalize();
 	fourthCorner = CRHomogeneousVec3::outerProduct(line3, line4);	fourthCorner->normalize();
 
-	if (this->isConvex(firstCorner, secondCorner, thirdCorner, fourthCorner) == CR_FALSE)
+	if (isConvex(firstCorner, secondCorner, thirdCorner, fourthCorner) == CR_FALSE)
 		goto CODE_NOT_FOUND_EXCEPTION;
 	
 	// chaincode search algorithm is reverse order.
@@ -420,168 +340,3 @@ CODE_NOT_FOUND_EXCEPTION:
 	
 	return code;
 }	
-
-CRCode *CRChainCodeBlob::code() {
-		if (this->elements->size() < MINIMUM_CHAINCODE_LENGTH)
-			return NULL;
-	
-	CRChainCodeElement *thirdCornerElement  = this->thirdCorner();
-	CRChainCodeElement *firstCornerElement  = this->firstCorner(thirdCornerElement);
-	
-	this->reorderChaincode(firstCornerElement);
-	
-	CRChainCodeElement *secondCornerElement = this->secondCorner(firstCornerElement, thirdCornerElement);
-	CRChainCodeElement *fourthCornerElement = this->fourthCorner(firstCornerElement, thirdCornerElement);
-	
-	if (!firstCornerElement || !thirdCornerElement || !secondCornerElement || !fourthCornerElement)
-		return NULL;
-	
-	CRHomogeneousVec3 *line1 = this->getLineThroughPoints(firstCornerElement, secondCornerElement);
-	CRHomogeneousVec3 *line2 = this->getLineThroughPoints(secondCornerElement, thirdCornerElement);
-	CRHomogeneousVec3 *line3 = this->getLineThroughPoints(thirdCornerElement, fourthCornerElement);
-	CRHomogeneousVec3 *line4 = this->getLineThroughPoints(fourthCornerElement, firstCornerElement);
-	
-	CRHomogeneousVec3* firstCorner  = CRHomogeneousVec3::outerProduct(line4, line1);
-	CRHomogeneousVec3* secondCorner = CRHomogeneousVec3::outerProduct(line1, line2);
-	CRHomogeneousVec3* thirdCorner  = CRHomogeneousVec3::outerProduct(line2, line3);
-	CRHomogeneousVec3* fourthCorner = CRHomogeneousVec3::outerProduct(line3, line4);
-	
-	firstCorner->normalize();
-	secondCorner->normalize();
-	thirdCorner->normalize();
-	fourthCorner->normalize();
-	
-	if (this->isConvex(firstCorner, secondCorner, thirdCorner, fourthCorner) == CR_FALSE)
-		return NULL;
-	
-	// chaincode search algorithm is reverse order.
-	CRCode *code = new CRCode(firstCorner, fourthCorner, thirdCorner, secondCorner);
-	
-	code->left = this->left;
-	code->right= this->right;
-	code->top = this->top;
-	code->bottom = this->bottom;
-	
-	delete line1;
-	delete line2;
-	delete line3;
-	delete line4;
-	
-	delete firstCorner;
-	delete secondCorner;
-	delete thirdCorner;
-	delete fourthCorner;
-	
-	return code;
-}
-
-void CRChainCodeBlob::reorderChaincode(CRChainCodeElement *first) {
-	std::list<CRChainCodeElement*> *reorderedElements = new std::list<CRChainCodeElement*>();
-	
-	std::list<CRChainCodeElement*>::iterator it = elements->begin();
-	while(it != elements->end()) {
-		if (*it == first)
-			break;
-		++it;
-	}
-	while(it != elements->end()) {
-		reorderedElements->push_back(*it);
-		++it;
-	}
-	it = elements->begin();
-	while(it != elements->end()) {
-		if (*it == first)
-			break;
-		reorderedElements->push_back(*it);
-		++it;
-	}
-	delete elements;
-	elements = reorderedElements;
-}
-
-CRChainCodeElement* CRChainCodeBlob::firstCorner(CRChainCodeElement *third) {
-	int maxLength = 0;
-	CRChainCodeElement* tempFirstCorner = NULL;
-	std::list<CRChainCodeElement*>::iterator it = elements->begin();
-	while(it != elements->end()) {
-		CRChainCodeElement* e = (CRChainCodeElement*)*it;
-		int length = (third->x - e->x) * (third->x - e->x) + (third->y - e->y) * (third->y - e->y);
-		if (length > maxLength) {
-			maxLength = length;
-			tempFirstCorner = e;
-		}
-		++it;
-	}
-	return tempFirstCorner;
-}
-
-CRChainCodeElement* CRChainCodeBlob::secondCorner(CRChainCodeElement *first, CRChainCodeElement *third) {
-	float a = - (float)(third->y - first->y) / (third->x - first->x);
-	float b = 1;
-	float c = - a * first->x - first->y;
-	float maxLength = 0;
-	
-	CRChainCodeElement* tempSecondCorner = NULL;
-	std::list<CRChainCodeElement*>::iterator it = elements->begin();
-	++it;
-	while(it != elements->end()) {
-		CRChainCodeElement* e = (CRChainCodeElement*)*it;
-		
-		if (e == third)
-			break;
-		
-		float temp = fabs(a * e->x + b * e->y + c);
-		
-		if (temp > maxLength) {
-			maxLength = temp;
-			tempSecondCorner = e;
-		}
-		++it;
-	}
-	return tempSecondCorner;
-}
-
-CRChainCodeElement* CRChainCodeBlob::fourthCorner(CRChainCodeElement *first, CRChainCodeElement *third) {
-	float a = - (float)(third->y - first->y) / (third->x - first->x);
-	float b = 1;
-	float c = - a * first->x - first->y;
-	float maxLength = 0;
-	
-	CRChainCodeElement* tempThirdCorner = NULL;
-	std::list<CRChainCodeElement*>::iterator it = elements->begin();
-	while(it != elements->end()) {
-		CRChainCodeElement* e = (CRChainCodeElement*)*it;
-		if (e == third)
-			break;
-		++it;
-	}
-	while(it != elements->end()) {
-		CRChainCodeElement* e = (CRChainCodeElement*)*it;
-		
-		float temp = fabs(a * e->x + b * e->y + c);
-		
-		if (temp > maxLength) {
-			maxLength = temp;
-			tempThirdCorner = e;
-		}
-		++it;
-	}
-	return tempThirdCorner;
-}
-
-CRChainCodeElement* CRChainCodeBlob::thirdCorner() {
-	
-	int maxLength = 0;
-	CRChainCodeElement* tempThirdCorner = NULL;
-	std::list<CRChainCodeElement*>::iterator it = elements->begin();
-	while(it != elements->end()) {
-		CRChainCodeElement* e = (CRChainCodeElement*)*it;
-		int length = (e->x) * (e->x) + (e->y) * (e->y);
-		if (length > maxLength) {
-			maxLength = length;
-			tempThirdCorner = e;
-		}
-		++it;
-	}
-	return tempThirdCorner;
-}
