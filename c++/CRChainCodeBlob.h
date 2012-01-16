@@ -65,6 +65,7 @@ public:
 	int isValid(int width, int height);
 	
 	CRCode* code();
+	CRCode* code_new();
 	CRCode* codeWithoutLSM();
 	CRChainCodeElement* firstCorner(CRChainCodeElement *third);
 	CRChainCodeElement* secondCorner(CRChainCodeElement *first, CRChainCodeElement *third);

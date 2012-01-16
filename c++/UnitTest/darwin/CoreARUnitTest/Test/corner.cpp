@@ -132,6 +132,18 @@ void corner_test() {
 		
 		{
 			_CRTic();
+			CRCode *code = blob->code_new();
+			float e = _CRTocWithoutLog();
+			printf("Estimated corners\n");
+			code->dumpCorners();
+			float error = getErrorAfterOrderingCorners(code, gtCode);
+			printf("Error=%f\n", error);
+			printf("Extract corners\n\t%0.5f[msec]\n\n", e);
+			SAFE_DELETE(code);
+		}
+		
+		{
+			_CRTic();
 			CRCode *code = blob->codeWithoutLSM();
 			float e = _CRTocWithoutLog();
 			printf("Estimated corners without LSM\n");

@@ -237,9 +237,193 @@ CRCode *CRChainCodeBlob::codeWithoutLSM() {
 	return code;
 }
 
-CRCode *CRChainCodeBlob::code() {
+typedef struct _TEMP_DATA {
+	int x;
+	int y;
+	float dx;
+	float dy;
+	int label;
+}DiffData;
+
+void dumpDiffData(DiffData p);
+void dumpDiffData(DiffData p) {
+	printf("------------------------\n");
+	printf(" x=%d\n", p.x);
+	printf(" y=%d\n", p.y);
+	printf("dx=%f\n", p.dx);
+	printf("dy=%f\n", p.dy);
+	printf("label=%d\n", p.label);
+}
+
+CRHomogeneousVec3 *getLineFromDiffList(DiffData *list, int numberOfElements, int targetLabel);
+
+CRHomogeneousVec3 *getLineFromDiffList(DiffData *list, int numberOfElements, int targetLabel) {
+	float sigma_x = 0;
+	float sigma_y = 0;
+	float sigma_xy = 0;
+	float sigma_xx = 0;
+	int n = 0;
+	
+	for (int i = 0; i < numberOfElements; i++) {
+		if ((list+i)->label == targetLabel) {
+			sigma_x += (list+i)->x;
+			sigma_y += (list+i)->y;
+			sigma_xy += ((list+i)->x * (list+i)->y);
+			sigma_xx += ((list+i)->x * (list+i)->x);
+			n++;
+		}
+	}
+	
+	CRHomogeneousVec3 *line = new CRHomogeneousVec3();
+
+	float t = n * sigma_xx - sigma_x * sigma_x;
+	if (t == 0) {
+		line->x = -1;
+		line->y = 0;
+		line->w = list->x;
+	}
+	else {
+		line->x = (n * sigma_xy - sigma_x * sigma_y) / t;
+		line->y = -1;
+		line->w = (sigma_xx * sigma_y- sigma_xy * sigma_x) / t;
+	}
+	
+	return line;
+}
+
+CRCode *CRChainCodeBlob::code_new() {
+	CRCode *code = NULL;
+	
+	DiffData seed[4];
+	CRHomogeneousVec3 *line1 = NULL, *line2 = NULL, *line3 = NULL, *line4 = NULL;
+	CRHomogeneousVec3 *firstCorner = NULL, *secondCorner = NULL, *thirdCorner = NULL, *fourthCorner = NULL;
+
+	int step = 2;
+	
+	int diffListSize = (int)(this->elements->size() - step);
+	DiffData *diffList = (DiffData*)malloc(sizeof(DiffData) * diffListSize);
+	
+	int i = 0;
+	
+	
+	std::list<CRChainCodeElement*>::iterator it = elements->begin();
+	std::list<CRChainCodeElement*>::iterator it_stepped = elements->begin();
+	++it_stepped;
+	++it_stepped;
+	while(i < diffListSize) {
+		CRChainCodeElement* p = (CRChainCodeElement*)*it;
+		CRChainCodeElement* p_next = (CRChainCodeElement*)*it_stepped;
+		
+		diffList[i].x = p->x;
+		diffList[i].y = p->y;
+		diffList[i].dx = p_next->x - p->x;
+		diffList[i].dy = p_next->y - p->y;
+		diffList[i].label = 0;
+		
+		++it_stepped;
+		++it;
+		++i;
+	}
+	
+	// make seed for k-means
+	int seedOffset = diffListSize / 8;
+	int seedSampling = diffListSize / 4;
+	seed[0] = diffList[seedOffset + 0 * seedSampling];
+	seed[1] = diffList[seedOffset + 1 * seedSampling];
+	seed[2] = diffList[seedOffset + 2 * seedSampling];
+	seed[3] = diffList[seedOffset + 3 * seedSampling];
+	
 	if (this->elements->size() < MINIMUM_CHAINCODE_LENGTH)
-		return NULL;
+		goto CODE_NOT_FOUND_EXCEPTION;
+	
+	for (int j = 0; j < 10; j++) {
+		int labelUpdateCounter = 0;
+		
+		for (int i = 0; i < diffListSize; i++) {
+			int newLabel = 0;
+			float length = (diffList[i].dx - seed[0].dx) * (diffList[i].dx - seed[0].dx) + (diffList[i].dy - seed[0].dy) * (diffList[i].dy - seed[0].dy);
+			
+			for (int k = 1; k < 4; k++) {
+				int temp = (diffList[i].dx - seed[k].dx) * (diffList[i].dx - seed[k].dx) + (diffList[i].dy - seed[k].dy) * (diffList[i].dy - seed[k].dy);
+				if (temp < length) {
+					length = temp;
+					newLabel = k;
+				}
+			}
+			
+			// update label
+			if (diffList[i].label != newLabel) {
+				labelUpdateCounter++;
+				diffList[i].label = newLabel;
+			}
+		}
+		
+		// update centroid
+		int seedHistogram[4] = {0, 0, 0, 0};
+		for (int k = 0; k < 4; k++) {
+			seed[k].dx = 0;
+			seed[k].dy = 0;
+		}
+		for (int i = 0; i < diffListSize; i++) {
+			int k = diffList[i].label;
+			seedHistogram[k]++;
+			seed[k].dx += diffList[i].dx;
+			seed[k].dy += diffList[i].dy;
+		}
+		
+		// check number of elements in clusters
+		if (seedHistogram[0] == 0 || seedHistogram[1] == 0 || seedHistogram[2] == 0 || seedHistogram[3] == 0)
+			goto CODE_NOT_FOUND_EXCEPTION;
+		
+		for (int k = 0; k < 4; k++) {
+			seed[k].dx /= seedHistogram[k];
+			seed[k].dy /= seedHistogram[k];
+		}
+		
+		if (labelUpdateCounter == 0)
+			break;
+	}
+	
+	line1 = getLineFromDiffList(diffList, diffListSize, 0);
+	line2 = getLineFromDiffList(diffList, diffListSize, 1);
+	line3 = getLineFromDiffList(diffList, diffListSize, 2);
+	line4 = getLineFromDiffList(diffList, diffListSize, 3);
+	
+	firstCorner  = CRHomogeneousVec3::outerProduct(line4, line1);	firstCorner->normalize();
+	secondCorner = CRHomogeneousVec3::outerProduct(line1, line2);	secondCorner->normalize();
+	thirdCorner  = CRHomogeneousVec3::outerProduct(line2, line3);	thirdCorner->normalize();
+	fourthCorner = CRHomogeneousVec3::outerProduct(line3, line4);	fourthCorner->normalize();
+
+	if (this->isConvex(firstCorner, secondCorner, thirdCorner, fourthCorner) == CR_FALSE)
+		goto CODE_NOT_FOUND_EXCEPTION;
+	
+	// chaincode search algorithm is reverse order.
+	code = new CRCode(firstCorner, fourthCorner, thirdCorner, secondCorner);
+	
+	code->left = this->left;
+	code->right= this->right;
+	code->top = this->top;
+	code->bottom = this->bottom;
+	
+CODE_NOT_FOUND_EXCEPTION:
+	SAFE_DELETE(line1);
+	SAFE_DELETE(line2);
+	SAFE_DELETE(line3);
+	SAFE_DELETE(line4);
+	
+	SAFE_DELETE(firstCorner);
+	SAFE_DELETE(secondCorner);
+	SAFE_DELETE(thirdCorner);
+	SAFE_DELETE(fourthCorner);
+
+	SAFE_FREE(diffList);
+	
+	return code;
+}	
+
+CRCode *CRChainCodeBlob::code() {
+		if (this->elements->size() < MINIMUM_CHAINCODE_LENGTH)
+			return NULL;
 	
 	CRChainCodeElement *thirdCornerElement  = this->thirdCorner();
 	CRChainCodeElement *firstCornerElement  = this->firstCorner(thirdCornerElement);
