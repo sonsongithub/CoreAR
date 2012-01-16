@@ -223,14 +223,12 @@ CRCode *CRChainCodeBlob::code() {
 	int diffListSize = (int)(this->elements->size() - step);
 	CRDiffVectorInfo *diffList = (CRDiffVectorInfo*)malloc(sizeof(CRDiffVectorInfo) * diffListSize);
 	
-	int i = 0;
-	
 	
 	std::list<CRChainCodeElement*>::iterator it = elements->begin();
 	std::list<CRChainCodeElement*>::iterator it_stepped = elements->begin();
 	++it_stepped;
 	++it_stepped;
-	while(i < diffListSize) {
+	for (int i = 0; i < diffListSize; i++) {
 		CRChainCodeElement* p = (CRChainCodeElement*)*it;
 		CRChainCodeElement* p_next = (CRChainCodeElement*)*it_stepped;
 		
@@ -242,7 +240,8 @@ CRCode *CRChainCodeBlob::code() {
 		
 		++it_stepped;
 		++it;
-		++i;
+		if (it_stepped == elements->end()) 
+			break;
 	}
 	
 	// make seed for k-means
