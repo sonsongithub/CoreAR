@@ -100,7 +100,10 @@
 		CRCodeList::iterator it = codeListRef->begin();
 		while(it != codeListRef->end()) {
 			glPushMatrix();
-			glMultMatrixf((*it)->optimizedMatrixGL);
+			float r[4];
+			CRMatrixMat4x42Quaternion(r, (*it)->optimizedMatrix);
+			glTranslatef((*it)->optimizedMatrix[0][3], (*it)->optimizedMatrix[1][3], (*it)->optimizedMatrix[2][3]);
+			glRotatef(r[0]/M_PI*180.0, r[1], r[2], r[3]);
 			drawCube(1);
 			glPopMatrix();
 			++it;

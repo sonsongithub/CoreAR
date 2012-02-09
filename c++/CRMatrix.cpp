@@ -32,6 +32,18 @@
 
 #include <math.h>
 
+// quaternion[4] <= matrix[4][4]
+void CRMatrixMat4x42Quaternion(float *r, float matrix[4][4]) {
+	float theta = acos((matrix[0][0] + matrix[1][1] + matrix[2][2] - 1) * 0.5);
+    float e1 = (matrix[2][1] - matrix[1][2]) / (2 * sin(theta));
+    float e2 = (matrix[0][2] - matrix[2][0]) / (2 * sin(theta));
+    float e3 = (matrix[1][0] - matrix[0][1]) / (2 * sin(theta));
+	r[0] = theta;
+    r[1] = e1;
+	r[2] = e2;
+	r[3] = e3;
+}
+
 // result[6][6] = j[8][6]' * j[8][6]
 void CRMatrixSquaredTransposeMat8x6(float result[6][6], float j[8][6]) {
 	for (int i = 0; i < 6; i++) {

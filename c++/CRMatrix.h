@@ -34,6 +34,9 @@
 
 #include <iostream>
 
+// quaternion[4] <= matrix[4][4]
+void CRMatrixMat4x42Quaternion(float *r, float matrix[4][4]);
+
 // result[6][6] = j[8][6]' * j[8][6]
 void CRMatrixSquaredTransposeMat8x6(float result[6][6], float j[8][6]);
 
