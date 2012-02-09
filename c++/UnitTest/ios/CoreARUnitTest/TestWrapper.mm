@@ -21,6 +21,7 @@
 	homorgraphy_test();
 	rodrigues_test();
 	levenbergMarquardt_test();
+	euler_test();
 }
 
 + (CGImageRef)corner_test {
