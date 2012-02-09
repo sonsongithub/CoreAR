@@ -1,8 +1,8 @@
 /*
  * Core AR
- * test.h
+ * euler.h
  *
- * Copyright (c) Yuichi YOSHIDA, 10/12/02.
+ * Copyright (c) Yuichi YOSHIDA, 11/07/23.
  * All rights reserved.
  * 
  * BSD License
@@ -28,16 +28,4 @@
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef _test_
-#else
-#define _test_
-
-#include "chaincode.h"
-#include "corner.h"
-#include "homography.h"
-#include "codeCropping.h"
-#include "rodrigues.h"
-#include "levenbergMarquardt.h"
-#include "euler.h"
-
-#endif
+void euler_test(void);

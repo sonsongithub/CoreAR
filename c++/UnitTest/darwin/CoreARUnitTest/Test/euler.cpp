@@ -1,8 +1,8 @@
 /*
  * Core AR
- * test.h
+ * euler.cpp
  *
- * Copyright (c) Yuichi YOSHIDA, 10/12/02.
+ * Copyright (c) Yuichi YOSHIDA, 11/07/23.
  * All rights reserved.
  * 
  * BSD License
@@ -28,16 +28,56 @@
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef _test_
-#else
-#define _test_
-
-#include "chaincode.h"
-#include "corner.h"
-#include "homography.h"
-#include "codeCropping.h"
-#include "rodrigues.h"
-#include "levenbergMarquardt.h"
 #include "euler.h"
 
-#endif
+#include <math.h>
+#include "CRMatrix.h"
+#include "CRTest.h"
+
+#define DEGRAD(f) f/180.0f*M_PI;
+
+void euler_test(void) {
+	printf("=================================================>Euler expression <-> rotatation matrix test\n");
+
+	float x = DEGRAD(10);
+	float y = DEGRAD(8);
+	float z = DEGRAD(45);
+	
+	float rot_x[3][3];
+	float rot_y[3][3];
+	float rot_z[3][3];
+
+	rot_x[0][0] = 1;		rot_x[0][1] = 0;		rot_x[0][2] = 0;
+	rot_x[1][0] = 0;		rot_x[1][1] = cos(x);	rot_x[1][2] = -sin(x);
+	rot_x[2][0] = 0;		rot_x[2][1] = sin(x);	rot_x[2][2] =  cos(x);
+	
+	rot_y[0][0] = cos(y);	rot_y[0][1] = 0;		rot_y[0][2] = sin(y);
+	rot_y[1][0] = 0;		rot_y[1][1] = 1;		rot_y[1][2] = 0;
+	rot_y[2][0] = -sin(y);	rot_y[2][1] = 0;		rot_y[2][2] = cos(y);
+	
+	rot_z[0][0] = cos(z);	rot_z[0][1] = -sin(z);	rot_z[0][2] = 0;
+	rot_z[1][0] = sin(z);	rot_z[1][1] = cos(z);	rot_z[1][2] = 0;
+	rot_z[2][0] = 0;		rot_z[2][1] = 0;		rot_z[2][2] = 1;
+	
+	float rot[3][3];
+	
+	{
+		// Rotation matrix = RotZ * RotY * RotX
+		float temp_rot_y_x[3][3];
+		CRMatrixMultiMat3x3Mat3x3(temp_rot_y_x, rot_y, rot_x);
+		CRMatrixMultiMat3x3Mat3x3(rot, rot_z, temp_rot_y_x);
+	}
+	
+	_CRTestShowMatrix3x3(rot);
+	
+	float degrees[4];
+	
+	CRMatrixMat3x32EulerDegrees3(degrees, rot);
+	
+	_CRTestDumpVec(degrees);
+	
+	printf("%lf\n", x);
+	printf("%lf\n", y);
+	printf("%lf\n", z);
+	
+}

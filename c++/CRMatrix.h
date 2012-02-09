@@ -55,4 +55,10 @@ void CRMatrixSquareMat3x3(float result[3][3], float a[3][3]);
 // a[3][3] = scale * a[3][3]
 void CRMatrixScalingMat3x3(float a[3][3], float scale);
 
+// Euler degress(X->Y->Z) <= matrix[4][4]
+void CRMatrixMat4x42EulerDegrees3(float *degrees, float matrix[4][4]);
+
+// Euler degress(X->Y->Z) <= matrix[3][3]
+void CRMatrixMat3x32EulerDegrees3(float *degrees, float matrix[3][3]);
+
 #endif

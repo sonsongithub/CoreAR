@@ -30,5 +30,8 @@ int main (int argc, const char * argv[]) {
 	// test for Levenberg-Marquardt algorithm
 	levenbergMarquardt_test();
 	
+	// test for Euler degree conversion
+	euler_test();
+	
     return 0;
 }

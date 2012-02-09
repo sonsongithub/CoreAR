@@ -99,3 +99,41 @@ void CRMatrixScalingMat3x3(float a[3][3], float scale) {
 		a[i][2] = a[i][2] * scale;
 	}
 }
+
+// Euler degress(X->Y->Z) <= matrix[4][4]
+void CRMatrixMat4x42EulerDegrees3(float *degrees, float matrix[4][4]) {
+	float x = 0;
+	float y = asinf(-matrix[2][0]);
+	float z = 0;
+	
+	if (cos(y) == 0) {
+		x = atan2f(matrix[0][1], matrix[0][2]);
+	}
+	else {
+		x = atan2f(matrix[2][1], matrix[2][2]);
+		z = atan2f(matrix[0][0], matrix[1][0]);
+	}
+	
+	degrees[0] = x;
+	degrees[1] = y;
+	degrees[2] = z;
+}
+
+// Euler degress(X->Y->Z) <= matrix[3][3]
+void CRMatrixMat3x32EulerDegrees3(float *degrees, float matrix[3][3]) {
+	float x = 0;
+	float y = asinf(-matrix[2][0]);
+	float z = 0;
+	
+	if (cos(y) == 0) {
+		x = atan2f(matrix[0][1], matrix[0][2]);
+	}
+	else {
+		x = atan2f(matrix[2][1], matrix[2][2]);
+		z = atan2f(matrix[0][0], matrix[1][0]);
+	}
+	
+	degrees[0] = x;
+	degrees[1] = y;
+	degrees[2] = z;
+}

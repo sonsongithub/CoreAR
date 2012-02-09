@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		148346D014E3B1E90097A1DB /* CRMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148346CE14E3B1E90097A1DB /* CRMatrix.cpp */; };
+		148346D414E3B26C0097A1DB /* euler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148346D214E3B26C0097A1DB /* euler.cpp */; };
 		1488138014209C98004BCE14 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1488137F14209C98004BCE14 /* main.cpp */; };
 		1488138214209C98004BCE14 /* CoreARUnitTest.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1488138114209C98004BCE14 /* CoreARUnitTest.1 */; };
 		148DF7F71421963A0011CF9F /* chaincode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148DF7EF1421963A0011CF9F /* chaincode.cpp */; };
@@ -40,6 +42,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		148346CE14E3B1E90097A1DB /* CRMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRMatrix.cpp; path = ../../CRMatrix.cpp; sourceTree = "<group>"; };
+		148346CF14E3B1E90097A1DB /* CRMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRMatrix.h; path = ../../CRMatrix.h; sourceTree = "<group>"; };
+		148346D214E3B26C0097A1DB /* euler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = euler.cpp; sourceTree = "<group>"; };
+		148346D314E3B26C0097A1DB /* euler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = euler.h; sourceTree = "<group>"; };
 		1488137B14209C98004BCE14 /* CoreARUnitTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CoreARUnitTest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1488137F14209C98004BCE14 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		1488138114209C98004BCE14 /* CoreARUnitTest.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = CoreARUnitTest.1; sourceTree = "<group>"; };
@@ -120,6 +126,8 @@
 		148DF7EE1421963A0011CF9F /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				148346D214E3B26C0097A1DB /* euler.cpp */,
+				148346D314E3B26C0097A1DB /* euler.h */,
 				148DF813142199C80011CF9F /* test.h */,
 				148DF7EF1421963A0011CF9F /* chaincode.cpp */,
 				148DF7F01421963A0011CF9F /* chaincode.h */,
@@ -157,6 +165,8 @@
 				14FFF4A71423183B00AB1711 /* CRLevenbergMarquardt.h */,
 				14FFF4A81423183B00AB1711 /* CRRodrigues.cpp */,
 				14FFF4A91423183B00AB1711 /* CRRodrigues.h */,
+				148346CE14E3B1E90097A1DB /* CRMatrix.cpp */,
+				148346CF14E3B1E90097A1DB /* CRMatrix.h */,
 				14FFF4AA1423183B00AB1711 /* CRTest.cpp */,
 				14FFF4AB1423183B00AB1711 /* CRTest.h */,
 			);
@@ -228,6 +238,8 @@
 				14FFF4B11423183B00AB1711 /* CRLevenbergMarquardt.cpp in Sources */,
 				14FFF4B21423183B00AB1711 /* CRRodrigues.cpp in Sources */,
 				14FFF4B31423183B00AB1711 /* CRTest.cpp in Sources */,
+				148346D014E3B1E90097A1DB /* CRMatrix.cpp in Sources */,
+				148346D414E3B26C0097A1DB /* euler.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -35,6 +35,7 @@
 
 #include "CRTest.h"
 
+// matrix function for test
 void _CRTestMultiMat4x4Mat4x4(float result[4][4], float a[4][4], float b[4][4]);
 void _CRTestMultiMat4x4Vec4x1(float result[4], float a[4][4], float x[4]);
 void _CRTestDumpMat(float matrix[4][4]);
