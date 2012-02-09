@@ -44,7 +44,7 @@ void CRGetMatrixFromHessianAndLambda(float hessian_dash[6][6], float hessian[6][
 	}
 }
 
-void CRGetDeltaParameter(float delta_param[6], float jacobian[8][6], float hessian[6][6], float error[8], float lambda) {
+void CRGetDifferenceRodriguesRotPos(float delta_param[6], float jacobian[8][6], float hessian[6][6], float error[8], float lambda) {
 	float hessian_dash[6][6];
 	
 	//	_CRTestShowMatrix6x6(hessian);

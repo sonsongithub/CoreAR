@@ -35,7 +35,7 @@ void CRRTMatrix2RodriguesRotPos(float *param, float matrix[4][4]);
 
 void CRRodriguesRotPos2RTMatrix(float *param, float matrix[4][4]);
 
-void CRGetDeltaParameter(float delta_param[6], float jacobian[8][6], float hessian[6][6], float error[8], float lambda);
+void CRGetDifferenceRodriguesRotPos(float delta_param[6], float jacobian[8][6], float hessian[6][6], float error[8], float lambda);
 
 void CRGetCurrentErrorAndJacobian(float jacobian[8][6], float hessian[6][6], float *error, float *param, CRCode *gtCode, float codeSize);
 

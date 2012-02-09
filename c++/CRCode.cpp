@@ -136,7 +136,7 @@ void CRCode::optimizeRTMatrinxWithLevenbergMarquardtMethod() {
 	for (int i = 0; i < 100; i++) {
 		float p_temp[6];
 		
-		CRGetDeltaParameter(delta_param, jacobian, hessian, error, lambda);
+		CRGetDifferenceRodriguesRotPos(delta_param, jacobian, hessian, error, lambda);
 		
 		p_temp[0] = initialiRodriguesRotPos[0] + delta_param[0];
 		p_temp[1] = initialiRodriguesRotPos[1] + delta_param[1];
