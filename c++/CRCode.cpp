@@ -117,9 +117,9 @@ void CRCode::optimizeRTMatrinxWithLevenbergMarquardtMethod() {
 	float lambda = 0.004;
 	float theshold = 0.0001;
 	
-	float initial_p[6];
+	float initialiRodriguesRotPos[6];
 	
-	CRRTMatrix2Parameters(initial_p, this->matrix);
+	CRRTMatrix2RodriguesRotPos(initialiRodriguesRotPos, this->matrix);
 	
 	float codeSize = 1;
 	
@@ -129,7 +129,7 @@ void CRCode::optimizeRTMatrinxWithLevenbergMarquardtMethod() {
 	
 	float delta_param[6];
 	
-	CRGetCurrentErrorAndJacobian(jacobian, hessian, error, initial_p, this, codeSize);
+	CRGetCurrentErrorAndJacobian(jacobian, hessian, error, initialiRodriguesRotPos, this, codeSize);
 	
 	float c = CRSumationOfSquaredVec8(error);
 	
@@ -138,12 +138,12 @@ void CRCode::optimizeRTMatrinxWithLevenbergMarquardtMethod() {
 		
 		CRGetDeltaParameter(delta_param, jacobian, hessian, error, lambda);
 		
-		p_temp[0] = initial_p[0] + delta_param[0];
-		p_temp[1] = initial_p[1] + delta_param[1];
-		p_temp[2] = initial_p[2] + delta_param[2];
-		p_temp[3] = initial_p[3] + delta_param[3];
-		p_temp[4] = initial_p[4] + delta_param[4];
-		p_temp[5] = initial_p[5] + delta_param[5];
+		p_temp[0] = initialiRodriguesRotPos[0] + delta_param[0];
+		p_temp[1] = initialiRodriguesRotPos[1] + delta_param[1];
+		p_temp[2] = initialiRodriguesRotPos[2] + delta_param[2];
+		p_temp[3] = initialiRodriguesRotPos[3] + delta_param[3];
+		p_temp[4] = initialiRodriguesRotPos[4] + delta_param[4];
+		p_temp[5] = initialiRodriguesRotPos[5] + delta_param[5];
 		
 		float error_dash[8];
 		
@@ -159,23 +159,23 @@ void CRCode::optimizeRTMatrinxWithLevenbergMarquardtMethod() {
 		else {
 			lambda /= 10;
 			c = c_dash;
-			initial_p[0] = p_temp[0];
-			initial_p[1] = p_temp[1];
-			initial_p[2] = p_temp[2];
-			initial_p[3] = p_temp[3];
-			initial_p[4] = p_temp[4];
-			initial_p[5] = p_temp[5];
+			initialiRodriguesRotPos[0] = p_temp[0];
+			initialiRodriguesRotPos[1] = p_temp[1];
+			initialiRodriguesRotPos[2] = p_temp[2];
+			initialiRodriguesRotPos[3] = p_temp[3];
+			initialiRodriguesRotPos[4] = p_temp[4];
+			initialiRodriguesRotPos[5] = p_temp[5];
 			float delta = CRSumationOfSquaredVec6(delta_param);
 			
 			if (delta < theshold) {
 				_DPRINTF("Last error=%+7.2f, iteration times=%d\n\n", c_dash, i);
 				break;
 			}
-			CRGetCurrentErrorAndJacobian(jacobian, hessian, error, initial_p, this, codeSize);
+			CRGetCurrentErrorAndJacobian(jacobian, hessian, error, initialiRodriguesRotPos, this, codeSize);
 		}
 	}
 	
-	CRParameters2RTMatrix(initial_p, this->optimizedMatrix);
+	CRRodriguesRotPos2RTMatrix(initialiRodriguesRotPos, this->optimizedMatrix);
 	
 	optimizedMatrixGL[ 0] = optimizedMatrix[0][0];	optimizedMatrixGL[ 4] = optimizedMatrix[0][1];	optimizedMatrixGL[ 8] = optimizedMatrix[0][2];	optimizedMatrixGL[12] = optimizedMatrix[0][3];
 	optimizedMatrixGL[ 1] = optimizedMatrix[1][0];	optimizedMatrixGL[ 5] = optimizedMatrix[1][1];	optimizedMatrixGL[ 9] = optimizedMatrix[1][2];	optimizedMatrixGL[13] = optimizedMatrix[1][3];

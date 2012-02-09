@@ -40,6 +40,7 @@
 #include "CRCode.h"
 #include "CRHomogeneousVec3.h"
 #include "CRRodrigues.h"
+#include "CRMatrix.h"
 #include "CRCommon.h"
 
 #include <list>

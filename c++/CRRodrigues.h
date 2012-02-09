@@ -34,8 +34,6 @@
 
 #include <iostream>
 
-#include "CRRodrigues.h"
-
 void testCRRodrigues();
 
 void CRRodriguesMatrix4x42R(float *r, float matrix[4][4]);

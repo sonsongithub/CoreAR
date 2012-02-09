@@ -31,31 +31,11 @@
 #include "CRLevenbergMarquardt.h"
 #include "CRRodrigues.h"
 #include "CRCommon.h"
+#include "CRMatrix.h"
 #include <Accelerate/Accelerate.h>
 
-void _CRTestMultiMat3x3Mat3x3(float result[3][3], float a[3][3], float b[3][3]) {
-	//result = a * b;
-	for (int i = 0; i < 3; i++) {
-		result[i][0] = a[i][0] * b[0][0] + a[i][1] * b[1][0] + a[i][2] * b[2][0];
-		result[i][1] = a[i][0] * b[0][1] + a[i][1] * b[1][1] + a[i][2] * b[2][1];
-		result[i][2] = a[i][0] * b[0][2] + a[i][1] * b[1][2] + a[i][2] * b[2][2];
-	}
-}
-
-void _CRTestMultiMat2x3Mat3x3(float result[2][3], float a[2][3], float b[3][3]) {
-	//result = a * b;
-	for (int i = 0; i < 2; i++) {
-		result[i][0] = a[i][0] * b[0][0] + a[i][1] * b[1][0] + a[i][2] * b[2][0];
-		result[i][1] = a[i][0] * b[0][1] + a[i][1] * b[1][1] + a[i][2] * b[2][1];
-		result[i][2] = a[i][0] * b[0][2] + a[i][1] * b[1][2] + a[i][2] * b[2][2];
-	}
-}
-
-void _CRTestMultiTransposeMat8x6Vec8(float result[6], float j[8][6], float vec[8]) {
-	for (int i = 0; i < 6; i++) {
-		result[i] = j[0][i] * vec[0] + j[1][i] * vec[1] + j[2][i] * vec[2] + j[3][i] * vec[3] + j[4][i] * vec[4] + j[5][i] * vec[5] + j[6][i] * vec[6] + j[7][i] * vec[7];
-	}
-}
+// private
+void CRGetMatrixFromHessianAndLambda(float hessian_dash[6][6], float hessian[6][6], float lambda);
 
 void CRGetMatrixFromHessianAndLambda(float hessian_dash[6][6], float hessian[6][6], float lambda) {
 	memcpy(hessian_dash, hessian, sizeof(float)*36);
@@ -71,7 +51,7 @@ void CRGetDeltaParameter(float delta_param[6], float jacobian[8][6], float hessi
 	
 	CRGetMatrixFromHessianAndLambda(hessian_dash, hessian, lambda);
 	
-	_CRTestMultiTransposeMat8x6Vec8(delta_param, jacobian, error);
+	CRMatrixMultiTransposeMat8x6Vec8(delta_param, jacobian, error);
 	
 	for (int i = 0; i < 6; i++) {
 		delta_param[i] = -delta_param[i];
@@ -93,27 +73,14 @@ float CRSumationOfSquaredVec8(float vec[8]) {
 	return vec[0]*vec[0] + vec[1]*vec[1] + vec[2]*vec[2] + vec[3]*vec[3] + vec[4]*vec[4] + vec[5]*vec[5] + vec[6]*vec[6] + vec[7]*vec[7];
 }
 
-void _CRTestMultiTransposeMat8x6Mat8x6(float result[6][6], float j[8][6]) {
-	//result = a * b;
-	for (int i = 0; i < 6; i++) {
-		result[i][0] = j[0][i] * j[0][0] + j[1][i] * j[1][0] + j[2][i] * j[2][0] + j[3][i] * j[3][0] + j[4][i] * j[4][0] + j[5][i] * j[5][0] + j[6][i] * j[6][0] + j[7][i] * j[7][0];
-		result[i][1] = j[0][i] * j[0][1] + j[1][i] * j[1][1] + j[2][i] * j[2][1] + j[3][i] * j[3][1] + j[4][i] * j[4][1] + j[5][i] * j[5][1] + j[6][i] * j[6][1] + j[7][i] * j[7][1];
-		result[i][2] = j[0][i] * j[0][2] + j[1][i] * j[1][2] + j[2][i] * j[2][2] + j[3][i] * j[3][2] + j[4][i] * j[4][2] + j[5][i] * j[5][2] + j[6][i] * j[6][2] + j[7][i] * j[7][2];
-		result[i][3] = j[0][i] * j[0][3] + j[1][i] * j[1][3] + j[2][i] * j[2][3] + j[3][i] * j[3][3] + j[4][i] * j[4][3] + j[5][i] * j[5][3] + j[6][i] * j[6][3] + j[7][i] * j[7][3];
-		result[i][4] = j[0][i] * j[0][4] + j[1][i] * j[1][4] + j[2][i] * j[2][4] + j[3][i] * j[3][4] + j[4][i] * j[4][4] + j[5][i] * j[5][4] + j[6][i] * j[6][4] + j[7][i] * j[7][4];
-		result[i][5] = j[0][i] * j[0][5] + j[1][i] * j[1][5] + j[2][i] * j[2][5] + j[3][i] * j[3][5] + j[4][i] * j[4][5] + j[5][i] * j[5][5] + j[6][i] * j[6][5] + j[7][i] * j[7][5];
-		
-	}
-}
-
-void CRRTMatrix2Parameters(float *param, float matrix[4][4]) {
+void CRRTMatrix2RodriguesRotPos(float *param, float matrix[4][4]) {
 	CRRodriguesMatrix4x42R(param, matrix);
 	param[3] = matrix[0][3];
 	param[4] = matrix[1][3];
 	param[5] = matrix[2][3];
 }
 
-void CRParameters2RTMatrix(float *param, float matrix[4][4]) {
+void CRRodriguesRotPos2RTMatrix(float *param, float matrix[4][4]) {
 	CRRodriguesR2Matrix4x4(param, matrix);
 	matrix[0][3] = param[3];
 	matrix[1][3] = param[4];
@@ -124,7 +91,6 @@ void CRParameters2RTMatrix(float *param, float matrix[4][4]) {
 	matrix[3][3] = 1;
 }
 
-
 void CRGetCurrentErrorAndJacobian(float jacobian[8][6], float hessian[6][6], float *error, float *param, CRCode *gtCode, float codeSize) {
 	float points[2][4];
 	float pointsHomo[3][4];
@@ -132,7 +98,7 @@ void CRGetCurrentErrorAndJacobian(float jacobian[8][6], float hessian[6][6], flo
 	float originalPoint[4][4];
 	
 	float rt[4][4];
-	CRParameters2RTMatrix(param, rt);
+	CRRodriguesRotPos2RTMatrix(param, rt);
 	
 	originalPoint[0][0] =  0;	originalPoint[0][1] =  codeSize;	originalPoint[0][2] =  codeSize;	originalPoint[0][3] =  0;
 	originalPoint[1][0] =  0;	originalPoint[1][1] =  0;			originalPoint[1][2] =  codeSize;	originalPoint[1][3] =  codeSize;
@@ -168,7 +134,7 @@ void CRGetCurrentErrorAndJacobian(float jacobian[8][6], float hessian[6][6], flo
 	
 	if (jacobian != NULL) {
 		CRGetJacobian(jacobian, pointsHomo, originalPoint, param);
-		_CRTestMultiTransposeMat8x6Mat8x6(hessian, jacobian);
+		CRMatrixSquaredTransposeMat8x6(hessian, jacobian);
 	}
 }
 
@@ -191,8 +157,8 @@ void CRGetJacobian(float jacobian[8][6], float pointsHomo[3][4], float originalP
 		m4[2][0] =  originalPoint[1][num];	m4[2][1] = -originalPoint[0][num];	m4[2][2] =  0;
 		
 		
-		_CRTestMultiMat3x3Mat3x3(m5, m3, m4);
-		_CRTestMultiMat2x3Mat3x3(m6, m2, m5);
+		CRMatrixMultiMat3x3Mat3x3(m5, m3, m4);
+		CRMatrixMultiMat2x3Mat3x3(m6, m2, m5);
 		
 		jacobian[num*2  ][0] = m6[0][0];	jacobian[num*2  ][1] = m6[0][1];	jacobian[num*2  ][2] = m6[0][2];
 		jacobian[num*2+1][0] = m6[1][0];	jacobian[num*2+1][1] = m6[1][1];	jacobian[num*2+1][2] = m6[1][2];

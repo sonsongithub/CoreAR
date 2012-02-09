@@ -42,6 +42,8 @@
 		14830B6714260BF300B3E7B7 /* CoreARSampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14830B6514260BF300B3E7B7 /* CoreARSampleViewController.xib */; };
 		14C2337C14282F0400B3B23A /* glcube.c in Sources */ = {isa = PBXBuildFile; fileRef = 14C2337A14282F0400B3B23A /* glcube.c */; };
 		14C2337E14282F6800B3B23A /* CoreARSampleViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14C2337D14282F6800B3B23A /* CoreARSampleViewController.mm */; };
+		14D2ABEC14E36520009EC64E /* CRMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14D2ABEA14E36520009EC64E /* CRMatrix.cpp */; };
+		14D2ABF014E3653C009EC64E /* CRTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14D2ABEE14E3653B009EC64E /* CRTest.cpp */; };
 		14F7C446142AFA08009195AD /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14F7C444142AFA08009195AD /* MainWindow-iPad.xib */; };
 /* End PBXBuildFile section */
 
@@ -71,7 +73,7 @@
 		14617D8B14260C570022DDA1 /* CRCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRCommon.h; path = ../../CRCommon.h; sourceTree = "<group>"; };
 		14617D8C14260C570022DDA1 /* CRHomogeneousVec3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRHomogeneousVec3.cpp; path = ../../CRHomogeneousVec3.cpp; sourceTree = "<group>"; };
 		14617D8D14260C570022DDA1 /* CRHomogeneousVec3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRHomogeneousVec3.h; path = ../../CRHomogeneousVec3.h; sourceTree = "<group>"; };
-		14617D8E14260C570022DDA1 /* CRLevenbergMarquardt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRLevenbergMarquardt.cpp; path = ../../CRLevenbergMarquardt.cpp; sourceTree = "<group>"; };
+		14617D8E14260C570022DDA1 /* CRLevenbergMarquardt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = CRLevenbergMarquardt.cpp; path = ../../CRLevenbergMarquardt.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		14617D8F14260C570022DDA1 /* CRLevenbergMarquardt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRLevenbergMarquardt.h; path = ../../CRLevenbergMarquardt.h; sourceTree = "<group>"; };
 		14617D9014260C570022DDA1 /* CRRodrigues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRRodrigues.cpp; path = ../../CRRodrigues.cpp; sourceTree = "<group>"; };
 		14617D9114260C570022DDA1 /* CRRodrigues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRRodrigues.h; path = ../../CRRodrigues.h; sourceTree = "<group>"; };
@@ -101,6 +103,10 @@
 		14C2337A14282F0400B3B23A /* glcube.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glcube.c; sourceTree = "<group>"; };
 		14C2337B14282F0400B3B23A /* glcube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glcube.h; sourceTree = "<group>"; };
 		14C2337D14282F6800B3B23A /* CoreARSampleViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CoreARSampleViewController.mm; sourceTree = "<group>"; };
+		14D2ABEA14E36520009EC64E /* CRMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = CRMatrix.cpp; path = ../../CRMatrix.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		14D2ABEB14E36520009EC64E /* CRMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = CRMatrix.h; path = ../../CRMatrix.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		14D2ABEE14E3653B009EC64E /* CRTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRTest.cpp; path = ../../CRTest.cpp; sourceTree = "<group>"; };
+		14D2ABEF14E3653B009EC64E /* CRTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRTest.h; path = ../../CRTest.h; sourceTree = "<group>"; };
 		14F7C445142AFA08009195AD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/MainWindow-iPad.xib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -167,6 +173,10 @@
 				14617D8F14260C570022DDA1 /* CRLevenbergMarquardt.h */,
 				14617D9014260C570022DDA1 /* CRRodrigues.cpp */,
 				14617D9114260C570022DDA1 /* CRRodrigues.h */,
+				14D2ABEA14E36520009EC64E /* CRMatrix.cpp */,
+				14D2ABEB14E36520009EC64E /* CRMatrix.h */,
+				14D2ABEE14E3653B009EC64E /* CRTest.cpp */,
+				14D2ABEF14E3653B009EC64E /* CRTest.h */,
 			);
 			name = CoreAR;
 			sourceTree = "<group>";
@@ -338,6 +348,8 @@
 				14147499142820C2003FB536 /* GLOverlayView.mm in Sources */,
 				14C2337C14282F0400B3B23A /* glcube.c in Sources */,
 				14C2337E14282F6800B3B23A /* CoreARSampleViewController.mm in Sources */,
+				14D2ABEC14E36520009EC64E /* CRMatrix.cpp in Sources */,
+				14D2ABF014E3653C009EC64E /* CRTest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

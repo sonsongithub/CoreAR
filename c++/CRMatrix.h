@@ -1,8 +1,8 @@
 /*
  * Core AR
- * CRTest.h
+ * CRMatrix.h
  *
- * Copyright (c) Yuichi YOSHIDA, 10/12/02.
+ * Copyright (c) Yuichi YOSHIDA, 12/02/09.
  * All rights reserved.
  * 
  * BSD License
@@ -28,25 +28,28 @@
  * HE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "CRHomogeneousVec3.h"
+#ifdef _CRMATIRX_CPP_
+#else
+#define _CRMATIRX_CPP_
 
-void _CRTestShowMatrix8x6(float x[8][6]);
-void _CRTestShowMatrix6x6(float x[6][6]);
-void _CRTestShowMatrix2x3(float x[2][3]);
-void _CRTestShowMatrix2x4(float x[2][4]);
-void _CRTestShowMatrix3x4(float x[3][4]);
-void _CRTestShowMatrix4x4(float x[4][4]);
-void _CRTestShowMatrix3x3(float x[3][3]);
+#include <iostream>
 
-void _CRTestShowVec3(float vec[3]);
-void _CRTestShowVec6(float vec[6]);
-void _CRTestShowVec8(float vec[8]);
+// result[6][6] = j[8][6]' * j[8][6]
+void CRMatrixSquaredTransposeMat8x6(float result[6][6], float j[8][6]);
 
-float getDifferenceBetweenVectors(CRHomogeneousVec3 *p1, CRHomogeneousVec3 *p2);
-void _CRTestDumpPixel(unsigned char* pixel, int width, int height);
-void _CRTestDumpMat(float matrix[4][4]);
-void _CRTestDumpVec(float vec[4]);
-void _CRTestMakeSimplePixelData(unsigned char **output_pixel, int *output_width, int *output_height);
-void _CRTestMakePixelDataAndPMatrixWithProjectionSettingAndCodeSize(float codeSize, float pMatrix[4][4], unsigned char **output_pixel, int width, int height, CRHomogeneousVec3* projected_corners, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt);
-void _CRTestMakePixelDataAndPMatrixWithProjectionSetting(float pMatrix[4][4], unsigned char **output_pixel, int width, int height, CRHomogeneousVec3* projected_corners, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt);
-void _CRTestMakePixelDataWithProjectionSetting(unsigned char **output_pixel, int width, int height, CRHomogeneousVec3* projected_corners, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt);
+// result[6] = j[8][6]' * vec[8]
+void CRMatrixMultiTransposeMat8x6Vec8(float result[6], float j[8][6], float vec[8]);
+
+// result[3][3] = a[3][3] * b[3][3]
+void CRMatrixMultiMat3x3Mat3x3(float result[3][3], float a[3][3], float b[3][3]);
+
+// result[2][3] = a[2][3] * b[3][3]
+void CRMatrixMultiMat2x3Mat3x3(float result[2][3], float a[2][3], float b[3][3]);
+
+// result[3][3] = a[3][3] * a[3][3]'
+void CRMatrixSquareMat3x3(float result[3][3], float a[3][3]);
+
+// a[3][3] = scale * a[3][3]
+void CRMatrixScalingMat3x3(float a[3][3], float scale);
+
+#endif

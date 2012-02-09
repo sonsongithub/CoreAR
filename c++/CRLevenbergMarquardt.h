@@ -30,15 +30,17 @@
 
 #include "CRCode.h"
 
+// public
+void CRRTMatrix2RodriguesRotPos(float *param, float matrix[4][4]);
+
+void CRRodriguesRotPos2RTMatrix(float *param, float matrix[4][4]);
+
 void CRGetDeltaParameter(float delta_param[6], float jacobian[8][6], float hessian[6][6], float error[8], float lambda);
-float CRSumationOfSquaredVec6(float vec[6]);
-float CRSumationOfSquaredVec8(float vec[8]);
-void _CRTestMultiTransposeMat8x6Mat8x6(float result[6][6], float j[8][6]);
-void CRRTMatrix2Parameters(float *param, float matrix[4][4]);
-void CRParameters2RTMatrix(float *param, float matrix[4][4]);
+
 void CRGetCurrentErrorAndJacobian(float jacobian[8][6], float hessian[6][6], float *error, float *param, CRCode *gtCode, float codeSize);
+
+float CRSumationOfSquaredVec6(float vec[6]);
+
+float CRSumationOfSquaredVec8(float vec[8]);
+
 void CRGetJacobian(float jacobian[8][6], float pointsHomo[3][4], float originalPoint[4][4], float *param);
-void CRGetMatrixFromHessianAndLambda(float hessian_dash[6][6], float hessian[6][6], float lambda);
-void _CRTestMultiTransposeMat8x6Vec8(float result[6], float j[8][6], float vec[8]);
-void _CRTestMultiMat3x3Mat3x3(float result[3][3], float a[3][3], float b[3][3]);
-void _CRTestMultiMat2x3Mat3x3(float result[2][3], float a[2][3], float b[3][3]);

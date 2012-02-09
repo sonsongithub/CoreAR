@@ -31,33 +31,7 @@
 #include "CRRodrigues.h"
 
 #include <math.h>
-
-static void _CRRodriguesMultiMat3x3Mat3x3(float result[3][3], float a[3][3], float b[3][3]) {
-	// result = a * b;
-	for (int i = 0; i < 3; i++) {
-		result[i][0] = a[i][0] * b[0][0] + a[i][1] * b[1][0] + a[i][2] * b[2][0];
-		result[i][1] = a[i][0] * b[0][1] + a[i][1] * b[1][1] + a[i][2] * b[2][1];
-		result[i][2] = a[i][0] * b[0][2] + a[i][1] * b[1][2] + a[i][2] * b[2][2];
-	}
-}
-
-static void _CRRodriguesSquareMat3x3(float result[3][3], float a[3][3]) {
-	// result = a * a;
-	for (int i = 0; i < 3; i++) {
-		result[i][0] = a[i][0] * a[0][0] + a[i][1] * a[1][0] + a[i][2] * a[2][0];
-		result[i][1] = a[i][0] * a[0][1] + a[i][1] * a[1][1] + a[i][2] * a[2][1];
-		result[i][2] = a[i][0] * a[0][2] + a[i][1] * a[1][2] + a[i][2] * a[2][2];
-	}
-}
-
-static void _CRRodriguesScalingMat3x3(float a[3][3], float scale) {
-	// a = scale * a;
-	for (int i = 0; i < 3; i++) {
-		a[i][0] = a[i][0] * scale;
-		a[i][1] = a[i][1] * scale;
-		a[i][2] = a[i][2] * scale;
-	}
-}
+#include "CRMatrix.h"
 
 void CRRodriguesR2Matrix4x4(float *r, float matrix[4][4]) {
 	float theta = sqrt(r[0]*r[0] + r[1]*r[1] + r[2]*r[2]);
@@ -70,10 +44,10 @@ void CRRodriguesR2Matrix4x4(float *r, float matrix[4][4]) {
 	rx[1][0] =  r[2];	rx[1][1] =     0;	rx[1][2] = -r[0];
 	rx[2][0] = -r[1];	rx[2][1] =  r[0];	rx[2][2] =     0;
 	
-	_CRRodriguesSquareMat3x3(rx2, rx);
+	CRMatrixSquareMat3x3(rx2, rx);
 	
-	_CRRodriguesScalingMat3x3(rx, sinf(theta)/theta);
-	_CRRodriguesScalingMat3x3(rx2, (1-cosf(theta))/theta/theta);
+	CRMatrixScalingMat3x3(rx, sinf(theta)/theta);
+	CRMatrixScalingMat3x3(rx2, (1-cosf(theta))/theta/theta);
 	
 	matrix[0][0] = 1 + rx[0][0] + rx2[0][0];	matrix[0][1] = 0 + rx[0][1] + rx2[0][1];	matrix[0][2] = 0 + rx[0][2] + rx2[0][2];
 	matrix[1][0] = 0 + rx[1][0] + rx2[1][0];	matrix[1][1] = 1 + rx[1][1] + rx2[1][1];	matrix[1][2] = 0 + rx[1][2] + rx2[1][2];
@@ -91,10 +65,10 @@ void CRRodriguesR2Matrix(float *r, float matrix[3][3]) {
 	rx[1][0] =  r[2];	rx[1][1] =     0;	rx[1][2] = -r[0];
 	rx[2][0] = -r[1];	rx[2][1] =  r[0];	rx[2][2] =     0;
 	
-	_CRRodriguesSquareMat3x3(rx2, rx);
+	CRMatrixSquareMat3x3(rx2, rx);
 	
-	_CRRodriguesScalingMat3x3(rx, sinf(theta)/theta);
-	_CRRodriguesScalingMat3x3(rx2, (1-cosf(theta))/theta/theta);
+	CRMatrixScalingMat3x3(rx, sinf(theta)/theta);
+	CRMatrixScalingMat3x3(rx2, (1-cosf(theta))/theta/theta);
 	
 	matrix[0][0] = 1 + rx[0][0] + rx2[0][0];	matrix[0][1] = 0 + rx[0][1] + rx2[0][1];	matrix[0][2] = 0 + rx[0][2] + rx2[0][2];
 	matrix[1][0] = 0 + rx[1][0] + rx2[1][0];	matrix[1][1] = 1 + rx[1][1] + rx2[1][1];	matrix[1][2] = 0 + rx[1][2] + rx2[1][2];
