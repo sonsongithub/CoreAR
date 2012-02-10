@@ -43,36 +43,39 @@ void euler_test(void) {
 	float y = DEGRAD(8);
 	float z = DEGRAD(45);
 	
-	float rot_x[3][3];
-	float rot_y[3][3];
-	float rot_z[3][3];
+	float rot_x[4][4];
+	float rot_y[4][4];
+	float rot_z[4][4];
 
-	rot_x[0][0] = 1;		rot_x[0][1] = 0;		rot_x[0][2] = 0;
-	rot_x[1][0] = 0;		rot_x[1][1] = cos(x);	rot_x[1][2] = -sin(x);
-	rot_x[2][0] = 0;		rot_x[2][1] = sin(x);	rot_x[2][2] =  cos(x);
+	rot_x[0][0] = 1;		rot_x[0][1] = 0;		rot_x[0][2] = 0;		rot_x[0][3] = 0;
+	rot_x[1][0] = 0;		rot_x[1][1] = cos(x);	rot_x[1][2] = -sin(x);	rot_x[1][3] = 0;
+	rot_x[2][0] = 0;		rot_x[2][1] = sin(x);	rot_x[2][2] =  cos(x);	rot_x[2][3] = 0;
+	rot_x[3][0] = 0;		rot_x[3][1] = 0;		rot_x[3][2] = 0;		rot_x[3][3] = 1;
 	
-	rot_y[0][0] = cos(y);	rot_y[0][1] = 0;		rot_y[0][2] = sin(y);
-	rot_y[1][0] = 0;		rot_y[1][1] = 1;		rot_y[1][2] = 0;
-	rot_y[2][0] = -sin(y);	rot_y[2][1] = 0;		rot_y[2][2] = cos(y);
+	rot_y[0][0] = cos(y);	rot_y[0][1] = 0;		rot_y[0][2] = sin(y);	rot_y[0][3] = 0;
+	rot_y[1][0] = 0;		rot_y[1][1] = 1;		rot_y[1][2] = 0;		rot_y[1][3] = 0;
+	rot_y[2][0] = -sin(y);	rot_y[2][1] = 0;		rot_y[2][2] = cos(y);	rot_y[2][3] = 0;
+	rot_y[3][0] = 0;		rot_y[3][1] = 0;		rot_y[3][2] = 0;		rot_y[3][3] = 1;
 	
-	rot_z[0][0] = cos(z);	rot_z[0][1] = -sin(z);	rot_z[0][2] = 0;
-	rot_z[1][0] = sin(z);	rot_z[1][1] = cos(z);	rot_z[1][2] = 0;
-	rot_z[2][0] = 0;		rot_z[2][1] = 0;		rot_z[2][2] = 1;
+	rot_z[0][0] = cos(z);	rot_z[0][1] = -sin(z);	rot_z[0][2] = 0;		rot_z[0][3] = 0;
+	rot_z[1][0] = sin(z);	rot_z[1][1] = cos(z);	rot_z[1][2] = 0;		rot_z[1][3] = 0;
+	rot_z[2][0] = 0;		rot_z[2][1] = 0;		rot_z[2][2] = 1;		rot_z[2][3] = 0;
+	rot_z[3][0] = 0;		rot_z[3][1] = 0;		rot_z[3][2] = 0;		rot_z[3][3] = 1;
 	
-	float rot[3][3];
+	float rot[4][4];
 	
 	{
 		// Rotation matrix = RotZ * RotY * RotX
-		float temp_rot_y_x[3][3];
-		CRMatrixMultiMat3x3Mat3x3(temp_rot_y_x, rot_y, rot_x);
-		CRMatrixMultiMat3x3Mat3x3(rot, rot_z, temp_rot_y_x);
+		float temp_rot_y_x[4][4];
+		CRMatrixMultiMat4x4Mat4x4(temp_rot_y_x, rot_y, rot_x);
+		CRMatrixMultiMat4x4Mat4x4(rot, rot_z, temp_rot_y_x);
 	}
 	
-	_CRTestShowMatrix3x3(rot);
+	_CRTestShowMatrix4x4(rot);
 	
 	float degrees[4];
 	
-	CRMatrixMat3x32EulerDegrees3(degrees, rot);
+	CRMatrixMat4x42EulerDegrees3(degrees, rot);
 	
 	_CRTestDumpVec(degrees);
 	

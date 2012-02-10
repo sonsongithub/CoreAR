@@ -34,6 +34,10 @@
 
 #include <iostream>
 
+#define DEG2RAD(f) f/180.0*M_PI
+#define RAD2DEG(f) f*180.0/M_PI
+
+
 // quaternion[4] <= matrix[4][4]
 void CRMatrixMat4x42Quaternion(float *r, float matrix[4][4]);
 
@@ -46,6 +50,9 @@ void CRMatrixMultiTransposeMat8x6Vec8(float result[6], float j[8][6], float vec[
 // result[3][3] = a[3][3] * b[3][3]
 void CRMatrixMultiMat3x3Mat3x3(float result[3][3], float a[3][3], float b[3][3]);
 
+// result[4][4] = a[4][4] * b[4][4]
+void CRMatrixMultiMat4x4Mat4x4(float result[4][4], float a[4][4], float b[4][4]);
+	
 // result[2][3] = a[2][3] * b[3][3]
 void CRMatrixMultiMat2x3Mat3x3(float result[2][3], float a[2][3], float b[3][3]);
 
@@ -55,10 +62,9 @@ void CRMatrixSquareMat3x3(float result[3][3], float a[3][3]);
 // a[3][3] = scale * a[3][3]
 void CRMatrixScalingMat3x3(float a[3][3], float scale);
 
+void CRMatrixMat4x42UnityEulerZXYDegrees3(float *degrees, float matrix[4][4]);
+
 // Euler degress(X->Y->Z) <= matrix[4][4]
 void CRMatrixMat4x42EulerDegrees3(float *degrees, float matrix[4][4]);
-
-// Euler degress(X->Y->Z) <= matrix[3][3]
-void CRMatrixMat3x32EulerDegrees3(float *degrees, float matrix[3][3]);
 
 #endif

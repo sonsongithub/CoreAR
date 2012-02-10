@@ -73,6 +73,16 @@ void CRMatrixMultiMat3x3Mat3x3(float result[3][3], float a[3][3], float b[3][3])
 	}
 }
 
+// result[4][4] = a[4][4] * b[4][4]
+void CRMatrixMultiMat4x4Mat4x4(float result[4][4], float a[4][4], float b[4][4]) {
+	for (int i = 0; i < 4; i++) {
+		result[i][0] = a[i][0] * b[0][0] + a[i][1] * b[1][0] + a[i][2] * b[2][0] + a[i][3] * b[3][0];
+		result[i][1] = a[i][0] * b[0][1] + a[i][1] * b[1][1] + a[i][2] * b[2][1] + a[i][3] * b[3][1];
+		result[i][2] = a[i][0] * b[0][2] + a[i][1] * b[1][2] + a[i][2] * b[2][2] + a[i][3] * b[3][2];
+		result[i][3] = a[i][0] * b[0][3] + a[i][1] * b[1][3] + a[i][2] * b[2][3] + a[i][3] * b[3][3];
+	}
+}
+
 // result[2][3] = a[2][3] * b[3][3]
 void CRMatrixMultiMat2x3Mat3x3(float result[2][3], float a[2][3], float b[3][3]) {
 	for (int i = 0; i < 2; i++) {
@@ -101,26 +111,27 @@ void CRMatrixScalingMat3x3(float a[3][3], float scale) {
 }
 
 // Euler degress(X->Y->Z) <= matrix[4][4]
-void CRMatrixMat4x42EulerDegrees3(float *degrees, float matrix[4][4]) {
-	float x = 0;
-	float y = asinf(-matrix[2][0]);
+void CRMatrixMat4x42UnityEulerZXYDegrees3(float *degrees, float matrix[4][4]) {
+	float x = asinf(-matrix[1][2]);
+	float y = 0;
 	float z = 0;
 	
-	if (cos(y) == 0) {
-		x = atan2f(matrix[0][1], matrix[0][2]);
+	if (cos(x) == 0) {
+		y = atan2f(-matrix[2][0], matrix[0][0]);
+		z = 0;
 	}
 	else {
-		x = atan2f(matrix[2][1], matrix[2][2]);
-		z = atan2f(matrix[0][0], matrix[1][0]);
+		y = atan2f(matrix[0][2], matrix[2][2]);
+		z = atan2f(matrix[1][0], matrix[1][1]);
 	}
 	
 	degrees[0] = x;
-	degrees[1] = y;
-	degrees[2] = z;
+	degrees[1] = -y;
+	degrees[2] = -z;
 }
 
-// Euler degress(X->Y->Z) <= matrix[3][3]
-void CRMatrixMat3x32EulerDegrees3(float *degrees, float matrix[3][3]) {
+// Euler degress(X->Y->Z) <= matrix[4][4]
+void CRMatrixMat4x42EulerDegrees3(float *degrees, float matrix[4][4]) {
 	float x = 0;
 	float y = asinf(-matrix[2][0]);
 	float z = 0;
