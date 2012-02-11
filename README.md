@@ -14,14 +14,62 @@ License
 
 App Store
 =======
-You can take the sample application "[CoreAR][]" from App Store.
+You can take a sample application from [App Store][].
 
 Sample code in C++
 =======
 
-To be done.
+	float codeSize = 1;
+	int croppingSize = 64;
+	int threshold = 100;
+	int width = (int)bufferSize.width;
+	int height = (int)bufferSize.height;
 
-Sample code in C
+	// do it
+	if (chaincodeBuff == NULL)
+		chaincodeBuff = (unsigned char*)malloc(sizeof(unsigned char) * width * height);
+
+	// binarize for chain code
+	for (int y = 0; y < height; y++)
+		for (int x = 0; x < width; x++)
+			*(chaincodeBuff + x + y * width) = *(buffer + x + y * width) < threshold ? CRChainCodeFlagUnchecked : CRChainCodeFlagIgnore;
+
+	// prepare to parse chain code
+	CRChainCode *chaincode = new CRChainCode();
+	chaincode->parsePixel(chaincodeBuff, width, height);
+
+	// clear previous buffer
+	CRCodeList::iterator it = codeListRef->begin();
+	while(it != codeListRef->end()) {
+		SAFE_DELETE(*it);
+		++it;
+	}
+	codeListRef->clear();
+
+	// reload detected codes
+	if (!chaincode->blobs->empty()) {
+		std::list<CRChainCodeBlob*>::iterator blobIterator = chaincode->blobs->begin();
+		while(blobIterator != chaincode->blobs->end()) {
+			if (!(*blobIterator)->isValid(width, height)) {
+				blobIterator++;
+				continue;
+			}
+			CRCode *code = (*blobIterator)->code();	
+			if(code) {
+				// estimate and optimize pose and position
+				code->normalizeCornerForImageCoord(width, height, focalLength, focalLength);
+				code->getSimpleHomography(codeSize);
+				code->optimizeRTMatrinxWithLevenbergMarquardtMethod();
+				
+				// cropping code image area
+				code->crop(croppingSize, croppingSize, focalLength, focalLength, codeSize, buffer, width, height);
+				codeListRef->push_back(code);
+			}
+			blobIterator++;
+		}
+	}
+
+Sample code in C (depracted)
 =======
 
 	// Copy image buffer from camera into "pixel".
@@ -78,9 +126,12 @@ Dependency
  
 Acknowledgement
 =======
-DENSO IT Laboratory, Inc. has supported my work. Thank you.
+ * [DENSO IT Laboratory, Inc.][] has supported my work.
+ * There are some public projects supported by [DENSO IT Laboratory, Inc.][] in [cvlab.jp][].
 
-[CoreAR]: http://click.linksynergy.com/fs-bin/click?id=he6amglY4cw&subid=&offerid=94348.1&type=10&tmpid=3910&RD_PARM1=http%3A%2F%2Fitunes.apple.com%2Fus%2Fapp%2Fcorear%2Fid428844303%3Fmt%3D8%2526ls%3D1
+[cvlab.jp]: http://cvlab.jp/
+[DENSO IT Laboratory, Inc.]: http://www.d-itlab.co.jp/
+[App Store]: http://click.linksynergy.com/fs-bin/click?id=he6amglY4cw&subid=&offerid=94348.1&type=10&tmpid=3910&RD_PARM1=http%3A%2F%2Fitunes.apple.com%2Fus%2Fapp%2Fcorear%2Fid428844303%3Fmt%3D8%2526ls%3D1
 [sonson.jp]: http://sonson.jp
 [BSD License]: http://www.opensource.org/licenses/bsd-license.php
 [Quartz Help Library]: https://github.com/sonsongithub/Quartz-Help-Library
