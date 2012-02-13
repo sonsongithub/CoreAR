@@ -65,17 +65,23 @@ public:
 	CRCode(CRHomogeneousVec3 *firstCorner, CRHomogeneousVec3 *secondCorner, CRHomogeneousVec3 *thirdCorner, CRHomogeneousVec3 *fourthCorner);
 	~CRCode();
 
+	// for detection
 	void normalizeCornerForImageCoord(float width, float height, float focalX, float focalY);
 	void getSimpleHomography(float scale);
 	void optimizeRTMatrinxWithLevenbergMarquardtMethod();
 	void crop(float croppingWidth, float croppingHeight, float focalX, float focalY, float codeSize, unsigned char *source, int width, int height);
-
 	
+	// for OpenGL rendering
+	void rotateOptimizedMatrixForOpenGL();
+	void rotateMatrixForOpenGL();
+
+	// for debugging
 	void dumpCorners();
 	void dumpMatrix();
 	void dumpOptimizedMatrix();
 	void dumpHomography();
 	
+	// deprecated method
 	int _CRGetHomographyMatrix();
 };
 

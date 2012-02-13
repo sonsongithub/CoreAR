@@ -87,20 +87,15 @@
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	float matrixFromCameraToOpenGL[16];
-	
-	matrixFromCameraToOpenGL[ 0] =  0;	matrixFromCameraToOpenGL[ 4] = -1;	matrixFromCameraToOpenGL[ 8] =  0;	matrixFromCameraToOpenGL[12] = 0;
-	matrixFromCameraToOpenGL[ 1] = -1;	matrixFromCameraToOpenGL[ 5] =  0;	matrixFromCameraToOpenGL[ 9] =  0;	matrixFromCameraToOpenGL[13] = 0;
-	matrixFromCameraToOpenGL[ 2] =  0;	matrixFromCameraToOpenGL[ 6] =  0;	matrixFromCameraToOpenGL[10] = -1;	matrixFromCameraToOpenGL[14] = 0;
-	matrixFromCameraToOpenGL[ 3] =  0;	matrixFromCameraToOpenGL[ 7] =  0;	matrixFromCameraToOpenGL[11] =  0;	matrixFromCameraToOpenGL[15] = 1;
-	
-	glMultMatrixf(matrixFromCameraToOpenGL);
-	
 	if (codeListRef) {
 		CRCodeList::iterator it = codeListRef->begin();
 		while(it != codeListRef->end()) {
 			glPushMatrix();
 			float r[4];
+			
+			// only when using OpenGL for rendering
+			(*it)->rotateOptimizedMatrixForOpenGL();
+			
 			CRMatrixMat4x42Quaternion(r, (*it)->optimizedMatrix);
 			glTranslatef((*it)->optimizedMatrix[0][3], (*it)->optimizedMatrix[1][3], (*it)->optimizedMatrix[2][3]);
 			glRotatef(r[0]/M_PI*180.0, r[1], r[2], r[3]);

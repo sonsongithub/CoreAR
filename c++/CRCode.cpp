@@ -351,6 +351,43 @@ void CRCode::getSimpleHomography(float scale) {
 	matrixGL[ 3] = matrix[3][0];	matrixGL[ 7] = matrix[3][1];	matrixGL[11] = matrix[3][2];	matrixGL[15] = matrix[3][3];
 }
 
+void CRCode::rotateOptimizedMatrixForOpenGL() {
+	float tempMatrix[4][4];
+	
+	for (int i = 0; i < 4; i++)
+		for (int j = 0; j < 4; j++)
+			tempMatrix[i][j] = optimizedMatrix[i][j];
+	
+	optimizedMatrix[0][0] = - tempMatrix[1][0];	optimizedMatrix[0][1] = - tempMatrix[1][1];	optimizedMatrix[0][2] = - tempMatrix[1][2];	optimizedMatrix[0][3] = - tempMatrix[1][3];
+	optimizedMatrix[1][0] = - tempMatrix[0][0];	optimizedMatrix[1][1] = - tempMatrix[0][1];	optimizedMatrix[1][2] = - tempMatrix[0][2];	optimizedMatrix[1][3] = - tempMatrix[0][3];
+	optimizedMatrix[2][0] = - tempMatrix[2][0];	optimizedMatrix[2][1] = - tempMatrix[2][1];	optimizedMatrix[2][2] = - tempMatrix[2][2];	optimizedMatrix[2][3] = - tempMatrix[2][3];
+	optimizedMatrix[3][0] =   tempMatrix[3][0];	optimizedMatrix[3][1] =   tempMatrix[3][1];	optimizedMatrix[3][2] =   tempMatrix[3][2];	optimizedMatrix[3][3] =   tempMatrix[3][3];
+	
+	optimizedMatrixGL[ 0] = optimizedMatrix[0][0];	optimizedMatrixGL[ 4] = optimizedMatrix[0][1];	optimizedMatrixGL[ 8] = optimizedMatrix[0][2];	matrixGL[12] = optimizedMatrix[0][3];
+	optimizedMatrixGL[ 1] = optimizedMatrix[1][0];	optimizedMatrixGL[ 5] = optimizedMatrix[1][1];	optimizedMatrixGL[ 9] = optimizedMatrix[1][2];	matrixGL[13] = optimizedMatrix[1][3];
+	optimizedMatrixGL[ 2] = optimizedMatrix[2][0];	optimizedMatrixGL[ 6] = optimizedMatrix[2][1];	optimizedMatrixGL[10] = optimizedMatrix[2][2];	matrixGL[14] = optimizedMatrix[2][3];
+	optimizedMatrixGL[ 3] = optimizedMatrix[3][0];	optimizedMatrixGL[ 7] = optimizedMatrix[3][1];	optimizedMatrixGL[11] = optimizedMatrix[3][2];	matrixGL[15] = optimizedMatrix[3][3];
+}
+
+
+void CRCode::rotateMatrixForOpenGL() {
+	float tempMatrix[4][4];
+	
+	for (int i = 0; i < 4; i++)
+		for (int j = 0; j < 4; j++)
+			tempMatrix[i][j] = matrix[i][j];
+	
+	matrix[0][0] = - tempMatrix[1][0];	matrix[0][1] = - tempMatrix[1][1];	matrix[0][2] = - tempMatrix[1][2];	matrix[0][3] = - tempMatrix[1][3];
+	matrix[1][0] = - tempMatrix[0][0];	matrix[1][1] = - tempMatrix[0][1];	matrix[1][2] = - tempMatrix[0][2];	matrix[1][3] = - tempMatrix[0][3];
+	matrix[2][0] = - tempMatrix[2][0];	matrix[2][1] = - tempMatrix[2][1];	matrix[2][2] = - tempMatrix[2][2];	matrix[2][3] = - tempMatrix[2][3];
+	matrix[3][0] =   tempMatrix[3][0];	matrix[3][1] =   tempMatrix[3][1];	matrix[3][2] =   tempMatrix[3][2];	matrix[3][3] =   tempMatrix[3][3];
+	
+	matrixGL[ 0] = matrix[0][0];	matrixGL[ 4] = matrix[0][1];	matrixGL[ 8] = matrix[0][2];	matrixGL[12] = matrix[0][3];
+	matrixGL[ 1] = matrix[1][0];	matrixGL[ 5] = matrix[1][1];	matrixGL[ 9] = matrix[1][2];	matrixGL[13] = matrix[1][3];
+	matrixGL[ 2] = matrix[2][0];	matrixGL[ 6] = matrix[2][1];	matrixGL[10] = matrix[2][2];	matrixGL[14] = matrix[2][3];
+	matrixGL[ 3] = matrix[3][0];	matrixGL[ 7] = matrix[3][1];	matrixGL[11] = matrix[3][2];	matrixGL[15] = matrix[3][3];
+}
+
 CRCode::CRCode(CRHomogeneousVec3 *firstCorner, CRHomogeneousVec3 *secondCorner, CRHomogeneousVec3 *thirdCorner, CRHomogeneousVec3 *fourthCorner) {
 	corners = new CRHomogeneousVec3 [4];
 	
