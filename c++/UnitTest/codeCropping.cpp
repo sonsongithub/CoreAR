@@ -35,7 +35,7 @@
 
 #include <jpeglib.h>
 
-#define JPEG_PATH "/Users/sonson/code/CoreAR.framework/c++/UnitTest/darwin/CoreARUnitTest/Test/%s"
+#define JPEG_PATH "/Users/sonson/code/CoreAR.framework/c++/UnitTest/%s"
 
 // prototype
 void binarize(unsigned char *pixel, int width, int height, int threshold);
@@ -185,9 +185,9 @@ void codeCropping_test() {
 		
 		write_jpeg(NULL, code->croppedCodeImage, code->croppedCodeImageWidth, code->croppedCodeImageHeight);
 		
-		SAFE_FREE(code);
+		SAFE_DELETE(code);
 	}
-	SAFE_FREE(chaincode);
+	SAFE_DELETE(chaincode);
 	SAFE_FREE(source);
 	SAFE_FREE(grayPixel);
 }

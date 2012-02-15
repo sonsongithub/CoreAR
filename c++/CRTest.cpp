@@ -39,7 +39,7 @@
 void _CRTestMultiMat4x4Mat4x4(float result[4][4], float a[4][4], float b[4][4]);
 void _CRTestMultiMat4x4Vec4x1(float result[4], float a[4][4], float x[4]);
 void _CRTestDumpMat(float matrix[4][4]);
-void _CRTestDumpVec(float vec[4]);
+void _CRTestDumpVec(float *vec);
 void _CRTestProjectPoint(float mat[4][4], float *x, float *x_projected, float focal, float xdeg, float ydeg, float zdeg, float xt, float yt, float zt);
 
 // private method
@@ -152,9 +152,9 @@ void _CRTestDumpMat(float matrix[4][4]) {
 	}
 }
 
-void _CRTestDumpVec(float vec[4]) {
+void _CRTestDumpVec(float *vec) {
 	for (int i = 0; i < 4; i++) {
-		printf("%+7.2f;\n", vec[i]);
+		printf("%+7.2f;\n", *(vec+i));
 	}
 }
 

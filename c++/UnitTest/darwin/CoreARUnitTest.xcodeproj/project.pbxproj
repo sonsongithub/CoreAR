@@ -8,16 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		148346D014E3B1E90097A1DB /* CRMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148346CE14E3B1E90097A1DB /* CRMatrix.cpp */; };
-		148346D414E3B26C0097A1DB /* euler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148346D214E3B26C0097A1DB /* euler.cpp */; };
-		1488138014209C98004BCE14 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1488137F14209C98004BCE14 /* main.cpp */; };
 		1488138214209C98004BCE14 /* CoreARUnitTest.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1488138114209C98004BCE14 /* CoreARUnitTest.1 */; };
-		148DF7F71421963A0011CF9F /* chaincode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148DF7EF1421963A0011CF9F /* chaincode.cpp */; };
-		148DF7F81421963A0011CF9F /* corner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148DF7F11421963A0011CF9F /* corner.cpp */; };
-		148DF7F91421963A0011CF9F /* homography.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148DF7F31421963A0011CF9F /* homography.cpp */; };
-		148DF7FA1421963A0011CF9F /* levenbergMarquardt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148DF7F51421963A0011CF9F /* levenbergMarquardt.cpp */; };
-		148DF81A1421C5EC0011CF9F /* rodrigues.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 148DF8181421C5EC0011CF9F /* rodrigues.cpp */; };
+		14E816E614EB9CA700533181 /* chaincode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14E816D614EB9CA700533181 /* chaincode.cpp */; };
+		14E816E714EB9CA700533181 /* codeCropping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14E816D814EB9CA700533181 /* codeCropping.cpp */; };
+		14E816E814EB9CA700533181 /* corner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14E816DA14EB9CA700533181 /* corner.cpp */; };
+		14E816E914EB9CA700533181 /* euler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14E816DC14EB9CA700533181 /* euler.cpp */; };
+		14E816EA14EB9CA700533181 /* homography.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14E816DE14EB9CA700533181 /* homography.cpp */; };
+		14E816EB14EB9CA700533181 /* levenbergMarquardt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14E816E014EB9CA700533181 /* levenbergMarquardt.cpp */; };
+		14E816EC14EB9CA700533181 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14E816E214EB9CA700533181 /* main.cpp */; };
+		14E816ED14EB9CA700533181 /* rodrigues.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14E816E314EB9CA700533181 /* rodrigues.cpp */; };
 		14EAD69F1421C97C00106D02 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14EAD69E1421C97C00106D02 /* Accelerate.framework */; };
-		14EAD6AA1421D3D400106D02 /* codeCropping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14EAD6A81421D3D400106D02 /* codeCropping.cpp */; };
 		14FFF4AC1423183B00AB1711 /* CRChainCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF49B1423183B00AB1711 /* CRChainCode.cpp */; };
 		14FFF4AD1423183B00AB1711 /* CRChainCodeBlob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF49D1423183B00AB1711 /* CRChainCodeBlob.cpp */; };
 		14FFF4AE1423183B00AB1711 /* CRChainCodeElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14FFF49F1423183B00AB1711 /* CRChainCodeElement.cpp */; };
@@ -44,25 +44,28 @@
 /* Begin PBXFileReference section */
 		148346CE14E3B1E90097A1DB /* CRMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRMatrix.cpp; path = ../../CRMatrix.cpp; sourceTree = "<group>"; };
 		148346CF14E3B1E90097A1DB /* CRMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRMatrix.h; path = ../../CRMatrix.h; sourceTree = "<group>"; };
-		148346D214E3B26C0097A1DB /* euler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = euler.cpp; sourceTree = "<group>"; };
-		148346D314E3B26C0097A1DB /* euler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = euler.h; sourceTree = "<group>"; };
 		1488137B14209C98004BCE14 /* CoreARUnitTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CoreARUnitTest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1488137F14209C98004BCE14 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		1488138114209C98004BCE14 /* CoreARUnitTest.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = CoreARUnitTest.1; sourceTree = "<group>"; };
-		148DF7EF1421963A0011CF9F /* chaincode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chaincode.cpp; sourceTree = "<group>"; };
-		148DF7F01421963A0011CF9F /* chaincode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chaincode.h; sourceTree = "<group>"; };
-		148DF7F11421963A0011CF9F /* corner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = corner.cpp; sourceTree = "<group>"; };
-		148DF7F21421963A0011CF9F /* corner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = corner.h; sourceTree = "<group>"; };
-		148DF7F31421963A0011CF9F /* homography.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = homography.cpp; sourceTree = "<group>"; };
-		148DF7F41421963A0011CF9F /* homography.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = homography.h; sourceTree = "<group>"; };
-		148DF7F51421963A0011CF9F /* levenbergMarquardt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = levenbergMarquardt.cpp; sourceTree = "<group>"; };
-		148DF7F61421963A0011CF9F /* levenbergMarquardt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = levenbergMarquardt.h; sourceTree = "<group>"; };
-		148DF813142199C80011CF9F /* test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = test.h; sourceTree = "<group>"; };
-		148DF8181421C5EC0011CF9F /* rodrigues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rodrigues.cpp; sourceTree = "<group>"; };
-		148DF8191421C5EC0011CF9F /* rodrigues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rodrigues.h; sourceTree = "<group>"; };
+		14E816D314EB9CA700533181 /* 001.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 001.jpg; path = ../001.jpg; sourceTree = "<group>"; };
+		14E816D414EB9CA700533181 /* 002.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 002.jpg; path = ../002.jpg; sourceTree = "<group>"; };
+		14E816D514EB9CA700533181 /* 003.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 003.jpg; path = ../003.jpg; sourceTree = "<group>"; };
+		14E816D614EB9CA700533181 /* chaincode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = chaincode.cpp; path = ../chaincode.cpp; sourceTree = "<group>"; };
+		14E816D714EB9CA700533181 /* chaincode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = chaincode.h; path = ../chaincode.h; sourceTree = "<group>"; };
+		14E816D814EB9CA700533181 /* codeCropping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = codeCropping.cpp; path = ../codeCropping.cpp; sourceTree = "<group>"; };
+		14E816D914EB9CA700533181 /* codeCropping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = codeCropping.h; path = ../codeCropping.h; sourceTree = "<group>"; };
+		14E816DA14EB9CA700533181 /* corner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = corner.cpp; path = ../corner.cpp; sourceTree = "<group>"; };
+		14E816DB14EB9CA700533181 /* corner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = corner.h; path = ../corner.h; sourceTree = "<group>"; };
+		14E816DC14EB9CA700533181 /* euler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = euler.cpp; path = ../euler.cpp; sourceTree = "<group>"; };
+		14E816DD14EB9CA700533181 /* euler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = euler.h; path = ../euler.h; sourceTree = "<group>"; };
+		14E816DE14EB9CA700533181 /* homography.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = homography.cpp; path = ../homography.cpp; sourceTree = "<group>"; };
+		14E816DF14EB9CA700533181 /* homography.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = homography.h; path = ../homography.h; sourceTree = "<group>"; };
+		14E816E014EB9CA700533181 /* levenbergMarquardt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = levenbergMarquardt.cpp; path = ../levenbergMarquardt.cpp; sourceTree = "<group>"; };
+		14E816E114EB9CA700533181 /* levenbergMarquardt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = levenbergMarquardt.h; path = ../levenbergMarquardt.h; sourceTree = "<group>"; };
+		14E816E214EB9CA700533181 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../main.cpp; sourceTree = "<group>"; };
+		14E816E314EB9CA700533181 /* rodrigues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rodrigues.cpp; path = ../rodrigues.cpp; sourceTree = "<group>"; };
+		14E816E414EB9CA700533181 /* rodrigues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rodrigues.h; path = ../rodrigues.h; sourceTree = "<group>"; };
+		14E816E514EB9CA700533181 /* test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = test.h; path = ../test.h; sourceTree = "<group>"; };
 		14EAD69E1421C97C00106D02 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		14EAD6A81421D3D400106D02 /* codeCropping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = codeCropping.cpp; sourceTree = "<group>"; };
-		14EAD6A91421D3D400106D02 /* codeCropping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = codeCropping.h; sourceTree = "<group>"; };
 		14FFF49A1423183B00AB1711 /* CoreAR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreAR.h; path = ../../CoreAR.h; sourceTree = "<group>"; };
 		14FFF49B1423183B00AB1711 /* CRChainCode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CRChainCode.cpp; path = ../../CRChainCode.cpp; sourceTree = "<group>"; };
 		14FFF49C1423183B00AB1711 /* CRChainCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRChainCode.h; path = ../../CRChainCode.h; sourceTree = "<group>"; };
@@ -99,7 +102,6 @@
 			isa = PBXGroup;
 			children = (
 				148DF80D142196510011CF9F /* CoreAR */,
-				148DF7EE1421963A0011CF9F /* Test */,
 				1488137E14209C98004BCE14 /* CoreARUnitTest */,
 				1488137C14209C98004BCE14 /* Products */,
 			);
@@ -116,39 +118,16 @@
 		1488137E14209C98004BCE14 /* CoreARUnitTest */ = {
 			isa = PBXGroup;
 			children = (
-				1488137F14209C98004BCE14 /* main.cpp */,
 				1488138114209C98004BCE14 /* CoreARUnitTest.1 */,
 				14EAD69E1421C97C00106D02 /* Accelerate.framework */,
 			);
 			path = CoreARUnitTest;
 			sourceTree = "<group>";
 		};
-		148DF7EE1421963A0011CF9F /* Test */ = {
-			isa = PBXGroup;
-			children = (
-				148346D214E3B26C0097A1DB /* euler.cpp */,
-				148346D314E3B26C0097A1DB /* euler.h */,
-				148DF813142199C80011CF9F /* test.h */,
-				148DF7EF1421963A0011CF9F /* chaincode.cpp */,
-				148DF7F01421963A0011CF9F /* chaincode.h */,
-				148DF7F11421963A0011CF9F /* corner.cpp */,
-				148DF7F21421963A0011CF9F /* corner.h */,
-				148DF7F31421963A0011CF9F /* homography.cpp */,
-				148DF7F41421963A0011CF9F /* homography.h */,
-				14EAD6A81421D3D400106D02 /* codeCropping.cpp */,
-				14EAD6A91421D3D400106D02 /* codeCropping.h */,
-				148DF8181421C5EC0011CF9F /* rodrigues.cpp */,
-				148DF8191421C5EC0011CF9F /* rodrigues.h */,
-				148DF7F51421963A0011CF9F /* levenbergMarquardt.cpp */,
-				148DF7F61421963A0011CF9F /* levenbergMarquardt.h */,
-			);
-			name = Test;
-			path = CoreARUnitTest/Test;
-			sourceTree = "<group>";
-		};
 		148DF80D142196510011CF9F /* CoreAR */ = {
 			isa = PBXGroup;
 			children = (
+				14E816D014EB9C8200533181 /* New Group */,
 				14FFF49A1423183B00AB1711 /* CoreAR.h */,
 				14FFF49B1423183B00AB1711 /* CRChainCode.cpp */,
 				14FFF49C1423183B00AB1711 /* CRChainCode.h */,
@@ -171,6 +150,32 @@
 				14FFF4AB1423183B00AB1711 /* CRTest.h */,
 			);
 			name = CoreAR;
+			sourceTree = "<group>";
+		};
+		14E816D014EB9C8200533181 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				14E816D314EB9CA700533181 /* 001.jpg */,
+				14E816D414EB9CA700533181 /* 002.jpg */,
+				14E816D514EB9CA700533181 /* 003.jpg */,
+				14E816D614EB9CA700533181 /* chaincode.cpp */,
+				14E816D714EB9CA700533181 /* chaincode.h */,
+				14E816D814EB9CA700533181 /* codeCropping.cpp */,
+				14E816D914EB9CA700533181 /* codeCropping.h */,
+				14E816DA14EB9CA700533181 /* corner.cpp */,
+				14E816DB14EB9CA700533181 /* corner.h */,
+				14E816DC14EB9CA700533181 /* euler.cpp */,
+				14E816DD14EB9CA700533181 /* euler.h */,
+				14E816DE14EB9CA700533181 /* homography.cpp */,
+				14E816DF14EB9CA700533181 /* homography.h */,
+				14E816E014EB9CA700533181 /* levenbergMarquardt.cpp */,
+				14E816E114EB9CA700533181 /* levenbergMarquardt.h */,
+				14E816E214EB9CA700533181 /* main.cpp */,
+				14E816E314EB9CA700533181 /* rodrigues.cpp */,
+				14E816E414EB9CA700533181 /* rodrigues.h */,
+				14E816E514EB9CA700533181 /* test.h */,
+			);
+			name = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,13 +228,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1488138014209C98004BCE14 /* main.cpp in Sources */,
-				148DF7F71421963A0011CF9F /* chaincode.cpp in Sources */,
-				148DF7F81421963A0011CF9F /* corner.cpp in Sources */,
-				148DF7F91421963A0011CF9F /* homography.cpp in Sources */,
-				148DF7FA1421963A0011CF9F /* levenbergMarquardt.cpp in Sources */,
-				148DF81A1421C5EC0011CF9F /* rodrigues.cpp in Sources */,
-				14EAD6AA1421D3D400106D02 /* codeCropping.cpp in Sources */,
 				14FFF4AC1423183B00AB1711 /* CRChainCode.cpp in Sources */,
 				14FFF4AD1423183B00AB1711 /* CRChainCodeBlob.cpp in Sources */,
 				14FFF4AE1423183B00AB1711 /* CRChainCodeElement.cpp in Sources */,
@@ -239,7 +237,14 @@
 				14FFF4B21423183B00AB1711 /* CRRodrigues.cpp in Sources */,
 				14FFF4B31423183B00AB1711 /* CRTest.cpp in Sources */,
 				148346D014E3B1E90097A1DB /* CRMatrix.cpp in Sources */,
-				148346D414E3B26C0097A1DB /* euler.cpp in Sources */,
+				14E816E614EB9CA700533181 /* chaincode.cpp in Sources */,
+				14E816E714EB9CA700533181 /* codeCropping.cpp in Sources */,
+				14E816E814EB9CA700533181 /* corner.cpp in Sources */,
+				14E816E914EB9CA700533181 /* euler.cpp in Sources */,
+				14E816EA14EB9CA700533181 /* homography.cpp in Sources */,
+				14E816EB14EB9CA700533181 /* levenbergMarquardt.cpp in Sources */,
+				14E816EC14EB9CA700533181 /* main.cpp in Sources */,
+				14E816ED14EB9CA700533181 /* rodrigues.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

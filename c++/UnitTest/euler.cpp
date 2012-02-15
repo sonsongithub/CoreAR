@@ -73,7 +73,7 @@ void euler_test(void) {
 	
 	_CRTestShowMatrix4x4(rot);
 	
-	float degrees[4];
+	float degrees[4] = {0, 0, 0, 0};
 	
 	CRMatrixMat4x42EulerDegrees3(degrees, rot);
 	
