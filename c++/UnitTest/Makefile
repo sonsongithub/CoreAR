@@ -21,9 +21,9 @@ CoreARTest:$(OBJS) $(TEST_OBJS)
 	$(CC) -c $(CFLAGS) $<
 
 clean:
-	rm -rf $(OBJS) $(TEST_OBJS) CoreARTest
+	rm -rf $(OBJS) $(TEST_OBJS) CoreARTest ./CoreARTest.dSYM
 
 valgrind:CoreARTest
-	valgrind --leak-check=full ./CoreARTest
+	valgrind --leak-check=full --show-reachable=yes --dsymutil=yes ./CoreARTest
 
 test:valgrind
