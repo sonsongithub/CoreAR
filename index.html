@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="CoreAR : AR(Augmented reality) framework for iOS, based on a visual code like ARToolKit" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>CoreAR</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/sonsongithub/CoreAR">View on GitHub</a>
+
+          <h1 id="project_title">CoreAR</h1>
+          <h2 id="project_tagline">AR(Augmented reality) framework for iOS, based on a visual code like ARToolKit</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/sonsongithub/CoreAR/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/sonsongithub/CoreAR/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>CoreAR.framework</h1>
+
+<p><img src="http://sonson.jp/wp/wp-content/uploads/2011/04/coreARSample.png" alt=""></p>
+
+<h1>Introduction and information</h1>
+
+<p>CoreAR.framework is open source AR framework. You can make an AR application using visual code like ARToolKit using this framework. CoreAR.framework does not depend on the other computer vision library like OpenCV. Considered portability, this framework is written only C or C++. The pixel array of an image is passed to CoreAR.framework and then visual code's identification number, rotation and translation matrix are obtained from the image including a visual code. Image processing speed of this framework is about 15 fps on iPhone4.</p>
+
+<p>Take notice that CoreAR.framework depends on <a href="https://github.com/sonsongithub/Quartz-Help-Library">Quartz Help Library</a> and <a href="https://github.com/sonsongithub/iOSCameraImageProcessing">Real time image processing framework for iOS</a>. You have to download these libraries and put on them at the path where CoreAR.framework has been installed.</p>
+
+<h1>License</h1>
+
+<p><a href="http://www.opensource.org/licenses/bsd-license.php">BSD License</a>.</p>
+
+<h1>App Store</h1>
+
+<p>You can take a sample application from <a href="http://click.linksynergy.com/fs-bin/click?id=he6amglY4cw&amp;subid=&amp;offerid=94348.1&amp;type=10&amp;tmpid=3910&amp;RD_PARM1=http%3A%2F%2Fitunes.apple.com%2Fus%2Fapp%2Fcorear%2Fid428844303%3Fmt%3D8%2526ls%3D1">App Store</a>.</p>
+
+<h1>Sample code in C++</h1>
+
+<pre><code>float codeSize = 1;
+int croppingSize = 64;
+int threshold = 100;
+int width = (int)bufferSize.width;
+int height = (int)bufferSize.height;
+
+// do it
+if (chaincodeBuff == NULL)
+    chaincodeBuff = (unsigned char*)malloc(sizeof(unsigned char) * width * height);
+
+// binarize for chain code
+for (int y = 0; y &lt; height; y++)
+    for (int x = 0; x &lt; width; x++)
+        *(chaincodeBuff + x + y * width) = *(buffer + x + y * width) &lt; threshold ? CRChainCodeFlagUnchecked : CRChainCodeFlagIgnore;
+
+// prepare to parse chain code
+CRChainCode *chaincode = new CRChainCode();
+chaincode-&gt;parsePixel(chaincodeBuff, width, height);
+
+// clear previous buffer
+CRCodeList::iterator it = codeListRef-&gt;begin();
+while(it != codeListRef-&gt;end()) {
+    SAFE_DELETE(*it);
+    ++it;
+}
+codeListRef-&gt;clear();
+
+// reload detected codes
+if (!chaincode-&gt;blobs-&gt;empty()) {
+    std::list&lt;CRChainCodeBlob*&gt;::iterator blobIterator = chaincode-&gt;blobs-&gt;begin();
+    while(blobIterator != chaincode-&gt;blobs-&gt;end()) {
+        if (!(*blobIterator)-&gt;isValid(width, height)) {
+            blobIterator++;
+            continue;
+        }
+        CRCode *code = (*blobIterator)-&gt;code(); 
+        if(code) {
+            // estimate and optimize pose and position
+            code-&gt;normalizeCornerForImageCoord(width, height, focalLength, focalLength);
+            code-&gt;getSimpleHomography(codeSize);
+            code-&gt;optimizeRTMatrinxWithLevenbergMarquardtMethod();
+
+            // cropping code image area
+            code-&gt;crop(croppingSize, croppingSize, focalLength, focalLength, codeSize, buffer, width, height);
+            codeListRef-&gt;push_back(code);
+        }
+        blobIterator++;
+    }
+}
+</code></pre>
+
+<h1>Sample code in C (depracted)</h1>
+
+<pre><code>// Copy image buffer from camera into "pixel".
+int width;
+int height;
+unsigned char *pixel = (unsigned char*)malloc(sizeof(unsigned char) * width * height);
+
+// codeInfoStorage receives the result of visual code recognition.
+CRCodeInfoStorage *codeInfoStorage = CRCreateCodeInfoStorage();
+
+// storage to save visual code templates.
+CRCodeImageTemplate *codeImageTemplateStorage = CRCreateCodeImageTemplateStorage();
+
+// make template to recognize visual codes.
+int c_width;
+int c_height;
+unsigned char *c_p = (unsigned char*)malloc(sizeof(unsigned char) * c_width * c_height);
+
+/* read images of visual codes you want to recognize */
+
+CRCodeImageTemplate *template = CRCreateCodeImageTemplate(c_p, c_width, c_height);
+template-&gt;code = codeNumber;
+template-&gt;size = codeSize;
+CRCodeImageTemplateStorageAddNewTemplate(codeImageTemplateStorage, template);
+free(c_p);
+
+// Start extraction
+CRChainCodeStorage *storage = CRCreateChainCodeStorageByParsingPixel(pixel, width, height);
+CRChainCodeStorageDetectCornerWithLSM(storage);
+CRCodeInfoStorageAddCodeInfoByExtractingFromChainCode(codeInfoStorage, storage, valueBuffer, width, height, codeImageTemplateStorage);
+
+// Release
+CRReleaseChainCodeStorage(&amp;storage);
+CRReleaseCodeInfoStorage(&amp;codeInfoStorage);
+free(pixel);
+</code></pre>
+
+<h1>Frequently Asked Questions</h1>
+
+<ul>
+<li>
+<p>I can't compile CoreAR.framework...</p>
+
+<ul>
+<li>Ans. CoreAR.framework depends on <a href="https://github.com/sonsongithub/Quartz-Help-Library">Quartz Help Library</a> and <a href="https://github.com/sonsongithub/iOSCameraImageProcessing">Real time image processing framework for iOS</a>. You have to download these libraries and put on them at the path where CoreAR.framework has been installed.</li>
+</ul>
+</li>
+<li>
+<p>How do I render a 3D model on the code with CoreAR.framework?</p>
+
+<ul>
+<li>Ans. CoreAR.framework does not support rendering any 3D model files. You have to write a code to render 3D model files with OpenGLES. Sample program does not render a cube and Utah teapot with 3D model files but with OpenGLES code.</li>
+</ul>
+</li>
+</ul><h1>Blog</h1>
+
+<ul>
+<li>
+<a href="http://sonson.jp">sonson.jp</a>
+Sorry, Japanese only....</li>
+</ul><h1>Dependency</h1>
+
+<ul>
+<li><a href="https://github.com/sonsongithub/Quartz-Help-Library">Quartz Help Library</a></li>
+<li><a href="https://github.com/sonsongithub/iOSCameraImageProcessing">Real time image processing framework for iOS</a></li>
+</ul><h1>Acknowledgement</h1>
+
+<ul>
+<li>
+<a href="http://www.d-itlab.co.jp/">DENSO IT Laboratory, Inc.</a> has supported my work.</li>
+<li>There are some public projects supported by <a href="http://www.d-itlab.co.jp/">DENSO IT Laboratory, Inc.</a> in <a href="http://cvlab.jp/">cvlab.jp</a>.</li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">CoreAR maintained by <a href="https://github.com/sonsongithub">sonsongithub</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
