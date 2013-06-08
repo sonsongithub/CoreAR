@@ -7,3 +7,5 @@ build
 .*.swp
 *~
 xcuserdata
+/Eigen
+/Eigen*
