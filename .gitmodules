@@ -1,0 +1,3 @@
+[submodule "cpputest"]
+	path = cpputest
+	url = https://github.com/cpputest/cpputest.git
